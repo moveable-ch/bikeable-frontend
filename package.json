@@ -9,8 +9,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "vue": "^2.1.10",
-    "vue-router": "^2.2.0"
+    "mapbox-gl": "^0.33.1",
+    "vue": "^2.2.4",
+    "vue-router": "^2.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
@@ -42,7 +43,7 @@
     "url-loader": "^0.5.7",
     "vue-loader": "^11.0.0",
     "vue-style-loader": "^2.0.0",
-    "vue-template-compiler": "^2.1.10",
+    "vue-template-compiler": "^2.2.4",
     "webpack": "^2.2.1",
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",

@@ -44,6 +44,8 @@ export default {
       GoogleMapsLoader.LANGUAGE = 'de';
 
       GoogleMapsLoader.load(function(google) {
+          this.google = google;
+
           this.map = new google.maps.Map(this.$refs.gmaps, {
           center: {lat: 47.377235, lng: 8.5314407},
           zoom: 15,
@@ -51,10 +53,11 @@ export default {
           clickableIcons: false,
           styles: mapstyle
         });
+
+        this.renderMarkers();
+        this.locateUser();
       }.bind(this));
 
-      // this.renderMarkers();
-      this.locateUser();
 
     },
 
@@ -83,14 +86,8 @@ export default {
         lat: loc.coords.latitude,
         lng: loc.coords.longitude
       };
-      // let el = document.createElement('div');
-      // el.className = 'marker-user';
 
-      // let marker = new mapboxgl.Marker(el)
-      //   .setLngLat(coords)
-      //   .addTo(this.map);
-
-      var marker = new google.maps.Marker({
+      var marker = new this.google.maps.Marker({
         position: coords,
         map: this.map
       });
@@ -103,17 +100,13 @@ export default {
     renderMarkers() {
       this.entries.forEach((entry, index) => {
 
-        // let el = document.createElement('a');
-        // el.href = '#';
-        // el.className = 'marker';
-
-        let el = this.$refs.entry[index];
-
-        let marker = new mapboxgl.Marker(el, {
-            offset: [-5, -5]
-          })
-          .setLngLat(entry.coords)
-          .addTo(this.map);
+        var marker = new this.google.maps.Marker({
+          position: {
+            lat: entry.coords[1],
+            lng: entry.coords[0]
+          },
+          map: this.map
+        });
 
       });
 

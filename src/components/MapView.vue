@@ -1,14 +1,15 @@
 <template>
   <div class="map">
-    <div class="mapbox" id="mapbox"></div>
+    <div class="gmaps" id="gmaps" ref="gmaps"></div>
     <a :href="'#/entry/' + entry.id" class="marker" ref="entry" v-for="entry in entries"></a>
   </div>
 </template>
 
 <script>
-import MapInfoView from '@/components/MapInfoView'
+import MapInfoView from '@/components/MapInfoView';
+import mapstyle from '@/assets/gmaps.json';
 
-import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
+import GoogleMapsLoader from 'google-maps';
 
 export default {
   name: 'map-view',
@@ -30,16 +31,29 @@ export default {
   methods: {
 
     initMap() {
-      mapboxgl.accessToken = 'pk.eyJ1IjoiZGlsdW5vIiwiYSI6ImJfVy1TSm8ifQ.GY6YpNmT1_YnF7bstpyYmQ';
+      // mapboxgl.accessToken = 'pk.eyJ1IjoiZGlsdW5vIiwiYSI6ImJfVy1TSm8ifQ.GY6YpNmT1_YnF7bstpyYmQ';
 
-      this.map = new mapboxgl.Map({
-          container: 'mapbox',
-          style: 'mapbox://styles/mapbox/light-v9',
-          center: [8.5314407, 47.377235],
-          zoom: 13
-      });
+      // this.map = new mapboxgl.Map({
+      //     container: 'mapbox',
+      //     style: 'mapbox://styles/mapbox/light-v9',
+      //     center: [8.5314407, 47.377235],
+      //     zoom: 13
+      // });
 
-      this.renderMarkers();
+      GoogleMapsLoader.KEY = 'AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI';
+      GoogleMapsLoader.LANGUAGE = 'de';
+
+      GoogleMapsLoader.load(function(google) {
+          this.map = new google.maps.Map(this.$refs.gmaps, {
+          center: {lat: 47.377235, lng: 8.5314407},
+          zoom: 15,
+          disableDefaultUI: true,
+          clickableIcons: false,
+          styles: mapstyle
+        });
+      }.bind(this));
+
+      // this.renderMarkers();
       this.locateUser();
 
     },
@@ -65,17 +79,24 @@ export default {
 
     handleUserLocation(loc) {
 
-      let coords = [loc.coords.longitude, loc.coords.latitude];
-      let el = document.createElement('div');
-      el.className = 'marker-user';
+      let coords = {
+        lat: loc.coords.latitude,
+        lng: loc.coords.longitude
+      };
+      // let el = document.createElement('div');
+      // el.className = 'marker-user';
 
-      let marker = new mapboxgl.Marker(el)
-        .setLngLat(coords)
-        .addTo(this.map);
+      // let marker = new mapboxgl.Marker(el)
+      //   .setLngLat(coords)
+      //   .addTo(this.map);
 
-      this.map.flyTo({
-        center: coords
+      var marker = new google.maps.Marker({
+        position: coords,
+        map: this.map
       });
+
+      console.log(coords);
+      this.map.panTo(coords);
 
     },
 
@@ -112,7 +133,7 @@ export default {
   height: calc(100vh - 50px);
   background-color: #fff;
 }
-.mapbox {
+.gmaps {
   position: absolute;
   top: 0;
   left: 0;

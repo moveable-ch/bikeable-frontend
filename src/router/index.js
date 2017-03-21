@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import MapView from '@/components/MapView'
 import ListView from '@/components/ListView'
 import AboutView from '@/components/AboutView'
+import EntryView from '@/components/EntryView'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/about',
       name: 'about',
       component: AboutView
+    },
+    {
+      path: '/entry/:id',
+      name: 'entry',
+      component: EntryView
     }
   ]
 })

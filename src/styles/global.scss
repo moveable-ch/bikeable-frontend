@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+  padding-top: 50px;
+}
+
+.marker {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 99%;
+  border: 2px solid rgba(#f44, .7);
+  box-sizing: border-box;
+}
+.marker-user {
+  width: 5px;
+  height: 5px;
+  border-radius: 99%;
+  background-color: rgba(#33f, .8);
+  box-shadow: 0 0 0 10px rgba(#00f, .1);
+}

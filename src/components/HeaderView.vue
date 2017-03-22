@@ -103,4 +103,26 @@ nav {
   }
 }
 
+@media screen and (min-width: 600px) {
+  .burger {
+    display: none;
+  }
+  h1 {
+    display: inline;
+  }
+  nav {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-left: 2rem;
+
+    ul {
+
+      li {
+        display: inline;
+        margin-right: 1rem;
+      }
+    }
+  }
+}
+
 </style>

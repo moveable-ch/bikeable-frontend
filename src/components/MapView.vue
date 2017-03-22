@@ -13,9 +13,15 @@ import GoogleMapsLoader from 'google-maps';
 
 export default {
   name: 'map-view',
-  props: ['entries'],
+  props: [],
   components: {
     'map-info': MapInfoView
+  },
+
+  computed: {
+    entries() {
+      return this.$store.state.entries
+    }
   },
 
   data () {
@@ -26,6 +32,12 @@ export default {
 
   mounted() {
     this.initMap();
+  },
+
+  watch: {
+    'entries': function() {
+      this.renderMarkers();
+    }
   },
 
   methods: {
@@ -51,6 +63,7 @@ export default {
           zoom: 15,
           disableDefaultUI: true,
           clickableIcons: false,
+          gestureHandling: 'greedy',
           styles: mapstyle
         });
 
@@ -92,19 +105,18 @@ export default {
         map: this.map
       });
 
-      console.log(coords);
-      this.map.panTo(coords);
+      // console.log(coords);
+      // this.map.panTo(coords);
 
     },
 
     renderMarkers() {
+      console.log(this.entries);
+
       this.entries.forEach((entry, index) => {
 
         var marker = new this.google.maps.Marker({
-          position: {
-            lat: entry.coords[1],
-            lng: entry.coords[0]
-          },
+          position: entry.coords,
           map: this.map
         });
 

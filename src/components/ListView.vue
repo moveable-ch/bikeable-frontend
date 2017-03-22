@@ -2,7 +2,7 @@
   <div class="list">
     <ul>
       <li v-for="entry in entries">
-        <router-link :to="'/entry/' + entry.id">{{ entry.title }}</router-link><br>
+        <router-link :to="'/entry/' + entry._id">{{ entry.title }}</router-link><br>
         <small>{{ entry.text }}</small>
       </li>
     </ul>
@@ -12,7 +12,12 @@
 <script>
 export default {
   name: 'list-view',
-  props: ['entries'],
+  props: [],
+  computed: {
+    entries() {
+      return this.$store.state.entries
+    }
+  },
   data () {
     return {}
   }

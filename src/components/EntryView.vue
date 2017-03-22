@@ -11,11 +11,17 @@
 <script>
 export default {
   name: 'entry-view',
-  props: ['entries'],
+  props: [],
   data () {
     return {
       entryId: 0,
       currentEntry: {}
+    }
+  },
+
+  computed: {
+    entries() {
+      return this.$store.state.entries
     }
   },
 
@@ -32,7 +38,11 @@ export default {
   methods: {
     fetchData() {
       this.entryId = this.$route.params.id;
-      this.currentEntry = this.entries[this.entryId];
+
+      this.$http.get('http://backend.bikeable.ch/api/entries/'+this.entryId).then(response => {
+        this.currentEntry = response.body.data;
+      }, response => {
+      });
     }
   }
 }
@@ -45,6 +55,11 @@ export default {
     margin: 1rem auto;
     background-color: #f0f0f0;
     padding: 2rem;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
   }
 
 </style>

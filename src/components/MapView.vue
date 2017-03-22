@@ -111,7 +111,6 @@ export default {
     },
 
     renderMarkers() {
-      console.log(this.entries);
 
       this.entries.forEach((entry, index) => {
 

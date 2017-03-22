@@ -1,7 +1,7 @@
 <template>
   <div class="map">
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
-    <a :href="'#/entry/' + entry.id" class="marker" ref="entry" v-for="entry in entries"></a>
+    <router-link to="/add" class="link-add"></router-link>
   </div>
 </template>
 
@@ -21,6 +21,9 @@ export default {
   computed: {
     entries() {
       return this.$store.state.entries
+    },
+    userCoords() {
+      return this.$store.state.userCoords
     }
   },
 
@@ -37,20 +40,15 @@ export default {
   watch: {
     'entries': function() {
       this.renderMarkers();
+    },
+    'userCoords': function() {
+      this.locateUser();
     }
   },
 
   methods: {
 
     initMap() {
-      // mapboxgl.accessToken = 'pk.eyJ1IjoiZGlsdW5vIiwiYSI6ImJfVy1TSm8ifQ.GY6YpNmT1_YnF7bstpyYmQ';
-
-      // this.map = new mapboxgl.Map({
-      //     container: 'mapbox',
-      //     style: 'mapbox://styles/mapbox/light-v9',
-      //     center: [8.5314407, 47.377235],
-      //     zoom: 13
-      // });
 
       GoogleMapsLoader.KEY = 'AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI';
       GoogleMapsLoader.LANGUAGE = 'de';
@@ -66,47 +64,20 @@ export default {
           gestureHandling: 'greedy',
           styles: mapstyle
         });
-
-        this.renderMarkers();
-        this.locateUser();
       }.bind(this));
 
 
     },
 
+
     locateUser() {
-      if (navigator.geolocation) {
-        let timeoutVal = 10 * 1000 * 1000;
 
-        navigator.geolocation.getCurrentPosition(
-          function(loc) {
-            // Success
-            this.handleUserLocation(loc);
-
-          }.bind(this),
-          function(e) {
-            // Error
-            console.log('error');
-          },
-          { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
-        );
-      }
-    },
-
-    handleUserLocation(loc) {
-
-      let coords = {
-        lat: loc.coords.latitude,
-        lng: loc.coords.longitude
-      };
+      if(!this.userCoords) return;
 
       var marker = new this.google.maps.Marker({
-        position: coords,
+        position: this.userCoords,
         map: this.map
       });
-
-      // console.log(coords);
-      // this.map.panTo(coords);
 
     },
 

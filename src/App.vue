@@ -18,6 +18,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch('loadEntries');
+    this.$store.dispatch('getUserCoords');
   }
 }
 </script>

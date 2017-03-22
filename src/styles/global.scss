@@ -3,18 +3,26 @@ body {
   padding-top: 50px;
 }
 
-.marker {
+.link-add {
   display: block;
-  width: 10px;
-  height: 10px;
-  border-radius: 99%;
-  border: 2px solid rgba(#f44, .7);
-  box-sizing: border-box;
-}
-.marker-user {
-  width: 5px;
-  height: 5px;
-  border-radius: 99%;
-  background-color: rgba(#33f, .8);
-  box-shadow: 0 0 0 10px rgba(#00f, .1);
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 5rem;
+  height: 5rem;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+
+  &::before {
+    content: "+";
+    font-family: Arial;
+    font-size: 3rem;
+    line-height: 5rem;
+  }
+
+  &:hover {
+    background-color: #555;
+  }
 }

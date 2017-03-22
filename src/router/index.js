@@ -4,6 +4,7 @@ import MapView from '@/components/MapView'
 import ListView from '@/components/ListView'
 import AboutView from '@/components/AboutView'
 import EntryView from '@/components/EntryView'
+import AddView from '@/components/AddView'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/entry/:id',
       name: 'entry',
       component: EntryView
+    },
+    {
+      path: '/add',
+      name: 'add',
+      component: AddView
     }
   ]
 })

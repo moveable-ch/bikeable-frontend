@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    about view
+    <h1>bikeable.ch <span>beta</span></h1>
   </div>
 </template>
 
@@ -16,7 +16,23 @@ export default {
 <style lang="scss" scoped>
 
 .about {
-  background-color: #afa;
+  max-width: 700px;
+  margin: 1rem auto;
+  text-align: center;
+}
+
+h1 {
+  display: inline-block;
+  position: relative;
+
+  span {
+    font-size: .8rem;
+    position: absolute;
+    right: -2.5rem;
+    top: 0;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
 }
 
 </style>

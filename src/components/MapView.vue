@@ -32,12 +32,20 @@ export default {
 
   data () {
     return {
-      activeEntry: []
+      activeEntry: [],
+      markers: []
     }
   },
 
   mounted() {
     this.initMap();
+  },
+
+  beforeDestroy() {
+    this.markers.forEach((marker) => {
+      // marker.removeListener('click');
+    });
+    this.markers = [];
   },
 
   watch: {
@@ -91,12 +99,20 @@ export default {
 
       if(!this.entries || !this.google) return;
 
+      this.markers = [];
+
       this.entries.forEach((entry, index) => {
 
         var marker = new this.google.maps.Marker({
           position: entry.coords,
           map: this.map
         });
+
+        marker.addListener('click', function(m) {
+          this.$router.push({ name: 'entry', params: { id: entry._id }})
+        }.bind(this));
+
+        // this.markers.push(marker);
 
       });
 

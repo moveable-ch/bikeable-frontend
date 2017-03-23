@@ -30,6 +30,9 @@ h1 {
     font-size: 3rem;
   }
 }
+p + h1 {
+  margin-top: 4rem;
+}
 h2 {
   font-size: 1.25rem;
 }
@@ -38,6 +41,15 @@ p {
   font-family: $f-body;
   max-width: 600px;
   line-height: 1.4;
+
+  & + & {
+    margin-top: 1rem;
+  }
+  &.lead {
+    color: $c-blue;
+    font-size: 1.25rem;
+    padding-left: 1.5rem;
+  }
 }
 
 small {
@@ -47,7 +59,7 @@ small {
 .spot-nav {
   position: fixed;
   bottom: 1.5rem;
-  right: 0;
+  right: 1.5rem;
 
   &__add {
     display: block;
@@ -106,7 +118,7 @@ small {
 }
 
 
-input[type=text], textarea {
+input[type=text], input[type=password], input[type=email], textarea {
   display: block;
   width: 100%;
   max-width: 500px;

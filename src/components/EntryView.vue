@@ -1,10 +1,13 @@
 <template>
-  <div class="entry">
-    <img :src="currentEntry.image">
-    <h1>{{ currentEntry.title }}</h1>
-    <h2>{{ currentEntry.address }}</h2>
-    <p>{{ currentEntry.text }}</p>
-
+  <div class="entry clearfix">
+    <div class="col">
+      <img :src="currentEntry.image">
+    </div>
+    <div class="col">
+      <h1>{{ currentEntry.title }}</h1>
+      <h2>{{ currentEntry.address }}</h2>
+      <p>{{ currentEntry.text }}</p>
+    </div>
   </div>
 </template>
 
@@ -51,16 +54,39 @@ export default {
 
 <style lang="scss" scoped>
 
+  @import '../styles/helpers';
+
   .entry {
-    max-width: 700px;
-    margin: 1rem auto;
-    background-color: #f0f0f0;
-    padding: 2rem;
+    max-width: 1200px;
+    margin: 0;
+    padding: 0;
+    font-family: $f-body;
 
     img {
       max-width: 100%;
       height: auto;
     }
+  }
+
+  .col {
+    box-sizing: border-box;
+    padding: 1rem;
+
+    @include desktop() {
+      width: 50%;
+      float: left;
+      padding: 1.5rem;
+    }
+  }
+
+  h1 {
+    display: inline;
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  h2 {
+    margin-bottom: 1rem;
   }
 
 </style>

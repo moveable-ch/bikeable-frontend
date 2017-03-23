@@ -1,0 +1,19 @@
+$c-blue: #2637DD;
+
+$f-body: 'Roboto Mono', monospace;
+$f-head: 'Rubik', sans-serif;
+
+$easeOutQuint: cubic-bezier(0.230, 1.000, 0.320, 1.000);
+$easeInQuint: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+$easeInOutQuint: cubic-bezier(0.860, 0.000, 0.070, 1.000);
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+
+@mixin desktop() {
+  @media screen and (min-width: 700px) { @content; }
+}

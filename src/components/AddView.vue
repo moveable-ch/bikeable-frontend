@@ -2,10 +2,10 @@
   <div class="add">
     <h1>Neuer Beitrag</h1>
     <input type="text" placeholder="Adresse" v-model="entryAddress" v-bind:class="{ inactive: addressPending }" v-on:blur="checkAddress">
-    <button class="btn-location" v-on:click="getUserAddress" v-bind:class="{ hidden: !userCoords }">My Location</button><br>
+    <button class="btn" v-bind:class="{ disabled: !userCoords }" v-on:click="getUserAddress">My Location</button><br>
     <small>Coordinates: {{ entryCoords }}</small>
-    <textarea placeholder="Beschreibung" v-model="entryText"></textarea>
-    <input type="submit" value="OK">
+    <textarea placeholder="Beschreibung" v-model="entryText" rows="5"></textarea>
+    <button class="btn disabled" disabled>OK</button>
   </div>
 </template>
 
@@ -92,54 +92,21 @@ export default {
 
 <style lang="scss" scoped>
 
+@import '../styles/helpers';
+
 .add {
   max-width: 700px;
-  margin: 1rem auto;
-}
+  margin: 2rem 0;
+  padding: 0 1rem;
 
-input[type=text], textarea {
-  display: block;
-  width: 100%;
-  max-width: 500px;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 1rem;
-  padding: .5rem;
-  margin: 1rem 0;
-  border: 2px solid #ccc;
-
-  &:focus {
-    outline: none;
-    border-color: #000;
-  }
-
-  &.inactive {
-    pointer-events: none;
-    background-color: #ccc;
-    color: #666;
+  @include desktop() {
+    padding: 0 2rem;
   }
 }
 
-input[type=submit] {
-  background-color: #333;
-  border: none;
-  border-radius: 0;
-  color: #fff;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 1rem;
-  padding: .5rem 2rem;
+h1 {
+  margin-bottom: 2rem;
 }
 
-.btn-location {
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 1rem;
-  border: none;
-  background-color: #ccc;
-  padding: .5rem 1rem;
-
-  &.hidden {
-    pointer-events: none;
-    opacity: .4;
-  }
-}
 
 </style>

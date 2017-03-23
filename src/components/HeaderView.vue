@@ -1,11 +1,10 @@
 <template>
   <header class="header" v-bind:class="{ 'is-expanded': isExpanded }">
-    <h1>bikeäble</h1>
+    <h1>bikeable</h1>
     <button class="burger" v-on:click="toggleNav"></button>
     <nav>
       <ul>
-        <li><router-link to="/">Map</router-link></li>
-        <li><router-link to="/list">List</router-link></li>
+        <li><router-link to="/">Spots</router-link></li>
         <li><router-link to="/about">About</router-link></li>
       </ul>
     </nav>
@@ -37,14 +36,16 @@ export default {
 
 <style lang="scss" scoped>
 
+@import '../styles/helpers';
+
 .header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 50px;
-  background-color: #333;
-  color: #fff;
+  height: 3rem;
+  background-color: #2637DD;
+  color: #eee;
   padding: 0 1rem;
   box-sizing: border-box;
   z-index: 1;
@@ -53,21 +54,26 @@ export default {
   &.is-expanded {
     height: auto;
   }
+
+  @include desktop() {
+    padding: 0 2rem;
+  }
 }
 
 h1 {
-  font-size: 1rem;
-  line-height: 50px;
+  font-size: 1.5rem;
+  line-height: 3rem;
   margin: 0;
+  font-weight: bold;
 }
 
 .burger {
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 1.5rem;
+  height: 1.5rem;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: .5rem;
+  right: 1rem;
   background-color: transparent;
   border: none;
 
@@ -75,12 +81,13 @@ h1 {
     content: "";
     display: block;
     position: absolute;
-    top: 13px;
+    top: 1rem;
     left: 0;
     width: 100%;
-    height: 4px;
-    background-color: #fff;
-    box-shadow: 0 10px 0 0 #fff, 0 -10px 0 0 #fff;
+    height: 3px;
+    border-radius: 2px;
+    background-color: #eee;
+    box-shadow: 0 7px 0 0 #eee, 0 -7px 0 0 #eee;
   }
   &:focus {
     outline: none;
@@ -89,6 +96,7 @@ h1 {
 
 nav {
   margin-bottom: 1rem;
+  font-family: $f-body;
 
   ul {
     list-style-type: none;
@@ -97,13 +105,13 @@ nav {
     line-height: 1.5;
 
     a {
-      color: #fff;
+      color: #eee;
       text-decoration: none;
     }
   }
 }
 
-@media screen and (min-width: 600px) {
+@include desktop() {
   .burger {
     display: none;
   }

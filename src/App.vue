@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <header-view></header-view>
-    <router-view></router-view>
+    <transition name="fade" mode="out-in">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -26,7 +28,21 @@ export default {
 <style src="./styles/global.scss" lang="scss"></style>
 <style>
 #app {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   position: relative;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s, transform .2s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+.fade-enter {
+  /* transform: scale(1.05); */
+}
+.fade-leave-to {
+  /* transform: scale(.95); */
+  /* transform: translateX(-20px); */
+
 }
 </style>

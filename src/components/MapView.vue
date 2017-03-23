@@ -1,7 +1,10 @@
 <template>
   <div class="map">
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
-    <router-link to="/add" class="link-add"></router-link>
+    <div class="spot-nav clearfix">
+      <router-link to="/add" class="spot-nav__add"></router-link>
+      <router-link to="/list" class="spot-nav__link">Zur Liste</router-link>
+    </div>
   </div>
 </template>
 
@@ -64,8 +67,11 @@ export default {
           gestureHandling: 'greedy',
           styles: mapstyle
         });
-      }.bind(this));
 
+        this.renderMarkers();
+        this.locateUser();
+
+      }.bind(this));
 
     },
 
@@ -82,6 +88,8 @@ export default {
     },
 
     renderMarkers() {
+
+      if(!this.entries || !this.google) return;
 
       this.entries.forEach((entry, index) => {
 
@@ -105,7 +113,7 @@ export default {
   top: 0px;
   left: 0;
   width: 100%;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 3rem);
   background-color: #fff;
 }
 .gmaps {

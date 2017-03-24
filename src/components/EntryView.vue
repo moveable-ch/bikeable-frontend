@@ -1,5 +1,6 @@
 <template>
   <div class="entry clearfix">
+    <div class="loader" :class="{ 'is-visible': loadingData }"></div>
     <div class="col">
       <img :src="currentEntry.image">
     </div>
@@ -28,6 +29,7 @@ export default {
   data () {
     return {
       entryId: 0,
+      loadingData: true,
       currentEntry: {
         user: {
           name: ''
@@ -60,12 +62,15 @@ export default {
 
       this.$http.get('https://backend.bikeable.ch/api/v1/entries/'+this.entryId).then(response => {
         this.currentEntry = response.body.data;
+        this.loadingData = false;
       }, response => {
         console.log(response);
       });
 
+      console.log('https://backend.bikeable.ch/api/v1/comments?entry='+this.entryId);
       this.$http.get('https://backend.bikeable.ch/api/v1/comments?entry='+this.entryId).then(response => {
-        this.comments = response.body.data;
+        console.log(response);
+        this.comments = response.body;
       }, response => {
         console.log(response);
       });

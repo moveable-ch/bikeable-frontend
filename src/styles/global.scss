@@ -138,6 +138,9 @@ input[type=text], input[type=password], input[type=email], textarea {
   margin: 1rem 0;
   border: 2px solid #ccc;
   box-sizing: border-box;
+  border-radius: 0;
+  box-shadow: none;
+  -webkit-appearance: none;
 
   &:focus {
     outline: none;
@@ -157,4 +160,30 @@ input[type=text], input[type=password], input[type=email], textarea {
   font-size: .8rem;
   text-align: center;
   border: 2px solid #ccc;
+}
+
+.loader {
+  position: fixed;
+  top: 4.5rem;
+  left: 1.5rem;
+  width: 30px;
+  height: 30px;
+  border: 4px solid transparent;
+  border-left-color: $c-blue;
+  border-radius: 99%;
+  animation: rotate 1s infinite linear;
+  display: none;
+
+  &.is-visible {
+    display: block;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -12,9 +12,10 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/entries',
       name: 'list',
-      component: ListView
+      component: ListView,
+      alias: '/'
     },
     {
       path: '/map',
@@ -27,7 +28,7 @@ export default new Router({
       component: AboutView
     },
     {
-      path: '/entry/:id',
+      path: '/entries/:id',
       name: 'entry',
       component: EntryView
     },

@@ -6,11 +6,11 @@
     </div>
     <ul>
       <li v-for="entry in entries" class="entry">
-        <router-link :to="'/entry/' + entry._id" class="entry__image" :style="{ backgroundImage: 'url('+entry.image+')' }">
+        <router-link :to="'/entries/' + entry._id" class="entry__image" :style="{ backgroundImage: 'url('+entry.image+')' }">
           <img :src="entry.image">
         </router-link>
         <div class="entry__content">
-          <router-link :to="'/entry/' + entry._id">{{ entry.title }}</router-link>
+          <router-link :to="'/entries/' + entry._id">{{ entry.title }}</router-link>
           <p>{{ entry.text }}</p>
         </div>
       </li>

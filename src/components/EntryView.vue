@@ -69,7 +69,6 @@ export default {
 
       console.log('https://backend.bikeable.ch/api/v1/comments?entry='+this.entryId);
       this.$http.get('https://backend.bikeable.ch/api/v1/comments?entry='+this.entryId).then(response => {
-        console.log(response);
         this.comments = response.body;
       }, response => {
         console.log(response);

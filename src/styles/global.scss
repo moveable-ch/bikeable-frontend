@@ -16,6 +16,14 @@ body {
   background-color: #f0f0f0;
 }
 
+a {
+  color: $c-blue;
+
+  &:hover {
+    color: #000;
+  }
+}
+
 h1, h2, h3 {
   font-family: $f-head;
   font-weight: 900;
@@ -80,6 +88,7 @@ small {
 
     &:hover {
       background-color: #333;
+      color: #fff;
     }
   }
   &__link {
@@ -95,6 +104,7 @@ small {
 
     &:hover {
       background-color: #333;
+      color: #fff;
     }
   }
 }
@@ -139,4 +149,12 @@ input[type=text], input[type=password], input[type=email], textarea {
     background-color: #ccc;
     color: #666;
   }
+}
+
+.notice {
+  background-color: #ddd;
+  padding: 1rem;
+  font-size: .8rem;
+  text-align: center;
+  border: 2px solid #ccc;
 }

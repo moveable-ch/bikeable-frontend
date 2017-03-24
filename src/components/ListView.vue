@@ -2,7 +2,7 @@
   <div class="list">
     <div class="spot-nav clearfix">
       <router-link to="/add" class="spot-nav__add"></router-link>
-      <router-link to="/" class="spot-nav__link">Zur Karte</router-link>
+      <router-link to="/map" class="spot-nav__link">Zur Karte</router-link>
     </div>
     <ul>
       <li v-for="entry in entries" class="entry">

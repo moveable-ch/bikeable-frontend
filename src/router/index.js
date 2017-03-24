@@ -13,13 +13,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'map',
-      component: MapView
-    },
-    {
-      path: '/list',
       name: 'list',
       component: ListView
+    },
+    {
+      path: '/map',
+      name: 'map',
+      component: MapView
     },
     {
       path: '/about',

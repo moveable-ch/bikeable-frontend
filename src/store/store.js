@@ -21,7 +21,7 @@ const mutations = {
 
 const actions = {
   loadEntries(context) {
-    Vue.http.get('https://backend.bikeable.ch/api/entries').then(response => {
+    Vue.http.get('https://backend.bikeable.ch/api/v1/entries').then(response => {
       context.commit('SET_ENTRIES', response.body.data);
     }, response => {
       console.log(response);

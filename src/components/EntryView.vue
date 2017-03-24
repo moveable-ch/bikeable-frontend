@@ -4,9 +4,19 @@
       <img :src="currentEntry.image">
     </div>
     <div class="col">
-      <h1>{{ currentEntry.title }}</h1>
-      <h2>{{ currentEntry.address }}</h2>
-      <p>{{ currentEntry.text }}</p>
+      <div class="lead">
+        <h1>{{ currentEntry.title }}</h1>
+        <h2>{{ currentEntry.address }}</h2>
+        <p>{{ currentEntry.text }}</p>
+        <span class="username">— {{ currentEntry.user.name }}</span>
+      </div>
+      <div class="comments">
+        <div class="notice">Jetzt <a href="#">registrieren</a> und mitdiskutieren!</div>
+        <div class="comments__item" v-for="comment in comments">
+          <p>{{ comment.text }}</p>
+          <span class="username">{{ comment.user.name }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -18,7 +28,12 @@ export default {
   data () {
     return {
       entryId: 0,
-      currentEntry: {}
+      currentEntry: {
+        user: {
+          name: ''
+        }
+      },
+      comments: {}
     }
   },
 
@@ -35,6 +50,7 @@ export default {
   },
 
   mounted() {
+    this.comments = null;
     this.fetchData();
   },
 
@@ -42,8 +58,14 @@ export default {
     fetchData() {
       this.entryId = this.$route.params.id;
 
-      this.$http.get('https://backend.bikeable.ch/api/entries/'+this.entryId).then(response => {
+      this.$http.get('https://backend.bikeable.ch/api/v1/entries/'+this.entryId).then(response => {
         this.currentEntry = response.body.data;
+      }, response => {
+        console.log(response);
+      });
+
+      this.$http.get('https://backend.bikeable.ch/api/v1/comments?entry='+this.entryId).then(response => {
+        this.comments = response.body.data;
       }, response => {
         console.log(response);
       });
@@ -72,21 +94,58 @@ export default {
     box-sizing: border-box;
     padding: 1rem;
 
+    &:first-child {
+      padding: 0;
+    }
+
     @include desktop() {
       width: 50%;
       float: left;
       padding: 1.5rem;
+
+      &:first-child {
+        padding: 1.5rem;
+      }
     }
   }
 
-  h1 {
-    display: inline;
-    line-height: 1;
-    margin-top: 0;
-    margin-bottom: 0;
+  .lead {
+    h1 {
+      display: inline;
+      line-height: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    h2 {
+      margin-bottom: 1rem;
+    }
+    .username {
+      display: block;
+      margin: .5rem 0;
+      padding-left: 1rem;
+    }
   }
-  h2 {
-    margin-bottom: 1rem;
+
+  .comments {
+    margin-top: 2rem;
+
+    &__item {
+      // border: 2px solid #ccc;
+      background: white;
+      margin: 1rem 0;
+      padding: 1rem;
+
+      .username {
+        display: block;
+        margin-top: .5rem;
+        padding-left: 1rem;
+
+        &::before {
+          content: "— ";
+        }
+      }
+    }
   }
+
 
 </style>

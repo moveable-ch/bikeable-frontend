@@ -66,6 +66,7 @@ h1 {
   line-height: 3rem;
   margin: 0;
   font-weight: bold;
+  pointer-events: none;
 }
 
 .burger {
@@ -108,6 +109,10 @@ nav {
     a {
       color: #eee;
       text-decoration: none;
+
+      &.active {
+        text-decoration: underline;
+      }
     }
   }
 }

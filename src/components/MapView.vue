@@ -3,7 +3,7 @@
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
     <div class="spot-nav clearfix">
       <router-link to="/add" class="spot-nav__add"></router-link>
-      <router-link to="/list" class="spot-nav__link">Zur Liste</router-link>
+      <router-link to="/" class="spot-nav__link">Zur Liste</router-link>
     </div>
   </div>
 </template>

@@ -61,7 +61,7 @@ export default {
       this.entryId = this.$route.params.id;
 
       this.$http.get('https://backend.bikeable.ch/api/v1/entries/'+this.entryId).then(response => {
-        this.currentEntry = response.body.data;
+        this.currentEntry = response.body;
         this.loadingData = false;
       }, response => {
         console.log(response);

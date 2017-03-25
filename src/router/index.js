@@ -6,6 +6,7 @@ import AboutView from '@/components/AboutView'
 import EntryView from '@/components/EntryView'
 import AddView from '@/components/AddView'
 import LoginView from '@/components/LoginView'
+import RegisterView from '@/components/RegisterView'
 
 Vue.use(Router)
 
@@ -41,6 +42,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: LoginView
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterView
     }
   ]
 })

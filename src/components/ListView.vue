@@ -1,7 +1,7 @@
 <template>
   <div class="list">
     <div class="spot-nav clearfix">
-      <router-link to="/add" class="spot-nav__add"></router-link>
+      <router-link v-if="isLoggedIn" to="/add" class="spot-nav__add"></router-link>
       <router-link to="/map" class="spot-nav__link">Zur Karte</router-link>
     </div>
     <ul>
@@ -24,8 +24,11 @@ export default {
   props: [],
   computed: {
     entries() {
-      return this.$store.state.entries
-    }
+      return this.$store.state.entries;
+    },
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
   },
   data () {
     return {}

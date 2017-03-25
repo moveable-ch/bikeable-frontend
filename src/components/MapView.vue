@@ -2,7 +2,7 @@
   <div class="map">
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
     <div class="spot-nav clearfix">
-      <router-link to="/add" class="spot-nav__add"></router-link>
+      <router-link v-if="isLoggedIn" to="/add" class="spot-nav__add"></router-link>
       <router-link to="/" class="spot-nav__link">Zur Liste</router-link>
     </div>
   </div>
@@ -27,7 +27,10 @@ export default {
     },
     userCoords() {
       return this.$store.state.userCoords
-    }
+    },
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
   },
 
   data () {

@@ -1,7 +1,8 @@
 <template>
-  <div class="login">
-    <h1>Login</h1>
-    <form @submit.prevent="login">
+  <div class="register">
+    <h1>Registrieren</h1>
+    <form @submit.prevent="register">
+      <input type="text" placeholder="Username" v-model="formUsername">
       <input type="email" placeholder="E-Mail" v-model="formEmail">
       <input type="password" placeholder="Passwort" v-model="formPassword">
       <button type="submit" class="btn">OK</button>
@@ -12,11 +13,12 @@
 
 <script>
 export default {
-  name: 'login-view',
+  name: 'register-view',
   data () {
     return {
       message: '',
 
+      formUsername: '',
       formEmail: '',
       formPassword: ''
     }
@@ -35,17 +37,18 @@ export default {
   },
 
   methods: {
-    login() {
-      this.$store.dispatch('login', {
+    register() {
+      this.$store.dispatch('register', {
           email: this.formEmail,
+          username: this.formUsername,
           password: this.formPassword
         })
       .then((data) => {
-          // console.log('success', data);
-          this.$router.push('/');
+          console.log('success', data);
+          this.message = data.body.message;
         }, (data) => {
           console.log('error', data);
-          // this.message = data.body.message;
+          this.message = data.body.message;
         });
     }
   }
@@ -56,7 +59,7 @@ export default {
 
 @import '../styles/helpers';
 
-.login {
+.register {
   max-width: 700px;
   margin: 2rem 0;
   padding: 0 1rem;

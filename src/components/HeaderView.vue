@@ -6,9 +6,12 @@
       <ul>
         <li><router-link to="/">Spots</router-link></li>
         <li><router-link to="/about">About</router-link></li>
-        <li><router-link to="/login">Login</router-link></li>
+        <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
+        <li v-if="!isLoggedIn"><router-link to="/register">Register</router-link></li>
+        <li v-if="isLoggedIn"><a href="#" @click.prevent="logout">Logout</a></li>
       </ul>
     </nav>
+    <div v-if="pending" class="loader"></div>
   </header>
 </template>
 
@@ -24,6 +27,21 @@ export default {
   methods: {
     toggleNav() {
       this.isExpanded = !this.isExpanded;
+    },
+    logout() {
+      this.$store.dispatch('logout')
+        .then(() => {
+          this.$router.push('/');
+        });
+    }
+  },
+
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
+    pending() {
+      return this.$store.getters.pending;
     }
   },
 
@@ -117,7 +135,37 @@ nav {
   }
 }
 
+.loader {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-image: linear-gradient(to right,  $c-blue 0%, #fff 47%, $c-blue 100%);
+  background-size: 25% 100%;
+  animation: stripe 4s infinite linear;
+  display: block;
+
+  &.is-visible {
+    display: block;
+  }
+}
+
+@keyframes stripe {
+  from {
+    background-position: left bottom;
+  }
+  to {
+    background-position: right bottom;
+  }
+}
+
 @include desktop() {
+  .loader {
+    height: 2px;
+    background-size: 10% 100%;
+    animation: stripe 10s infinite linear;
+  }
   .burger {
     display: none;
   }

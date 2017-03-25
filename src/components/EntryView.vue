@@ -59,6 +59,7 @@ export default {
   methods: {
     fetchData() {
       this.entryId = this.$route.params.id;
+      this.$store.commit('LOAD_START');
 
       this.$http.get('https://backend.bikeable.ch/api/v1/entries/'+this.entryId).then(response => {
         this.currentEntry = response.body;
@@ -67,8 +68,8 @@ export default {
         console.log(response);
       });
 
-      console.log('https://backend.bikeable.ch/api/v1/comments?entry='+this.entryId);
       this.$http.get('https://backend.bikeable.ch/api/v1/comments?entry='+this.entryId).then(response => {
+        this.$store.commit('LOAD_FINISH');
         this.comments = response.body;
       }, response => {
         console.log(response);

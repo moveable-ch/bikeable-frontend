@@ -44,6 +44,24 @@ const actions = {
           context.commit('LOAD_FINISH');
           resolve(response);
         }, response => {
+          context.commit('LOAD_FINISH');
+          reject(response);
+        });
+    });
+
+  },
+
+  forgottenpw(context, data) {
+
+    context.commit('LOAD_START');
+
+    return new Promise((resolve, reject) => {
+      Vue.http.get('https://backend.bikeable.ch/api/v1/forgotpassword/'+data.email)
+        .then(response => {
+          context.commit('LOAD_FINISH');
+          resolve(response);
+        }, response => {
+          context.commit('LOAD_FINISH');
           reject(response);
         });
     });
@@ -101,7 +119,7 @@ const actions = {
 
     Vue.http.get('https://backend.bikeable.ch/api/v1/entries')
       .then(response => {
-        context.commit('SET_ENTRIES', response.body);
+        context.commit('SET_ENTRIES', response.body.data);
         context.commit('LOAD_FINISH');
       }, response => {
         console.log(response);

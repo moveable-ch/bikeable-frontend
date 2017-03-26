@@ -72,7 +72,7 @@ export default {
       this.$store.commit('LOAD_START');
 
       this.$http.get('https://backend.bikeable.ch/api/v1/entries/'+this.entryId).then(response => {
-        this.currentEntry = response.body;
+        this.currentEntry = response.body.data;
         this.loadingData = false;
       }, response => {
         console.log(response);
@@ -80,7 +80,7 @@ export default {
 
       this.$http.get('https://backend.bikeable.ch/api/v1/comments?entry='+this.entryId).then(response => {
         this.$store.commit('LOAD_FINISH');
-        this.comments = response.body;
+        this.comments = response.body.data;
       }, response => {
         console.log(response);
       });

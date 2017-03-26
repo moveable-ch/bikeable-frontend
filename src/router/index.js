@@ -7,6 +7,7 @@ import EntryView from '@/components/EntryView'
 import AddView from '@/components/AddView'
 import LoginView from '@/components/LoginView'
 import RegisterView from '@/components/RegisterView'
+import PasswordRetrievalView from '@/components/PasswordRetrievalView'
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: RegisterView
+    },
+    {
+      path: '/forgottenpw',
+      name: 'forgottenpw',
+      component: PasswordRetrievalView
     }
   ]
 })

@@ -1,19 +1,17 @@
 <template>
-  <div class="login">
-    <h1>Login</h1>
-    <form @submit.prevent="login">
+  <div class="password-retrieval">
+    <h1>Passwort vergessen</h1>
+    <form @submit.prevent="submitForm">
       <input type="email" placeholder="E-Mail" v-model="formEmail">
-      <input type="password" placeholder="Passwort" v-model="formPassword">
       <button type="submit" class="btn">OK</button>
       <div class="notice" v-if="message != ''">{{ message }}</div>
-      <router-link to="/forgottenpw" class="forgotten-link">Passwort vergessen?</router-link>
     </form>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'login-view',
+  name: 'password-retrieval-view',
   data () {
     return {
       message: '',
@@ -36,17 +34,18 @@ export default {
   },
 
   methods: {
-    login() {
-      this.$store.dispatch('login', {
-          email: this.formEmail,
-          password: this.formPassword
+    submitForm() {
+      if(this.formEmail == '') return;
+
+      this.$store.dispatch('forgottenpw', {
+          email: this.formEmail
         })
       .then((data) => {
-          // console.log('success', data);
-          this.$router.push('/');
+          console.log(data);
+          // this.$router.push('/login');
         }, (data) => {
           console.log('error', data);
-          // this.message = data.body.message;
+          this.message = data.body.message;
         });
     }
   }
@@ -57,7 +56,7 @@ export default {
 
 @import '../styles/helpers';
 
-.login {
+.password-retrieval {
   max-width: 700px;
   margin: 2rem 0;
   padding: 0 1rem;
@@ -69,12 +68,6 @@ export default {
 
 h1 {
   margin-bottom: 2rem;
-}
-
-.forgotten-link {
-  font-size: .9rem;
-  display: block;
-  margin-top: 2rem;
 }
 
 

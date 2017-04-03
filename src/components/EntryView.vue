@@ -2,7 +2,7 @@
   <div class="entry clearfix">
     <div class="loader" :class="{ 'is-visible': loadingData }"></div>
     <div class="col">
-      <img :src="currentEntry.image">
+      <img :src="currentEntry.photo.large">
     </div>
     <div class="col">
       <div class="lead">
@@ -39,6 +39,9 @@ export default {
       currentEntry: {
         user: {
           name: ''
+        },
+        photo: {
+          large: ''
         }
       },
       comments: {},

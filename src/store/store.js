@@ -119,6 +119,7 @@ const actions = {
 
     Vue.http.get('https://backend.bikeable.ch/api/v1/entries')
       .then(response => {
+        console.log(response.body.data);
         context.commit('SET_ENTRIES', response.body.data);
         context.commit('LOAD_FINISH');
       }, response => {

@@ -45,11 +45,6 @@ export default new Router({
       component: LoginView
     },
     {
-      path: '/register',
-      name: 'register',
-      component: RegisterView
-    },
-    {
       path: '/forgottenpw',
       name: 'forgottenpw',
       component: PasswordRetrievalView

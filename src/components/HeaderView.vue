@@ -7,7 +7,6 @@
         <li><router-link to="/">Spots</router-link></li>
         <li><router-link to="/about">About</router-link></li>
         <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
-        <li v-if="!isLoggedIn"><router-link to="/register">Register</router-link></li>
         <li v-if="isLoggedIn"><a href="#" @click.prevent="logout">Logout</a></li>
       </ul>
     </nav>
@@ -63,7 +62,7 @@ export default {
   left: 0;
   width: 100%;
   height: 3rem;
-  background-color: #2637DD;
+  background-color: $c-main;
   color: #eee;
   padding: 0 1rem;
   box-sizing: border-box;
@@ -82,8 +81,8 @@ export default {
 h1 {
   font-size: 1.5rem;
   line-height: 3rem;
+  color: #fff;
   margin: 0;
-  font-weight: bold;
   pointer-events: none;
 }
 
@@ -141,7 +140,7 @@ nav {
   left: 0;
   width: 100%;
   height: 2px;
-  background-image: linear-gradient(to right,  $c-blue 0%, #fff 47%, $c-blue 100%);
+  background-image: linear-gradient(to right,  $c-highlight 0%, $c-highlight 49%, $c-main 50%, $c-main 100%);
   background-size: 25% 100%;
   animation: stripe 4s infinite linear;
   display: block;
@@ -162,7 +161,7 @@ nav {
 
 @include desktop() {
   .loader {
-    height: 2px;
+    height: 3px;
     background-size: 10% 100%;
     animation: stripe 10s infinite linear;
   }

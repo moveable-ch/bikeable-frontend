@@ -2,7 +2,7 @@
 @import 'helpers';
 
 html {
-  font-size: 16px;
+  font-size: 18px;
 
   @media screen and(max-width: 700px) {
     font-size: 14px;
@@ -17,7 +17,7 @@ body {
 }
 
 a {
-  color: $c-blue;
+  color: $c-highlight;
 
   &:hover {
     color: #000;
@@ -26,8 +26,9 @@ a {
 
 h1, h2, h3 {
   font-family: $f-head;
-  font-weight: 900;
-  text-transform: uppercase;
+  font-weight: 700;
+  text-transform: lowercase;
+  color: $c-main;
 }
 h1 {
   font-size: 2rem;
@@ -49,12 +50,13 @@ p {
   font-family: $f-body;
   max-width: 600px;
   line-height: 1.4;
+  color: #000;
 
   & + & {
     margin-top: 1rem;
   }
   &.lead {
-    color: $c-blue;
+    color: $c-highlight;
     font-size: 1.25rem;
     padding-left: 1.5rem;
   }
@@ -87,7 +89,7 @@ small {
     }
 
     &:hover {
-      background-color: #333;
+      background-color: $c-highlight;
       color: #fff;
     }
   }
@@ -103,7 +105,7 @@ small {
     margin-left: 4px;
 
     &:hover {
-      background-color: #333;
+      background-color: $c-highlight;
       color: #fff;
     }
   }

@@ -9,7 +9,6 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "mapbox-gl": "^0.34.0",
     "vue": "^2.2.4",
     "vue-router": "^2.3.0"
   },

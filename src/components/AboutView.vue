@@ -77,7 +77,7 @@ h1 {
 h3 {
   font-family: $f-body;
   text-transform: none;
-  font-weight: 700;
+  font-weight: 500;
   border-bottom: 1px solid #333;
   color: #000;
   padding: .3rem 0;

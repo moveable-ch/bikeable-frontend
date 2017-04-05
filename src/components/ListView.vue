@@ -5,7 +5,7 @@
       <router-link to="/map" class="spot-nav__link">Zur Karte</router-link>
     </div>
     <div class="hero">
-      <p>Bikeable.ch zeigt die gefährlichsten Stellen für Velofahrer*innen auf und schlägt gleichzeitig Lösungen vor.</p>
+      <p>Bikeable.ch zeigt die gefährlichsten Stellen für Velofahrer   auf und schlägt gleichzeitig Lösungen vor.</p>
     </div>
     <ul>
       <li v-for="entry in entries" class="entry">
@@ -52,15 +52,15 @@ export default {
 }
 
 .hero {
-  font-size: 1.25rem;
-  padding: 1rem;
-  border: 4px solid $c-main;
-  background-color: #fff;
+  font-size: 1.5rem;
+  // padding: 1rem;
+  // border: 3px solid $c-main;
+  // background-color: #fff;
   margin: 2rem 0;
 
   p {
     color: $c-main;
-    font-weight: 700;
+    font-weight: 500;
     max-width: none;
   }
 }
@@ -123,10 +123,10 @@ ul {
         text-decoration: none;
         color: #000;
         margin-bottom: 1rem;
-        font-size: 1rem;
-        font-weight: 700;
+        font-size: 1.25rem;
+        font-weight: 500;
         font-family: $f-body;
-        border-bottom: 1px solid $c-highlight;
+        border-bottom: 2px solid $c-main;
         line-height: 1.4;
 
         &:hover {
@@ -135,7 +135,7 @@ ul {
         }
       }
       .entry__location {
-        font-size: .75rem;
+        font-size: 1rem;
         display: block;
         margin-top: .5rem;
       }

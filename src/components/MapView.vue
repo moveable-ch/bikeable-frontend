@@ -127,13 +127,20 @@ export default {
 
 <style lang="scss" scoped>
 
+@import '../styles/helpers';
+
 .map {
   position: absolute;
-  top: 0px;
+  top: 0;
   left: 0;
   width: 100%;
   height: calc(100vh - 3rem);
   background-color: #fff;
+
+  @include desktop {
+    top: 9rem;
+    height: calc(100vh - 9rem);
+  }
 }
 .gmaps {
   position: absolute;

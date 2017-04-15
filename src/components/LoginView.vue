@@ -1,13 +1,15 @@
 <template>
   <div class="login">
-    <h1>Login</h1>
-    <form @submit.prevent="login">
-      <input type="email" placeholder="E-Mail" v-model="formEmail">
-      <input type="password" placeholder="Passwort" v-model="formPassword">
-      <button type="submit" class="btn">OK</button>
-      <div class="notice" v-if="message != ''">{{ message }}</div>
-      <router-link to="/forgottenpw" class="forgotten-link">Passwort vergessen?</router-link>
-    </form>
+    <div class="container">
+      <h1>login</h1>
+      <form @submit.prevent="login">
+        <input type="email" placeholder="E-Mail" v-model="formEmail">
+        <input type="password" placeholder="Passwort" v-model="formPassword">
+        <button type="submit" class="btn">OK</button>
+        <div class="notice" v-if="message != ''">{{ message }}</div>
+        <router-link to="/forgottenpw" class="forgotten-link">Passwort vergessen?</router-link>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -58,9 +60,7 @@ export default {
 @import '../styles/helpers';
 
 .login {
-  max-width: 700px;
   margin: 2rem 0;
-  padding: 0 1rem;
 
   @include desktop() {
     padding: 0 2rem;

@@ -1,24 +1,26 @@
 <template>
   <div class="list">
-    <div class="spot-nav clearfix">
-      <router-link v-if="isLoggedIn" to="/add" class="spot-nav__add"></router-link>
-      <router-link to="/map" class="spot-nav__link">Zur Karte</router-link>
+    <div class="container">
+      <div class="spot-nav clearfix">
+        <router-link v-if="isLoggedIn" to="/add" class="spot-nav__add"></router-link>
+        <router-link to="/map" class="spot-nav__link">Zur Karte</router-link>
+      </div>
+      <div class="hero">
+        <p>Bikeable.ch zeigt die gefährlichsten Stellen für Velofahrer   auf und schlägt gleichzeitig Lösungen vor.</p>
+      </div>
+      <ul>
+        <li v-for="entry in entries" class="entry">
+          <span class="entry__votes">{{ entry.votes }}</span>
+          <router-link :to="'/entries/' + entry._id" class="entry__image" :style="{ backgroundImage: 'url('+entry.photo.small+')' }">
+            <img :src="entry.photo.small">
+          </router-link>
+          <div class="entry__content">
+            <router-link :to="'/entries/' + entry._id">{{ entry.title }}</router-link><br>
+            <span class="entry__location">{{ entry.address }}</span>
+          </div>
+        </li>
+      </ul>
     </div>
-    <div class="hero">
-      <p>Bikeable.ch zeigt die gefährlichsten Stellen für Velofahrer   auf und schlägt gleichzeitig Lösungen vor.</p>
-    </div>
-    <ul>
-      <li v-for="entry in entries" class="entry">
-        <span class="entry__votes">{{ entry.votes }}</span>
-        <router-link :to="'/entries/' + entry._id" class="entry__image" :style="{ backgroundImage: 'url('+entry.photo.small+')' }">
-          <img :src="entry.photo.small">
-        </router-link>
-        <div class="entry__content">
-          <router-link :to="'/entries/' + entry._id">{{ entry.title }}</router-link><br>
-          <span class="entry__location">{{ entry.address }}</span>
-        </div>
-      </li>
-    </ul>
   </div>
 </template>
 
@@ -45,10 +47,7 @@ export default {
 @import '../styles/helpers';
 
 .list {
-  max-width: 800px;
   margin: 1rem 0;
-  padding: 0 1rem;
-  padding-left: 2rem;
 }
 
 .hero {
@@ -61,7 +60,7 @@ export default {
   p {
     color: $c-main;
     font-weight: 500;
-    max-width: none;
+    max-width: 800px;
   }
 }
 
@@ -83,7 +82,6 @@ ul {
       width: 2rem;
       height: 2rem;
       background-color: $c-main;
-      border-radius: 99%;
       color: #fff;
       line-height: 2rem;
       margin-right: -1rem;
@@ -107,8 +105,8 @@ ul {
       }
 
       @include desktop() {
-        width: 5rem;
-        height: 5rem;
+        width: 4rem;
+        height: 4rem;
       }
     }
 
@@ -121,9 +119,9 @@ ul {
 
       a {
         text-decoration: none;
-        color: #000;
+        color: $c-main;
         margin-bottom: 1rem;
-        font-size: 1.25rem;
+        font-size: 1rem;
         font-weight: 500;
         font-family: $f-body;
         border-bottom: 2px solid $c-main;
@@ -135,7 +133,7 @@ ul {
         }
       }
       .entry__location {
-        font-size: 1rem;
+        font-size: .75rem;
         display: block;
         margin-top: .5rem;
       }

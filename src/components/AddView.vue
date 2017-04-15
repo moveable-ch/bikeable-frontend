@@ -1,11 +1,24 @@
 <template>
   <div class="add">
-    <h1>Neuer Beitrag</h1>
-    <input type="text" placeholder="Adresse" v-model="entryAddress" v-bind:class="{ inactive: addressPending }" v-on:blur="checkAddress">
-    <button class="btn" v-bind:class="{ disabled: !userCoords }" v-on:click="getUserAddress">My Location</button><br>
-    <small>Coordinates: {{ entryCoords }}</small>
-    <textarea placeholder="Beschreibung" v-model="entryText" rows="5"></textarea>
-    <button class="btn disabled" disabled>OK</button>
+    <div class="container">
+      <h1>Spot hinzufügen</h1>
+      <form @submit.prevent="postEntry">
+        <input type="text" placeholder="Adresse" v-model="entryAddress" v-bind:class="{ inactive: addressPending }" v-on:blur="checkAddress">
+        <button class="btn" v-bind:class="{ disabled: !userCoords }" v-on:click="getUserAddress">My Location</button><br>
+        <div class="file-upload">
+          <h3>Bild hochladen</h3>
+          <input v-on:change="uploadImage" type="file">
+          <span v-if="imageId">{{ imageId }}</span>
+          <div class="file-upload__preview">
+            <img v-bind:src="imagePreviewUrl">
+          </div>
+        </div>
+        <input type="text" v-model="entryTitle" placeholder="Titel">
+        <textarea placeholder="Beschreibung" v-model="entryText" rows="5"></textarea>
+        <label><input type="checkbox" v-model="entryFamed" name="famed">Famed</label><br>
+        <button type="submit" class="btn" v-bind:class="{ disabled: !formReady }" :disabled="!formReady">OK</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -18,19 +31,28 @@ export default {
 
       entryAddress: '',
       entryCoords: null,
-      entryText: ''
+      entryTitle: '',
+      entryText: '',
+      entryFamed: true,
+      imagePreviewUrl: '',
+      imageId: ''
     }
   },
 
   computed: {
     userCoords() {
       return this.$store.state.userCoords
+    },
+    formReady() {
+      return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.imageId != '');
     }
   },
 
   watch: {
-    'userCoords': function() {
-      // this.handleUserCoords();
+    'imageId': function() {
+      // if(this.imageId != '') {
+      //   this.imagePreviewUrl = 'https://backend.bikeable.ch/api/v1/photos/' + this.imageId + '/?size=medium'
+      // }
     }
   },
 
@@ -85,6 +107,42 @@ export default {
       this.entryAddress = '';
       this.entryCoords = null;
       this.addressPending = false;
+    },
+    uploadImage(e) {
+      e.preventDefault();
+      let imageFile = e.currentTarget;
+      let file = imageFile.files[0];
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (fileLoadEvent) => {
+        this.$store.dispatch('uploadImage', {
+          data: reader.result
+        })
+        .then((data) => {
+            this.imageId = data.body.data.imageId;
+          }, (data) => {
+            console.log('error', data);
+          });
+      };
+    },
+    postEntry(e) {
+      if(!this.formReady) return;
+
+      this.$store.dispatch('postEntry', {
+          title: this.entryTitle,
+          text: this.entryText,
+          imageId: this.imageId,
+          address: this.entryAddress,
+          coords: this.entryCoords,
+          famed: this.entryFamed
+        })
+      .then((data) => {
+          // console.log('success', data);
+          console.log(data);
+        }, (data) => {
+          console.log('error', data);
+          // this.message = data.body.message;
+        });
     }
   }
 }
@@ -95,17 +153,43 @@ export default {
 @import '../styles/helpers';
 
 .add {
-  max-width: 700px;
   margin: 2rem 0;
-  padding: 0 1rem;
-
-  @include desktop() {
-    padding: 0 2rem;
-  }
 }
 
 h1 {
   margin-bottom: 2rem;
+}
+
+.file-upload {
+  padding: 1rem;
+  padding-bottom: 0;
+  background-color: #fff;
+  margin: 1rem 0;
+  max-width: 500px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+
+  span {
+    background-color: $c-main;
+    color: #fff;
+    font-size: .75rem;
+    color: #fff;
+    padding: .5rem 1rem;
+  }
+
+  &__preview {
+    width: 15rem;
+    height: 10rem;
+    background-color: #aff;
+    display: none;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      height: auto;
+      width: auto;
+    }
+  }
 }
 
 

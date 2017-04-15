@@ -1,11 +1,13 @@
 <template>
   <div class="password-retrieval">
-    <h1>Passwort vergessen</h1>
-    <form @submit.prevent="submitForm">
-      <input type="email" placeholder="E-Mail" v-model="formEmail">
-      <button type="submit" class="btn">OK</button>
-      <div class="notice" v-if="message != ''">{{ message }}</div>
-    </form>
+    <div class="container">
+      <h1>passwort vergessen</h1>
+      <form @submit.prevent="submitForm">
+        <input type="email" placeholder="E-Mail" v-model="formEmail">
+        <button type="submit" class="btn">OK</button>
+        <div class="notice" v-if="message != ''">{{ message }}</div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -57,12 +59,9 @@ export default {
 @import '../styles/helpers';
 
 .password-retrieval {
-  max-width: 700px;
   margin: 2rem 0;
-  padding: 0 1rem;
 
   @include desktop() {
-    padding: 0 2rem;
   }
 }
 

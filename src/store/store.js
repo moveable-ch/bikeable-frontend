@@ -114,12 +114,59 @@ const actions = {
 
   },
 
+  uploadImage(context, data) {
+
+    let userId = localStorage.getItem('userId');
+    let token = localStorage.getItem('token');
+
+    context.commit('LOAD_START');
+
+    return new Promise((resolve, reject) => {
+      Vue.http.post('https://backend.bikeable.ch/api/v1/photos', data, {
+        headers: {
+          'X-User-Id': userId,
+          'X-Auth-Token': token
+        }
+      })
+        .then(response => {
+          context.commit('LOAD_FINISH');
+          resolve(response);
+        }, response => {
+          reject(response);
+        });
+    });
+
+  },
+
+  postEntry(context, data) {
+
+    let userId = localStorage.getItem('userId');
+    let token = localStorage.getItem('token');
+
+    context.commit('LOAD_START');
+
+    return new Promise((resolve, reject) => {
+      Vue.http.post('https://backend.bikeable.ch/api/v1/entries', data, {
+        headers: {
+          'X-User-Id': userId,
+          'X-Auth-Token': token
+        }
+      })
+        .then(response => {
+          context.commit('LOAD_FINISH');
+          resolve(response);
+        }, response => {
+          reject(response);
+        });
+    });
+
+  },
+
   loadEntries(context) {
     context.commit('LOAD_START');
 
     Vue.http.get('https://backend.bikeable.ch/api/v1/entries')
       .then(response => {
-        console.log(response.body.data);
         context.commit('SET_ENTRIES', response.body.data);
         context.commit('LOAD_FINISH');
       }, response => {

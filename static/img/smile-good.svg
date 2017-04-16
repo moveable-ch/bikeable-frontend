@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="130px" height="130px" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="smile-good">
+            <circle id="Oval" fill="#33BDCA" cx="65" cy="65" r="65"></circle>
+            <g id="Group" transform="translate(35.000000, 33.000000)" fill="#FFFFFF">
+                <circle id="Oval-2" cx="4" cy="4" r="4"></circle>
+                <circle id="Oval-2-Copy" cx="37" cy="4" r="4"></circle>
+            </g>
+            <path d="M35.75,58 C35.75,68.2518366 44.847239,76.5 56,76.5 C67.152761,76.5 76.25,68.2518366 76.25,58 C76.25,57.1715729 75.5784271,56.5 74.75,56.5 C73.9215729,56.5 73.25,57.1715729 73.25,58 C73.25,66.5258449 65.5579172,73.5 56,73.5 C46.4420828,73.5 38.75,66.5258449 38.75,58 C38.75,57.1715729 38.0784271,56.5 37.25,56.5 C36.4215729,56.5 35.75,57.1715729 35.75,58 Z" id="Oval-3" fill="#FFFFFF" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

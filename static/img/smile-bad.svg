@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="130px" height="130px" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>smile-bad</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="smile-bad">
+            <circle id="Oval" fill="#F92493" cx="65" cy="65" r="65"></circle>
+            <g id="Group" transform="translate(55.000000, 53.000000)" fill="#FFFFFF">
+                <circle id="Oval-2" cx="4" cy="4" r="4"></circle>
+                <circle id="Oval-2-Copy" cx="37" cy="4" r="4"></circle>
+            </g>
+            <path d="M96.3952613,94.6452942 C96.2163421,84.395019 86.9765383,76.3068805 75.8254759,76.501523 C64.6744136,76.6961656 55.7225104,85.1018414 55.9014296,95.3521166 C55.9158877,96.1804176 56.5990788,96.8401676 57.4273798,96.8257096 C58.2556807,96.8112515 58.9154308,96.1280604 58.9009727,95.2997594 C58.7521762,86.7752131 66.3213717,79.6678748 75.8778332,79.5010661 C85.4342946,79.3342575 93.2469217,86.173105 93.3957182,94.6976514 C93.4101762,95.5259523 94.0933674,96.1857024 94.9216683,96.1712443 C95.7499693,96.1567863 96.4097193,95.4735951 96.3952613,94.6452942 Z" id="Oval-3" fill="#FFFFFF" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

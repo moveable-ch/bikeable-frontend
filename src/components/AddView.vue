@@ -3,19 +3,33 @@
     <div class="container">
       <h1>Spot hinzufügen</h1>
       <form @submit.prevent="postEntry">
-        <input type="text" placeholder="Adresse" v-model="entryAddress" v-bind:class="{ inactive: addressPending }" v-on:blur="checkAddress">
-        <button class="btn" v-bind:class="{ disabled: !userCoords }" v-on:click="getUserAddress">My Location</button><br>
+        <label>
+          <span>Adresse</span>
+          <input type="text" v-model="entryAddress" v-bind:class="{ inactive: addressPending }" v-on:blur="checkAddress">
+        </label>
+        <a href="#" class="btn" v-bind:class="{ disabled: !userCoords }" v-on:click="getUserAddress">Mein Standort</a><br>
         <div class="file-upload">
           <h3>Bild hochladen</h3>
           <input v-on:change="uploadImage" type="file">
           <span v-if="imageId">{{ imageId }}</span>
-          <div class="file-upload__preview">
+          <div class="file-upload__preview" v-if="imageId">
             <img v-bind:src="imagePreviewUrl">
           </div>
         </div>
-        <input type="text" v-model="entryTitle" placeholder="Titel">
-        <textarea placeholder="Beschreibung" v-model="entryText" rows="5"></textarea>
-        <label><input type="checkbox" v-model="entryFamed" name="famed">Famed</label><br>
+        <label>
+          <span>Titel</span>
+          <input type="text" v-model="entryTitle">
+        </label>
+        <label>
+          <span>Beschreibung</span>
+          <textarea v-model="entryText" rows="5"></textarea>
+        </label>
+        <label class="fametoggle">
+          <input type="checkbox" v-model="entryFamed" name="famed">
+          <span class="slider">
+            <span class="slider__button"></span>
+          </span>
+        </label>
         <button type="submit" class="btn" v-bind:class="{ disabled: !formReady }" :disabled="!formReady">OK</button>
       </form>
     </div>
@@ -34,8 +48,7 @@ export default {
       entryTitle: '',
       entryText: '',
       entryFamed: true,
-      imagePreviewUrl: '',
-      imageId: ''
+      imageId: null
     }
   },
 
@@ -44,16 +57,14 @@ export default {
       return this.$store.state.userCoords
     },
     formReady() {
-      return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.imageId != '');
+      return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.imageId != null);
+    },
+    imagePreviewUrl() {
+      return 'https://backend.bikeable.ch/api/v1/photos/' + this.imageId + '/?size=small';
     }
   },
 
   watch: {
-    'imageId': function() {
-      // if(this.imageId != '') {
-      //   this.imagePreviewUrl = 'https://backend.bikeable.ch/api/v1/photos/' + this.imageId + '/?size=medium'
-      // }
-    }
   },
 
   mounted() {
@@ -68,7 +79,8 @@ export default {
         this.getUserAddress();
       }
     },
-    getUserAddress() {
+    getUserAddress(e) {
+      e.preventDefault();
       let coords = this.userCoords.lat + ',' + this.userCoords.lng;
 
       this.$http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+coords+'&key=AIzaSyDSPhuEAL3Hv0zmbnhGQlTu9ax0uLXmuOE').then(response => {
@@ -181,7 +193,7 @@ h1 {
     width: 15rem;
     height: 10rem;
     background-color: #aff;
-    display: none;
+    margin-bottom: 1rem;
 
     img {
       max-width: 100%;
@@ -190,6 +202,60 @@ h1 {
       width: auto;
     }
   }
+}
+
+.fametoggle {
+  position: relative;
+  display: block;
+  margin: 1rem 0 2rem 0;
+  width: 10.4rem;
+  height: 5.4rem;
+
+  input {
+    display: none;
+
+    &:checked + .slider {
+      // background-color: #333;
+    }
+    &:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+    &:checked + .slider .slider__button {
+      transform: translateX(5rem) rotate(360deg);
+      background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxMzBweCIgaGVpZ2h0PSIxMzBweCIgdmlld0JveD0iMCAwIDEzMCAxMzAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+ICAgIDxkZWZzPjwvZGVmcz4gICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+ICAgICAgICA8ZyBpZD0ic21pbGUtZ29vZCI+ICAgICAgICAgICAgPGNpcmNsZSBpZD0iT3ZhbCIgZmlsbD0iIzMzQkRDQSIgY3g9IjY1IiBjeT0iNjUiIHI9IjY1Ij48L2NpcmNsZT4gICAgICAgICAgICA8ZyBpZD0iR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM1LjAwMDAwMCwgMzMuMDAwMDAwKSIgZmlsbD0iI0ZGRkZGRiI+ICAgICAgICAgICAgICAgIDxjaXJjbGUgaWQ9Ik92YWwtMiIgY3g9IjQiIGN5PSI0IiByPSI0Ij48L2NpcmNsZT4gICAgICAgICAgICAgICAgPGNpcmNsZSBpZD0iT3ZhbC0yLUNvcHkiIGN4PSIzNyIgY3k9IjQiIHI9IjQiPjwvY2lyY2xlPiAgICAgICAgICAgIDwvZz4gICAgICAgICAgICA8cGF0aCBkPSJNMzUuNzUsNTggQzM1Ljc1LDY4LjI1MTgzNjYgNDQuODQ3MjM5LDc2LjUgNTYsNzYuNSBDNjcuMTUyNzYxLDc2LjUgNzYuMjUsNjguMjUxODM2NiA3Ni4yNSw1OCBDNzYuMjUsNTcuMTcxNTcyOSA3NS41Nzg0MjcxLDU2LjUgNzQuNzUsNTYuNSBDNzMuOTIxNTcyOSw1Ni41IDczLjI1LDU3LjE3MTU3MjkgNzMuMjUsNTggQzczLjI1LDY2LjUyNTg0NDkgNjUuNTU3OTE3Miw3My41IDU2LDczLjUgQzQ2LjQ0MjA4MjgsNzMuNSAzOC43NSw2Ni41MjU4NDQ5IDM4Ljc1LDU4IEMzOC43NSw1Ny4xNzE1NzI5IDM4LjA3ODQyNzEsNTYuNSAzNy4yNSw1Ni41IEMzNi40MjE1NzI5LDU2LjUgMzUuNzUsNTcuMTcxNTcyOSAzNS43NSw1OCBaIiBpZD0iT3ZhbC0zIiBmaWxsPSIjRkZGRkZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iPjwvcGF0aD4gICAgICAgIDwvZz4gICAgPC9nPjwvc3ZnPg==);
+    }
+  }
+
+  .slider {
+    display: block;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    box-shadow: 0 0 0 2px #ccc;
+    // border: 2px solid #ccc;
+    box-sizing: border-box;
+    margin: 0;
+    border-radius: 5.4rem;
+
+    &__button {
+      content: "";
+      position: absolute;
+      height: 5rem;
+      width: 5rem;
+      left: .2rem;
+      top: .2rem;
+      border-radius: 99%;
+      background-color: transparent;
+      background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxMzBweCIgaGVpZ2h0PSIxMzBweCIgdmlld0JveD0iMCAwIDEzMCAxMzAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+ICAgICAgICA8dGl0bGU+c21pbGUtYmFkPC90aXRsZT4gICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+ICAgIDxkZWZzPjwvZGVmcz4gICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+ICAgICAgICA8ZyBpZD0ic21pbGUtYmFkIj4gICAgICAgICAgICA8Y2lyY2xlIGlkPSJPdmFsIiBmaWxsPSIjRjkyNDkzIiBjeD0iNjUiIGN5PSI2NSIgcj0iNjUiPjwvY2lyY2xlPiAgICAgICAgICAgIDxnIGlkPSJHcm91cCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTUuMDAwMDAwLCA1My4wMDAwMDApIiBmaWxsPSIjRkZGRkZGIj4gICAgICAgICAgICAgICAgPGNpcmNsZSBpZD0iT3ZhbC0yIiBjeD0iNCIgY3k9IjQiIHI9IjQiPjwvY2lyY2xlPiAgICAgICAgICAgICAgICA8Y2lyY2xlIGlkPSJPdmFsLTItQ29weSIgY3g9IjM3IiBjeT0iNCIgcj0iNCI+PC9jaXJjbGU+ICAgICAgICAgICAgPC9nPiAgICAgICAgICAgIDxwYXRoIGQ9Ik05Ni4zOTUyNjEzLDk0LjY0NTI5NDIgQzk2LjIxNjM0MjEsODQuMzk1MDE5IDg2Ljk3NjUzODMsNzYuMzA2ODgwNSA3NS44MjU0NzU5LDc2LjUwMTUyMyBDNjQuNjc0NDEzNiw3Ni42OTYxNjU2IDU1LjcyMjUxMDQsODUuMTAxODQxNCA1NS45MDE0Mjk2LDk1LjM1MjExNjYgQzU1LjkxNTg4NzcsOTYuMTgwNDE3NiA1Ni41OTkwNzg4LDk2Ljg0MDE2NzYgNTcuNDI3Mzc5OCw5Ni44MjU3MDk2IEM1OC4yNTU2ODA3LDk2LjgxMTI1MTUgNTguOTE1NDMwOCw5Ni4xMjgwNjA0IDU4LjkwMDk3MjcsOTUuMjk5NzU5NCBDNTguNzUyMTc2Miw4Ni43NzUyMTMxIDY2LjMyMTM3MTcsNzkuNjY3ODc0OCA3NS44Nzc4MzMyLDc5LjUwMTA2NjEgQzg1LjQzNDI5NDYsNzkuMzM0MjU3NSA5My4yNDY5MjE3LDg2LjE3MzEwNSA5My4zOTU3MTgyLDk0LjY5NzY1MTQgQzkzLjQxMDE3NjIsOTUuNTI1OTUyMyA5NC4wOTMzNjc0LDk2LjE4NTcwMjQgOTQuOTIxNjY4Myw5Ni4xNzEyNDQzIEM5NS43NDk5NjkzLDk2LjE1Njc4NjMgOTYuNDA5NzE5Myw5NS40NzM1OTUxIDk2LjM5NTI2MTMsOTQuNjQ1Mjk0MiBaIiBpZD0iT3ZhbC0zIiBmaWxsPSIjRkZGRkZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iPjwvcGF0aD4gICAgICAgIDwvZz4gICAgPC9nPjwvc3ZnPg==);
+      background-size: 100%;
+      transition: .3s transform $easeOutQuint, .4s background-color $easeOutQuint;
+    }
+  }
+
 }
 
 

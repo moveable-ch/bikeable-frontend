@@ -1,7 +1,7 @@
 <template>
   <header class="header" v-bind:class="{ 'is-expanded': isExpanded }">
     <div class="container">
-      <h1>bikeable</h1>
+      <h1><router-link to="/">bikeable</router-link></h1>
       <button class="burger" v-on:click="toggleNav"></button>
       <nav>
         <ul>
@@ -85,7 +85,6 @@ h1 {
   font-size: 2rem;
   line-height: 3rem;
   margin: 0;
-  pointer-events: none;
   color: $c-main;
   position: relative;
   padding-left: 2.4rem;
@@ -99,6 +98,11 @@ h1 {
     position: absolute;
     top: 0;
     left: 0;
+  }
+
+  a {
+    color: $c-main;
+    text-decoration: none;
   }
 
   @include desktop() {

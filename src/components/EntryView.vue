@@ -1,27 +1,37 @@
 <template>
-  <div class="entry clearfix">
-    <div class="loader" :class="{ 'is-visible': loadingData }"></div>
-    <div class="col">
-      <img :src="currentEntry.photo.large">
-    </div>
-    <div class="col">
-      <div class="lead">
-        <h1>{{ currentEntry.title }}</h1>
-        <h2>{{ currentEntry.address }}</h2>
-        <p>{{ currentEntry.text }}</p>
-        <span class="username">— {{ currentEntry.user.name }}</span>
+  <div class="entry">
+    <div class="container clearfix">
+      <div class="col">
+        <img :src="currentEntry.photo.large">
       </div>
-      <div class="comments">
+      <div class="col">
+        <div class="lead">
+          <span class="meta">{{ entryDate }} — {{ currentEntry.user.name }}</span>
+          <h1>{{ currentEntry.title }}</h1>
+          <h2>{{ currentEntry.address }}</h2>
+          <p>{{ currentEntry.text }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="container clearfix">
+      <div class="col">
         <div class="notice" v-if="!isLoggedIn">Jetzt <router-link to="/register">registrieren</router-link> und mitdiskutieren!</div>
         <div class="comments__form" v-if="isLoggedIn">
           <form @submit.prevent="postComment">
-            <textarea v-model="commentText" rows="4"></textarea>
-            <button type="submit" class="btn">Kommentar abschicken</button>
+            <label>
+              <span>Kommentar</span>
+              <textarea v-model="commentText" rows="4"></textarea>
+            </label>
+            <button type="submit" class="btn">Senden</button>
           </form>
         </div>
-        <div class="comments__item" v-for="comment in comments">
-          <p>{{ comment.text }}</p>
-          <span class="username">{{ comment.user.name }}</span>
+      </div>
+      <div class="col">
+        <div class="comments">
+          <div class="comments__item" v-for="comment in comments">
+            <p>{{ comment.text }}</p>
+            <span class="username">{{ comment.user.name }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -55,6 +65,11 @@ export default {
     },
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
+    },
+    entryDate() {
+      if(!this.currentEntry.createdAt) return '';
+      let d = new Date(this.currentEntry.createdAt);
+      return d.toLocaleDateString('de-DE');
     }
   },
 
@@ -122,9 +137,8 @@ export default {
   @import '../styles/helpers';
 
   .entry {
-    // max-width: 1200px;
     margin: 0;
-    padding: 0;
+    padding-bottom: 2rem;
     font-family: $f-body;
 
     img {
@@ -134,44 +148,41 @@ export default {
   }
 
   .col {
+    padding-top: 3rem;
     box-sizing: border-box;
-    padding: 1rem;
 
     &:first-child {
-      padding: 0;
+      padding-right: 0;
     }
 
     @include desktop() {
       width: 50%;
       float: left;
-      padding: 1.5rem;
 
       &:first-child {
-        padding: 1.5rem;
+        padding-right: 1rem;
       }
     }
   }
 
   .lead {
     h1 {
-      display: inline;
       line-height: 1;
-      margin-top: 0;
-      margin-bottom: 0;
+      margin: 0 0 .5rem 0;
+      font-weight: 400;
     }
     h2 {
       margin-bottom: 1rem;
+      font-weight: 400;
     }
-    .username {
+    .meta {
       display: block;
-      margin: .5rem 0;
-      padding-left: 1rem;
+      color: #888;
+      margin-bottom: 1rem;
     }
   }
 
   .comments {
-    margin-top: 2rem;
-
     &__form {
       margin-bottom: 2rem;
     }

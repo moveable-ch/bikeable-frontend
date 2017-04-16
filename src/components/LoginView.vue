@@ -3,8 +3,14 @@
     <div class="container">
       <h1>login</h1>
       <form @submit.prevent="login">
-        <input type="email" placeholder="E-Mail" v-model="formEmail">
-        <input type="password" placeholder="Passwort" v-model="formPassword">
+        <label>
+          <span>E-Mail</span>
+          <input type="email" v-model="formEmail">
+        </label>
+        <label>
+          <span>Passwort</span>
+          <input type="password" v-model="formPassword">
+        </label>
         <button type="submit" class="btn">OK</button>
         <div class="notice" v-if="message != ''">{{ message }}</div>
         <router-link to="/forgottenpw" class="forgotten-link">Passwort vergessen?</router-link>

@@ -3,15 +3,16 @@
     <div class="container">
       <h1>Spot hinzufügen</h1>
       <form @submit.prevent="postEntry">
-        <label>
+        <label class="label-address">
           <span>Adresse</span>
           <input type="text" v-model="entryAddress" v-bind:class="{ inactive: addressPending }" v-on:blur="checkAddress">
+          <a href="#" class="userloc" v-bind:class="{ disabled: !userCoords }" v-on:click="getUserAddress"></a><br>
         </label>
-        <a href="#" class="btn" v-bind:class="{ disabled: !userCoords }" v-on:click="getUserAddress">Mein Standort</a><br>
+        <span class="label">Bild hochladen</span>
         <div class="file-upload">
-          <h3>Bild hochladen</h3>
-          <input v-on:change="uploadImage" type="file">
-          <span v-if="imageId">{{ imageId }}</span>
+          <div class="file-upload__form">
+            <input v-on:change="uploadImage" type="file">
+          </div>
           <div class="file-upload__preview" v-if="imageId">
             <img v-bind:src="imagePreviewUrl">
           </div>
@@ -60,7 +61,7 @@ export default {
       return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.imageId != null);
     },
     imagePreviewUrl() {
-      return 'https://backend.bikeable.ch/api/v1/photos/' + this.imageId;
+      return 'https://backend.bikeable.ch/api/v1/photos/' + this.imageId + '?size=small';
     }
   },
 
@@ -176,10 +177,12 @@ h1 {
   padding: 1rem;
   padding-bottom: 0;
   background-color: #fff;
-  margin: 1rem 0;
-  max-width: 500px;
+  margin: 0 0 1rem 0;
+  max-width: 700px;
   box-sizing: border-box;
   border: 2px solid #ccc;
+  height: 7rem;
+  position: relative;
 
   span {
     background-color: $c-main;
@@ -189,11 +192,25 @@ h1 {
     padding: .5rem 1rem;
   }
 
+  &__form {
+    width: calc(100% - 6rem);
+
+    input {
+      margin: 0;
+      font-size: 1rem;
+      font-family: $f-body;
+    }
+  }
+
   &__preview {
-    width: 15rem;
-    height: 10rem;
-    background-color: #aff;
-    margin-bottom: 1rem;
+    width: 6rem;
+    height: calc(7rem - 4px);
+    padding: 0;
+    box-sizing: border-box;
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: right;
 
     img {
       max-width: 100%;
@@ -258,5 +275,28 @@ h1 {
 
 }
 
+.label-address {
+  display: block;
+  position: relative;
+  max-width: 700px;
+}
+.userloc {
+  display: block;
+  position: absolute;
+  right: 1rem;
+  bottom: .9rem;
+  width: .8rem;
+  height: .8rem;
+  background: blue;
+  border-radius: 99%;
+  box-shadow: 0 0 0 3px #fff, 0 0 0 4px blue;
+
+  &.disabled {
+    pointer-events: none;
+    background-color: #ccc;
+
+    box-shadow: none;
+  }
+}
 
 </style>

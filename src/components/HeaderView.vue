@@ -87,6 +87,7 @@ h1 {
   line-height: 3rem;
   margin: 0;
   color: $c-main;
+  font-weight: 500;
   position: relative;
   padding-left: 2.4rem;
 
@@ -162,6 +163,7 @@ nav {
       text-decoration: none;
       font-size: 1.25rem;
       line-height: 1.5;
+      font-weight: 500;
 
       &.active {
         text-decoration: underline;

@@ -46,7 +46,7 @@ export default {
 @import '../styles/helpers';
 
 .list {
-  margin: 1rem 0;
+  margin: 3rem 0;
 }
 
 .hero {
@@ -84,8 +84,11 @@ ul {
           color: $c-highlight;
         }
         .entry__image {
-          &::before {
-            opacity: .3;
+          &::before, &::after {
+            opacity: 0;
+          }
+          &::after {
+            transform: scale(2);
           }
         }
       }
@@ -113,6 +116,7 @@ ul {
         position: absolute;
         top: 0;
         left: 0;
+        transition: .4s opacity, .4s transform;
       }
       &::after {
         background-image: url('../assets/smile-bad-nobg.svg');
@@ -121,7 +125,6 @@ ul {
       &::before {
         background-color: $c-highlight;
         opacity: .8;
-        transition: .4s opacity;
       }
 
       @include desktop() {

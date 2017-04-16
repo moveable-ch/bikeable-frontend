@@ -151,6 +151,7 @@ export default {
         })
       .then((data) => {
           // console.log('success', data);
+          this.$router.push('/entries/' + data.body.data._id);
           console.log(data);
         }, (data) => {
           console.log('error', data);

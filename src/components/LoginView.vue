@@ -53,6 +53,7 @@ export default {
           // console.log('success', data);
           this.$router.push('/');
         }, (data) => {
+          this.$store.dispatch('handleError', 'Fehler');
           console.log('error', data);
           // this.message = data.body.message;
         });

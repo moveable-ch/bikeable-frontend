@@ -1,5 +1,5 @@
 <template>
-  <div class="entry">
+  <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed }">
     <div class="container clearfix">
       <div class="col">
         <img :src="currentEntry.photo.large">
@@ -22,7 +22,7 @@
               <span>Kommentar</span>
               <textarea v-model="commentText" rows="4"></textarea>
             </label>
-            <button type="submit" class="btn">Senden</button>
+            <button type="submit" class="btn" v-bind:class="{ 'disabled': !commentText }">Senden</button>
           </form>
         </div>
       </div>
@@ -52,7 +52,8 @@ export default {
         },
         photo: {
           large: ''
-        }
+        },
+        famed: false
       },
       comments: {},
       commentText: ''
@@ -105,6 +106,8 @@ export default {
     },
 
     postComment() {
+      if(this.commentText == '') return;
+
       let userId = localStorage.getItem('userId');
       let token = localStorage.getItem('token');
 
@@ -145,6 +148,12 @@ export default {
       max-width: 100%;
       height: auto;
     }
+
+    &.is-famed {
+      h1 {
+        color: $c-main;
+      }
+    }
   }
 
   .col {
@@ -170,6 +179,7 @@ export default {
       line-height: 1;
       margin: 0 0 .5rem 0;
       font-weight: 400;
+      color: $c-highlight;
     }
     h2 {
       margin-bottom: 1rem;

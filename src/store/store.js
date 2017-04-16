@@ -9,10 +9,18 @@ const state = {
   isLoggedIn: !!localStorage.getItem('token'),
   pending: false,
   entries: false,
-  userCoords: false
+  userCoords: false,
+  msg: ''
 }
 
 const mutations = {
+  SET_MESSAGE(state, msg) {
+    state.msg = msg;
+
+    setTimeout(function() {
+      state.msg = '';
+    }.bind(this), 2000);
+  },
   LOAD_START(state) {
     state.pending = true;
   },
@@ -81,6 +89,32 @@ const actions = {
           localStorage.setItem('userId', response.body.data.userId);
           resolve(response);
         }, response => {
+          context.commit('LOAD_FINISH');
+          reject(response);
+        });
+    });
+
+  },
+
+  checkToken(context) {
+
+    let userId = localStorage.getItem('userId');
+    let token = localStorage.getItem('token');
+
+    return new Promise((resolve, reject) => {
+      Vue.http.get('https://backend.bikeable.ch/api/v1/tokenvalid', {}, {
+        headers: {
+          'X-User-Id': userId,
+          'X-Auth-Token': token
+        }
+      })
+        .then(response => {
+          resolve(response);
+        }, response => {
+          context.dispatch('handleError', response.body.message);
+          // context.commit('LOGOUT');
+          // localStorage.removeItem('token');
+          // localStorage.removeItem('userId');
           reject(response);
         });
     });
@@ -108,6 +142,7 @@ const actions = {
           localStorage.removeItem('userId');
           resolve(response);
         }, response => {
+          context.commit('LOAD_FINISH');
           reject(response);
         });
     });
@@ -156,6 +191,8 @@ const actions = {
           context.commit('LOAD_FINISH');
           resolve(response);
         }, response => {
+          context.commit('LOAD_FINISH');
+          this.$store.dispatch('handleError', 'Fehler');
           reject(response);
         });
     });
@@ -170,6 +207,8 @@ const actions = {
         context.commit('SET_ENTRIES', response.body.data);
         context.commit('LOAD_FINISH');
       }, response => {
+        context.commit('LOAD_FINISH');
+        this.$store.dispatch('handleError', 'Fehler');
         console.log(response);
       });
   },
@@ -193,6 +232,10 @@ const actions = {
         { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
       );
     }
+  },
+
+  handleError(context, msg) {
+    context.commit('SET_MESSAGE', msg);
   }
 }
 
@@ -202,6 +245,9 @@ const getters = {
   },
   pending: state => {
     return state.pending;
+  },
+  msg: state => {
+    return state.msg;
   }
 }
 

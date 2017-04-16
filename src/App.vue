@@ -19,13 +19,11 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      // if(to.name == 'list' && from.name == 'map') {
-      //   this.transitionName = 'slide-right';
-      // } else if (to.name == 'map' && from.name == 'list') {
-      //   this.transitionName = 'slide-left';
-      // } else {
-      //   this.transitionName = 'fade';
-      // }
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
     }
   },
   components: {
@@ -34,6 +32,16 @@ export default {
   mounted() {
     this.$store.dispatch('loadEntries');
     this.$store.dispatch('getUserCoords');
+
+    // if(this.isLoggedIn) {
+    //   this.$store.dispatch('checkToken')
+    //     .then((data) => {
+    //         console.log(data);
+    //       }, (data) => {
+    //         // this.$router.push('/');
+    //         console.log('error', data);
+    //       });
+    // }
   }
 }
 </script>
@@ -42,18 +50,6 @@ export default {
 <style>
 #app {
   position: relative;
-}
-
-.slide-right-enter-active, .slide-right-leave-active, .slide-left-enter-active, .slide-left-leave-active {
-  transition: opacity .5s, transform .5s;
-}
-.slide-right-enter, .slide-left-leave-to {
-  transform: translateX(50px);
-  opacity:  0;
-}
-.slide-right-leave-to, .slide-left-enter {
-  transform: translateX(-50px);
-  opacity:  0;
 }
 
 .fade-enter-active, .fade-leave-active {

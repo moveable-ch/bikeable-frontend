@@ -3,21 +3,20 @@
     <div class="container">
       <div class="spot-nav clearfix">
         <router-link v-if="isLoggedIn" to="/add" class="spot-nav__add"></router-link>
-        <router-link to="/map" class="spot-nav__link">Zur Karte</router-link>
       </div>
       <div class="hero">
         <p>Bikeable.ch zeigt die gefährlichsten Stellen für Velofahrer   auf und schlägt gleichzeitig Lösungen vor.</p>
       </div>
       <ul>
-        <li v-for="entry in entries" class="entry">
-          <span class="entry__votes">{{ entry.votes }}</span>
-          <router-link :to="'/entries/' + entry._id" class="entry__image" :style="{ backgroundImage: 'url('+entry.photo.small+')' }">
-            <img :src="entry.photo.small">
+        <li v-for="entry in entries" class="entry" v-bind:class="{ famed: entry.famed }">
+          <router-link :to="'/entries/' + entry._id" class="entry__link">
+            <span class="entry__votes">{{ entry.votes }}</span>
+            <span class="entry__image" :style="{ backgroundImage: 'url('+entry.photo.small+')' }"></span>
+            <span class="entry__content">
+              <h3>{{ entry.title }}</h3>
+              <span class="entry__location">{{ entry.address }}</span>
+            </span>
           </router-link>
-          <div class="entry__content">
-            <router-link :to="'/entries/' + entry._id">{{ entry.title }}</router-link><br>
-            <span class="entry__location">{{ entry.address }}</span>
-          </div>
         </li>
       </ul>
     </div>
@@ -51,6 +50,7 @@ export default {
 }
 
 .hero {
+  display: none;
   font-size: 1.5rem;
   // padding: 1rem;
   // border: 3px solid $c-main;
@@ -70,80 +70,92 @@ ul {
   padding: 0;
 
   .entry {
-    margin-bottom: .5rem;
-    background-color: #fff;
-    padding: .5rem;
-    box-sizing: border-box;
-    width: 100%;
-    display: flex;
-    align-items: center;
+    margin-bottom: 1rem;
 
-    &__votes {
-      width: 2rem;
-      height: 2rem;
-      background-color: $c-main;
-      color: #fff;
-      line-height: 2rem;
-      margin-right: -1rem;
-      margin-left: calc(-1rem - 4px);
-      font-weight: 700;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-      border: 2px solid #fff;
+    &__link {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      text-decoration: none;
+      color: #333;
+
+      &:hover {
+        h3 {
+          color: $c-highlight;
+        }
+        .entry__image {
+          &::before {
+            opacity: .3;
+          }
+        }
+      }
     }
-
+    &__content {
+      flex-shrink: 1;
+    }
     &__image {
+      flex-shrink: 0;
       display: block;
-      width: 4rem;
-      height: 4rem;
+      width: 3rem;
+      height: 3rem;
       background-size: cover;
       background-position: center;
+      margin: 0 1rem;
+      border-radius: 99%;
+      position: relative;
+      overflow: hidden;
 
-      img {
-        display: none;
+      &::before, &::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      &::after {
+        background-image: url('../assets/smile-bad-nobg.svg');
+        background-size: 100%;
+      }
+      &::before {
+        background-color: $c-highlight;
+        opacity: .8;
+        transition: .4s opacity;
       }
 
       @include desktop() {
-        width: 4rem;
-        height: 4rem;
+        width: 6rem;
+        height: 6rem;
+      }
+    }
+    &__votes {
+      color: $c-highlight;
+      font-size: 1.5rem;
+    }
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: .2rem;
+
+      @include desktop() {
+        font-size: 1.5rem;
       }
     }
 
-    &__content {
-      margin-left: 1rem;
+    &.famed {
 
-      @include desktop() {
-        margin-left: 1rem;
-      }
-
-      a {
-        text-decoration: none;
+      .entry__link:hover h3 {
         color: $c-main;
-        margin-bottom: 1rem;
-        font-size: 1rem;
-        font-weight: 500;
-        font-family: $f-body;
-        border-bottom: 2px solid $c-main;
-        line-height: 1.4;
-
-        &:hover {
-          color: $c-highlight;
-          border-color: $c-highlight;
-        }
       }
-      .entry__location {
-        font-size: .75rem;
-        display: block;
-        margin-top: .5rem;
+      .entry__image::before {
+        background-color: $c-main;
       }
-      p {
-        font-size: .9rem;
-
-        @include desktop() {
-          margin-top: .5rem;
-          font-size: 1rem;
-        }
+      .entry__image::after {
+        background-image: url('../assets/smile-good-nobg.svg');
+      }
+      .entry__votes {
+        color: $c-main;
       }
     }
 

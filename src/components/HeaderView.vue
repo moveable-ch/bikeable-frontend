@@ -6,6 +6,7 @@
       <nav>
         <ul>
           <li><router-link to="/">Spots</router-link></li>
+          <li><router-link to="/map">Map</router-link></li>
           <li><router-link to="/about">About</router-link></li>
           <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
           <li v-if="isLoggedIn"><a href="#" @click.prevent="logout">Logout</a></li>

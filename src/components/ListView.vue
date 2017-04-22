@@ -1,11 +1,13 @@
 <template>
   <div class="list">
     <div class="container">
-      <div class="spot-nav clearfix">
-        <router-link v-if="isLoggedIn" to="/add" class="spot-nav__add"></router-link>
-      </div>
       <div class="hero">
-        <p>Bikeable.ch zeigt die gefährlichsten Stellen für Velofahrer   auf und schlägt gleichzeitig Lösungen vor.</p>
+        <router-link v-if="isLoggedIn" to="/add" href="" class="hero__addlink">🚲 Spot hinzufügen</router-link>
+        <ul class="hero__sort">
+          <li><a href="#" @click.prevent="setSort('shame')" v-bind:class="{ active: isCurrentSort('shame') }">wall of shame</a></li>
+          <li><a href="#" @click.prevent="setSort('fame')" v-bind:class="{ active: isCurrentSort('fame') }">hall of fame</a></li>
+          <li><a href="#" @click.prevent="setSort('location')" v-bind:class="{ active: isCurrentSort('location'), disabled: !userCoords }">closest spots</a></li>
+        </ul>
       </div>
       <ul>
         <li v-for="entry in entries" class="entry" v-bind:class="{ famed: entry.famed }">
@@ -34,9 +36,27 @@ export default {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
     },
+    userCoords() {
+      return this.$store.state.userCoords
+    },
+    sort() {
+      return this.$store.state.sort
+    }
   },
-  data () {
+  data() {
     return {}
+  },
+  watch: {
+  },
+  methods: {
+    setSort(sort) {
+      this.$store.dispatch('setEntrySorting', sort);
+    },
+    isCurrentSort(sort) {
+      return this.sort == sort;
+    }
+  },
+  mounted() { 
   }
 }
 </script>
@@ -50,17 +70,51 @@ export default {
 }
 
 .hero {
-  display: none;
-  font-size: 1.5rem;
-  // padding: 1rem;
-  // border: 3px solid $c-main;
-  // background-color: #fff;
-  margin: 2rem 0;
+  margin-bottom: 3rem;
 
-  p {
+  &__sort {
+    margin-top: 2rem;
+    height: 3rem;
+    display: flex;
+    align-items: flex-end;
+
+    li {
+      display: inline-block;
+      margin-right: 1rem;
+
+      a {
+        text-decoration: none;
+        font-size: 1.25rem;
+        transition: font-size .3s $easeInOutQuint;
+
+        &.active {
+          color: $c-main;
+          font-size: 2.5rem;
+          pointer-events: none;
+        }
+        &.disabled {
+          color: #aaa;
+          pointer-events: none;
+        }
+      }
+    }
+  }
+  &__addlink {
+    display: block;
+    padding: 1rem;
+    box-sizing: border-box;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.25rem;
+    width: 20rem;
+    background-color: #fff;
+    border: 2px solid $c-main;
     color: $c-main;
-    font-weight: 500;
-    max-width: 800px;
+
+    &:hover {
+      background-color: $c-main;
+      color: #fff;
+    }
   }
 }
 

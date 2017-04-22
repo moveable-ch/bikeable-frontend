@@ -5,9 +5,9 @@
       <button class="burger" v-on:click="toggleNav"></button>
       <nav>
         <ul>
-          <li><router-link to="/">Spots</router-link></li>
-          <li><router-link to="/map">Map</router-link></li>
-          <li><router-link to="/about">About</router-link></li>
+          <li><router-link to="/" exact>Spots</router-link></li>
+          <li><router-link to="/map" exact>Map</router-link></li>
+          <li><router-link to="/about" exact>About</router-link></li>
           <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
           <li v-if="isLoggedIn"><a href="#" @click.prevent="logout">Logout</a></li>
         </ul>
@@ -173,8 +173,8 @@ nav {
       line-height: 1.5;
       font-weight: 500;
 
-      &.active {
-        text-decoration: underline;
+      &.router-link-active {
+        border-bottom: 2px solid $c-main;
       }
     }
   }

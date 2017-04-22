@@ -76,51 +76,6 @@ small {
   font-size: .8rem;
 }
 
-.spot-nav {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-
-  &__add {
-    display: block;
-    width: 4rem;
-    height: 4rem;
-    background-color: $c-blue;
-    color: #eee;
-    text-decoration: none;
-    text-align: center;
-    float: left;
-
-    &::before {
-      content: "+";
-      font-family: Arial;
-      font-size: 3rem;
-      line-height: 4rem;
-    }
-
-    &:hover {
-      background-color: $c-highlight;
-      color: #fff;
-    }
-  }
-  &__link {
-    display: block;
-    background-color: $c-blue;
-    height: 4rem;
-    float: left;
-    color: #fff;
-    line-height: 4rem;
-    text-decoration: none;
-    padding: 0 3rem;
-    margin-left: 4px;
-
-    &:hover {
-      background-color: $c-highlight;
-      color: #fff;
-    }
-  }
-}
-
 .btn {
   display: inline-block;
   border: none;

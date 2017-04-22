@@ -2,7 +2,8 @@
   <div class="map">
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
     <div class="spot-nav clearfix">
-      <router-link v-if="isLoggedIn" to="/add" class="spot-nav__add"></router-link>
+      <router-link v-if="isLoggedIn" to="/add" class="spot-nav__link spot-nav__link--add"></router-link>
+      <a href="#" @click.prevent="showUserLocation" class="spot-nav__link spot-nav__link--location" v-bind:class="{ disabled: !userCoords }"></a>
     </div>
   </div>
 </template>
@@ -92,8 +93,17 @@ export default {
 
       var marker = new this.google.maps.Marker({
         position: this.userCoords,
-        map: this.map
+        map: this.map,
+        icon: 'static/img/userloc.png'
       });
+
+    },
+
+    showUserLocation() {
+
+      if(!this.userCoords) return;
+
+      this.map.setCenter(this.userCoords);
 
     },
 
@@ -105,16 +115,20 @@ export default {
 
       this.entries.forEach((entry, index) => {
 
-        var marker = new this.google.maps.Marker({
+        let imgurl = 'static/img/smile-bad.png';
+
+        if(entry.famed) imgurl = 'static/img/smile-good.png';
+
+        let marker = new this.google.maps.Marker({
           position: entry.coords,
-          map: this.map
+          map: this.map,
+          icon: imgurl,
+          size: new google.maps.Size(20, 32)
         });
 
         marker.addListener('click', function(m) {
           this.$router.push({ name: 'entry', params: { id: entry._id }})
         }.bind(this));
-
-        // this.markers.push(marker);
 
       });
 
@@ -149,5 +163,57 @@ export default {
   height: 100%;
 }
 
+.spot-nav {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &__link {
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    background-color: $c-blue;
+    color: #eee;
+    text-decoration: none;
+    text-align: center;
+    float: left;
+    margin: 0 2px;
+    position: relative;
+
+    &:hover {
+      background-color: $c-main;
+      color: #fff;
+    }
+    &.disabled {
+      opacity: .2;
+      pointer-events: none;
+    }
+
+    &--add {
+      &::before {
+        content: "+";
+        font-family: Arial;
+        font-size: 3rem;
+        line-height: 4rem;
+      }
+    }
+    &--location {
+      &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-image: url('../assets/locatebutton.png');
+        background-size: 40px 40px;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+}
 
 </style>

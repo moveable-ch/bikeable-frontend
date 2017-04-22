@@ -10,10 +10,14 @@ const state = {
   pending: false,
   entries: false,
   userCoords: false,
-  msg: ''
+  msg: '',
+  sort: 'shame'
 }
 
 const mutations = {
+  SET_ENTRY_SORTING(state, sort) {
+    state.sort = sort;
+  },
   SET_MESSAGE(state, msg) {
     state.msg = msg;
 
@@ -202,7 +206,14 @@ const actions = {
   loadEntries(context) {
     context.commit('LOAD_START');
 
-    Vue.http.get('https://backend.bikeable.ch/api/v1/entries')
+    let url = 'https://backend.bikeable.ch/api/v1/entries';
+    if(context.state.sort == 'location' && context.state.userCoords) {
+      let coords = context.state.userCoords;
+      let params = '?sort=distance&lat=' + coords.lat + '&lng=' + coords.lng;
+      url = url + params;
+    }
+
+    Vue.http.get(url)
       .then(response => {
         context.commit('SET_ENTRIES', response.body.data);
         context.commit('LOAD_FINISH');
@@ -211,6 +222,15 @@ const actions = {
         this.$store.dispatch('handleError', 'Fehler');
         console.log(response);
       });
+  },
+
+  setEntrySorting(context, sort) {
+    if(sort != 'location' && sort != 'fame' && sort != 'shame') return;
+
+    if(context.state.sort != sort) {
+      context.commit('SET_ENTRY_SORTING', sort);
+      context.dispatch('loadEntries');
+    }
   },
 
   getUserCoords(context) {

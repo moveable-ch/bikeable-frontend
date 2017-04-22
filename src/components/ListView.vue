@@ -74,21 +74,18 @@ ul {
 
     &__link {
       display: flex;
-      align-items: center;
+      align-items: top;
       width: 100%;
       text-decoration: none;
       color: #333;
 
       &:hover {
         h3 {
-          color: $c-highlight;
+          text-decoration: underline;
         }
         .entry__image {
-          &::before, &::after {
-            opacity: 0;
-          }
           &::after {
-            transform: scale(2);
+            opacity: 0;
           }
         }
       }
@@ -104,11 +101,30 @@ ul {
       background-size: cover;
       background-position: center;
       margin: 0 1rem;
-      border-radius: 99%;
+      // border-radius: 99%;
       position: relative;
       overflow: hidden;
 
-      &::before, &::after {
+      // &::before, &::after {
+      //   content: "";
+      //   display: block;
+      //   width: 100%;
+      //   height: 100%;
+      //   position: absolute;
+      //   top: 0;
+      //   left: 0;
+      //   transition: .4s opacity, .4s transform;
+      // }
+      // &::after {
+      //   background-image: url('../assets/smile-bad-nobg.svg');
+      //   background-size: 100%;
+      // }
+      // &::before {
+      //   background-color: $c-highlight;
+      //   opacity: .8;
+      // }
+
+      &::after {
         content: "";
         display: block;
         width: 100%;
@@ -116,15 +132,10 @@ ul {
         position: absolute;
         top: 0;
         left: 0;
-        transition: .4s opacity, .4s transform;
-      }
-      &::after {
-        background-image: url('../assets/smile-bad-nobg.svg');
-        background-size: 100%;
-      }
-      &::before {
         background-color: $c-highlight;
-        opacity: .8;
+        opacity: .4;
+        mix-blend-mode: overlay;
+        // transition: .1s opacity;
       }
 
       @include desktop() {
@@ -140,6 +151,7 @@ ul {
       font-size: 1.25rem;
       font-weight: 400;
       margin-bottom: .2rem;
+      color: $c-highlight;
 
       @include desktop() {
         font-size: 1.5rem;
@@ -148,14 +160,15 @@ ul {
 
     &.famed {
 
-      .entry__link:hover h3 {
+      .entry__link h3 {
         color: $c-main;
       }
       .entry__image::before {
         background-color: $c-main;
       }
       .entry__image::after {
-        background-image: url('../assets/smile-good-nobg.svg');
+        background-color: $c-main;
+        // background-image: url('../assets/smile-good-nobg.svg');
       }
       .entry__votes {
         color: $c-main;

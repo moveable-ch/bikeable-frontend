@@ -27,6 +27,8 @@ export default {
   padding: 1rem;
   box-sizing: border-box;
   z-index: 2;
+  background-color: #fff;
+
 }
 
 </style>

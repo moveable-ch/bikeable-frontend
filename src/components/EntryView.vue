@@ -10,6 +10,8 @@
           <h1>{{ currentEntry.title }}</h1>
           <h2>{{ currentEntry.address }}</h2>
           <p>{{ currentEntry.text }}</p>
+          <span class="upvotes">{{ currentEntry.votes }}</span>
+          <button @click.prevent="upvoteEntry">Upvote</button>
         </div>
       </div>
     </div>
@@ -28,10 +30,7 @@
       </div>
       <div class="col">
         <div class="comments">
-          <div class="comments__item" v-for="comment in comments">
-            <p>{{ comment.text }}</p>
-            <span class="username">{{ comment.user.name }}</span>
-          </div>
+          <comment-view v-for="comment in comments" :key="comment._id" :comment="comment" :loadComments="loadComments"></comment-view>
         </div>
       </div>
     </div>
@@ -39,9 +38,14 @@
 </template>
 
 <script>
+import CommentView from '@/components/CommentView'
+
 export default {
   name: 'entry-view',
   props: [],
+  components: {
+    'comment-view': CommentView
+  },
   data () {
     return {
       entryId: 0,
@@ -97,6 +101,10 @@ export default {
         console.log(response);
       });
 
+      this.loadComments();
+    },
+
+    loadComments() {
       this.$http.get('https://backend.bikeable.ch/api/v1/comments?entry='+this.entryId).then(response => {
         this.$store.commit('LOAD_FINISH');
         this.comments = response.body.data;
@@ -129,6 +137,29 @@ export default {
         }).then(response => {
           this.commentText = '';
           this.fetchData();
+        });
+    },
+
+    upvoteEntry() {
+      let userId = localStorage.getItem('userId');
+      let token = localStorage.getItem('token');
+
+      this.$store.commit('LOAD_START');
+
+      this.$http.post('https://backend.bikeable.ch/api/v1/votes/' + this.currentEntry._id,
+        {
+          headers: {
+            'X-User-Id': userId,
+            'X-Auth-Token': token
+          }
+        }).then(response => {
+          console.log(response);
+          this.$store.commit('LOAD_FINISH');
+          // this.fetchData();
+        }, response => {
+          let msg = response.body.status + ': ' + response.body.message;
+          this.$store.commit('SET_MESSAGE', msg);
+          this.$store.commit('LOAD_FINISH');
         });
     }
   }
@@ -178,7 +209,7 @@ export default {
   .lead {
     h1 {
       line-height: 1;
-      margin: 0 0 .5rem 0;
+      margin: .5rem 0 .5rem 0;
       font-weight: 400;
       color: $c-highlight;
     }
@@ -189,7 +220,11 @@ export default {
     .meta {
       display: block;
       color: #888;
-      margin-bottom: 1rem;
+    }
+    .upvotes {
+      display: block;
+      font-size: 2.75rem;
+      margin-top: 1rem;
     }
   }
 
@@ -199,24 +234,6 @@ export default {
 
       @include desktop {
         margin-top: 2rem;
-      }
-    }
-    &__item {
-      // border: 2px solid #ccc;
-      background: white;
-      margin: 1rem 0;
-      padding: 1rem;
-      font-size: .85rem;
-      border: 1px solid #ddd;
-
-      .username {
-        display: block;
-        margin-top: .5rem;
-        padding-left: 1rem;
-
-        &::before {
-          content: "— ";
-        }
       }
     }
   }

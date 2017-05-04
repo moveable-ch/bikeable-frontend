@@ -17,6 +17,7 @@
             <span class="entry__content">
               <h3>{{ entry.title }}</h3>
               <span class="entry__location">{{ entry.address }}</span>
+              <span v-if="entry.distance" class="entry__distance">{{ entry.distance }}</span>
             </span>
           </router-link>
         </li>

@@ -219,7 +219,7 @@ const actions = {
         context.commit('LOAD_FINISH');
       }, response => {
         context.commit('LOAD_FINISH');
-        this.$store.dispatch('handleError', 'Fehler');
+        this.$store.dispatch('handleError', response.body.message);
         console.log(response);
       });
   },

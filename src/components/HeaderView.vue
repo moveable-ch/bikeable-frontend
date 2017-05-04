@@ -13,12 +13,6 @@
         </ul>
       </nav>
     </div>
-    <div v-if="pending" class="loader"></div>
-    <div class="msg" v-if="msg">
-      <div class="container">
-        {{ msg }}
-      </div>
-    </div>
   </header>
 </template>
 
@@ -46,12 +40,6 @@ export default {
   computed: {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
-    },
-    pending() {
-      return this.$store.getters.pending;
-    },
-    msg() {
-      return this.$store.getters.msg;
     }
   },
 
@@ -228,17 +216,6 @@ nav {
   .burger {
     display: none;
   }
-}
-
-.msg {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: #333;
-  padding: .5rem 0;
-  color: #fff;
-  text-align: center;
 }
 
 </style>

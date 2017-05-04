@@ -157,7 +157,7 @@ export default {
   }
 
   .col {
-    padding-top: 3rem;
+    padding-top: 2rem;
     box-sizing: border-box;
 
     &:first-child {
@@ -167,6 +167,7 @@ export default {
     @include desktop() {
       width: 50%;
       float: left;
+      padding-top: 3rem;
 
       &:first-child {
         padding-right: 1rem;
@@ -194,13 +195,19 @@ export default {
 
   .comments {
     &__form {
-      margin-bottom: 2rem;
+      margin-bottom: 0rem;
+
+      @include desktop {
+        margin-top: 2rem;
+      }
     }
     &__item {
       // border: 2px solid #ccc;
       background: white;
       margin: 1rem 0;
       padding: 1rem;
+      font-size: .85rem;
+      border: 1px solid #ddd;
 
       .username {
         display: block;

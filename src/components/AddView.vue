@@ -6,7 +6,7 @@
         <label class="label-address">
           <span>Adresse</span>
           <input type="text" v-model="entryAddress" v-bind:class="{ inactive: addressPending }" v-on:blur="checkAddress">
-          <a href="#" class="userloc" v-bind:class="{ disabled: !userCoords }" v-on:click="getUserAddress"></a><br>
+          <a href="#" title="Meinen Standort benutzen" class="userloc" v-bind:class="{ disabled: !userCoords }" v-on:click="getUserAddress"></a><br>
         </label>
         <span class="label">Bild hochladen</span>
         <div class="file-upload">
@@ -31,7 +31,7 @@
             <span class="slider__button"></span>
           </span>
         </label>
-        <button type="submit" class="btn" v-bind:class="{ disabled: !formReady }" :disabled="!formReady">OK</button>
+        <button type="submit" class="btn" v-bind:class="{ disabled: !formReady }" :disabled="!formReady">Senden</button>
       </form>
     </div>
   </div>
@@ -200,6 +200,7 @@ h1 {
       margin: 0;
       font-size: 1rem;
       font-family: $f-body;
+      width: 100%;
     }
   }
 
@@ -280,23 +281,26 @@ h1 {
   display: block;
   position: relative;
   max-width: 700px;
+  box-sizing: border-box;
+  padding-right: 3rem;
 }
 .userloc {
   display: block;
   position: absolute;
-  right: 1rem;
-  bottom: .9rem;
-  width: .8rem;
-  height: .8rem;
-  background: blue;
-  border-radius: 99%;
-  box-shadow: 0 0 0 3px #fff, 0 0 0 4px blue;
+  right: 0;
+  bottom: .25rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 100%;
+  background: $c-main;
+  background-image: url('../assets/locatebutton.png');
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
 
   &.disabled {
     pointer-events: none;
     background-color: #ccc;
-
-    box-shadow: none;
   }
 }
 

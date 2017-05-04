@@ -2,7 +2,7 @@
   <div class="list">
     <div class="container">
       <div class="hero">
-        <router-link v-if="isLoggedIn" to="/add" href="" class="hero__addlink">🚲 Spot hinzufügen</router-link>
+        <router-link v-if="isLoggedIn" to="/add" href="" class="hero__addlink">Spot hinzufügen</router-link>
         <ul class="hero__sort">
           <li><a href="#" @click.prevent="setSort('shame')" v-bind:class="{ active: isCurrentSort('shame') }">wall of shame</a></li>
           <li><a href="#" @click.prevent="setSort('fame')" v-bind:class="{ active: isCurrentSort('fame') }">hall of fame</a></li>
@@ -66,21 +66,26 @@ export default {
 @import '../styles/helpers';
 
 .list {
-  margin: 3rem 0;
+  margin: 1rem 0;
+
+  @include desktop {
+    margin: 3rem 0;
+  }
 }
 
 .hero {
   margin-bottom: 3rem;
 
   &__sort {
-    margin-top: 2rem;
+    margin: 2rem 0 3rem 0;
     height: 3rem;
     display: flex;
-    align-items: flex-end;
+    flex-wrap: wrap;
 
     li {
       display: inline-block;
       margin-right: 1rem;
+      width: 100%;
 
       a {
         text-decoration: none;
@@ -89,12 +94,27 @@ export default {
 
         &.active {
           color: $c-main;
-          font-size: 2.5rem;
+          font-size: 2rem;
           pointer-events: none;
         }
         &.disabled {
           color: #aaa;
           pointer-events: none;
+        }
+      }
+    }
+
+    @include desktop  {
+      align-items: flex-end;
+
+      li {
+        width: auto;
+
+        a {
+
+          &.active {
+            font-size: 2.5rem;
+          }
         }
       }
     }
@@ -106,7 +126,7 @@ export default {
     text-align: center;
     text-decoration: none;
     font-size: 1.25rem;
-    width: 20rem;
+    width: 100%;
     background-color: #fff;
     border: 2px solid $c-main;
     color: $c-main;
@@ -114,6 +134,10 @@ export default {
     &:hover {
       background-color: $c-main;
       color: #fff;
+    }
+
+    @include desktop {
+      width: 20rem;
     }
   }
 }

@@ -6,12 +6,12 @@
       </div>
       <div class="col">
         <div class="lead">
-          <span class="meta">{{ entryDate }} — {{ currentEntry.user.name }}</span>
+          <span class="meta">{{ currentEntry.user.name }}, {{ entryDate }}</span>
           <h1>{{ currentEntry.title }}</h1>
           <h2>{{ currentEntry.address }}</h2>
           <p>{{ currentEntry.text }}</p>
           <span class="upvotes">{{ currentEntry.votes }}</span>
-          <button @click.prevent="upvoteEntry">Upvote</button>
+          <button v-bind:class="{ 'is-active': hasVoted }" class="btn-upvote" @click.prevent="upvoteEntry">▲</button>
         </div>
       </div>
     </div>
@@ -50,6 +50,7 @@ export default {
     return {
       entryId: 0,
       loadingData: true,
+      hasVoted: false,
       currentEntry: {
         user: {
           name: ''
@@ -93,6 +94,7 @@ export default {
     fetchData() {
       this.loadEntry();
       this.loadComments();
+      this.checkUpvote();
     },
 
     loadEntry() {
@@ -146,6 +148,25 @@ export default {
         });
     },
 
+    checkUpvote() {
+
+      let userId = localStorage.getItem('userId');
+      let token = localStorage.getItem('token');
+
+      this.$http.get('https://backend.bikeable.ch/api/v1/votes/' + this.entryId,
+        {
+          headers: {
+            'X-User-Id': userId,
+            'X-Auth-Token': token
+          }
+        }).then(response => {
+          this.hasVoted = false;
+        }, response => {
+          this.hasVoted = true;
+        });
+
+    },
+
     upvoteEntry() {
       let userId = localStorage.getItem('userId');
       let token = localStorage.getItem('token');
@@ -159,9 +180,9 @@ export default {
             'X-Auth-Token': token
           }
         }).then(response => {
-          console.log(response);
           this.$store.commit('LOAD_FINISH');
           this.loadEntry();
+          this.checkUpvote();
         }, response => {
           let msg = response.body.message;
           this.$store.commit('SET_MESSAGE', msg);
@@ -190,6 +211,17 @@ export default {
       h1 {
         color: $c-main;
       }
+      .lead .upvotes {
+        color: $c-main;
+        border-color: $c-main;
+      }
+      .lead .btn-upvote.is-active {
+        color: $c-main;
+      }
+    }
+
+    @include desktop() {
+      padding-bottom: 4rem;
     }
   }
 
@@ -228,9 +260,34 @@ export default {
       color: #888;
     }
     .upvotes {
-      display: block;
-      font-size: 2.75rem;
+      display: inline-block;
+      width: 4rem;
+      height: 4rem;
+      line-height: 4rem;
+      text-align: center;
+      color: $c-highlight;
+      // font-weight: 600;
+      border: 3px solid $c-highlight;
+      border-radius: 99%;
+      font-size: 2rem;
       margin-top: 1rem;
+      pointer-events: none;
+    }
+    .btn-upvote {
+      background: transparent;
+      font-size: 1.5rem;
+      color: #333;
+      border: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+
+      &:active, &:focus {
+        outline: none;
+      }
+      &.is-active {
+        color: $c-highlight;
+        pointer-events: none;
+      }
     }
   }
 
@@ -239,7 +296,7 @@ export default {
       margin-bottom: 0rem;
 
       @include desktop {
-        margin-top: 2rem;
+        // margin-top: 2rem;
       }
     }
   }

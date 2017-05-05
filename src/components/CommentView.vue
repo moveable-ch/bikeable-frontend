@@ -1,8 +1,12 @@
 <template>
   <div class="comment">
-    <span class="username">{{ comment.user.name }}, {{ dateCreated }}</span>
+    <div class="comment__meta">
+      <span class="upvotes">{{ comment.votesCount }}</span>
+      <button class="btn-upvote" @click.prevent="upvoteComment">▲</button>
+      <span class="username">{{ comment.user.name }}</span>
+      <span class="date">{{ dateCreated }}</span>
+    </div>
     <p>{{ comment.text }}</p>
-    <span class="upvotes">{{ comment.votesCount }} — <a href="#" @click.prevent="upvoteComment">upvote</a></span>
   </div>
 </template>
 
@@ -69,18 +73,43 @@ export default {
   .comment {
     // border: 2px solid #ccc;
     background: white;
-    margin: 1rem 0;
-    padding: 1rem;
-    font-size: .85rem;
+    margin: .5rem 0;
+    // padding: 1rem;
+    font-size: .8rem;
     border: 1px solid #ddd;
 
-    .username {
-      color: $c-main;
-      display: block;
+    &__meta {
+      background-color: #f8f8f8;
+      padding: .5rem 1rem;
+      position: relative;
+
+      .username {
+        font-weight: 600;
+      }
+      .upvotes {
+        font-weight: 600;
+      }
+      .date {
+        position: absolute;
+        right: 1rem;
+        top: .5rem;
+      }
+      .btn-upvote {
+        background-color: transparent;
+        border: none;
+        -webkit-appearance: none;
+        padding: 0 .5rem 0 .1rem;
+        font-size: .8rem;
+        // color: $c-highlight;
+        cursor: pointer;
+
+        &:active, &:focus {
+          outline: none;
+        }
+      }
     }
-    .upvotes {
-      display: block;
-      margin-top: .5rem;
+    p {
+      padding: .5rem 1rem;
     }
   }
 

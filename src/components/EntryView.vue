@@ -146,7 +146,7 @@ export default {
 
       this.$store.commit('LOAD_START');
 
-      this.$http.post('https://backend.bikeable.ch/api/v1/votes/' + this.currentEntry._id,
+      this.$http.post('https://backend.bikeable.ch/api/v1/votes/' + this.currentEntry._id, {}, 
         {
           headers: {
             'X-User-Id': userId,

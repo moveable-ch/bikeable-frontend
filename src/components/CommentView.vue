@@ -40,8 +40,7 @@ export default {
       let token = localStorage.getItem('token');
 
       this.$store.commit('LOAD_START');
-
-      this.$http.post('https://backend.bikeable.ch/api/v1/comments/' + this.comment._id + '/vote',
+      this.$http.post('https://backend.bikeable.ch/api/v1/comments/' + this.comment._id + '/vote', {},
         {
           headers: {
             'X-User-Id': userId,

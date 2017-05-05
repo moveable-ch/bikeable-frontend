@@ -88,7 +88,7 @@ export default {
   left: 0;
   width: 100%;
   height: auto;
-  z-index: 2;
+  z-index: 3;
   background-color: rgba(#222, .8);
   color: #fff;
   padding: 1rem 0;
@@ -106,7 +106,7 @@ export default {
 .loader {
   position: fixed;
   top: 0;
-  z-index: 2;
+  z-index: 3;
   left: 0;
   width: 100%;
   height: 2px;

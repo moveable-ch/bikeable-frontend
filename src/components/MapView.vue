@@ -1,5 +1,6 @@
 <template>
   <div class="map">
+    <entry-modal-view v-if="showModal" @close="showModal = false" :entryId="activeEntryId"></entry-modal-view>
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
     <div class="spot-nav clearfix">
       <router-link v-if="isLoggedIn" to="/add" class="spot-nav__link spot-nav__link--add"></router-link>
@@ -9,7 +10,7 @@
 </template>
 
 <script>
-import MapInfoView from '@/components/MapInfoView';
+import EntryModalView from '@/components/EntryModalView';
 import mapstyle from '@/assets/gmaps.json';
 
 import GoogleMapsLoader from 'google-maps';
@@ -18,7 +19,7 @@ export default {
   name: 'map-view',
   props: [],
   components: {
-    'map-info': MapInfoView
+    'entry-modal-view': EntryModalView
   },
 
   computed: {
@@ -35,8 +36,9 @@ export default {
 
   data () {
     return {
-      activeEntry: [],
-      markers: []
+      activeEntryId: null,
+      markers: [],
+      showModal: false
     }
   },
 
@@ -73,7 +75,7 @@ export default {
           this.map = new google.maps.Map(this.$refs.gmaps, {
           center: {lat: 47.377235, lng: 8.5314407},
           zoom: 15,
-          disableDefaultUI: true,
+          disableDefaultUI: false,
           clickableIcons: false,
           gestureHandling: 'greedy',
           styles: mapstyle
@@ -127,7 +129,9 @@ export default {
         });
 
         marker.addListener('click', function(m) {
-          this.$router.push({ name: 'entry', params: { id: entry._id }})
+          this.activeEntryId = entry._id;
+          this.showModal = true;
+          // this.$router.push({ name: 'entry', params: { id: entry._id }});
         }.bind(this));
 
       });

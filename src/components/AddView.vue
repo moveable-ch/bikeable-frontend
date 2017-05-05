@@ -134,6 +134,8 @@ export default {
         .then((data) => {
             this.imageId = data.body.data.imageId;
           }, (data) => {
+            let msg = response.body.status + ': ' + response.body.message;
+            this.$store.commit('SET_MESSAGE', msg);
             console.log('error', data);
           });
       };

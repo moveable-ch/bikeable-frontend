@@ -64,7 +64,7 @@ export default {
   background-color: #fff;
   color: $c-main;
   box-sizing: border-box;
-  z-index: 1;
+  z-index: 2;
   overflow: hidden;
 
   &.is-expanded {
@@ -187,32 +187,7 @@ nav {
   }
 }
 
-.loader {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-image: linear-gradient(to right,  $c-highlight 0%, $c-highlight 49%, $c-main 50%, $c-main 100%);
-  background-size: 25% 100%;
-  animation: stripe 4s infinite linear;
-}
-
-@keyframes stripe {
-  from {
-    background-position: left bottom;
-  }
-  to {
-    background-position: right bottom;
-  }
-}
-
 @include desktop() {
-  .loader {
-    height: 3px;
-    background-size: 10% 100%;
-    animation: stripe 10s infinite linear;
-  }
   .burger {
     display: none;
   }

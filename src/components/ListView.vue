@@ -164,7 +164,7 @@ ul {
         }
         .entry__image {
           &::after {
-            opacity: 0;
+            opacity: .6;
           }
         }
       }
@@ -212,7 +212,7 @@ ul {
         top: 0;
         left: 0;
         background-color: $c-highlight;
-        opacity: .4;
+        opacity: 0;
         mix-blend-mode: overlay;
         // transition: .1s opacity;
       }

@@ -45,15 +45,15 @@ export default {
     this.$store.dispatch('loadEntries');
     this.$store.dispatch('getUserCoords');
 
-    // if(this.isLoggedIn) {
-    //   this.$store.dispatch('checkToken')
-    //     .then((data) => {
-    //         console.log(data);
-    //       }, (data) => {
-    //         // this.$router.push('/');
-    //         console.log('error', data);
-    //       });
-    // }
+    if(this.isLoggedIn) {
+      this.$store.dispatch('checkToken')
+        .then((data) => {
+            // console.log(data);
+          }, (data) => {
+            this.$router.push('/');
+            // console.log('error', data);
+          });
+    }
   }
 }
 </script>

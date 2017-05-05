@@ -106,19 +106,22 @@ const actions = {
     let token = localStorage.getItem('token');
 
     return new Promise((resolve, reject) => {
-      Vue.http.get('https://backend.bikeable.ch/api/v1/tokenvalid', {}, {
+      Vue.http.get('https://backend.bikeable.ch/api/v1/tokenvalid', {
         headers: {
           'X-User-Id': userId,
           'X-Auth-Token': token
         }
       })
         .then(response => {
+          // console.log(response);
+          context.commit('LOAD_FINISH');
           resolve(response);
         }, response => {
-          context.dispatch('handleError', response.body.message);
-          // context.commit('LOGOUT');
-          // localStorage.removeItem('token');
-          // localStorage.removeItem('userId');
+          // context.dispatch('handleError', response.body.message);
+          context.commit('LOAD_FINISH');
+          context.commit('LOGOUT');
+          localStorage.removeItem('token');
+          localStorage.removeItem('userId');
           reject(response);
         });
     });
@@ -140,8 +143,8 @@ const actions = {
         }
       })
         .then(response => {
-          context.commit('LOGOUT');
           context.commit('LOAD_FINISH');
+          context.commit('LOGOUT');
           localStorage.removeItem('token');
           localStorage.removeItem('userId');
           resolve(response);

@@ -151,6 +151,11 @@ ul {
   .entry {
     margin-bottom: 1rem;
 
+    &__distance {
+      display: block;
+      color: #888;
+      margin-top: .5rem;
+    }
     &__link {
       display: flex;
       align-items: top;

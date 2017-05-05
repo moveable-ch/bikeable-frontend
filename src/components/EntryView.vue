@@ -91,17 +91,22 @@ export default {
 
   methods: {
     fetchData() {
+      this.loadEntry();
+      this.loadComments();
+    },
+
+    loadEntry() {
       this.entryId = this.$route.params.id;
       this.$store.commit('LOAD_START');
 
       this.$http.get('https://backend.bikeable.ch/api/v1/entries/'+this.entryId).then(response => {
         this.currentEntry = response.body.data;
         this.loadingData = false;
+        this.$store.commit('LOAD_FINISH');
       }, response => {
+        this.$store.commit('LOAD_FINISH');
         console.log(response);
       });
-
-      this.loadComments();
     },
 
     loadComments() {
@@ -109,6 +114,7 @@ export default {
         this.$store.commit('LOAD_FINISH');
         this.comments = response.body.data;
       }, response => {
+        this.$store.commit('LOAD_FINISH');
         console.log(response);
       });
     },
@@ -146,7 +152,7 @@ export default {
 
       this.$store.commit('LOAD_START');
 
-      this.$http.post('https://backend.bikeable.ch/api/v1/votes/' + this.currentEntry._id, {}, 
+      this.$http.post('https://backend.bikeable.ch/api/v1/votes/' + this.currentEntry._id, {},
         {
           headers: {
             'X-User-Id': userId,
@@ -155,9 +161,9 @@ export default {
         }).then(response => {
           console.log(response);
           this.$store.commit('LOAD_FINISH');
-          // this.fetchData();
+          this.loadEntry();
         }, response => {
-          let msg = response.body.status + ': ' + response.body.message;
+          let msg = response.body.message;
           this.$store.commit('SET_MESSAGE', msg);
           this.$store.commit('LOAD_FINISH');
         });

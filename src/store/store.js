@@ -9,6 +9,7 @@ const state = {
   isLoggedIn: !!localStorage.getItem('token'),
   pending: false,
   entries: false,
+  sponsors: false,
   userCoords: false,
   msg: '',
   sort: 'shame'
@@ -33,6 +34,9 @@ const mutations = {
   },
   SET_ENTRIES(state, entries) {
     state.entries = entries;
+  },
+  SET_SPONSORS(state, sponsors) {
+    state.sponsors = sponsors;
   },
   SET_USER_COORDS(state, coords) {
     state.userCoords = coords;
@@ -225,6 +229,24 @@ const actions = {
         this.$store.dispatch('handleError', response.body.message);
         console.log(response);
       });
+  },
+
+  loadSponsors(context) {
+
+    context.commit('LOAD_START');
+
+    let url = 'https://backend.bikeable.ch/api/v1/sponsoredEntries';
+
+    Vue.http.get(url)
+      .then(response => {
+        context.commit('SET_SPONSORS', response.body.data);
+        context.commit('LOAD_FINISH');
+      }, response => {
+        context.commit('LOAD_FINISH');
+        this.$store.dispatch('handleError', response.body.message);
+        console.log(response);
+      });
+
   },
 
   setEntrySorting(context, sort) {

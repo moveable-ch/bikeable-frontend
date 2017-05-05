@@ -43,6 +43,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch('loadEntries');
+    this.$store.dispatch('loadSponsors');
     this.$store.dispatch('getUserCoords');
 
     if(this.isLoggedIn) {

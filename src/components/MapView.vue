@@ -26,6 +26,9 @@ export default {
     entries() {
       return this.$store.state.entries
     },
+    sponsors() {
+      return this.$store.state.sponsors
+    },
     userCoords() {
       return this.$store.state.userCoords
     },
@@ -37,7 +40,6 @@ export default {
   data () {
     return {
       activeEntryId: null,
-      markers: [],
       showModal: false
     }
   },
@@ -47,10 +49,6 @@ export default {
   },
 
   beforeDestroy() {
-    this.markers.forEach((marker) => {
-      // marker.removeListener('click');
-    });
-    this.markers = [];
   },
 
   watch: {
@@ -82,6 +80,7 @@ export default {
         });
 
         this.renderMarkers();
+        // this.renderSponsors();
         this.locateUser();
 
       }.bind(this));
@@ -109,11 +108,34 @@ export default {
 
     },
 
+    renderSponsors() {
+
+      if(!this.sponsors || !this.google) return;
+
+      this.sponsors.forEach((entry, index) => {
+
+        // let imgurl = 'static/img/smile-bad.png';
+
+        let marker = new this.google.maps.Marker({
+          position: entry.coords,
+          map: this.map
+          // icon: imgurl,
+          // size: new google.maps.Size(20, 32)
+        });
+
+        marker.addListener('click', function(m) {
+          this.activeEntryId = entry._id;
+          this.showModal = true;
+          // this.$router.push({ name: 'entry', params: { id: entry._id }});
+        }.bind(this));
+
+      });
+
+    },
+
     renderMarkers() {
 
       if(!this.entries || !this.google) return;
-
-      this.markers = [];
 
       this.entries.forEach((entry, index) => {
 

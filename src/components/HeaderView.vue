@@ -1,7 +1,7 @@
 <template>
   <header class="header" v-bind:class="{ 'is-expanded': isExpanded }">
     <div class="container">
-      <h1><router-link to="/">bikeable</router-link></h1>
+      <h1><router-link to="/">bikeable</router-link><span>beta</span></h1>
       <button class="burger" v-on:click="toggleNav"></button>
       <nav>
         <ul>
@@ -103,6 +103,13 @@ h1 {
     text-decoration: none;
   }
 
+  span {
+    font-size: .6rem;
+    position: absolute;
+    bottom: -1.1rem;
+    left: 2.5rem;
+  }
+
   @include desktop() {
     display: inline-block;
     padding-left: 3.7rem;
@@ -113,6 +120,13 @@ h1 {
       width: 71px;
       height: 94px;
       top: -1.5rem;
+    }
+
+    span {
+      font-size: .9rem;
+      position: absolute;
+      bottom: -1.5rem;
+      left: 3.8rem;
     }
   }
 }
@@ -160,9 +174,11 @@ nav {
       font-size: 1.25rem;
       line-height: 1.5;
       font-weight: 500;
+      transition: .1s color;
 
       &.router-link-active {
-        border-bottom: 2px solid $c-main;
+        color: $c-highlight;
+        // border-bottom: 2px solid $c-main;
       }
     }
   }

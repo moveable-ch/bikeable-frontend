@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="container">
-      <h1>login</h1>
+      <h1>Login</h1>
       <form @submit.prevent="login">
         <label>
           <span>E-Mail</span>
@@ -54,8 +54,6 @@ export default {
           this.$router.push('/');
         }, (data) => {
           this.$store.dispatch('handleError', 'Fehler');
-          console.log('error', data);
-          // this.message = data.body.message;
         });
     }
   }

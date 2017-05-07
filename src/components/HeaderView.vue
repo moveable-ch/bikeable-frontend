@@ -8,6 +8,11 @@
           <li><router-link to="/" exact>Spots</router-link></li>
           <li><router-link to="/map" exact>Map</router-link></li>
           <li><router-link to="/about" exact>About</router-link></li>
+        </ul>
+      </nav>
+      <nav class="nav-right">
+        <ul>
+          <li v-if="userData" class="username">{{ userData.username }}</li>
           <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
           <li v-if="isLoggedIn"><a href="#" @click.prevent="logout">Logout</a></li>
         </ul>
@@ -40,6 +45,9 @@ export default {
   computed: {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
+    },
+    userData() {
+      return this.$store.state.userData;
     }
   },
 
@@ -69,6 +77,10 @@ export default {
 
   &.is-expanded {
     height: auto;
+  }
+
+  .container {
+    position: relative;
   }
 
   @include desktop() {
@@ -182,6 +194,15 @@ nav {
       }
     }
   }
+  .username {
+    // display: inline-block;
+    // white-space: nowrap;
+    // max-width: 10rem;
+    // overflow: hidden;
+    // line-height: 1;
+    // height: auto;
+    // text-overflow: ellipsis;
+  }
 
   @include desktop() {
     display: inline-block;
@@ -199,6 +220,12 @@ nav {
           font-size: 1rem;
         }
       }
+    }
+
+    &.nav-right {
+      position: absolute;
+      bottom: 0;
+      right: 0;
     }
   }
 }

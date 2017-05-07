@@ -7,6 +7,7 @@ Vue.use(VueResource)
 
 const state = {
   isLoggedIn: !!localStorage.getItem('token'),
+  userData: false,
   pending: false,
   entries: false,
   sponsors: false,
@@ -46,6 +47,9 @@ const mutations = {
   },
   LOGOUT(state) {
     state.isLoggedIn = false;
+  },
+  SET_USER_DATA(state, data) {
+    state.userData = data;
   }
 }
 
@@ -95,12 +99,34 @@ const actions = {
           context.commit('LOAD_FINISH');
           localStorage.setItem('token', response.body.data.authToken);
           localStorage.setItem('userId', response.body.data.userId);
+
+          context.dispatch('getUserInfo');
+
           resolve(response);
         }, response => {
           context.commit('LOAD_FINISH');
           reject(response);
         });
     });
+
+  },
+
+  getUserInfo(context, data) {
+
+    let userId = localStorage.getItem('userId');
+    let token = localStorage.getItem('token');
+
+    Vue.http.get('https://backend.bikeable.ch/api/v1/users/' + userId, {
+      headers: {
+        'X-User-Id': userId,
+        'X-Auth-Token': token
+      }
+    })
+      .then(response => {
+        context.commit('SET_USER_DATA', response.body.data);
+      }, response => {
+
+      });
 
   },
 
@@ -119,6 +145,7 @@ const actions = {
         .then(response => {
           // console.log(response);
           context.commit('LOAD_FINISH');
+          context.dispatch('getUserInfo');
           resolve(response);
         }, response => {
           // context.dispatch('handleError', response.body.message);
@@ -149,6 +176,7 @@ const actions = {
         .then(response => {
           context.commit('LOAD_FINISH');
           context.commit('LOGOUT');
+          context.commit('SET_USER_DATA', null);
           localStorage.removeItem('token');
           localStorage.removeItem('userId');
           resolve(response);
@@ -227,7 +255,7 @@ const actions = {
       }, response => {
         context.commit('LOAD_FINISH');
         this.$store.dispatch('handleError', response.body.message);
-        console.log(response);
+        // console.log(response);
       });
   },
 

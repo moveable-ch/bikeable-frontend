@@ -26,9 +26,9 @@ export default {
     entries() {
       return this.$store.state.entries
     },
-    sponsors() {
-      return this.$store.state.sponsors
-    },
+    // sponsors() {
+    //   return this.$store.state.sponsors
+    // },
     userCoords() {
       return this.$store.state.userCoords
     },
@@ -40,7 +40,19 @@ export default {
   data () {
     return {
       activeEntryId: null,
-      showModal: false
+      showModal: false,
+      sponsors: [
+        {
+          _id: 'ASgx94CwKrgT3RLDg',
+          name: 'Stromvelo.ch',
+          address: 'Kanonengasse 15',
+          plz: 8004,
+          stadt: 'Zürich',
+          place_id: 'ChIJG7tdaxAKkEcRt9zEZ9gEfBM',
+          isSponsor: false,
+          coords: { lat: 47.373342, lng: 8.519370},
+        }
+      ]
     }
   },
 
@@ -80,7 +92,7 @@ export default {
         });
 
         this.renderMarkers();
-        // this.renderSponsors();
+        this.renderSponsors();
         this.locateUser();
 
       }.bind(this));
@@ -92,10 +104,15 @@ export default {
 
       if(!this.userCoords) return;
 
+      let icon = {
+        url: 'static/img/userloc.png',
+        scaledSize: new google.maps.Size(17, 17)
+      }
+
       var marker = new this.google.maps.Marker({
         position: this.userCoords,
         map: this.map,
-        icon: 'static/img/userloc.png'
+        icon: icon
       });
 
     },
@@ -114,20 +131,23 @@ export default {
 
       this.sponsors.forEach((entry, index) => {
 
-        // let imgurl = 'static/img/smile-bad.png';
+        let imgurl = 'static/img/star.png';
+        let icon = {
+          url: imgurl,
+          scaledSize: new google.maps.Size(22, 21)
+        }
 
         let marker = new this.google.maps.Marker({
           position: entry.coords,
-          map: this.map
-          // icon: imgurl,
-          // size: new google.maps.Size(20, 32)
+          map: this.map,
+          icon: icon
         });
 
-        marker.addListener('click', function(m) {
-          this.activeEntryId = entry._id;
-          this.showModal = true;
+        // marker.addListener('click', function(m) {
+        //   this.activeEntryId = entry._id;
+        //   this.showModal = true;
           // this.$router.push({ name: 'entry', params: { id: entry._id }});
-        }.bind(this));
+        // }.bind(this));
 
       });
 
@@ -143,11 +163,15 @@ export default {
 
         if(entry.famed) imgurl = 'static/img/smile-good.png';
 
+        let icon = {
+          url: imgurl,
+          scaledSize: new google.maps.Size(30, 30)
+        }
+
         let marker = new this.google.maps.Marker({
           position: entry.coords,
           map: this.map,
-          icon: imgurl,
-          size: new google.maps.Size(20, 32)
+          icon: icon
         });
 
         marker.addListener('click', function(m) {

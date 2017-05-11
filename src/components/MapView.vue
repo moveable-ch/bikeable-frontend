@@ -1,6 +1,7 @@
 <template>
   <div class="map">
     <entry-modal-view v-if="showModal" @close="showModal = false" :entryId="activeEntryId"></entry-modal-view>
+    <sponsor-modal-view v-if="showSponsorModal" @close="showSponsorModal = false" :sponsoredEntry="activeSponsor"></sponsor-modal-view>
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
     <div class="spot-nav clearfix">
       <router-link v-if="isLoggedIn" to="/add" class="spot-nav__link spot-nav__link--add"></router-link>
@@ -11,6 +12,7 @@
 
 <script>
 import EntryModalView from '@/components/EntryModalView';
+import SponsorModalView from '@/components/SponsorModalView';
 import mapstyle from '@/assets/gmaps.json';
 
 import GoogleMapsLoader from 'google-maps';
@@ -19,6 +21,7 @@ export default {
   name: 'map-view',
   props: [],
   components: {
+    'sponsor-modal-view': SponsorModalView,
     'entry-modal-view': EntryModalView
   },
 
@@ -26,9 +29,9 @@ export default {
     entries() {
       return this.$store.state.entries
     },
-    // sponsors() {
-    //   return this.$store.state.sponsors
-    // },
+    sponsors() {
+      return this.$store.state.sponsors
+    },
     userCoords() {
       return this.$store.state.userCoords
     },
@@ -40,19 +43,9 @@ export default {
   data () {
     return {
       activeEntryId: null,
+      activeSponsor: null,
       showModal: false,
-      sponsors: [
-        {
-          _id: 'ASgx94CwKrgT3RLDg',
-          name: 'Stromvelo.ch',
-          address: 'Kanonengasse 15',
-          plz: 8004,
-          stadt: 'Zürich',
-          place_id: 'ChIJG7tdaxAKkEcRt9zEZ9gEfBM',
-          isSponsor: false,
-          coords: { lat: 47.373342, lng: 8.519370},
-        }
-      ]
+      showSponsorModal: false
     }
   },
 
@@ -66,6 +59,9 @@ export default {
   watch: {
     'entries': function() {
       this.renderMarkers();
+    },
+    'sponsors': function() {
+      this.renderSponsors();
     },
     'userCoords': function() {
       this.locateUser();
@@ -106,7 +102,7 @@ export default {
 
       let icon = {
         url: 'static/img/userloc.png',
-        scaledSize: new google.maps.Size(17, 17)
+        scaledSize: new this.google.maps.Size(17, 17)
       }
 
       var marker = new this.google.maps.Marker({
@@ -131,23 +127,26 @@ export default {
 
       this.sponsors.forEach((entry, index) => {
 
-        let imgurl = 'static/img/star.png';
+        let imgurl = 'static/img/star-lame.png';
+
+        if(entry.isSponsor) imgurl = 'static/img/star.png';
+
         let icon = {
           url: imgurl,
-          scaledSize: new google.maps.Size(22, 21)
+          scaledSize: new google.maps.Size(16, 16)
         }
 
         let marker = new this.google.maps.Marker({
-          position: entry.coords,
+          position: entry.location,
           map: this.map,
           icon: icon
         });
 
-        // marker.addListener('click', function(m) {
-        //   this.activeEntryId = entry._id;
-        //   this.showModal = true;
+        marker.addListener('click', function(m) {
+          this.activeSponsor = entry;
+          this.showSponsorModal = true;
           // this.$router.push({ name: 'entry', params: { id: entry._id }});
-        // }.bind(this));
+        }.bind(this));
 
       });
 

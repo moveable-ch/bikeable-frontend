@@ -1,7 +1,7 @@
 <template>
   <transition name="modal">
-    <div class="entry-modal" v-bind:class="{ 'is-famed': currentEntry.famed }">
-      <div class="entry-modal__inner" v-if="currentEntry">
+    <div class="entry-modal" v-bind:class="{ 'is-famed': currentEntry.famed }" @click="$emit('close')">
+      <div class="entry-modal__inner" v-if="currentEntry" @click.stop>
         <span class="upvotes">{{ currentEntry.votes }}</span>
         <div class="entry-modal__content">
           <h2>{{ currentEntry.title }}</h2>
@@ -69,7 +69,7 @@ export default {
   z-index: 1;
 
   &__inner {
-    padding: 1rem;
+    padding: 1.5rem;
     background-color: #fff;
     display: flex;
     max-width: calc(100% - 2rem);

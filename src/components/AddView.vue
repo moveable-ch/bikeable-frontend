@@ -25,6 +25,7 @@
           <span>Beschreibung</span>
           <textarea v-model="entryText" rows="5"></textarea>
         </label>
+        <span class="fametoggle-label">Guter Spot oder schlechter Spot?</span>
         <label class="fametoggle">
           <input type="checkbox" v-model="entryFamed" name="famed">
           <span class="slider">
@@ -164,17 +165,18 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 @import '../styles/helpers';
 
 .add {
   margin: 2rem 0;
+
+  h1 {
+    margin-bottom: 2rem;
+  }
 }
 
-h1 {
-  margin-bottom: 2rem;
-}
 
 .file-upload {
   padding: 1rem;
@@ -225,6 +227,12 @@ h1 {
   }
 }
 
+.fametoggle-label {
+  display: block;
+  font-size: .8rem;
+  margin-bottom: .3rem;
+  color: #888;
+}
 .fametoggle {
   position: relative;
   display: block;

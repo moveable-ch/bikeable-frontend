@@ -6,7 +6,7 @@
         <label class="label-address">
           <span>Adresse</span>
           <input type="text" v-model="entryAddress" v-bind:class="{ inactive: addressPending }" v-on:blur="checkAddress">
-          <a href="#" title="Meinen Standort benutzen" class="userloc" v-bind:class="{ disabled: !userCoords }" v-on:click="getUserAddress"></a><br>
+          <a href="#" title="Meinen Standort benutzen" class="userloc" v-bind:class="{ disabled: !userCoords }" @click.prevent="handleUserCoords"></a><br>
         </label>
         <span class="label">Bild hochladen</span>
         <div class="file-upload">
@@ -41,6 +41,7 @@
 <script>
 export default {
   name: 'add-view',
+  props: ['propCoords'],
   data () {
     return {
       addressPending: false,
@@ -56,7 +57,7 @@ export default {
 
   computed: {
     userCoords() {
-      return this.$store.state.userCoords
+      return this.$store.state.userCoords;
     },
     formReady() {
       return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.imageId != null);
@@ -70,32 +71,56 @@ export default {
   },
 
   mounted() {
-    // this.handleUserCoords();
+    this.handleParamCoords();
   },
 
   methods: {
-    handleUserCoords() {
-      if(!this.userCoords || this.entryAddress != '') {
-        this.addressPending = false;
-      } else {
-        this.getUserAddress();
-      }
+    handleParamCoords() {
+
+      if(!this.$route.params.coords) return;
+
+      let pCoords = this.$route.params.coords;
+      this.addressPending = true;
+
+      this.getAddress(pCoords.lat + ',' + pCoords.lng)
+        .then((address) => {
+          this.entryAddress = address;
+          this.entryCoords = pCoords;
+          this.addressPending = false;
+        }, (data) => {
+          this.$store.dispatch('handleError', 'Fehler');
+          this.addressPending = false;
+        });
+
     },
-    getUserAddress(e) {
-      e.preventDefault();
-      let coords = this.userCoords.lat + ',' + this.userCoords.lng;
+    handleUserCoords() {
+      this.addressPending = true;
 
-      this.$http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+coords+'&key=AIzaSyDSPhuEAL3Hv0zmbnhGQlTu9ax0uLXmuOE').then(response => {
-        if(response.body.results[0].formatted_address != '') {
-          this.entryAddress = response.body.results[0].formatted_address;
+      this.getAddress(this.userCoords.lat + ',' + this.userCoords.lng)
+        .then((address) => {
+          this.entryAddress = address;
           this.entryCoords = this.userCoords;
-        }
+          this.addressPending = false;
+        }, (data) => {
+          this.$store.dispatch('handleError', 'Fehler');
+          this.addressPending = false;
+        });
+    },
+    getAddress(coords) {
 
-        this.addressPending = false;
-      }, response => {
-        console.log(response);
-        this.clearAddress();
+      return new Promise((resolve, reject) => {
+        this.$http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+coords+'&key=AIzaSyDSPhuEAL3Hv0zmbnhGQlTu9ax0uLXmuOE').then(response => {
+          if(response.body.results[0].formatted_address != '') {
+            let address = response.body.results[0].formatted_address;
+            resolve(address);
+          }else{
+            reject(response);
+          }
+        }, response => {
+          reject(esponse);
+        });
       });
+
     },
     checkAddress() {
       this.addressPending = true;
@@ -154,6 +179,7 @@ export default {
         })
       .then((data) => {
           // console.log('success', data);
+          this.$store.dispatch('loadEntries');
           this.$router.push('/entries/' + data.body.data._id);
           console.log(data);
         }, (data) => {

@@ -2,6 +2,7 @@
   <div class="map">
     <entry-modal-view v-if="showModal" @close="showModal = false" :entryId="activeEntryId"></entry-modal-view>
     <sponsor-modal-view v-if="showSponsorModal" @close="showSponsorModal = false" :sponsoredEntry="activeSponsor"></sponsor-modal-view>
+    <add-modal-view v-if="showAddModal" @close="showAddModal = false" :coords="clickedCoords"></add-modal-view>
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
     <div class="spot-nav clearfix">
       <router-link v-if="isLoggedIn" to="/add" class="spot-nav__link spot-nav__link--add"></router-link>
@@ -13,6 +14,7 @@
 <script>
 import EntryModalView from '@/components/EntryModalView';
 import SponsorModalView from '@/components/SponsorModalView';
+import AddModalView from '@/components/AddModalView';
 import mapstyle from '@/assets/gmaps.json';
 
 import GoogleMapsLoader from 'google-maps';
@@ -22,7 +24,8 @@ export default {
   props: [],
   components: {
     'sponsor-modal-view': SponsorModalView,
-    'entry-modal-view': EntryModalView
+    'entry-modal-view': EntryModalView,
+    'add-modal-view': AddModalView
   },
 
   computed: {
@@ -44,7 +47,9 @@ export default {
     return {
       activeEntryId: null,
       activeSponsor: null,
+      clickedCoords: null,
       showModal: false,
+      showAddModal: false,
       showSponsorModal: false
     }
   },
@@ -76,9 +81,9 @@ export default {
       GoogleMapsLoader.LANGUAGE = 'de';
 
       GoogleMapsLoader.load(function(google) {
-          this.google = google;
+        this.google = google;
 
-          this.map = new google.maps.Map(this.$refs.gmaps, {
+        this.map = new google.maps.Map(this.$refs.gmaps, {
           center: {lat: 47.377235, lng: 8.5314407},
           zoom: 15,
           disableDefaultUI: false,
@@ -86,6 +91,17 @@ export default {
           gestureHandling: 'greedy',
           styles: mapstyle
         });
+
+        this.map.addListener('click', function(e) {
+          let lat = e.latLng.lat();
+          let lng = e.latLng.lng();
+
+          this.clickedCoords = {
+            lat: lat,
+            lng: lng
+          };
+          this.showAddModal = true;
+        }.bind(this));
 
         this.renderMarkers();
         this.renderSponsors();

@@ -2,7 +2,7 @@
   <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed }">
     <div class="container clearfix">
       <div class="col">
-        <img :src="currentEntry.photo.medium">
+        <img :src="currentEntry.photo.large">
       </div>
       <div class="col">
         <div class="lead">

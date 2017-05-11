@@ -84,6 +84,7 @@ export default {
       line-height: 2rem;
       text-align: center;
       z-index: 0;
+      cursor: pointer;
 
       &:active, &:focus {
         outline: none;

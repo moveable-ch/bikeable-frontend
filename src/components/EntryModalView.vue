@@ -1,12 +1,12 @@
 <template>
   <transition name="modal">
-    <div class="entry-modal" v-bind:class="{ 'is-famed': currentEntry.famed }" @click="$emit('close')">
+    <div class="entry-modal" v-bind:class="{ 'is-famed': getFamed }" @click="$emit('close')">
       <div class="entry-modal__inner" v-if="currentEntry" @click.stop>
         <span class="upvotes">{{ currentEntry.votes }}</span>
         <div class="entry-modal__content">
           <h2>{{ currentEntry.title }}</h2>
           <span class="address">{{ currentEntry.address }}</span>
-          <div class="meta">3 Kommentare</div>
+          <div class="meta">{{ currentEntry.commentCount }} Kommentare</div>
           <button class="btn-close" @click="$emit('close')">✕</button>
           <button class="btn-show" @click="showEntry">Spot anzeigen</button>
         </div>
@@ -21,9 +21,14 @@ export default {
   props: ['entryId'],
   data () {
     return {
-      currentEntry: {
-        famed: false
-      }
+      currentEntry: null
+    }
+  },
+  computed: {
+    getFamed() {
+      if(!this.currentEntry) return false;
+      if(!this.currentEntry.famed) return false;
+      return true;
     }
   },
   watch: {
@@ -106,6 +111,7 @@ export default {
       color: #888;
     }
     .meta {
+      line-height: 1.6;
       font-size: .8rem;
       color: #888;
     }
@@ -123,6 +129,7 @@ export default {
       line-height: 2rem;
       text-align: center;
       z-index: 0;
+      cursor: pointer;
 
       &:active, &:focus {
         outline: none;

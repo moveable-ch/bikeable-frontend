@@ -143,6 +143,7 @@ export default {
 
       li {
         display: inline;
+        margin-right: 1rem;
 
         a {
 

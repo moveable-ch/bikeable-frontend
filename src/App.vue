@@ -35,7 +35,6 @@ export default {
       return this.$store.getters.msg;
     },
     pending() {
-      return true;
       return this.$store.getters.pending;
     }
   },

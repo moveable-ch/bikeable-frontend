@@ -35,6 +35,7 @@ export default {
       return this.$store.getters.msg;
     },
     pending() {
+      return true;
       return this.$store.getters.pending;
     }
   },
@@ -110,8 +111,8 @@ export default {
   z-index: 3;
   left: 0;
   width: 100%;
-  height: 2px;
-  background-image: linear-gradient(to right,  $c-highlight 0%, $c-highlight 49%, $c-main 50%, $c-main 100%);
+  height: 3px;
+  background-image: linear-gradient(to right,  $c-highlight 0%, $c-main 50%, $c-highlight 100%);
   background-size: 25% 100%;
   animation: stripe 4s infinite linear;
 }
@@ -127,9 +128,9 @@ export default {
 
 @include desktop() {
   .loader {
-    height: 2px;
-    background-size: 10% 100%;
-    animation: stripe 10s infinite linear;
+    height: 4px;
+    background-size: 33% 100%;
+    animation: stripe 5s infinite linear;
   }
 }
 

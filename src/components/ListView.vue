@@ -4,15 +4,16 @@
       <div class="hero">
         <router-link v-if="isLoggedIn" to="/add" href="" class="hero__addlink">Spot hinzufügen</router-link>
         <ul class="hero__sort">
-          <li><a href="#" @click.prevent="setSort('shame')" v-bind:class="{ active: isCurrentSort('shame') }">Wall of Shame</a></li>
-          <li><a href="#" @click.prevent="setSort('fame')" v-bind:class="{ active: isCurrentSort('fame') }">Hall of Fame</a></li>
-          <li><a href="#" @click.prevent="setSort('location')" v-bind:class="{ active: isCurrentSort('location'), disabled: !userCoords }">Closest Spots</a></li>
+          <li><a href="#" @click.prevent="entryFilter = 'all'" v-bind:class="{ active: isCurrentSort('all') }">Alle Spots</a></li>
+          <li><a href="#" @click.prevent="entryFilter = 'shame'" v-bind:class="{ active: isCurrentSort('shame') }">Wall of Shame</a></li>
+          <li><a href="#" @click.prevent="entryFilter = 'fame'" v-bind:class="{ active: isCurrentSort('fame') }">Hall of Fame</a></li>
+          <!-- <li><a href="#" @click.prevent="setSort('location')" v-bind:class="{ active: isCurrentSort('location'), disabled: !userCoords }">Closest Spots</a></li> -->
         </ul>
       </div>
     </div>
     <div class="list__container">
       <ul>
-        <li v-for="entry in entries" class="entry" v-bind:class="{ famed: entry.famed }">
+        <li v-for="entry in displayEntries" class="entry" v-if="entries" v-bind:class="{ famed: entry.famed }" v-bind:key="entry._id">
           <router-link :to="'/entries/' + entry._id" class="entry__link">
             <span class="entry__votes">{{ entry.votes }}</span>
             <span class="entry__image" :style="{ backgroundImage: 'url('+entry.photo.small+')' }"></span>
@@ -40,23 +41,48 @@ export default {
       return this.$store.getters.isLoggedIn;
     },
     userCoords() {
-      return this.$store.state.userCoords
+      return this.$store.state.userCoords;
     },
     sort() {
-      return this.$store.state.sort
+      return this.$store.state.sort;
+    },
+    sortedEntries() {
+      if(!this.entries) return [];
+
+      return this.entries.sort(function(a,b) {
+        return b.votes - a.votes;
+      });
+    },
+    displayEntries() {
+      if(this.entryFilter == 'all') {
+        return this.sortedEntries;
+      }else if(this.entryFilter == 'shame') {
+        return this.sortedEntries.filter(function(entry) {
+          return !entry.famed;
+        });
+      }else if(this.entryFilter == 'fame') {
+        return this.sortedEntries.filter(function(entry) {
+          return entry.famed;
+        });
+      }
     }
   },
   data() {
-    return {}
+    return {
+      entryFilter: 'all',
+      entrySort: 'votes',
+      entrySortDir: 'asc'
+    }
   },
   watch: {
+
   },
   methods: {
     setSort(sort) {
       this.$store.dispatch('setEntrySorting', sort);
     },
-    isCurrentSort(sort) {
-      return this.sort == sort;
+    isCurrentSort(filter) {
+      return this.entryFilter == filter;
     }
   },
   mounted() { 
@@ -69,10 +95,10 @@ export default {
 @import '../styles/helpers';
 
 .list {
-  margin: 1rem 0;
+  margin: 0 0 2rem 0;
 
   @include desktop {
-    margin: 2rem 0;
+    margin: 0 0 4rem 0;
   }
 
   &__container {
@@ -88,9 +114,10 @@ export default {
     margin: 1rem 0 0 0;
 
     li {
-      display: block;
-      margin-right: 1rem;
-      width: 100%;
+      display: inline;
+      margin-right: .2rem;
+      // width: 100%;
+      line-height: 1.3;
 
       a {
         color: #777;
@@ -124,25 +151,27 @@ export default {
     }
   }
   &__addlink {
-    // display: block;
-    // padding: 1rem;
-    // box-sizing: border-box;
-    // text-align: center;
-    // text-decoration: none;
-    // font-size: 1.25rem;
-    // width: 100%;
-    // background-color: #333;
-    // color: #fff;
-    // margin: 0 auto;
+    display: block;
+    padding: 1.5rem 0 1rem 0;
+    box-sizing: border-box;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    width: 200px;
+    background-color: $c-main;
+    color: #fff;
+    font-weight: 600;
+    margin: 0 auto;
+    position: relative;
 
-    // &:hover {
-    //   background-color: $c-main;
-    //   color: #fff;
-    // }
+    &:hover {
+      background-color: $c-main;
+      color: #fff;
+    }
 
-    // @include desktop {
-    //   max-width: 400px;
-    // }
+    @include desktop {
+      width: 240px;
+    }
   }
 }
 
@@ -153,6 +182,7 @@ ul {
 
   .entry {
     padding: 1rem;
+    transition: all .5s;
 
     &:nth-child(2n) {
       background-color: #fff;
@@ -282,6 +312,15 @@ ul {
     }
 
   }
+}
+
+.list-complete-enter, .list-complete-leave-to
+/* .list-complete-leave-active for <2.1.8 */ {
+  opacity: 0;
+  // transform: translateX(30px);
+}
+.list-complete-leave-active {
+  position: absolute;
 }
 
 </style>

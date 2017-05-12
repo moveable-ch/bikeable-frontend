@@ -244,7 +244,7 @@ const actions = {
     let url = 'https://backend.bikeable.ch/api/v1/entries';
     if(context.state.sort == 'location' && context.state.userCoords) {
       let coords = context.state.userCoords;
-      let params = '?sort=distance&lat=' + coords.lat + '&lng=' + coords.lng;
+      let params = '&sort=distance&lat=' + coords.lat + '&lng=' + coords.lng;
       url = url + params;
     }
 

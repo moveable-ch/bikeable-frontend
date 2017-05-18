@@ -3,7 +3,7 @@
     <div class="sponsor-modal" @click="$emit('close')">
       <div class="sponsor-modal__inner" v-if="sponsoredEntry" @click.stop>
         <div class="sponsor-modal__content">
-          <img :src="sponsoredEntry.logo" alt="">
+          <img class="sponsor-modal__image" :src="sponsoredEntry.logo" alt="">
           <h2>{{ sponsoredEntry.name }}</h2>
           <p v-if="sponsoredEntry.text">{{ sponsoredEntry.text }}</p>
           <span class="address">{{ sponsoredEntry.address }}, {{ sponsoredEntry.stadt }}</span>
@@ -52,6 +52,13 @@ export default {
   justify-content: center;
   z-index: 1;
 
+  &__image {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    max-width: 80%;
+    max-height: 10rem;
+  }
   &__inner {
     overflow-y: scroll;
     padding: 2rem;
@@ -69,7 +76,6 @@ export default {
       z-index: 1;
       position: relative;
       margin-bottom: .25rem;
-      margin-top: .5rem;
       font-weight: 500;
     }
     .address {

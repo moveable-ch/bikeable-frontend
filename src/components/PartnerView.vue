@@ -2,8 +2,6 @@
   <div class="contentpage partner">
     <div class="container">
       <h1>Partner</h1>
-      <p>Herzlichen Dank an alle good peoples die uns unterstüzzen. dope!</p>
-
       <div class="partners" v-if="partners">
         <a target="_blank" v-for="partner in partners" :href="partner.website.url()" class="partner__item">
           <span class="partner__item__logo" :style="'background-image:url(' + partner.logo.url + ')'"></span>

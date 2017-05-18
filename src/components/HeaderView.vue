@@ -7,7 +7,6 @@
         <ul>
           <li><router-link to="/" exact>Spots</router-link></li>
           <li><router-link to="/map" exact>Map</router-link></li>
-          <li><router-link to="/about" exact>About</router-link></li>
         </ul>
       </nav>
       <nav class="nav-right">

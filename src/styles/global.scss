@@ -52,8 +52,8 @@ h2 {
 
 p {
   font-family: $f-body;
-  max-width: 600px;
-  line-height: 1.4;
+  max-width: 750px;
+  line-height: 1.5;
   color: #000;
 
   & + & {
@@ -67,9 +67,11 @@ p {
 }
 
 .container {
+  width: 100%;
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 small {
@@ -83,8 +85,11 @@ small {
   color: #fff;
   font-family: $f-body;
   font-size: 1rem;
-  padding: .5rem 2rem;
+  padding: 0 1rem;
+  height: 3rem;
+  line-height: 3rem;
   cursor: pointer;
+  min-width: 10rem;
   text-decoration: none;
 
   &:hover {
@@ -124,7 +129,9 @@ input[type=text], input[type=password], input[type=email], textarea {
   max-width: 700px;
   font-family: $f-body;
   font-size: 1rem;
-  padding: .5rem;
+  padding: 0 1rem;
+  height: 3rem;
+  line-height: 3rem;
   margin: 0;
   border: 2px solid #ccc;
   box-sizing: border-box;
@@ -148,6 +155,10 @@ input[type=file] {
   margin: 1rem 0;
 }
 
+textarea {
+  height: auto;
+}
+
 .notice {
   background-color: #ddd;
   padding: 1rem;
@@ -155,4 +166,45 @@ input[type=file] {
   text-align: center;
   border: 2px solid #ccc;
   margin: 1.5rem 0;
+}
+
+
+.contentpage {
+  margin: 0;
+  padding: 2rem 0;
+  min-height: calc(100vh - 500px);
+
+  @include desktop() {
+    padding: 3rem 0;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 500;
+    color: $c-main;
+    margin-bottom: 2rem;
+  }
+
+  ul {
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+
+    li {
+      margin: 1rem 0;
+      position: relative;
+      padding-left: 1.5rem;
+
+      &::before {
+        content: "— ";
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }

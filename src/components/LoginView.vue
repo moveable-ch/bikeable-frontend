@@ -60,27 +60,29 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 @import '../styles/helpers';
 
 .login {
-  margin: 2rem 0;
+  padding: 2rem 0;
+  min-height: calc(100vh - 600px);
 
   @include desktop() {
-    padding: 0 2rem;
+    padding: 2rem 0;
+  }
+
+  h1 {
+    margin-bottom: 2rem;
+  }
+
+  .forgotten-link {
+    font-size: .9rem;
+    display: block;
+    margin-top: 2rem;
   }
 }
 
-h1 {
-  margin-bottom: 2rem;
-}
-
-.forgotten-link {
-  font-size: .9rem;
-  display: block;
-  margin-top: 2rem;
-}
 
 
 </style>

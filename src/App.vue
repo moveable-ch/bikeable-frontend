@@ -10,11 +10,13 @@
     <transition :name="transitionName" mode="out-in">
       <router-view></router-view>
     </transition>
+    <footer-view></footer-view>
   </div>
 </template>
 
 <script>
 import HeaderView from '@/components/HeaderView'
+import FooterView from '@/components/FooterView'
 
 export default {
   name: 'app',
@@ -39,7 +41,8 @@ export default {
     }
   },
   components: {
-    'header-view': HeaderView
+    'header-view': HeaderView,
+    'footer-view': FooterView
   },
   mounted() {
     this.$store.dispatch('loadEntries');

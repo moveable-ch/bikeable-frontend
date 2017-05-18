@@ -318,19 +318,18 @@ export default {
   position: relative;
   max-width: 700px;
   box-sizing: border-box;
-  padding-right: 3rem;
+  padding-right: 4rem;
 }
 .userloc {
   display: block;
   position: absolute;
   right: 0;
-  bottom: .25rem;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 100%;
+  bottom: 0;
+  width: 3rem;
+  height: 3rem;
   background: $c-main;
   background-image: url('../assets/locatebutton.png');
-  background-size: 60%;
+  background-size: 50%;
   background-position: center;
   background-repeat: no-repeat;
 

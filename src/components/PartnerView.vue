@@ -4,7 +4,7 @@
       <h1>Partner</h1>
       <div class="partners" v-if="partners">
         <a target="_blank" v-for="partner in partners" :href="partner.website.url()" class="partner__item">
-          <span class="partner__item__logo" :style="'background-image:url(' + partner.logo.url + ')'"></span>
+          <span class="partner__item__logo" :style="'background-image:url(' + partner.logo + ')'"></span>
         </a>
       </div>
 
@@ -50,7 +50,7 @@ export default {
         return payload.results.map((x) => {
           const y = {};
           y.name = x.getText('partner.name');
-          y.logo = x.getImage('partner.logo');
+          y.logo = x.getImage('partner.logo').url;
           y.website = x.getLink('partner.website');
           return y;
         });

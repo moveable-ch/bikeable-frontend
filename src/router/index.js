@@ -61,5 +61,10 @@ export default new Router({
       name: 'forgottenpw',
       component: PasswordRetrievalView
     }
-  ]
+  ],
+  mode: 'history',
+  saveScrollPosition: false,
+  scrollBehavior(to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 })

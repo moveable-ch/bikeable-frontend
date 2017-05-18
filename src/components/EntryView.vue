@@ -10,8 +10,13 @@
           <h1>{{ currentEntry.title }}</h1>
           <h2>{{ currentEntry.address }}</h2>
           <p>{{ currentEntry.text }}</p>
-          <span class="upvotes">{{ currentEntry.votes }}</span>
-          <button v-bind:class="{ 'is-active': hasVoted }" class="btn-upvote" @click.prevent="upvoteEntry">▲</button>
+          <div class="share">
+            <a href="#" v-if="false">Share on Facebook {{ entryUrl }}</a>
+          </div>
+          <div class="vote">
+            <span class="upvotes">{{ currentEntry.votes }}</span>
+            <button v-bind:class="{ 'is-active': hasVoted }" class="btn-upvote" @click.prevent="upvoteEntry">▲</button>
+          </div>
         </div>
       </div>
     </div>
@@ -76,6 +81,9 @@ export default {
       if(!this.currentEntry.createdAt) return '';
       let d = new Date(this.currentEntry.createdAt);
       return d.toLocaleDateString('de-DE');
+    },
+    entryUrl() {
+      return 'https://beta.bikeable.ch' + this.$route.fullPath;
     }
   },
 

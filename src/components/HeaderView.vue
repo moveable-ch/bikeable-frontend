@@ -67,7 +67,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 3rem;
+  height: 4rem;
   background-color: #fff;
   color: $c-main;
   box-sizing: border-box;
@@ -90,12 +90,12 @@ export default {
 
   h1 {
     font-size: 2rem;
-    line-height: 3rem;
+    line-height: 4rem;
     margin: 0;
     color: $c-main;
     font-weight: 500;
     position: relative;
-    padding-left: 2.4rem;
+    padding-left: 2.2rem;
 
     &::before {
       content: "";
@@ -104,7 +104,7 @@ export default {
       width: 2.25rem;
       height: 3rem;
       position: absolute;
-      top: 0;
+      top: .5rem;
       left: 0;
     }
 
@@ -117,7 +117,7 @@ export default {
       font-size: .6rem;
       position: absolute;
       bottom: -1.1rem;
-      left: 2.5rem;
+      left: 2.3rem;
     }
 
     @include desktop() {
@@ -146,7 +146,7 @@ export default {
     width: 1.5rem;
     height: 1.5rem;
     position: absolute;
-    top: .5rem;
+    top: 1rem;
     right: 1rem;
     background-color: transparent;
     border: none;

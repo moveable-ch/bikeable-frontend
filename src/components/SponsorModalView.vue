@@ -3,8 +3,10 @@
     <div class="sponsor-modal" @click="$emit('close')">
       <div class="sponsor-modal__inner" v-if="sponsoredEntry" @click.stop>
         <div class="sponsor-modal__content">
+          <img :src="sponsoredEntry.logo" alt="">
           <h2>{{ sponsoredEntry.name }}</h2>
-          <span class="address">{{ sponsoredEntry.address }}</span><br>
+          <p v-if="sponsoredEntry.text">{{ sponsoredEntry.text }}</p>
+          <span class="address">{{ sponsoredEntry.address }}, {{ sponsoredEntry.stadt }}</span>
           <a v-if="sponsoredEntry.website" :href="sponsoredEntry.website" target="_blank" class="link">Website</a>
           <button class="btn-close" @click="$emit('close')">✕</button>
         </div>
@@ -24,6 +26,7 @@ export default {
   watch: {
   },
   mounted() {
+    console.log(this.sponsoredEntry);
   },
   methods: {
     showEntry() {
@@ -33,16 +36,16 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 @import '../styles/helpers';
 
 .sponsor-modal {
   position: fixed;
-  top: 0;
+  top: 4rem;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 4rem);
   background-color: rgba(#333, .8);
   display: flex;
   align-items: center;
@@ -50,34 +53,44 @@ export default {
   z-index: 1;
 
   &__inner {
-    padding: 1.5rem 2.5rem;
+    overflow-y: scroll;
+    padding: 2rem;
     background-color: #fff;
     display: flex;
-    max-width: calc(100% - 2rem);
+    max-width: 30rem;
+    max-height: 90%;
+    box-sizing: border-box;
+    width: 90%;
     margin: 0 1rem;
     position: relative;
 
     h2 {
-      font-size: 1rem;
+      font-size: 1.25rem;
       z-index: 1;
       position: relative;
       margin-bottom: .25rem;
+      margin-top: .5rem;
+      font-weight: 500;
     }
     .address {
+      display: block;
       font-size: .8rem;
       color: #888;
+      margin-top: 1rem;
+      margin-bottom: .25rem;
     }
     .link {
       font-size: .8rem;
     }
     .btn-close {
       font-size: 1rem;
+      font-weight: bold;
       padding: 0;
       background: none;
       border: none;
       position: absolute;
-      top: -.5rem;
-      left: -.5rem;
+      top: 0;
+      right: 0;
       background-color: #fff;
       width: 2rem;
       height: 2rem;

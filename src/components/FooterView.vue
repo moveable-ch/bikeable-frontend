@@ -102,6 +102,11 @@ export default {
           text-align: right;
         }
       }
+      &--right {
+        ul li {
+          text-align: left;
+        }
+      }
       &--center {
         display: block;
       }

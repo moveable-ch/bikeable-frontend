@@ -18,6 +18,9 @@
 </template>
 
 <script>
+
+import Prismic from 'prismic.io';
+
 export default {
   name: 'partner-view',
   data () {
@@ -49,6 +52,14 @@ export default {
           url: '#'
         }
       ]
+    }
+  },
+  mounted() {
+    this.getPartners();
+  },
+  methods: {
+    getPartners() {
+
     }
   }
 }

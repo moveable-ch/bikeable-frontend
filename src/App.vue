@@ -10,7 +10,7 @@
     <transition :name="transitionName" mode="out-in">
       <router-view></router-view>
     </transition>
-    <footer-view></footer-view>
+    <footer-view v-if="showFooter"></footer-view>
   </div>
 </template>
 
@@ -22,11 +22,17 @@ export default {
   name: 'app',
   data () {
     return {
-      transitionName: 'fade'
+      transitionName: 'fade',
+      showFooter: true
     }
   },
   watch: {
     '$route' (to, from) {
+      if(to.name == 'map') {
+        this.showFooter = false;
+      }else{
+        this.showFooter = true;
+      }
     }
   },
   computed: {
@@ -58,6 +64,8 @@ export default {
             // console.log('error', data);
           });
     }
+
+    if(this.$router.currentRoute.name == 'map') this.showFooter = false;
   }
 }
 </script>

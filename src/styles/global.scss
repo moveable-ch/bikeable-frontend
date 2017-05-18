@@ -49,6 +49,17 @@ p + h1 {
 h2 {
   font-size: 1.5rem;
 }
+h3 {
+  color: $c-main;
+  font-size: 1.2rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  max-width: 700px;
+
+  @include desktop() {
+    font-size: 1.5rem;
+  }
+}
 
 p {
   font-family: $f-body;
@@ -182,7 +193,11 @@ textarea {
     font-size: 3rem;
     font-weight: 500;
     color: $c-main;
-    margin-bottom: 2rem;
+    // margin-bottom: 1rem;
+
+    @include desktop() {
+      margin-bottom: 2rem;
+    }
   }
 
   ul {
@@ -206,5 +221,13 @@ textarea {
   img {
     max-width: 100%;
     height: auto;
+  }
+
+  p.block-img {
+    margin: 2rem 0;
+
+    @include desktop() {
+      margin: 4rem 0;
+    }
   }
 }

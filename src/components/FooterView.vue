@@ -50,7 +50,7 @@ export default {
 .footer {
   background-color: #fff;
   padding: 2rem 0;
-  margin-top: 4rem;
+  margin-top: 2rem;
   width: 100%;
   color: $c-main;
   text-align: center;

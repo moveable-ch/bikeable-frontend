@@ -4,14 +4,14 @@
       <h1>Partner</h1>
       <p>Herzlichen Dank an alle good peoples die uns unterstüzzen. dope!</p>
 
-      <div class="partners">
-        <a v-for="partner in partners" :href="partner.url" class="partner__item">
-          <span class="partner__item__logo" :style="'background-image:url('+partner.image+')'"></span>
+      <div class="partners" v-if="partners">
+        <a target="_blank" v-for="partner in partners" :href="partner.website.url()" class="partner__item">
+          <span class="partner__item__logo" :style="'background-image:url(' + partner.logo.url + ')'"></span>
         </a>
       </div>
 
-      <ul class="sponsors">
-        <li v-for="sponsor in sponsors"><a target="_blank" :href="sponsor.url">{{ sponsor.name }}</a></li>
+      <ul class="sponsors" v-if="sponsors">
+        <li v-for="sponsor in sponsors"><a target="_blank" :href="sponsor.website">{{ sponsor.name }}</a></li>
       </ul>
     </div>
   </div>
@@ -25,41 +25,57 @@ export default {
   name: 'partner-view',
   data () {
     return {
-      partners:
-      [
-        {
-          name: 'ProVelo',
-          url: 'http://www.provelo.ch',
-          image: '/static/img/provelo.gif'
-        },
-        {
-          name: 'Velo Plus',
-          url: 'http://www.veloplus.ch',
-          image: '/static/img/veloplus.gif'
-        }
-      ],
-      sponsors: [
-        {
-          name: 'Rad-Los',
-          url: '#'
-        },
-        {
-          name: 'Veloloft',
-          url: '#'
-        },
-        {
-          name: 'Dreipol',
-          url: '#'
-        }
-      ]
+      partners: null,
+      sponsors: null
     }
   },
   mounted() {
-    this.getPartners();
+    this.$store.commit('LOAD_START');
+
+    this.getPartners().then(partners => {
+      this.partners = partners;
+      this.$store.commit('LOAD_FINISH');
+    });
+
+    this.getSponsors().then(sponsors => {
+      this.sponsors = sponsors;
+    });
   },
   methods: {
     getPartners() {
-
+      return Prismic.api("https://bikeable.prismic.io/api").then(function(api) {
+        return api.query(
+          Prismic.Predicates.at('document.type', 'partner'),
+          { lang: '*' }
+        );
+      }).then(function(payload) {
+        return payload.results.map((x) => {
+          const y = {};
+          y.name = x.getText('partner.name');
+          y.logo = x.getImage('partner.logo');
+          y.website = x.getLink('partner.website');
+          return y;
+        });
+      }, function(err) {
+        console.log("Something went wrong: ", err);
+      });
+    },
+    getSponsors() {
+      return Prismic.api("https://bikeable.prismic.io/api").then(function(api) {
+        return api.query(
+          Prismic.Predicates.at('document.type', 'sponsors'),
+          { lang: '*' }
+        );
+      }).then(function(payload) {
+        return payload.results.map((x) => {
+          const y = {};
+          y.name = x.getText('sponsors.name');
+          y.website = x.getLink('sponsors.website');
+          return y;
+        });
+      }, function(err) {
+        console.log("Something went wrong: ", err);
+      });
     }
   }
 }
@@ -118,7 +134,7 @@ export default {
 
     li {
       padding: 0;
-      width: 33.3%;
+      width: 100%;
       text-align: center;
 
       a {
@@ -131,6 +147,15 @@ export default {
       }
       &::before {
         display: none;
+      }
+
+      @include desktop() {
+        width: 33.3%;
+        margin-right: 2%;
+
+        &:nth-child(3n) {
+          margin-right: 0;
+        }
       }
     }
   }

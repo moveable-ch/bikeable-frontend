@@ -152,7 +152,7 @@ export default {
     }
     &__addlink {
       display: block;
-      padding: 1rem 0 1rem 0;
+      padding: .75rem 0;
       box-sizing: border-box;
       text-align: center;
       text-decoration: none;
@@ -163,9 +163,8 @@ export default {
       border: 2px solid $c-main;
       font-weight: 500;
       margin: 0 auto;
-      position: absolute;
-      top: 0;
-      right: 0;
+      position: relative;
+      margin-top: .5rem;
 
       &:hover {
         background-color: $c-main;
@@ -174,6 +173,9 @@ export default {
 
       @include desktop {
         width: 240px;
+        position: absolute;
+        top: 0;
+        right: 0;
       }
     }
   }

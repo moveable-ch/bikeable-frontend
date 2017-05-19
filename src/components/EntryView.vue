@@ -3,7 +3,7 @@
     <div class="entry__container">
       <div class="col">
         <div class="entry__image">
-          <img class="entry__image" :src="currentEntry.photo.large">
+          <img :src="currentEntry.photo.large">
         </div>
         <div class="share">
           <a class="share__button share__button--fb" target="_blank" :href="'https://www.facebook.com/sharer/sharer.php?u=' + entryUrl"></a>
@@ -263,22 +263,29 @@ export default {
     &__image {
       display: block;
       margin: 0 auto;
-      max-width: 100%;
-      height: 30rem;
+      margin-bottom: 1rem;
+      width: 100%;
+      height: 15rem;
       background-color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
 
-      @include desktop() {
-        max-height: 45rem;
-      }
-
       img {
-        max-width: calc(100% - 2rem);
-        max-height: calc(100% - 2rem);
+        max-width: 100%;
+        max-height: 100%;
         width: auto;
         height: auto;
+      }
+
+      @include desktop() {
+        height: 45rem;
+        margin-bottom: 0;
+
+        img {
+          max-width: calc(100% - 2rem);
+          max-height: calc(100% - 2rem);
+        }
       }
     }
 
@@ -319,6 +326,7 @@ export default {
       box-sizing: border-box;
       position: relative;
       z-index: 1;
+      width: 100%;
 
       &:first-child {
         padding-right: 0;
@@ -346,7 +354,7 @@ export default {
 
     .lead {
       background-color: #fff;
-      padding: 1.5rem;
+      padding: 1rem;
 
       h1 {
         line-height: 1;
@@ -367,6 +375,10 @@ export default {
       &__meta {
         display: block;
         color: #888;
+      }
+
+      @include desktop() {
+        padding: 1.5rem;
       }
     }
 
@@ -438,7 +450,7 @@ export default {
 
     .share {
       margin-top: 5px;
-      display: flex;
+      display: none;
       justify-content: flex-end;
 
       &__button {
@@ -465,6 +477,10 @@ export default {
         &:hover {
           border-color: $c-main;
         }
+
+      }
+      @include desktop() {
+        display: flex;
       }
     }
   }

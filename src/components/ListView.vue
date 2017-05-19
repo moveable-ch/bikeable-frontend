@@ -19,7 +19,7 @@
             <span class="list-entry__image" :style="{ backgroundImage: 'url('+entry.photo.small+')' }"></span>
             <span class="list-entry__content">
               <h3>{{ entry.title }}</h3>
-              <span class="list-entry__location">{{ entry.address }}</span>
+              <span class="list-entry__location">{{ entry.address }}, {{entry.commentCount}}</span>
               <span v-if="entry.distance" class="list-entry__distance">{{ entry.distance }}</span>
             </span>
           </router-link>

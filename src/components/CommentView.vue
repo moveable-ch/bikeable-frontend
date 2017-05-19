@@ -1,12 +1,14 @@
 <template>
   <div class="comment">
-    <div class="comment__meta">
-      <span class="upvotes">{{ comment.votesCount }}</span>
-      <button class="btn-upvote" @click.prevent="upvoteComment">▲</button>
-      <span class="username">{{ comment.user.name }}</span>
-      <span class="date">{{ dateCreated }}</span>
+    <div class="comment__body">
+      <div class="comment__meta">
+        <span class="username">{{ comment.user.name }}</span><span class="date">{{ dateCreated }}</span>
+      </div>
+      <p>{{ comment.text }}</p>
     </div>
-    <p>{{ comment.text }}</p>
+    <a @click.prevent="upvoteComment" href="#" class="comment__vote">
+      <span class="comment__vote__count">{{ comment.votesCount }}</span>
+    </a>
   </div>
 </template>
 
@@ -66,50 +68,81 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
   @import '../styles/helpers';
 
   .comment {
-    // border: 2px solid #ccc;
-    background: white;
-    margin: .5rem 0;
-    // padding: 1rem;
+    margin-bottom: 1rem;
     font-size: .8rem;
-    border: 1px solid #ddd;
+
+    &__body {
+      background-color: #fff;
+      margin-bottom: 5px;
+      padding: 1rem;
+    }
+    &__vote {
+      display: block;
+      text-decoration: none;
+      color: #333;
+      background-color: #fff;
+      height: 2rem;
+      text-align: center;
+      position: relative;
+      box-sizing: border-box;
+      border: 2px solid #fff;
+      transition: .3s border-color;
+
+      &__count {
+        font-weight: 500;
+        line-height: 2rem;
+        position: relative;
+        padding-left: 1.5rem;
+
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: .75rem;
+          background: none;
+          border: none;
+          background-image: url('../assets/upvote-black.png');
+          background-size: 100%;
+          background-position: 50% 45%;
+          background-repeat: no-repeat;
+          transition: .3s transform $easeOutQuint;
+        }
+      }
+      &:hover {
+        border-color: $c-main;
+
+        .comment__vote__count {
+          &::before {
+            transform: translateY(-3px);
+          }
+        }
+      }
+    }
 
     &__meta {
-      background-color: #f8f8f8;
-      padding: .5rem 1rem;
+      margin-bottom: .2rem;
       position: relative;
 
       .username {
         font-weight: 600;
       }
-      .upvotes {
-        font-weight: 600;
-      }
       .date {
         position: absolute;
-        right: 1rem;
-        top: .5rem;
-      }
-      .btn-upvote {
-        background-color: transparent;
-        border: none;
-        -webkit-appearance: none;
-        padding: 0 .5rem 0 .1rem;
-        font-size: .8rem;
-        // color: $c-highlight;
-        cursor: pointer;
-
-        &:active, &:focus {
-          outline: none;
-        }
+        top: 0;
+        right: 0;
+        color: #888;
       }
     }
     p {
-      padding: .5rem 1rem;
+
     }
   }
 

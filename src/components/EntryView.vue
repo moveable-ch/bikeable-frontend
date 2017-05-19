@@ -35,9 +35,9 @@
           <form @submit.prevent="postComment">
             <label>
               <span>Kommentar</span>
-              <textarea v-model="commentText" rows="4"></textarea>
+              <textarea v-model="commentText" rows="2"></textarea>
             </label>
-            <button type="submit" class="btn" v-bind:class="{ 'disabled': !commentText }">Senden</button>
+            <button type="submit" class="btn comments__form__button" v-bind:class="{ 'disabled': !commentText }">Senden</button>
           </form>
         </div>
 
@@ -279,7 +279,7 @@ export default {
       }
 
       @include desktop() {
-        height: 45rem;
+        height: 30rem;
         margin-bottom: 0;
 
         img {
@@ -441,6 +441,20 @@ export default {
       &__form {
         margin-top: 3rem;
         margin-bottom: 2rem;
+
+        label {
+          margin-bottom: .5rem;
+        }
+        &__button {
+          font-size: .9rem;
+          height: 2rem;
+          line-height: 2rem;
+          min-width: 6rem;
+        }
+
+        textarea {
+          // height: 5rem;
+        }
 
         @include desktop {
           // margin-top: 2rem;

@@ -1,27 +1,35 @@
 <template>
   <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed }">
-    <div class="container clearfix">
+    <div class="entry__container">
       <div class="col">
-        <img :src="currentEntry.photo.large">
-      </div>
-      <div class="col">
-        <div class="lead">
-          <span class="meta">{{ currentEntry.user.name }}, {{ entryDate }}</span>
-          <h1>{{ currentEntry.title }}</h1>
-          <h2>{{ currentEntry.address }}</h2>
-          <p>{{ currentEntry.text }}</p>
-          <div class="share">
-            <a href="#" v-if="false">Share on Facebook {{ entryUrl }}</a>
-          </div>
-          <div class="vote">
-            <span class="upvotes">{{ currentEntry.votes }}</span>
-            <button v-bind:class="{ 'is-active': hasVoted }" class="btn-upvote" @click.prevent="upvoteEntry">▲</button>
-          </div>
+        <div class="entry__image">
+          <img class="entry__image" :src="currentEntry.photo.large">
+        </div>
+        <div class="share">
+          <a class="share__button share__button--fb" target="_blank" :href="'https://www.facebook.com/sharer/sharer.php?u=' + entryUrl"></a>
+          <a class="share__button share__button--twitter" :href="'mailto:?subject=' + currentEntry.title + '&body=' + entryUrl"></a>
+          <a class="share__button share__button--mail" :href="'mailto:?subject=' + currentEntry.title + '&body=' + entryUrl"></a>
         </div>
       </div>
-    </div>
-    <div class="container clearfix">
       <div class="col">
+        <div class="entry__user">
+          <div v-if="currentEntry.user.image" class="entry__user__image" :style="'background-image:url(' + currentEntry.user.image + ')'"></div>
+          <div class="entry__user__content">
+            <span class="entry__user__name">{{ currentEntry.user.name }}</span><br>
+            <span class="entry__user__date">{{ entryDate }}</span>
+          </div>
+        </div>
+        <div class="lead">
+          <h1>{{ currentEntry.title }}</h1>
+          <h2>{{ currentEntry.address }}</h2>
+          <p class="lead__desc">{{ currentEntry.text }}</p>
+        </div>
+        <a href="#" class="vote" v-bind:class="{ 'is-active': hasVoted }" @click.prevent="upvoteEntry">
+          <span class="vote__icon vote__icon--main"></span>
+          <span class="vote__icon vote__icon--white"></span>
+          <span class="vote__count">{{ currentEntry.votes }}</span>
+        </a>
+
         <!--<div class="notice" v-if="!isLoggedIn">Jetzt <router-link to="/register">registrieren</router-link> und mitdiskutieren!</div>-->
         <div class="comments__form" v-if="isLoggedIn">
           <form @submit.prevent="postComment">
@@ -32,8 +40,7 @@
             <button type="submit" class="btn" v-bind:class="{ 'disabled': !commentText }">Senden</button>
           </form>
         </div>
-      </div>
-      <div class="col">
+
         <div class="comments">
           <comment-view v-for="comment in comments" :key="comment._id" :comment="comment" :loadComments="loadComments"></comment-view>
         </div>
@@ -180,6 +187,7 @@ export default {
       let token = localStorage.getItem('token');
 
       this.$store.commit('LOAD_START');
+      this.hasVoted = true;
 
       this.$http.post('https://backend.bikeable.ch/api/v1/votes/' + this.currentEntry._id, {},
         {
@@ -195,13 +203,15 @@ export default {
           let msg = response.body.message;
           this.$store.commit('SET_MESSAGE', msg);
           this.$store.commit('LOAD_FINISH');
+
+          this.hasVoted = false;
         });
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
   @import '../styles/helpers';
 
@@ -209,19 +219,93 @@ export default {
     margin: 0;
     padding-bottom: 2rem;
     font-family: $f-body;
+    min-height: calc(100vh - 600px);
+    position: relative;
 
-    img {
+    &::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 10rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-image: linear-gradient(-180deg, $c-highlight 0%, #F7F7F7 100%);
+      opacity: .08;
+    }
+
+    &__user {
+      margin-bottom: 1rem;
+      font-size: .8rem;
+      display: flex;
+
+      &__image {
+        width: 2.4rem;
+        height: 2.4rem;
+        background-color: #fff;
+        border-radius: 99%;
+        margin-right: 1rem;
+      }
+      &__content {
+
+        span {
+          line-height: 1.3;
+        }
+      }
+      &__name {
+        font-weight: 500;
+      }
+      &__date {
+        color: #888;
+      }
+    }
+
+    &__image {
+      display: block;
+      margin: 0 auto;
       max-width: 100%;
-      height: auto;
+      height: 30rem;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @include desktop() {
+        max-height: 45rem;
+      }
+
+      img {
+        max-width: calc(100% - 2rem);
+        max-height: calc(100% - 2rem);
+        width: auto;
+        height: auto;
+      }
+    }
+
+    &__container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1300px;
+      margin: 0 auto;
+      // padding: 0 1rem;
     }
 
     &.is-famed {
-      h1 {
+      &::before {
+        background-image: linear-gradient(-180deg, $c-main 0%, #F7F7F7 100%);
+      }
+      .lead h1 {
         color: $c-main;
       }
-      .lead .upvotes {
+      .vote__count {
         color: $c-main;
-        border-color: $c-main;
+      }
+      .vote__icon--main {
+        background-image: url('../assets/upvote-green.png');
+      }
+      .vote.is-active, .vote:hover {
+        background-color: $c-main;
       }
       .lead .btn-upvote.is-active {
         color: $c-main;
@@ -231,83 +315,160 @@ export default {
     @include desktop() {
       padding-bottom: 4rem;
     }
-  }
-
-  .col {
-    padding-top: 2rem;
-    box-sizing: border-box;
-
-    &:first-child {
-      padding-right: 0;
-    }
-
-    @include desktop() {
-      width: 50%;
-      float: left;
-      padding-top: 3rem;
+    .col {
+      box-sizing: border-box;
+      position: relative;
+      z-index: 1;
 
       &:first-child {
-        padding-right: 1rem;
+        padding-right: 0;
+      }
+      &:nth-child(2) {
+        padding: 0 1rem;
+      }
+
+      @include desktop() {
+        width: 49%;
+
+        &:first-child {
+          padding-top: 2rem;
+          width: 50%;;
+          padding-left: 2rem;
+        }
+        &:nth-child(2) {
+          width: 50%;
+          padding-top: 2rem;
+          padding-right: 2rem;
+          padding-left: 2rem;
+        }
       }
     }
-  }
 
-  .lead {
-    h1 {
-      line-height: 1;
-      margin: .5rem 0 .5rem 0;
-      font-weight: 400;
-      color: $c-highlight;
-    }
-    h2 {
-      margin-bottom: 1rem;
-      font-weight: 400;
-    }
-    .meta {
-      display: block;
-      color: #888;
-    }
-    .upvotes {
-      display: inline-block;
-      width: 4rem;
-      height: 4rem;
-      line-height: 4rem;
-      text-align: center;
-      color: $c-highlight;
-      // font-weight: 600;
-      border: 3px solid $c-highlight;
-      border-radius: 99%;
-      font-size: 2rem;
-      margin-top: 1rem;
-      pointer-events: none;
-    }
-    .btn-upvote {
-      background: transparent;
-      font-size: 1.5rem;
-      color: #333;
-      border: none;
-      -webkit-appearance: none;
-      cursor: pointer;
+    .lead {
+      background-color: #fff;
+      padding: 1.5rem;
 
-      &:active, &:focus {
-        outline: none;
-      }
-      &.is-active {
+      h1 {
+        line-height: 1;
+        margin: 0 0 .5rem 0;
+        font-weight: 500;
         color: $c-highlight;
-        pointer-events: none;
+        font-size: 1rem;
+      }
+      h2 {
+        margin-bottom: 1rem;
+        font-size: .9rem;
+        color: #888;
+        font-weight: 400;
+      }
+      &__desc {
+        font-size: .9rem;
+      }
+      &__meta {
+        display: block;
+        color: #888;
+      }
+    }
+
+    .vote {
+      display: block;
+      text-decoration: none;
+      background-color: #fff;
+      height: 3rem;
+      margin-top: 5px;
+      text-align: center;
+      transition: .4s background-color;
+      position: relative;
+      overflow: hidden;
+
+      &:hover, &.is-active {
+        background-color: $c-highlight;
+
+        .vote__count {
+          color: #fff;
+        }
+        .vote__icon {
+          &--main {
+            transform: translateY(-3rem);
+          }
+          &--white {
+            transform: translateY(0);
+          }
+        }
+      }
+      &__count {
+        line-height: 3rem;
+        color: $c-highlight;
+        font-weight: 500;
+        font-size: 1.75rem;
+        transition: .4s color;
+      }
+      &__icon {
+        display: inline-block;
+        width: 22px;
+        height: 100%;
+        background-image: url('../assets/upvote-red.png');
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-right: .5rem;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: -3rem;
+        transition: .4s transform $easeInOutQuint;
+
+        &--white {
+          background-image: url('../assets/upvote-white.png');
+          transform: translateY(3rem);
+        }
+      }
+    }
+
+    .comments {
+      &__form {
+        margin-top: 3rem;
+        margin-bottom: 2rem;
+
+        @include desktop {
+          // margin-top: 2rem;
+        }
+      }
+    }
+
+    .share {
+      margin-top: 5px;
+      display: flex;
+      justify-content: flex-end;
+
+      &__button {
+        display: block;
+        width: 40px;
+        height: 40px;
+        background-color: #fff;
+        background-size: 100%;
+        background-position: center;
+        margin-left: 5px;
+        border: 2px solid #fff;
+        transition: .2s border-color;
+
+        &--fb {
+          background-image: url('../assets/share-fb.png');
+        }
+        &--twitter {
+          background-image: url('../assets/share-twitter.png');
+        }
+        &--mail {
+          background-image: url('../assets/share-mail.png');
+        }
+
+        &:hover {
+          border-color: $c-main;
+        }
       }
     }
   }
 
-  .comments {
-    &__form {
-      margin-bottom: 0rem;
-
-      @include desktop {
-        // margin-top: 2rem;
-      }
-    }
-  }
 
 
 </style>

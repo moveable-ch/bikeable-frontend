@@ -13,14 +13,14 @@
     </div>
     <div class="list__container">
       <ul>
-        <li v-for="entry in displayEntries" class="entry" v-if="entries" v-bind:class="{ famed: entry.famed }" v-bind:key="entry._id">
-          <router-link :to="'/entries/' + entry._id" class="entry__link">
-            <span class="entry__votes">{{ entry.votes }}</span>
-            <span class="entry__image" :style="{ backgroundImage: 'url('+entry.photo.small+')' }"></span>
-            <span class="entry__content">
+        <li v-for="entry in displayEntries" class="list-entry" v-if="entries" v-bind:class="{ famed: entry.famed }" v-bind:key="entry._id">
+          <router-link :to="'/entries/' + entry._id" class="list-entry__link">
+            <span class="list-entry__votes">{{ entry.votes }}</span>
+            <span class="list-entry__image" :style="{ backgroundImage: 'url('+entry.photo.small+')' }"></span>
+            <span class="list-entry__content">
               <h3>{{ entry.title }}</h3>
-              <span class="entry__location">{{ entry.address }}</span>
-              <span v-if="entry.distance" class="entry__distance">{{ entry.distance }}</span>
+              <span class="list-entry__location">{{ entry.address }}</span>
+              <span v-if="entry.distance" class="list-entry__distance">{{ entry.distance }}</span>
             </span>
           </router-link>
         </li>
@@ -90,7 +90,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 @import '../styles/helpers';
 
@@ -105,215 +105,219 @@ export default {
     // max-width: 1100px;
     margin: 0 auto;
   }
-}
+  .hero {
+    margin-bottom: 1rem;
+    position: relative;
 
-.hero {
-  margin-bottom: 1rem;
-
-  &__sort {
-    margin: 1rem 0 0 0;
-
-    li {
-      display: inline;
-      margin-right: .2rem;
-      // width: 100%;
-      line-height: 1.3;
-
-      a {
-        color: #777;
-        text-decoration: none;
-        font-size: 1rem;
-        transition: font-size .3s $easeInOutQuint;
-
-        &.active {
-          color: #333;
-          font-size: 1rem;
-          pointer-events: none;
-          border-bottom: 1px solid #333;
-        }
-        &.disabled {
-          color: #bbb;
-          pointer-events: none;
-        }
-      }
-    }
-
-    @include desktop  {
-      margin: 2rem 0;
+    &__sort {
+      margin: 1rem 0 0 0;
 
       li {
         display: inline;
-        margin-right: 1rem;
+        margin-right: .2rem;
+        // width: 100%;
+        line-height: 1.3;
 
         a {
+          color: #777;
+          text-decoration: none;
+          font-size: 1rem;
+          transition: font-size .3s $easeInOutQuint;
 
-        }
-      }
-    }
-  }
-  &__addlink {
-    display: block;
-    padding: 1.5rem 0 1rem 0;
-    box-sizing: border-box;
-    text-align: center;
-    text-decoration: none;
-    font-size: 1rem;
-    width: 200px;
-    background-color: $c-main;
-    color: #fff;
-    font-weight: 600;
-    margin: 0 auto;
-    position: relative;
-
-    &:hover {
-      background-color: $c-main;
-      color: #fff;
-    }
-
-    @include desktop {
-      width: 240px;
-    }
-  }
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-
-  .entry {
-    padding: 1rem;
-    transition: all .5s;
-
-    &:nth-child(2n) {
-      background-color: #fff;
-    }
-    &__distance {
-      display: block;
-      color: #888;
-      margin-top: .25rem;
-      font-size: .8rem;
-
-      @include desktop() {
-        font-size: 1rem;
-      }
-    }
-    &__location {
-      font-size: .8rem;
-
-      @include desktop() {
-        font-size: 1rem;
-      }
-    }
-    &__link {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      text-decoration: none;
-      color: #333;
-      // padding-left: .5rem;
-
-      &:hover {
-        h3 {
-          color: $c-highlight;
-          // text-decoration: underline;
-        }
-        .entry__image {
-          &::after {
-            opacity: .6;
+          &.active {
+            color: #333;
+            font-size: 1rem;
+            pointer-events: none;
+            border-bottom: 1px solid #333;
+          }
+          &.disabled {
+            color: #bbb;
+            pointer-events: none;
           }
         }
       }
 
-      @include desktop() {
-        padding-left: .5rem;
-      }
-    }
-    &__content {
-      flex-shrink: 1;
-    }
-    &__image {
-      flex-shrink: 0;
-      display: block;
-      width: 2.5rem;
-      height: 2.5rem;
-      background-size: cover;
-      background-position: center;
-      margin: 0 .5rem;
-      position: relative;
-      overflow: hidden;
+      @include desktop  {
+        margin: 3rem 0 2rem 0;
 
-      &::after {
-        content: "";
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: $c-highlight;
-        opacity: 0;
-        mix-blend-mode: overlay;
-        // transition: .1s opacity;
-      }
+        li {
+          display: inline;
+          margin-right: 1rem;
 
-      @include desktop() {
-        width: 4rem;
-        height: 4rem;
-        margin: 0 1rem;
+          a {
+
+          }
+        }
       }
     }
-    &__votes {
+    &__addlink {
       display: block;
-      color: $c-highlight;
-      font-size: 1rem;
-      width: 2rem;
-      height: 2rem;
-      border: 2px solid $c-highlight;
-      line-height: 2rem;
+      padding: 1rem 0 1rem 0;
+      box-sizing: border-box;
       text-align: center;
-      border-radius: 99%;
-      flex-shrink: 0;
+      text-decoration: none;
+      font-size: 1rem;
+      width: 200px;
+      background-color: transparent;
+      color: $c-main;
+      border: 2px solid $c-main;
+      font-weight: 500;
+      margin: 0 auto;
+      position: absolute;
+      top: 0;
+      right: 0;
 
-      @include desktop() {
+      &:hover {
+        background-color: $c-main;
+        color: #fff;
+      }
+
+      @include desktop {
+        width: 240px;
+      }
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    .list-entry {
+      padding: 1rem;
+      transition: all .5s;
+
+      &:nth-child(2n) {
+        background-color: #fff;
+      }
+      &__distance {
+        display: block;
+        color: #888;
+        margin-top: .25rem;
+        font-size: .8rem;
+
+        @include desktop() {
+          font-size: 1rem;
+        }
+      }
+      &__location {
+        font-size: .8rem;
+
+        @include desktop() {
+          font-size: 1rem;
+        }
+      }
+      &__link {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        text-decoration: none;
+        color: #333;
+        // padding-left: .5rem;
+
+        &:hover {
+          h3 {
+            color: $c-highlight;
+            // text-decoration: underline;
+          }
+          .entry__image {
+            &::after {
+              opacity: .6;
+            }
+          }
+        }
+
+        @include desktop() {
+          padding-left: .5rem;
+        }
+      }
+      &__content {
+        flex-shrink: 1;
+      }
+      &__image {
+        flex-shrink: 0;
+        display: block;
         width: 2.5rem;
         height: 2.5rem;
-        line-height: 2.5rem;
-      }
-    }
-    h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: .2rem;
-      color: #333;
+        background-size: cover;
+        background-position: center;
+        margin: 0 .5rem;
+        position: relative;
+        overflow: hidden;
 
-      @include desktop() {
+        &::after {
+          content: "";
+          display: block;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background-color: $c-highlight;
+          opacity: 0;
+          mix-blend-mode: overlay;
+          // transition: .1s opacity;
+        }
+
+        @include desktop() {
+          width: 4rem;
+          height: 4rem;
+          margin: 0 1rem;
+        }
+      }
+      &__votes {
+        display: block;
+        color: $c-highlight;
         font-size: 1rem;
+        width: 2rem;
+        height: 2rem;
+        border: 2px solid $c-highlight;
+        line-height: 2rem;
+        text-align: center;
+        border-radius: 99%;
+        flex-shrink: 0;
+
+        @include desktop() {
+          width: 2.5rem;
+          height: 2.5rem;
+          line-height: 2.5rem;
+        }
       }
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: .2rem;
+        color: #333;
+
+        @include desktop() {
+          font-size: 1rem;
+        }
+      }
+
+      &.famed {
+
+        .list-entry__link:hover h3 {
+          color: $c-main;
+        }
+        .list-entry__image::before {
+          background-color: $c-main;
+        }
+        .list-entry__image::after {
+          background-color: $c-main;
+          // background-image: url('../assets/smile-good-nobg.svg');
+        }
+        .list-entry__votes {
+          color: $c-main;
+          border-color: $c-main;
+        }
+      }
+
     }
-
-    &.famed {
-
-      .entry__link:hover h3 {
-        color: $c-main;
-      }
-      .entry__image::before {
-        background-color: $c-main;
-      }
-      .entry__image::after {
-        background-color: $c-main;
-        // background-image: url('../assets/smile-good-nobg.svg');
-      }
-      .entry__votes {
-        color: $c-main;
-        border-color: $c-main;
-      }
-    }
-
   }
 }
+
 
 .list-complete-enter, .list-complete-leave-to
 /* .list-complete-leave-active for <2.1.8 */ {

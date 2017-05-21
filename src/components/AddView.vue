@@ -3,20 +3,37 @@
     <div class="container">
       <h1>Spot hinzufügen</h1>
       <form @submit.prevent="postEntry">
-        <label class="label-address">
-          <span>Adresse</span>
-          <input type="text" v-model="entryAddress" v-bind:class="{ inactive: addressPending }" v-on:blur="checkAddress">
-          <a href="#" title="Meinen Standort benutzen" class="userloc" v-bind:class="{ disabled: !userCoords }" @click.prevent="handleUserCoords"></a><br>
+        <h3><span class="num">1</span>Fame or Shame?</h3>
+        <!--<span class="fametoggle-label">Guter Spot oder schlechter Spot?</span>-->
+        <label class="fametoggle">
+          <input type="checkbox" v-model="entryFamed" name="famed">
+          <span class="slider">
+            <span class="slider__button"></span>
+          </span>
         </label>
-        <span class="label">Bild hochladen</span>
+        <h3><span class="num">2</span>Adresse</h3>
+        <label>
+          <span>Wo befindet sich dein Spot?</span>
+          <input placeholder="Adresse eingeben" type="text" v-model="entryAddress" v-bind:class="{ inactive: addressPending }" v-on:blur="checkAddress">
+        </label>
+        <div class="address-btns">
+          <a href="#" class="address-btn address-btn--userloc" v-bind:class="{ disabled: !userCoords }" @click.prevent="handleUserCoords">Aktuellen Standort einfügen</a>
+          <a href="#" class="address-btn address-btn--map disabled" @click.prevent="handleUserCoords">Standort auf Karte wählen</a>
+        </div>
+        <h3><span class="num">3</span>Bild</h3>
+        <span class="label">Lade ein Foto von deinem Spot hoch</span>
         <div class="file-upload">
-          <div class="file-upload__form">
-            <input v-on:change="uploadImage" type="file">
+          <div class="file-upload__form" v-if="!imageChosen">
+            <label for="add-file">Bild wählen</label>
+            <input id="add-file" @change.prevent="uploadImage" type="file">
           </div>
+          <span class="file-upload__pending" v-if="!imageId && imageChosen">Loading</span>
           <div class="file-upload__preview" v-if="imageId">
+            <a href="#" class="file-upload__preview__close" @click.prevent="resetImage">×</a>
             <img v-bind:src="imagePreviewUrl">
           </div>
         </div>
+        <h3><span class="num">4</span>Beschreibung</h3>
         <label>
           <span>Titel</span>
           <input type="text" v-model="entryTitle">
@@ -25,14 +42,7 @@
           <span>Beschreibung</span>
           <textarea v-model="entryText" rows="5"></textarea>
         </label>
-        <span class="fametoggle-label">Guter Spot oder schlechter Spot?</span>
-        <label class="fametoggle">
-          <input type="checkbox" v-model="entryFamed" name="famed">
-          <span class="slider">
-            <span class="slider__button"></span>
-          </span>
-        </label>
-        <button type="submit" class="btn" v-bind:class="{ disabled: !formReady }" :disabled="!formReady">Senden</button>
+        <button type="submit" class="add__btn btn" v-bind:class="{ disabled: !formReady }" :disabled="!formReady">Senden</button>
       </form>
     </div>
   </div>
@@ -51,7 +61,8 @@ export default {
       entryTitle: '',
       entryText: '',
       entryFamed: true,
-      imageId: null
+      imageId: null,
+      imageChosen: false
     }
   },
 
@@ -148,7 +159,8 @@ export default {
       this.addressPending = false;
     },
     uploadImage(e) {
-      e.preventDefault();
+      this.imageChosen = true;
+
       let imageFile = e.currentTarget;
       let file = imageFile.files[0];
       let reader = new FileReader();
@@ -165,6 +177,10 @@ export default {
             console.log('error', data);
           });
       };
+    },
+    resetImage() {
+      this.imageChosen = false;
+      this.imageId = null;
     },
     postEntry(e) {
       if(!this.formReady) return;
@@ -199,51 +215,95 @@ export default {
   margin: 2rem 0;
 
   h1 {
-    margin-bottom: 2rem;
+    // margin-top: 3rem;
+    // margin-bottom: 4rem;
+  }
+  h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    margin-top: 3rem;
+
+    .num {
+      display: inline-block;
+      width: 1.5rem;
+      height: 1.5rem;
+      background-color: #fff;
+      text-align: center;
+      line-height: 1.5rem;
+      margin-right: 1rem;
+      border-radius: 99%;
+    }
+  }
+  &__btn {
+    display: block;
+    height: 3rem;
+    width: 100%;
+    margin: 2rem auto 4rem auto;
+
+    @include desktop() {
+      width: 15rem;
+      margin: 3rem 0 4rem 0;
+    }
   }
 }
 
 
 .file-upload {
-  padding: 1rem;
-  padding-bottom: 0;
-  background-color: #fff;
-  margin: 0 0 1rem 0;
-  max-width: 700px;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  height: 7rem;
-  position: relative;
-
-  span {
-    background-color: $c-main;
-    color: #fff;
-    font-size: .75rem;
-    color: #fff;
-    padding: .5rem 1rem;
-  }
 
   &__form {
-    width: calc(100% - 6rem);
 
+    label {
+      display: block;
+      color: $c-main;
+      border: 2px solid $c-main;
+      width: 14rem;
+      text-align: center;
+      padding: .75rem 0;
+      cursor: pointer;
+      margin-top: 1rem;
+      background-color: #fff;
+    }
     input {
-      margin: 0;
-      font-size: 1rem;
-      font-family: $f-body;
-      width: 100%;
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
     }
   }
 
-  &__preview {
-    width: 6rem;
-    height: calc(7rem - 4px);
-    padding: 0;
-    box-sizing: border-box;
-    position: absolute;
-    right: 0;
-    top: 0;
-    text-align: right;
+  &__pending {
+    display: block;
+    color: #aaa;
+    width: 14rem;
+    text-align: center;
+    padding: .75rem 0;
+    cursor: pointer;
+    margin-top: 1rem;
+    background-color: #fff;
+  }
 
+  &__preview {
+    width: 15rem;
+    height: 10rem;
+    background-color: #fff;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    &__close {
+      color: #333;
+      text-decoration: none;
+      position: absolute;
+      top: 0;
+      right: -1.5rem;
+      font-size: 2rem;
+      color: #aaa;
+    }
     img {
       max-width: 100%;
       max-height: 100%;
@@ -313,29 +373,65 @@ export default {
 
 }
 
-.label-address {
-  display: block;
-  position: relative;
-  max-width: 700px;
-  box-sizing: border-box;
-  padding-right: 4rem;
-}
-.userloc {
-  display: block;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 3rem;
-  height: 3rem;
-  background: $c-main;
-  background-image: url('../assets/locatebutton.png');
-  background-size: 50%;
-  background-position: center;
-  background-repeat: no-repeat;
 
+.address-btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 700px;
+}
+.address-btn {
+  display: block;
+  height: 2.5rem;
+  font-size: .8rem;
+  background-color: #fff;
+  padding: 0 1rem 0 3.5rem;
+  color: $c-main;
+  box-sizing: border-box;
+  text-decoration: none;
+  line-height: 2.5rem;
+  position: relative;
+  width: 100%;
+  margin-bottom: 5px;
+  white-space: nowrap;
+
+  @include desktop() {
+    width: 49%;
+  }
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: $c-main;
+    background-size: 1rem 1rem;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
   &.disabled {
     pointer-events: none;
-    background-color: #ccc;
+    color: #aaa;
+    background-color: transparent;
+
+    &::before {
+      background-color: #ccc;
+    }
+  }
+  &:hover {
+    color: #333;
+    &::before {
+      background-color: #333;
+    }
+  }
+
+  &--userloc {
+    &::before {
+      background-image: url('../assets/locatebutton.png');
+    }
   }
 }
 

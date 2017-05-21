@@ -34,14 +34,25 @@ h1, h2, h3 {
   font-weight: 400;
   color: #333;
 }
+// h1 {
+//   font-size: 1.75rem;
+//   line-height: .9;
+//   margin: 1rem 0;
+//   color: #333;
+
+//   @include desktop() {
+//     font-size: 2.75rem;
+//   }
+// }
 h1 {
   font-size: 1.75rem;
-  line-height: .9;
-  margin: 1rem 0;
-  color: #333;
+  font-weight: 500;
+  color: $c-main;
+  margin: 2rem 0 2rem 0;
 
   @include desktop() {
-    font-size: 2.75rem;
+    font-size: 3rem;
+    margin-bottom: 3rem;
   }
 }
 p + h1 {
@@ -155,6 +166,9 @@ input[type=text], input[type=password], input[type=email], textarea {
     outline: none;
     border-color: #888;
   }
+  &::placeholder {
+    color: #bbb;
+  }
 
   &.inactive {
     pointer-events: none;
@@ -192,16 +206,16 @@ textarea {
     padding: 3rem 0;
   }
 
-  h1 {
-    font-size: 3rem;
-    font-weight: 500;
-    color: $c-main;
-    // margin-bottom: 1rem;
+  // h1 {
+  //   font-size: 3rem;
+  //   font-weight: 500;
+  //   color: $c-main;
+  //   // margin-bottom: 1rem;
 
-    @include desktop() {
-      margin-bottom: 2rem;
-    }
-  }
+  //   @include desktop() {
+  //     margin-bottom: 2rem;
+  //   }
+  // }
 
   ul {
     padding-left: 2rem;

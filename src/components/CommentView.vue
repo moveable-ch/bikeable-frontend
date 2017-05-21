@@ -1,5 +1,6 @@
 <template>
   <div class="comment">
+    <div class="comment__avatar" :style="'background-image:url(' + comment.user.avatar.small + ')'"></div>
     <div class="comment__body">
       <div class="comment__meta">
         <span class="username">{{ comment.user.name }}</span><span class="date">{{ dateCreated }}</span>
@@ -75,6 +76,21 @@ export default {
   .comment {
     margin-bottom: 1rem;
     font-size: .8rem;
+    position: relative;
+    padding-left: 3rem;
+
+    &__avatar {
+      width: 2.4rem;
+      height: 2.4rem;
+      background-color: #fff;
+      background-size: cover;
+      background-position: center;
+      border-radius: 99%;
+      margin-right: 1rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
 
     &__body {
       background-color: #fff;

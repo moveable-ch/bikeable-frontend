@@ -95,10 +95,10 @@ export default {
 @import '../styles/helpers';
 
 .list {
-  margin: 0 0 2rem 0;
+  padding: 1rem 0 4rem 0;
 
   @include desktop {
-    margin: 0 0 4rem 0;
+    padding: 0rem 0 4rem 0;
   }
 
   &__container {
@@ -152,29 +152,36 @@ export default {
     }
     &__addlink {
       display: block;
-      padding: .75rem 0;
-      box-sizing: border-box;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      // box-sizing: border-box;
       text-align: center;
       text-decoration: none;
-      font-size: 1rem;
-      width: 200px;
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .05rem;
+      width: 100%;
+      max-width: 400px;
       background-color: transparent;
-      color: $c-main;
-      border: 2px solid $c-main;
+      color: #333;
+      border: 2px solid #333;
       font-weight: 500;
       margin: 0 auto;
       position: relative;
       margin-top: .5rem;
+      margin-bottom: 1.5rem;
 
       &:hover {
-        background-color: $c-main;
-        color: #fff;
+        border-color: $c-main;
+        color: $c-main;
       }
 
       @include desktop {
+        background-color: #fff;
+        max-width: none;
         width: 240px;
         position: absolute;
-        top: 0;
+        top: -1.25rem;
         right: 0;
       }
     }
@@ -186,7 +193,7 @@ export default {
     padding: 0;
 
     .list-entry {
-      padding: 1rem;
+      padding: 1.5rem 1rem;
       transition: all .5s;
 
       &:nth-child(2n) {
@@ -204,6 +211,8 @@ export default {
       }
       &__location {
         font-size: .8rem;
+        white-space: nowrap;
+        width: 100%;
 
         @include desktop() {
           font-size: 1rem;
@@ -237,6 +246,8 @@ export default {
       }
       &__content {
         flex-shrink: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       &__image {
         flex-shrink: 0;
@@ -245,7 +256,7 @@ export default {
         height: 2.5rem;
         background-size: cover;
         background-position: center;
-        margin: 0 .5rem;
+        margin: 0 1rem 0 -.5rem;
         position: relative;
         overflow: hidden;
 
@@ -280,6 +291,8 @@ export default {
         text-align: center;
         border-radius: 99%;
         flex-shrink: 0;
+        z-index: 1;
+        background-color: #fff;
 
         @include desktop() {
           width: 2.5rem;

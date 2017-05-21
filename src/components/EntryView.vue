@@ -1,19 +1,19 @@
 <template>
-  <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed }">
-    <div class="entry__container">
+  <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed, 'pending': loadingData }">
+    <div class="entry__container" v-if="!loadingData">
       <div class="col">
         <div class="entry__image">
           <img :src="currentEntry.photo.large">
         </div>
         <div class="share">
           <a class="share__button share__button--fb" target="_blank" :href="'https://www.facebook.com/sharer/sharer.php?u=' + entryUrl"></a>
-          <a class="share__button share__button--twitter" :href="'mailto:?subject=' + currentEntry.title + '&body=' + entryUrl"></a>
+          <a class="share__button share__button--twitter" target="_blank" :href="'https://twitter.com/home?status=' + entryUrl"></a>
           <a class="share__button share__button--mail" :href="'mailto:?subject=' + currentEntry.title + '&body=' + entryUrl"></a>
         </div>
       </div>
       <div class="col">
         <div class="entry__user">
-          <div v-if="currentEntry.user.image" class="entry__user__image" :style="'background-image:url(' + currentEntry.user.image + ')'"></div>
+          <div v-if="currentEntry.user.avatar" class="entry__user__image" :style="'background-image:url(' + currentEntry.user.avatar.small + ')'"></div>
           <div class="entry__user__content">
             <span class="entry__user__name">{{ currentEntry.user.name }}</span><br>
             <span class="entry__user__date">{{ entryDate }}</span>
@@ -198,13 +198,17 @@ export default {
         }).then(response => {
           this.$store.commit('LOAD_FINISH');
           this.loadEntry();
-          this.checkUpvote();
+
+          if(response.body.lastAction == 'addVote') {
+            this.hasVoted = true;
+          }else{
+            this.hasVoted = false;
+          }
         }, response => {
           let msg = response.body.message;
           this.$store.commit('SET_MESSAGE', msg);
           this.$store.commit('LOAD_FINISH');
 
-          this.hasVoted = false;
         });
     }
   }
@@ -234,6 +238,12 @@ export default {
       opacity: .08;
     }
 
+    &.pending {
+      &::before {
+        display: none;
+      }
+    }
+
     &__user {
       margin-bottom: 1rem;
       font-size: .8rem;
@@ -243,6 +253,8 @@ export default {
         width: 2.4rem;
         height: 2.4rem;
         background-color: #fff;
+        background-size: cover;
+        background-position: center;
         border-radius: 99%;
         margin-right: 1rem;
       }
@@ -293,7 +305,7 @@ export default {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      max-width: 1300px;
+      max-width: 1500px;
       margin: 0 auto;
       // padding: 0 1rem;
     }
@@ -446,10 +458,10 @@ export default {
           margin-bottom: .5rem;
         }
         &__button {
-          font-size: .9rem;
-          height: 2rem;
+          // font-size: .9rem;
+          // height: 2rem;
           line-height: 2rem;
-          min-width: 6rem;
+          // min-width: 6rem;
         }
 
         textarea {

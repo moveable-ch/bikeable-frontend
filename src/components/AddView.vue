@@ -285,14 +285,24 @@ export default {
 
     label {
       display: block;
-      color: $c-main;
-      border: 2px solid $c-main;
+      color: #666;
+      border: 2px solid #666;
       width: 14rem;
       text-align: center;
-      padding: .75rem 0;
+      font-weight: 700;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      letter-spacing: .05rem;
       cursor: pointer;
       margin-top: 1rem;
       background-color: #fff;
+      text-transform: uppercase;
+      font-size: .8rem;
+
+      &:hover {
+        border-color: $c-main;
+        color: $c-main;
+      }
     }
     input {
       width: 0.1px;

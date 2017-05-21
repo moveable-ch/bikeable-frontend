@@ -1,5 +1,11 @@
 <template>
   <div class="add">
+    <map-modal-view
+      v-if="showMapModal"
+      @close="showMapModal = false"
+      @setCoords="handleMapCoords"
+      :propCoords="entryCoords">
+    </map-modal-view>
     <div class="container">
       <h1>Spot hinzufügen</h1>
       <form @submit.prevent="postEntry">
@@ -18,7 +24,7 @@
         </label>
         <div class="address-btns">
           <a href="#" class="address-btn address-btn--userloc" v-bind:class="{ disabled: !userCoords }" @click.prevent="handleUserCoords">Aktuellen Standort einfügen</a>
-          <a href="#" class="address-btn address-btn--map disabled" @click.prevent="handleUserCoords">Standort auf Karte wählen</a>
+          <a href="#" class="address-btn address-btn--map" @click.prevent="showMapModal = true">Standort auf Karte wählen</a>
         </div>
         <h3><span class="num">3</span>Bild</h3>
         <span class="label">Lade ein Foto von deinem Spot hoch</span>
@@ -49,11 +55,17 @@
 </template>
 
 <script>
+import AddMapModalView from '@/components/AddMapModalView';
+
 export default {
   name: 'add-view',
   props: ['propCoords'],
+  components: {
+    'map-modal-view': AddMapModalView
+  },
   data () {
     return {
+      showMapModal: false,
       addressPending: false,
 
       entryAddress: '',
@@ -86,6 +98,24 @@ export default {
   },
 
   methods: {
+    handleMapCoords(coords) {
+
+      if(!coords) return;
+
+      this.addressPending = true;
+
+      this.getAddress(coords.lat + ',' + coords.lng)
+        .then((address) => {
+          this.entryAddress = address;
+          this.entryCoords = coords;
+          this.addressPending = false;
+        }, (data) => {
+          this.$store.dispatch('handleError', 'Fehler');
+          this.addressPending = false;
+        });
+
+    },
+
     handleParamCoords() {
 
       if(!this.$route.params.coords) return;
@@ -386,7 +416,7 @@ export default {
   font-size: .8rem;
   background-color: #fff;
   padding: 0 1rem 0 3.5rem;
-  color: $c-main;
+  color: #333;
   box-sizing: border-box;
   text-decoration: none;
   line-height: 2.5rem;
@@ -394,9 +424,10 @@ export default {
   width: 100%;
   margin-bottom: 5px;
   white-space: nowrap;
+  // border: 1px solid #ddd;
 
   @include desktop() {
-    width: 49%;
+    width: calc(50% - 3px);
   }
 
   &::before {
@@ -407,8 +438,8 @@ export default {
     left: 0;
     width: 2.5rem;
     height: 2.5rem;
-    background-color: $c-main;
-    background-size: 1rem 1rem;
+    background-color: #333;
+    background-size: 1.5rem 1.5rem;
     background-position: center;
     background-repeat: no-repeat;
   }
@@ -422,15 +453,20 @@ export default {
     }
   }
   &:hover {
-    color: #333;
+    color: $c-main;
     &::before {
-      background-color: #333;
+      background-color: $c-main;
     }
   }
 
   &--userloc {
     &::before {
       background-image: url('../assets/locatebutton.png');
+    }
+  }
+  &--map {
+    &::before {
+      background-image: url('../assets/mapbutton.png');
     }
   }
 }

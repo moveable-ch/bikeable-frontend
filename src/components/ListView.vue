@@ -15,11 +15,12 @@
       <ul>
         <li v-for="entry in displayEntries" class="list-entry" v-if="entries" v-bind:class="{ famed: entry.famed }" v-bind:key="entry._id">
           <router-link :to="'/entries/' + entry._id" class="list-entry__link">
-            <span class="list-entry__votes">{{ entry.votes }}</span>
-            <span class="list-entry__image" :style="{ backgroundImage: 'url('+entry.photo.small+')' }"></span>
+            <span class="list-entry__image" :style="{ backgroundImage: 'url(' + entry.photo.small + ')' }"></span>
             <span class="list-entry__content">
               <h3>{{ entry.title }}</h3>
-              <span class="list-entry__location">{{ entry.address }}, {{entry.commentCount}}</span>
+              <span class="list-entry__location">{{ entry.address }}</span>
+              <span class="list-entry__meta list-entry__meta--votes">{{ entry.votes }}</span>
+              <span class="list-entry__meta list-entry__meta--comments">{{ entry.commentCount }}</span>
               <span v-if="entry.distance" class="list-entry__distance">{{ entry.distance }}</span>
             </span>
           </router-link>
@@ -165,7 +166,7 @@ export default {
       background-color: transparent;
       color: #333;
       border: 2px solid #333;
-      font-weight: 500;
+      font-weight: 700;
       margin: 0 auto;
       position: relative;
       margin-top: .5rem;
@@ -193,12 +194,13 @@ export default {
     padding: 0;
 
     .list-entry {
-      padding: 1.5rem 1rem;
-      transition: all .5s;
+      margin-bottom: 5px;
+      // padding: 1.5rem 1rem;
+      // transition: all .5s;
 
-      &:nth-child(2n) {
-        background-color: #fff;
-      }
+      // &:nth-child(2n) {
+      //   background-color: #fff;
+      // }
       &__distance {
         display: block;
         color: #888;
@@ -210,12 +212,14 @@ export default {
         }
       }
       &__location {
+        display: block;
         font-size: .8rem;
         white-space: nowrap;
         width: 100%;
+        margin-bottom: .5rem;
 
         @include desktop() {
-          font-size: 1rem;
+          font-size: .8rem;
         }
       }
       &__link {
@@ -226,22 +230,22 @@ export default {
         margin: 0 auto;
         text-decoration: none;
         color: #333;
-        // padding-left: .5rem;
+        background-color: #fafafa;
+        padding: 1rem;
+        box-sizing: border-box;
+        border-left: 4px solid $c-highlight;
 
-        &:hover {
+        &:hover, &:focus {
+          background-color: #fff;
+
           h3 {
             color: $c-highlight;
             // text-decoration: underline;
           }
-          .entry__image {
-            &::after {
-              opacity: .6;
-            }
-          }
         }
 
         @include desktop() {
-          padding-left: .5rem;
+          // padding-left: .5rem;
         }
       }
       &__content {
@@ -252,11 +256,11 @@ export default {
       &__image {
         flex-shrink: 0;
         display: block;
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 4rem;
+        height: 4rem;
         background-size: cover;
         background-position: center;
-        margin: 0 1rem 0 -.5rem;
+        margin: 0 1rem 0 0;
         position: relative;
         overflow: hidden;
 
@@ -277,27 +281,35 @@ export default {
         @include desktop() {
           width: 4rem;
           height: 4rem;
-          margin: 0 1rem;
+          margin: 0 1rem 0 0;
         }
       }
-      &__votes {
-        display: block;
-        color: $c-highlight;
-        font-size: 1rem;
-        width: 2rem;
-        height: 2rem;
-        border: 2px solid $c-highlight;
-        line-height: 2rem;
-        text-align: center;
-        border-radius: 99%;
-        flex-shrink: 0;
-        z-index: 1;
-        background-color: #fff;
+      &__meta {
+        position: relative;
+        display: inline-block;
+        padding-left: 24px;
+        margin-right: 1rem;
 
-        @include desktop() {
-          width: 2.5rem;
-          height: 2.5rem;
-          line-height: 2.5rem;
+        &::before {
+          content: "";
+          display: block;
+          width: 18px;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background-size: 100%;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+        &--votes::before {
+          background-image: url('../assets/upvote-small.png');
+        }
+        &--comments {
+          padding-left: 26px;
+        }
+        &--comments::before {
+          background-image: url('../assets/comment-small.png');
         }
       }
       h3 {
@@ -313,18 +325,10 @@ export default {
 
       &.famed {
 
-        .list-entry__link:hover h3 {
+        .list-entry__link:hover h3, .list-entry__link:focus h3 {
           color: $c-main;
         }
-        .list-entry__image::before {
-          background-color: $c-main;
-        }
-        .list-entry__image::after {
-          background-color: $c-main;
-          // background-image: url('../assets/smile-good-nobg.svg');
-        }
-        .list-entry__votes {
-          color: $c-main;
+        .list-entry__link {
           border-color: $c-main;
         }
       }

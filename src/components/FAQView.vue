@@ -39,7 +39,6 @@ export default {
         const y = {};
         y.title = payload.results[0].getText('faq.title');
         y.questions = payload.results[0].getGroup('faq.questions').toArray().map((x) => {
-          console.log(x);
           const y = {};
           y.title = x.getText('question');
           y.text = '';

@@ -1,31 +1,42 @@
 <template>
   <div class="list">
-    <div class="container">
-      <div class="hero">
-        <router-link v-if="isLoggedIn" to="/add" href="" class="hero__addlink">Spot hinzufügen</router-link>
-        <ul class="hero__sort">
-          <li><a href="#" @click.prevent="entryFilter = 'all'" v-bind:class="{ active: isCurrentSort('all') }">Alle Spots</a></li>
-          <li><a href="#" @click.prevent="entryFilter = 'shame'" v-bind:class="{ active: isCurrentSort('shame') }">Wall of Shame</a></li>
-          <li><a href="#" @click.prevent="entryFilter = 'fame'" v-bind:class="{ active: isCurrentSort('fame') }">Hall of Fame</a></li>
-          <!-- <li><a href="#" @click.prevent="setSort('location')" v-bind:class="{ active: isCurrentSort('location'), disabled: !userCoords }">Closest Spots</a></li> -->
-        </ul>
-      </div>
-    </div>
     <div class="list__container">
-      <ul>
-        <li v-for="entry in displayEntries" class="list-entry" v-if="entries" v-bind:class="{ famed: entry.famed }" v-bind:key="entry._id">
-          <router-link :to="'/entries/' + entry._id" class="list-entry__link">
-            <span class="list-entry__image" :style="{ backgroundImage: 'url(' + entry.photo.small + ')' }"></span>
-            <span class="list-entry__content">
-              <h3>{{ entry.title }}</h3>
-              <span class="list-entry__location">{{ entry.address }}</span>
-              <span class="list-entry__meta list-entry__meta--votes">{{ entry.votes }}</span>
-              <span class="list-entry__meta list-entry__meta--comments">{{ entry.commentCount }}</span>
-              <span v-if="entry.distance" class="list-entry__distance">{{ entry.distance }}</span>
-            </span>
-          </router-link>
-        </li>
-      </ul>
+      <div class="col col--left">
+        <router-link v-if="isLoggedIn" to="/add" class="addlink">Spot hinzufügen</router-link>
+        <div class="filter-item filter-item--filter">
+          <h3>Filter</h3>
+          <ul class="filter-item__list">
+          <li><a href="#" @click.prevent="entryFilter = 'all'" v-bind:class="{ active: isCurrentFilter('all') }">Alle Spots</a></li>
+          <li><a href="#" @click.prevent="entryFilter = 'shame'" v-bind:class="{ active: isCurrentFilter('shame') }">Wall of Shame</a></li>
+          <li><a href="#" @click.prevent="entryFilter = 'fame'" v-bind:class="{ active: isCurrentFilter('fame') }">Hall of Fame</a></li>
+          </ul>
+        </div>
+        <div class="filter-item filter-item--sort">
+          <h3>Sortierung</h3>
+          <ul class="filter-item__list">
+            <li><a href="#" @click.prevent="setSort('votes')" v-bind:class="{ active: isCurrentSort('votes'), asc: (isCurrentSort('votes') && !entrySortDesc) }">Upvotes</a></li>
+            <li><a href="#" @click.prevent="setSort('comments')" v-bind:class="{ active: isCurrentSort('comments'), asc: (isCurrentSort('comments') && !entrySortDesc) }">Kommentare</a></li>
+            <!-- <li><a href="#" @click.prevent="setSort('location')" v-bind:class="{ active: isCurrentSort('location'), disabled: !userCoords }">Distanz</a></li> -->
+          </ul>
+        </div>
+      </div>
+      <div class="col col--right">
+        <ul class="list__entries">
+          <li v-for="entry in displayEntries" class="list-entry" v-if="entries" v-bind:class="{ famed: entry.famed }" v-bind:key="entry._id">
+            <router-link :to="'/entries/' + entry._id" class="list-entry__link">
+              <span class="list-entry__image" :style="{ backgroundImage: 'url(' + entry.photo.small + ')' }"></span>
+              <span class="list-entry__content">
+                <h3>{{ entry.title }}</h3>
+                <span class="list-entry__location">{{ entry.address }}</span>
+                <span class="list-entry__meta list-entry__meta--votes">{{ entry.votes }}</span>
+                <span class="list-entry__meta list-entry__meta--comments">{{ entry.commentCount }}</span>
+                <span v-if="entry.distance" class="list-entry__distance">{{ entry.distance }}</span>
+              </span>
+            </router-link>
+          </li>
+        </ul>
+        <a class="showmore" href="#" v-if="entryDisplayCapped && entries" @click.prevent="displayEntryCount += 10">Mehr Spots anzeigen</a>
+      </div>
     </div>
   </div>
 </template>
@@ -47,14 +58,37 @@ export default {
     sort() {
       return this.$store.state.sort;
     },
+    entryDisplayCapped() {
+      return (this.displayEntryCount < this.entries.length);
+    },
     sortedEntries() {
       if(!this.entries) return [];
 
-      return this.entries.sort(function(a,b) {
-        return b.votes - a.votes;
-      });
+      if(this.entrySort == 'votes') {
+        if(this.entrySortDesc) {
+          return this.entries.sort(function(a,b) {
+            return b.votes - a.votes;
+          });
+        }else{
+          return this.entries.sort(function(a,b) {
+            return a.votes - b.votes;
+          });
+        }
+      }else if(this.entrySort == 'comments') {
+        if(this.entrySortDesc) {
+          return this.entries.sort(function(a,b) {
+            return b.commentCount - a.commentCount;
+          });
+        }else{
+          return this.entries.sort(function(a,b) {
+            return a.commentCount - b.commentCount;
+          });
+        }
+      }else{ 
+        return this.entries;
+      }
     },
-    displayEntries() {
+    filteredEntries() {
       if(this.entryFilter == 'all') {
         return this.sortedEntries;
       }else if(this.entryFilter == 'shame') {
@@ -66,24 +100,44 @@ export default {
           return entry.famed;
         });
       }
+    },
+    displayEntries() {
+      return this.filteredEntries.slice(0, this.displayEntryCount);
     }
   },
   data() {
     return {
       entryFilter: 'all',
       entrySort: 'votes',
-      entrySortDir: 'asc'
+      entrySortDesc: true,
+      displayEntryCount: 15
     }
   },
   watch: {
-
+    'entrySort': function(to, from) {
+      if(to == from) {
+        this.entrySortDesc = !this.entrySortDesc;
+      }else{
+        this.entrySortDesc = true;
+      }
+    }
   },
   methods: {
     setSort(sort) {
-      this.$store.dispatch('setEntrySorting', sort);
+      // this.$store.dispatch('setEntrySorting', sort);
+
+      if(this.entrySort == sort) {
+        this.entrySortDesc = !this.entrySortDesc;
+      }else{
+        this.entrySort = sort;
+        this.entrySortDesc = true;
+      }
     },
-    isCurrentSort(filter) {
+    isCurrentFilter(filter) {
       return this.entryFilter == filter;
+    },
+    isCurrentSort(sort) {
+      return this.entrySort == sort;
     }
   },
   mounted() { 
@@ -99,12 +153,106 @@ export default {
   padding: 1rem 0 4rem 0;
 
   @include desktop {
-    padding: 0rem 0 4rem 0;
+    padding: 2rem 1rem;
   }
 
   &__container {
-    // max-width: 1100px;
+    max-width: 1300px;
     margin: 0 auto;
+    padding: 0 5px;
+    display: flex;
+
+    .col {
+      &--left {
+        width: 15rem;
+        flex-shrink: 0;
+        padding-right: 1.5rem;
+        box-sizing: border-box;
+      }
+      &--right {
+        flex-shrink: 1;
+        flex-grow: 1;
+      }
+    }
+  }
+  .addlink {
+    display: block;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .05rem;
+    width: 100%;
+    max-width: 400px;
+    background-color: $c-main;
+    color: #fff;
+    font-weight: 700;
+    margin: 0 auto;
+    margin-bottom: 1.5rem;
+
+    &:hover {
+      background-color: #333;
+    }
+  }
+  .filter-item {
+    margin-bottom: 5px;
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #333;
+      margin: 0;
+      font-size: .8rem;
+      margin-bottom: .25rem;
+      color: #888;
+      padding-left: 1rem;
+    }
+    &__list {
+      margin-bottom: 1.5rem;
+
+      li {
+
+        a {
+          background-color: #fff;
+          display: block;
+          text-decoration: none;
+          color: #333;
+          line-height: 2rem;
+          padding: 0 1rem;
+          margin-bottom: 5px;
+          border: 2px solid #fff;
+          position: relative;
+
+          &:hover, &.active {
+            border-color: #333;
+          }
+          &.disabled {
+            opacity: .4;
+            pointer-events: none;
+          }
+        }
+      }
+    }
+    &--sort {
+      .filter-item__list li a {
+        &.active::before {
+          content: "⇥";
+          color: #333;
+          display: block;
+          position: absolute;
+          right: .5rem;
+          top: 0;
+          line-height: 2rem;
+          transform: rotate(90deg);
+          transition: .4s transform $easeOutQuint;
+        }
+        &.active.asc::before {
+          transform: rotate(-90deg);
+        }
+      }
+    }
   }
   .hero {
     margin-bottom: 1rem;
@@ -112,38 +260,56 @@ export default {
 
     &__sort {
       margin: 1rem 0 0 0;
+      display: flex;
+      flex-wrap: wrap;
 
       li {
-        display: inline;
-        margin-right: .2rem;
-        // width: 100%;
-        line-height: 1.3;
+        display: block;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        width: 100%;
+
+        @include desktop() {
+          width: auto;
+        }
 
         a {
-          color: #777;
+          display: inline-block;
+          text-transform: uppercase;
+          padding: 0 1.5rem;
+          background-color: #fff;
+          border: 2px solid #fff;
+          color: #aaa;
           text-decoration: none;
-          font-size: 1rem;
-          transition: font-size .3s $easeInOutQuint;
+          font-size: .8rem;
+          font-weight: 700;
+          letter-spacing: .05rem;
+          line-height: 2rem;
+
+          @include desktop() {
+            width: auto;
+          }
 
           &.active {
             color: #333;
-            font-size: 1rem;
             pointer-events: none;
-            border-bottom: 1px solid #333;
+            border-color: #333;
+            // border-bottom: 1px solid #333;
           }
           &.disabled {
             color: #bbb;
             pointer-events: none;
           }
+          &:hover {
+            color: #333;
+          }
         }
       }
 
       @include desktop  {
-        margin: 3rem 0 2rem 0;
+        margin: 2rem 0 2rem 0;
 
         li {
-          display: inline;
-          margin-right: 1rem;
 
           a {
 
@@ -151,44 +317,9 @@ export default {
         }
       }
     }
-    &__addlink {
-      display: block;
-      height: 2.5rem;
-      line-height: 2.5rem;
-      // box-sizing: border-box;
-      text-align: center;
-      text-decoration: none;
-      font-size: .8rem;
-      text-transform: uppercase;
-      letter-spacing: .05rem;
-      width: 100%;
-      max-width: 400px;
-      background-color: transparent;
-      color: #333;
-      border: 2px solid #333;
-      font-weight: 700;
-      margin: 0 auto;
-      position: relative;
-      margin-top: .5rem;
-      margin-bottom: 1.5rem;
-
-      &:hover {
-        border-color: $c-main;
-        color: $c-main;
-      }
-
-      @include desktop {
-        background-color: #fff;
-        max-width: none;
-        width: 240px;
-        position: absolute;
-        top: -1.25rem;
-        right: 0;
-      }
-    }
   }
 
-  ul {
+  ul.list__entries {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -215,6 +346,8 @@ export default {
         display: block;
         font-size: .8rem;
         white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         width: 100%;
         margin-bottom: .5rem;
 
@@ -226,7 +359,6 @@ export default {
         display: flex;
         align-items: center;
         width: 100%;
-        max-width: 1100px;
         margin: 0 auto;
         text-decoration: none;
         color: #333;
@@ -334,6 +466,11 @@ export default {
       }
 
     }
+  }
+  .showmore {
+    display: block;
+    text-align: center;
+    margin-top: 2rem;
   }
 }
 

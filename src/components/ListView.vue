@@ -3,16 +3,16 @@
     <div class="list__container">
       <div class="col col--left">
         <router-link v-if="isLoggedIn" to="/add" class="addlink">Spot hinzufügen</router-link>
-        <div class="filter-item filter-item--filter">
-          <h3>Filter</h3>
+        <div class="filter-item filter-item--filter" v-bind:class="{ visible: showFilter }">
+          <h3 @click="showFilter = !showFilter">Filter</h3>
           <ul class="filter-item__list">
           <li><a href="#" @click.prevent="entryFilter = 'all'" v-bind:class="{ active: isCurrentFilter('all') }">Alle Spots</a></li>
           <li><a href="#" @click.prevent="entryFilter = 'shame'" v-bind:class="{ active: isCurrentFilter('shame') }">Wall of Shame</a></li>
           <li><a href="#" @click.prevent="entryFilter = 'fame'" v-bind:class="{ active: isCurrentFilter('fame') }">Hall of Fame</a></li>
           </ul>
         </div>
-        <div class="filter-item filter-item--sort">
-          <h3>Sortierung</h3>
+        <div class="filter-item filter-item--sort" v-bind:class="{ visible: showSort }">
+          <h3 @click="showSort = !showSort">Sortierung</h3>
           <ul class="filter-item__list">
             <li><a href="#" @click.prevent="setSort('votes')" v-bind:class="{ active: isCurrentSort('votes'), asc: (isCurrentSort('votes') && !entrySortDesc) }">Upvotes</a></li>
             <li><a href="#" @click.prevent="setSort('comments')" v-bind:class="{ active: isCurrentSort('comments'), asc: (isCurrentSort('comments') && !entrySortDesc) }">Kommentare</a></li>
@@ -59,7 +59,7 @@ export default {
       return this.$store.state.sort;
     },
     entryDisplayCapped() {
-      return (this.displayEntryCount < this.entries.length);
+      return (this.displayEntryCount < this.filteredEntries.length);
     },
     sortedEntries() {
       if(!this.entries) return [];
@@ -110,16 +110,15 @@ export default {
       entryFilter: 'all',
       entrySort: 'votes',
       entrySortDesc: true,
-      displayEntryCount: 15
+      displayEntryCount: 15,
+
+      showFilter: false,
+      showSort: false
     }
   },
   watch: {
-    'entrySort': function(to, from) {
-      if(to == from) {
-        this.entrySortDesc = !this.entrySortDesc;
-      }else{
-        this.entrySortDesc = true;
-      }
+    'entryFilter': function(to, from) {
+      this.displayEntryCount = 15;
     }
   },
   methods: {
@@ -159,19 +158,30 @@ export default {
   &__container {
     max-width: 1300px;
     margin: 0 auto;
-    padding: 0 5px;
+    padding: 0 1rem;
     display: flex;
+    flex-wrap: wrap;
 
     .col {
       &--left {
-        width: 15rem;
+        width: 100%;
         flex-shrink: 0;
-        padding-right: 1.5rem;
+        padding-right: 0;
         box-sizing: border-box;
+
+        @include desktop() {
+          width: 15rem;
+          padding-right: 1.5rem;
+        }
       }
       &--right {
         flex-shrink: 1;
         flex-grow: 1;
+        width: 100%;
+
+        @include desktop() {
+          width: calc(100% - 15rem);
+        }
       }
     }
   }
@@ -198,16 +208,48 @@ export default {
   }
   .filter-item {
     margin-bottom: 5px;
+    height: 1.5rem;
+    overflow: hidden;
+
+    @include desktop() {
+      height: auto;
+    }
+
+    &.visible {
+      height: auto;
+
+      h3::before {
+        transform: rotate(-90deg);
+      }
+    }
 
     h3 {
-      font-size: 1rem;
       font-weight: 400;
       color: #333;
       margin: 0;
-      font-size: .8rem;
+      font-size: 1rem;
+      line-height: 1.5rem;
       margin-bottom: .25rem;
       color: #888;
       padding-left: 1rem;
+      position: relative;
+
+      &::before {
+        content: ">";
+        position: absolute;
+        top: 0;
+        line-height: 1.5rem;
+        right: 1rem;
+        transform: rotate(90deg);
+      }
+
+      @include desktop() {
+        font-size: .8rem;
+
+        &::before {
+          display: none;
+        }
+      }
     }
     &__list {
       margin-bottom: 1.5rem;
@@ -323,6 +365,11 @@ export default {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    margin-top: 1rem;
+
+    @include desktop() {
+      margin-top: 0;
+    }
 
     .list-entry {
       margin-bottom: 5px;

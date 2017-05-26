@@ -48,11 +48,11 @@ export default {
 @import '../styles/helpers';
 
 .footer {
-  background-color: #fff;
+  background-color: $c-main;
   padding: 2rem 0;
   margin-top: 2rem;
   width: 100%;
-  color: $c-main;
+  color: #fff;
   text-align: center;
 
   &__inner {
@@ -72,7 +72,7 @@ export default {
   &__logo {
     width: 8rem;
     position: absolute;
-    top: -4.5rem;
+    top: -3.5rem;
     left: 50%;
     margin-left: -4rem;
   }
@@ -81,21 +81,24 @@ export default {
       margin: 1rem 0;
 
       a {
-        color: $c-main;
+        color: inherit;
+        text-decoration: none;
+        box-shadow: inset 0 -1px 0 0 #fff;
 
         &:hover {
           color: $c-highlight;
+          box-shadow: inset 0 -1px 0 0 $c-highlight;
         }
       }
     }
   }
 
   @include desktop {
-    padding: 3rem 0;
+    padding: 1.5rem 0;
     margin-top: 8rem;
 
     &__col {
-      width: 33.3%;
+      width: 40%;
 
       &--left {
         ul li {
@@ -108,6 +111,7 @@ export default {
         }
       }
       &--center {
+        width: 20%;
         display: block;
       }
     }

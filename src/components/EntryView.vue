@@ -54,6 +54,17 @@ import CommentView from '@/components/CommentView'
 
 export default {
   name: 'entry-view',
+  metaInfo() {
+    return {
+      title: this.currentEntry.title + ' — Bikeable',
+      meta: [
+        { name: 'og:title', content: this.currentEntry.title},
+        { name: 'og:site_name', content: 'Bikeable'},
+        { name: 'og:url', content: this.entryUrl},
+        { name: 'og:image', content: this.currentEntry.photo.large}
+      ]
+    };
+  },
   props: [],
   components: {
     'comment-view': CommentView
@@ -64,6 +75,7 @@ export default {
       loadingData: true,
       hasVoted: false,
       currentEntry: {
+        title: ' ',
         user: {
           name: ''
         },

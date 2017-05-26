@@ -44,6 +44,9 @@
 <script>
 export default {
   name: 'list-view',
+  metaInfo: {
+    title: 'Spots — Bikeable'
+  },
   props: [],
   computed: {
     entries() {

@@ -4,9 +4,11 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import App from './App'
 import router from './router'
+import Meta from 'vue-meta'
 import store from '@/store/store'
 
 Vue.use(VueResource);
+Vue.use(Meta);
 
 /* eslint-disable no-new */
 new Vue({

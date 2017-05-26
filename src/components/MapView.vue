@@ -21,6 +21,9 @@ import GoogleMapsLoader from 'google-maps';
 
 export default {
   name: 'map-view',
+  metaInfo: {
+    title: 'Map — Bikeable'
+  },
   props: [],
   components: {
     'sponsor-modal-view': SponsorModalView,

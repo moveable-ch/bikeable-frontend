@@ -20,6 +20,9 @@ import FooterView from '@/components/FooterView'
 
 export default {
   name: 'app',
+  metaInfo: {
+    title: 'Bikeable'
+  },
   data () {
     return {
       transitionName: 'fade',

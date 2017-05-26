@@ -7,7 +7,7 @@
       </div>
       <p>{{ comment.text }}</p>
     </div>
-    <a @click.prevent="upvoteComment" href="#" class="comment__vote">
+    <a @click.prevent="upvoteComment" href="#" class="comment__vote" v-bind:class="{ disabled: !isLoggedIn }">
       <span class="comment__vote__count">{{ comment.votesCount }}</span>
     </a>
   </div>
@@ -31,6 +31,9 @@ export default {
       if(!this.comment.createdAt) return '';
       let d = new Date(this.comment.createdAt);
       return d.toLocaleDateString('de-DE');
+    },
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
     }
   },
 
@@ -43,6 +46,8 @@ export default {
 
   methods: {
     upvoteComment() {
+      if(!this.isLoggedIn) return;
+
       let userId = localStorage.getItem('userId');
       let token = localStorage.getItem('token');
 
@@ -131,6 +136,9 @@ export default {
           background-repeat: no-repeat;
           transition: .3s transform $easeOutQuint;
         }
+      }
+      &.disabled {
+        pointer-events: none;
       }
       &:hover {
         border-color: $c-main;

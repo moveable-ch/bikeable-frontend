@@ -73,16 +73,25 @@ export default {
   justify-content: center;
   z-index: 1;
 
+  &__content {
+    overflow: hidden;
+    width: 100%;
+  }
+
   &__inner {
     padding: 1.5rem;
     background-color: #fff;
-    display: flex;
-    max-width: calc(100% - 2rem);
+    // display: flex;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin: 0 1rem;
+    width: 90%;
+    max-width: 30rem;
     position: relative;
+    padding-bottom: 4.5rem;
 
     .upvotes {
-      display: block;
+      display: none;
       border: 2px solid $c-highlight;
       color: $c-highlight;
       width: 2.5rem;
@@ -109,6 +118,12 @@ export default {
     .address {
       font-size: .8rem;
       color: #888;
+      margin-top: .5rem;
+      display: block;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .meta {
       line-height: 1.6;
@@ -117,12 +132,13 @@ export default {
     }
     .btn-close {
       font-size: 1rem;
+      font-weight: bold;
       padding: 0;
       background: none;
       border: none;
       position: absolute;
-      top: -.5rem;
-      left: -.5rem;
+      top: 0;
+      right: 0;
       background-color: #fff;
       width: 2rem;
       height: 2rem;
@@ -138,21 +154,34 @@ export default {
     }
     .btn-show {
       background: none;
-      border: 1px solid $c-highlight;
-      padding: .25rem .5rem;
-      margin-top: .5rem;
+      border: none;
+      padding: 0;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3rem;
+      line-height: 3rem;
+      background-color: $c-highlight;
+      color: #fff;
       font-family: $f-body;
-      font-size: .8rem;
-      color: $c-highlight;
+      font-size: 1rem;
       cursor: pointer;
+      transition: .2s background-color;
 
       &:active, &:focus {
         outline: none;
       }
 
       .is-famed & {
-        color: $c-main;
-        border-color: $c-main;
+        background-color: $c-main;
+      }
+      &:hover {
+        background-color: #333;
+      }
+
+      @include desktop() {
+
       }
     }
   }

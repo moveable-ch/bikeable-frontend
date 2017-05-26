@@ -140,7 +140,7 @@ export default {
   .loader {
     height: 4px;
     background-size: 33% 100%;
-    animation: stripe 5s infinite linear;
+    animation: stripe 2s infinite linear;
   }
 }
 

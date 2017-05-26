@@ -92,16 +92,16 @@ export default {
           styles: mapstyle
         });
 
-        this.map.addListener('click', function(e) {
-          let lat = e.latLng.lat();
-          let lng = e.latLng.lng();
+        // this.map.addListener('click', function(e) {
+        //   let lat = e.latLng.lat();
+        //   let lng = e.latLng.lng();
 
-          this.clickedCoords = {
-            lat: lat,
-            lng: lng
-          };
-          this.showAddModal = true;
-        }.bind(this));
+        //   this.clickedCoords = {
+        //     lat: lat,
+        //     lng: lng
+        //   };
+        //   this.showAddModal = true;
+        // }.bind(this));
 
         this.renderMarkers();
         this.renderSponsors();
@@ -144,12 +144,14 @@ export default {
       this.sponsors.forEach((entry, index) => {
 
         let imgurl = 'static/img/star-lame.png';
-
         if(entry.isSponsor) imgurl = 'static/img/star.png';
+
+        let size = 12;
+        if(entry.isSponsor) size = 16;
 
         let icon = {
           url: imgurl,
-          scaledSize: new google.maps.Size(16, 16)
+          scaledSize: new google.maps.Size(size, size)
         }
 
         let marker = new this.google.maps.Marker({
@@ -238,13 +240,14 @@ export default {
     display: block;
     width: 4rem;
     height: 4rem;
-    background-color: $c-blue;
+    background-color: #333;
     color: #eee;
     text-decoration: none;
     text-align: center;
     float: left;
     margin: 0 2px;
     position: relative;
+    border-radius: 4px;
 
     &:hover {
       background-color: $c-main;

@@ -7,8 +7,8 @@
           <h3 @click="showFilter = !showFilter">Filter</h3>
           <ul class="filter-item__list">
           <li><a href="#" @click.prevent="entryFilter = 'all'" v-bind:class="{ active: isCurrentFilter('all') }">Alle Spots</a></li>
-          <li><a href="#" @click.prevent="entryFilter = 'shame'" v-bind:class="{ active: isCurrentFilter('shame') }">Wall of Shame</a></li>
-          <li><a href="#" @click.prevent="entryFilter = 'fame'" v-bind:class="{ active: isCurrentFilter('fame') }">Hall of Fame</a></li>
+          <li><a href="#" @click.prevent="entryFilter = 'shame'" v-bind:class="{ active: isCurrentFilter('shame') }">☹ Wall of Shame</a></li>
+          <li><a href="#" @click.prevent="entryFilter = 'fame'" v-bind:class="{ active: isCurrentFilter('fame') }">☺ Hall of Fame</a></li>
           </ul>
         </div>
         <div class="filter-item filter-item--sort" v-bind:class="{ visible: showSort }">
@@ -187,20 +187,21 @@ export default {
   }
   .addlink {
     display: block;
-    height: 2.5rem;
-    line-height: 2.5rem;
+    height: 3rem;
+    line-height: 3rem;
     text-align: center;
     text-decoration: none;
-    font-size: .8rem;
-    text-transform: uppercase;
-    letter-spacing: .05rem;
+    font-size: 1rem;
+    // text-transform: uppercase;
+    // letter-spacing: .05rem;
     width: 100%;
     max-width: 400px;
     background-color: $c-main;
     color: #fff;
-    font-weight: 700;
+    font-weight: 500;
     margin: 0 auto;
     margin-bottom: 1.5rem;
+    border-radius: 4px;
 
     &:hover {
       background-color: #333;
@@ -260,15 +261,18 @@ export default {
           background-color: #fff;
           display: block;
           text-decoration: none;
-          color: #333;
+          color: #666;
           line-height: 2rem;
           padding: 0 1rem;
           margin-bottom: 5px;
           border: 2px solid #fff;
           position: relative;
+          border-radius: 4px;
+          transition: .2s color, .2s border-color;
 
           &:hover, &.active {
-            border-color: #333;
+            border-color: $c-main;
+            color: $c-main;
           }
           &.disabled {
             opacity: .4;
@@ -281,7 +285,7 @@ export default {
       .filter-item__list li a {
         &.active::before {
           content: "⇥";
-          color: #333;
+          color: inherit;
           display: block;
           position: absolute;
           right: .5rem;

@@ -75,12 +75,12 @@ export default {
     padding: 3rem 0;
 
     .input-text {
-      width: 80%;
+      // width: 100%;
     }
     .input-button {
-      display: inline-block;
-      width: calc(20% - 2rem);
-
+      margin: 2rem 0;
+      // display: inline-block;
+      // width: calc(20% - 2rem);
     }
   }
 }

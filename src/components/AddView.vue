@@ -250,19 +250,24 @@ export default {
   }
   h3 {
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 500;
     margin-bottom: 1.5rem;
-    margin-top: 3rem;
+    margin-top: 2rem;
 
     .num {
       display: inline-block;
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 2rem;
+      height: 2rem;
+      line-height: 2rem;
+      font-weight: 400;
       background-color: #fff;
       text-align: center;
-      line-height: 1.5rem;
       margin-right: 1rem;
       border-radius: 99%;
+    }
+
+    @include desktop() {
+      margin-top: 3rem;
     }
   }
   &__btn {
@@ -287,17 +292,16 @@ export default {
       display: block;
       color: #666;
       border: 2px solid #666;
+      border-radius: 4px;
       width: 14rem;
       text-align: center;
-      font-weight: 700;
-      height: 2.5rem;
-      line-height: 2.5rem;
-      letter-spacing: .05rem;
+      font-weight: 500;
+      height: 3rem;
+      line-height: 3rem;
       cursor: pointer;
       margin-top: 1rem;
       background-color: #fff;
-      text-transform: uppercase;
-      font-size: .8rem;
+      font-size: 1rem;
 
       &:hover {
         border-color: $c-main;
@@ -319,10 +323,11 @@ export default {
     color: #aaa;
     width: 14rem;
     text-align: center;
-    padding: .75rem 0;
-    cursor: pointer;
+    line-height: 3rem;
+    height: 3rem;
     margin-top: 1rem;
     background-color: #fff;
+    border-radius: 4px;
   }
 
   &__preview {
@@ -395,6 +400,7 @@ export default {
     box-sizing: border-box;
     margin: 0;
     border-radius: 5.4rem;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
     &__button {
       content: "";
@@ -434,7 +440,8 @@ export default {
   width: 100%;
   margin-bottom: 5px;
   white-space: nowrap;
-  // border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
 
   @include desktop() {
     width: calc(50% - 3px);

@@ -24,7 +24,7 @@
           <h2>{{ currentEntry.address }}</h2>
           <p class="lead__desc">{{ currentEntry.text }}</p>
         </div>
-        <a href="#" class="vote" v-bind:class="{ 'is-active': hasVoted }" @click.prevent="upvoteEntry">
+        <a href="#" class="vote" v-bind:class="{ 'is-active': hasVoted, disabled: !isLoggedIn }" @click.prevent="upvoteEntry">
           <span class="vote__icon vote__icon--main"></span>
           <span class="vote__icon vote__icon--white"></span>
           <span class="vote__count">{{ currentEntry.votes }}</span>
@@ -109,6 +109,8 @@ export default {
     fetchData() {
       this.loadEntry();
       this.loadComments();
+
+      if(!this.isLoggedIn) return;
       this.checkUpvote();
     },
 
@@ -138,6 +140,7 @@ export default {
 
     postComment() {
       if(this.commentText == '') return;
+      if(!this.isLoggedIn) return;
 
       let userId = localStorage.getItem('userId');
       let token = localStorage.getItem('token');
@@ -164,7 +167,6 @@ export default {
     },
 
     checkUpvote() {
-
       let userId = localStorage.getItem('userId');
       let token = localStorage.getItem('token');
 
@@ -177,12 +179,16 @@ export default {
         }).then(response => {
           this.hasVoted = false;
         }, response => {
-          this.hasVoted = true;
+          if(response.status == 400) {
+            this.hasVoted = true;
+          }
         });
 
     },
 
     upvoteEntry() {
+      if(!this.isLoggedIn) return;
+
       let userId = localStorage.getItem('userId');
       let token = localStorage.getItem('token');
 
@@ -404,6 +410,11 @@ export default {
       transition: .4s background-color;
       position: relative;
       overflow: hidden;
+      border-radius: 4px;
+
+      &.disabled {
+        pointer-events: none;
+      }
 
       &:hover, &.is-active {
         background-color: $c-highlight;
@@ -450,6 +461,8 @@ export default {
     }
 
     .comments {
+      margin-top: 3rem;
+
       &__form {
         margin-top: 3rem;
         margin-bottom: 2rem;

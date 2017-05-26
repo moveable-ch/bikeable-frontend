@@ -73,9 +73,10 @@ export default {
   box-sizing: border-box;
   z-index: 2;
   overflow: hidden;
+  transition: .4s height $easeOutQuint;
 
   &.is-expanded {
-    height: auto;
+    height: 15rem;
   }
 
   .container {
@@ -86,6 +87,7 @@ export default {
     position: relative;
     padding-top: 3rem;
     height: 9rem;
+    max-height: 9rem;
   }
 
   h1 {

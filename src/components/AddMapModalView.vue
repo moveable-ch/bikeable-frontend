@@ -132,7 +132,9 @@ export default {
   box-sizing: border-box;
 
   @include desktop() {
-    padding-top: 9rem;
+    // padding-top: 9rem;
+    padding-top: 0;
+    z-index: 2;
   }
 
   &__inner {
@@ -163,6 +165,9 @@ export default {
       text-align: center;
       z-index: 1;
       cursor: pointer;
+      border-left: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      display: none;
 
       &:active, &:focus {
         outline: none;

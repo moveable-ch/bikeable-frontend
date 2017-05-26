@@ -9,7 +9,7 @@
       </div>
 
       <ul class="sponsors" v-if="sponsors">
-        <li v-for="sponsor in sponsors"><a target="_blank" :href="sponsor.website">{{ sponsor.name }}</a></li>
+        <li v-for="sponsor in sponsors"><a target="_blank" :href="sponsor.website.url()">{{ sponsor.name }}</a></li>
       </ul>
     </div>
   </div>
@@ -131,7 +131,8 @@ export default {
     flex-wrap: wrap;
 
     li {
-      padding: 0;
+      padding: 0 1rem;
+      box-sizing: border-box;
       width: 100%;
       text-align: center;
 
@@ -149,11 +150,6 @@ export default {
 
       @include desktop() {
         width: 33.3%;
-        margin-right: 2%;
-
-        &:nth-child(3n) {
-          margin-right: 0;
-        }
       }
     }
   }

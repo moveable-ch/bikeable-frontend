@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import SocialSharing from 'vue-social-sharing'
 import App from './App'
 import router from './router'
 import Meta from 'vue-meta'
@@ -9,6 +10,7 @@ import store from '@/store/store'
 
 Vue.use(VueResource);
 Vue.use(Meta);
+Vue.use(SocialSharing);
 
 /* eslint-disable no-new */
 new Vue({

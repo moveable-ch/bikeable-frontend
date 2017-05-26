@@ -7,8 +7,8 @@
           <h3 @click="showFilter = !showFilter">Filter</h3>
           <ul class="filter-item__list">
           <li><a href="#" @click.prevent="entryFilter = 'all'" v-bind:class="{ active: isCurrentFilter('all') }">Alle Spots</a></li>
-          <li><a href="#" @click.prevent="entryFilter = 'shame'" v-bind:class="{ active: isCurrentFilter('shame') }">☹ Wall of Shame</a></li>
-          <li><a href="#" @click.prevent="entryFilter = 'fame'" v-bind:class="{ active: isCurrentFilter('fame') }">☺ Hall of Fame</a></li>
+          <li><a href="#" @click.prevent="entryFilter = 'shame'" v-bind:class="{ active: isCurrentFilter('shame') }">Wall of Shame</a></li>
+          <li><a href="#" @click.prevent="entryFilter = 'fame'" v-bind:class="{ active: isCurrentFilter('fame') }">Hall of Fame</a></li>
           </ul>
         </div>
         <div class="filter-item filter-item--sort" v-bind:class="{ visible: showSort }">
@@ -417,7 +417,7 @@ export default {
         text-decoration: none;
         color: #333;
         background-color: #fafafa;
-        padding: 1rem;
+        padding: .5rem;
         box-sizing: border-box;
         border-left: 4px solid $c-highlight;
 
@@ -431,7 +431,7 @@ export default {
         }
 
         @include desktop() {
-          // padding-left: .5rem;
+          padding: 1rem;
         }
       }
       &__content {
@@ -465,8 +465,8 @@ export default {
         }
 
         @include desktop() {
-          width: 4rem;
-          height: 4rem;
+          width: 5rem;
+          height: 5rem;
           margin: 0 1rem 0 0;
         }
       }

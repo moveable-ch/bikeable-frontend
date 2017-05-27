@@ -16,6 +16,7 @@
           <ul class="filter-item__list">
             <li><a href="#" @click.prevent="setSort('votes')" v-bind:class="{ active: isCurrentSort('votes'), asc: (isCurrentSort('votes') && !entrySortDesc) }">Upvotes</a></li>
             <li><a href="#" @click.prevent="setSort('comments')" v-bind:class="{ active: isCurrentSort('comments'), asc: (isCurrentSort('comments') && !entrySortDesc) }">Kommentare</a></li>
+            <li><a href="#" @click.prevent="setSort('date')" v-bind:class="{ active: isCurrentSort('date'), asc: (isCurrentSort('date') && !entrySortDesc) }">Datum</a></li>
             <!-- <li><a href="#" @click.prevent="setSort('location')" v-bind:class="{ active: isCurrentSort('location'), disabled: !userCoords }">Distanz</a></li> -->
           </ul>
         </div>
@@ -85,6 +86,16 @@ export default {
         }else{
           return this.entries.sort(function(a,b) {
             return a.commentCount - b.commentCount;
+          });
+        }
+      }else if(this.entrySort == 'date') {
+        if(this.entrySortDesc) {
+          return this.entries.sort(function(a,b) {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          });
+        }else{
+          return this.entries.sort(function(a,b) {
+            return new Date(a.createdAt) - new Date(b.createdAt);
           });
         }
       }else{ 

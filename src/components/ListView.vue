@@ -142,7 +142,8 @@ export default {
       return this.entrySort == sort;
     }
   },
-  mounted() { 
+  mounted() {
+    this.$store.dispatch('loadEntries');
   }
 }
 </script>

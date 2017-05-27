@@ -2,9 +2,10 @@
   <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed, 'pending': loadingData }">
     <div class="entry__container" v-if="!loadingData">
       <div class="col">
-        <div class="entry__image">
-          <img :src="currentEntry.photo.large">
-        </div>
+        <entry-media-view
+          :img="currentEntry.photo.large"
+          :coords="currentEntry.coords">
+        </entry-media-view>
         <div class="share">
           <a class="share__button share__button--fb" target="_blank" :href="'https://www.facebook.com/sharer/sharer.php?u=' + entryUrl"></a>
           <a class="share__button share__button--twitter" target="_blank" :href="'https://twitter.com/home?status=' + entryUrl"></a>
@@ -51,6 +52,7 @@
 
 <script>
 import CommentView from '@/components/CommentView'
+import EntryMediaView from '@/components/EntryMediaView'
 
 export default {
   name: 'entry-view',
@@ -61,7 +63,8 @@ export default {
   },
   props: [],
   components: {
-    'comment-view': CommentView
+    'comment-view': CommentView,
+    'entry-media-view': EntryMediaView
   },
   data () {
     return {
@@ -138,10 +141,10 @@ export default {
       this.$http.get('https://backend.bikeable.ch/api/v1/comments?entry='+this.entryId).then(response => {
         this.$store.commit('LOAD_FINISH');
         let comments = response.body.data;
-        console.log(comments);
-        this.comments = comments.sort(function(a,b) {
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        });
+        /* temporarycomment sorting */
+        // this.comments = comments.sort(function(a,b) {
+        //   return new Date(b.createdAt) - new Date(a.createdAt);
+        // });
       }, response => {
         this.$store.commit('LOAD_FINISH');
         console.log(response);
@@ -285,35 +288,6 @@ export default {
       }
       &__date {
         color: #888;
-      }
-    }
-
-    &__image {
-      display: block;
-      margin: 0 auto;
-      margin-bottom: 1rem;
-      width: 100%;
-      height: 15rem;
-      background-color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      img {
-        max-width: 100%;
-        max-height: 100%;
-        width: auto;
-        height: auto;
-      }
-
-      @include desktop() {
-        height: 30rem;
-        margin-bottom: 0;
-
-        img {
-          max-width: calc(100% - 2rem);
-          max-height: calc(100% - 2rem);
-        }
       }
     }
 

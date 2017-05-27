@@ -166,6 +166,7 @@ export default {
       }
     }
     p {
+      margin-top: .5rem;
 
     }
   }

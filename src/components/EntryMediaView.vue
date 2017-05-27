@@ -35,6 +35,12 @@ export default {
   },
 
   watch: {
+    'showMap': function() {
+      // window.setTimeout(function() {
+      //   google.maps.event.trigger(this.map, 'resize');
+      //   this.map.panTo(this.coords);
+      // }.bind(this), 200);
+    }
   },
 
   mounted() {
@@ -89,6 +95,7 @@ export default {
   height: 15rem;
   background-color: #fff;
   position: relative;
+  overflow: hidden;
 
   .switch-btn {
     display: block;
@@ -120,11 +127,11 @@ export default {
     left: 0;
     justify-content: center;
     align-items: center;
-    display: none;
+    display: flex;
 
-    &.visible {
-      display: flex;
-    }
+    // &.visible {
+    //   display: flex;
+    // }
 
     img {
       max-width: 100%;
@@ -140,10 +147,11 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    display: none;
+    transform: translateX(101%);
+    transition: .5s transform $easeOutQuint;
 
     &.visible {
-      display: block;
+      transform: translateX(0);
     }
 
     .gmaps {

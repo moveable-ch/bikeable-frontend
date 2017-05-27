@@ -27,7 +27,7 @@ export default {
   },
   data () {
     return {
-      showMap: true
+      showMap: false
     }
   },
 

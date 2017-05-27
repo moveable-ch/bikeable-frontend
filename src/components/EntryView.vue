@@ -137,7 +137,11 @@ export default {
     loadComments() {
       this.$http.get('https://backend.bikeable.ch/api/v1/comments?entry='+this.entryId).then(response => {
         this.$store.commit('LOAD_FINISH');
-        this.comments = response.body.data;
+        let comments = response.body.data;
+        console.log(comments);
+        this.comments = comments.sort(function(a,b) {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
       }, response => {
         this.$store.commit('LOAD_FINISH');
         console.log(response);

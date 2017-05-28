@@ -4,7 +4,7 @@
       <div class="footer__inner">
         <div class="footer__col footer__col--left">
           <ul>
-            <li>bikeable</li>
+            <li><strong>bikeable.ch</strong></li>
             <li><a href="/">info@bikeable.ch</a></li>
           </ul>
         </div>
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: 'header-view',
+  name: 'footer-view',
   data () {
     return {
     }
@@ -49,8 +49,8 @@ export default {
 
 .footer {
   background-color: $c-main;
-  padding: 2rem 0;
-  margin-top: 2rem;
+  padding: 1.5rem 0;
+  margin-top: 1rem;
   width: 100%;
   color: #fff;
   text-align: center;
@@ -77,8 +77,13 @@ export default {
     margin-left: -4rem;
   }
   ul {
+    display: flex;
+    flex-wrap: wrap;
+
     li {
-      margin: 1rem 0;
+      margin: .5rem 0;
+      width: 50%;
+      text-align: left;
 
       a {
         color: inherit;
@@ -94,11 +99,20 @@ export default {
   }
 
   @include desktop {
-    padding: 1.5rem 0;
+    padding: 2rem 0;
     margin-top: 8rem;
 
     &__col {
       width: 40%;
+
+      ul {
+        display: block;
+
+        li {
+          width: 100%;
+          margin: 1rem 0;
+        }
+      }
 
       &--left {
         ul li {

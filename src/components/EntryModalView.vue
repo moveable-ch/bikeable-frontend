@@ -1,16 +1,24 @@
 <template>
   <transition name="modal">
     <div class="entry-modal" v-bind:class="{ 'is-famed': getFamed }" @click="$emit('close')">
-      <div class="entry-modal__inner" v-if="currentEntry" @click.stop>
-        <span class="upvotes">{{ currentEntry.votes }}</span>
-        <div class="entry-modal__content">
-          <h2>{{ currentEntry.title }}</h2>
-          <span class="address">{{ currentEntry.address }}</span>
-          <div class="meta">{{ currentEntry.commentCount }} Kommentare</div>
+      <transition name="modal_inner">
+        <div class="entry-modal__inner" v-if="currentEntry" @click.stop>
+          <div
+            class="entry-modal__image"
+            v-bind:style="'background-image:url(' + currentEntry.photo.small + ')'">
+          </div>
+          <div class="entry-modal__content">
+            <h2>{{ currentEntry.title }}</h2>
+            <span class="address">{{ currentEntry.address }}</span>
+            <div class="entry-modal__meta">
+              <span class="entry-modal__meta__item entry-modal__meta__item--votes">{{ currentEntry.votes }}</span>
+              <span class="entry-modal__meta__item entry-modal__meta__item--comments">{{ currentEntry.commentCount }}</span>
+            </div>
+          </div>
           <button class="btn-close" @click="$emit('close')">✕</button>
           <button class="btn-show" @click="showEntry">Spot anzeigen</button>
         </div>
-      </div>
+      </transition>
     </div>
   </transition>
 </template>
@@ -75,11 +83,58 @@ export default {
 
   &__content {
     overflow: hidden;
-    width: 100%;
+    width: calc(100% - 5rem);
+    padding: .5rem 1rem;
+  }
+  &__image {
+    width: 5rem;
+    height: 6rem;
+    background-color: #f0f0f0;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+
+    @include desktop() {
+      width: 9rem;
+      height: 9rem;
+    }
+  }
+  &__meta {
+    margin-top: .5rem;
+    &__item {
+      position: relative;
+      display: inline-block;
+      padding-left: 24px;
+      margin-right: 1rem;
+      font-size: .8rem;
+      line-height: 18px;
+
+      &::before {
+        content: "";
+        display: block;
+        width: 18px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-size: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      &--votes::before {
+        background-image: url('../assets/upvote-small.png');
+      }
+      &--comments {
+        padding-left: 26px;
+      }
+      &--comments::before {
+        background-image: url('../assets/comment-small.png');
+      }
+    }
   }
 
   &__inner {
-    padding: 1.5rem;
+    padding: .5rem;
     background-color: #fff;
     // display: flex;
     overflow: hidden;
@@ -88,7 +143,9 @@ export default {
     width: 90%;
     max-width: 30rem;
     position: relative;
-    padding-bottom: 4.5rem;
+    padding-bottom: 3.5rem;
+    display: flex;
+    align-items: center;
 
     .upvotes {
       display: none;
@@ -188,18 +245,23 @@ export default {
 }
 
 .modal-enter-active, .modal-leave-active {
-  transition: .4s opacity;
-
-  .entry-modal__inner {
-    transition: .4s transform $easeOutQuint;
-  }
+  transition: .5s opacity;
 }
 .modal-enter, .modal-leave-to {
   opacity: 0;
-
+}
+.modal-leave-to {
   .entry-modal__inner {
+    transition: .3s transform $easeInQuint;
     transform: scale(.8);
   }
+}
+
+.modal_inner-enter-active, .modal_inner-leave-active {
+  transition: .4s transform $easeOutQuint;
+}
+.modal_inner-enter, .modal_inner-leave-to {
+  transform: scale(.8);
 }
 
 </style>

@@ -20,6 +20,12 @@
         </div>
       </div>
     </div>
+    <div class="partner">
+      <div class="container">
+        <span>Unterstützt von:</span>
+        <a href="http://www.veloplus.ch"><img src="/static/img/veloplus-footer.png" alt="veloplus.ch"></a>
+      </div>
+    </div>
   </footer>
 </template>
 
@@ -49,7 +55,7 @@ export default {
 
 .footer {
   background-color: $c-main;
-  padding: 1.5rem 0;
+  padding: 1.5rem 0 0 0;
   margin-top: 1rem;
   width: 100%;
   color: #fff;
@@ -98,8 +104,33 @@ export default {
     }
   }
 
+  .partner {
+    background-color: #f4f4f4;
+    padding: 1.5rem 0;
+    margin-top: 1.5rem;
+    color: $c-main;
+
+    span {
+      font-size: .8rem;
+    }
+    a {
+      display: block;
+      max-width: 150px;
+      margin: .5rem auto;
+      img {
+        width: 100%;
+        height: auto;
+      }
+      &:hover {
+        img {
+          opacity: .8;
+        }
+      }
+    }
+  }
+
   @include desktop {
-    padding: 2rem 0;
+    padding: 2rem 0 0 0;
     margin-top: 8rem;
 
     &__col {

@@ -1,5 +1,6 @@
 <template>
   <header class="header" v-bind:class="{ 'is-expanded': isExpanded }">
+    <div class="header__backdrop" v-if="isExpanded" v-on:click="toggleNav"></div>
     <div class="container">
       <h1><router-link to="/">bikeable</router-link><span>beta</span></h1>
       <button class="burger" v-on:click="toggleNav"></button>
@@ -77,6 +78,19 @@ export default {
 
   &.is-expanded {
     height: 15rem;
+  }
+
+  &__backdrop {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 15rem);
+    background-color: rgba(#fff, 0);
+
+    @include desktop() {
+      display: none;
+    }
   }
 
   .container {
@@ -195,6 +209,7 @@ export default {
       }
     }
     .username {
+      font-size: 1.25rem;
       // display: inline-block;
       // white-space: nowrap;
       // max-width: 10rem;
@@ -209,6 +224,10 @@ export default {
       margin-bottom: 0;
       margin-left: 2rem;
       padding-left: 0;
+
+      .username {
+        font-size: 1rem;
+      }
 
       ul {
 

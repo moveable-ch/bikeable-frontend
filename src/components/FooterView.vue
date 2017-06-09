@@ -67,7 +67,7 @@ export default {
   }
   &__col {
     width: 100%;
-    padding: 0 2rem;
+    padding: 0rem;
     box-sizing: border-box;
     position: relative;
     &--center {

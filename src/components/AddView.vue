@@ -36,7 +36,7 @@
           <span class="file-upload__pending" v-if="!imageId && imageChosen">Loading</span>
           <div class="file-upload__preview" v-if="imageId">
             <a href="#" class="file-upload__preview__close" @click.prevent="resetImage">×</a>
-            <img v-bind:src="imagePreviewUrl">
+            <img v-bind:src="imagePreviewUrl" @error="imageLoadError">
           </div>
         </div>
         <h3><span class="num">4</span>Beschreibung</h3>
@@ -98,6 +98,10 @@ export default {
   },
 
   methods: {
+    imageLoadError() {
+      console.log('image load error');
+    },
+
     handleMapCoords(coords) {
 
       if(!coords) return;

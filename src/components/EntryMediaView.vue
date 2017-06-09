@@ -105,7 +105,7 @@ export default {
     top: 0;
     right: 0;
     z-index: 1;
-    background-color: #333;
+    background-color: $c-main;
     background-image: url('../assets/mapbutton.png');
     background-size: 60%;
     background-repeat: no-repeat;

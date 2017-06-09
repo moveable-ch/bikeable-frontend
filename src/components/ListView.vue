@@ -391,7 +391,7 @@ export default {
     }
 
     .list-entry {
-      margin-bottom: 5px;
+      margin-bottom: .5rem;
       // padding: 1.5rem 1rem;
       // transition: all .5s;
 
@@ -429,9 +429,23 @@ export default {
         text-decoration: none;
         color: #333;
         background-color: #fafafa;
-        padding: .5rem;
+        // padding: .5rem;
         box-sizing: border-box;
-        border-left: 4px solid $c-highlight;
+        // border-left: 4px solid $c-highlight;
+        position: relative;
+        transition: .2s background-color;
+
+        &::after {
+          content: "";
+          display: none;
+          width: 100%;
+          height: 100%;
+          background-color: #fff;
+          background-image: linear-gradient(90deg, rgba($c-highlight, .2) 0%, rgba($c-highlight, .01) 100%);
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
 
         &:hover, &:focus {
           background-color: #fff;
@@ -440,27 +454,32 @@ export default {
             color: $c-highlight;
             // text-decoration: underline;
           }
+          .list-entry__image::after {
+            opacity: 0;
+          }
         }
 
         @include desktop() {
-          padding: 1rem;
+          // padding: 1rem;
         }
       }
       &__content {
         flex-shrink: 1;
         overflow: hidden;
         text-overflow: ellipsis;
+        z-index: 1;
       }
       &__image {
         flex-shrink: 0;
         display: block;
-        width: 4rem;
-        height: 4rem;
+        width: 5rem;
+        height: 6rem;
         background-size: cover;
         background-position: center;
         margin: 0 1rem 0 0;
         position: relative;
         overflow: hidden;
+        z-index: 1;
 
         &::after {
           content: "";
@@ -471,14 +490,15 @@ export default {
           top: 0;
           left: 0;
           background-color: $c-highlight;
-          opacity: 0;
-          mix-blend-mode: overlay;
+          opacity: .7;
+          mix-blend-mode: color;
+          transition: .2s opacity;
           // transition: .1s opacity;
         }
 
         @include desktop() {
-          width: 5rem;
-          height: 5rem;
+          width: 6.5rem;
+          height: 6.5rem;
           margin: 0 1rem 0 0;
         }
       }
@@ -487,6 +507,7 @@ export default {
         display: inline-block;
         padding-left: 24px;
         margin-right: 1rem;
+        margin-top: .7rem;
 
         &::before {
           content: "";
@@ -515,6 +536,8 @@ export default {
         font-weight: 600;
         margin-bottom: .2rem;
         color: #333;
+        transition: .2s color;
+        line-height: 1.1;
 
         @include desktop() {
           font-size: 1rem;
@@ -523,11 +546,17 @@ export default {
 
       &.famed {
 
+        .list-entry__link::after {
+          background-image: linear-gradient(90deg, rgba($c-main, .3) 0%, #fff 70%);
+        }
         .list-entry__link:hover h3, .list-entry__link:focus h3 {
           color: $c-main;
         }
         .list-entry__link {
           border-color: $c-main;
+        }
+        .list-entry__image::after {
+          background-color: $c-main;
         }
       }
 

@@ -26,7 +26,7 @@ export default {
   watch: {
   },
   mounted() {
-    console.log(this.sponsoredEntry);
+    // console.log(this.sponsoredEntry);
   },
   methods: {
     showEntry() {

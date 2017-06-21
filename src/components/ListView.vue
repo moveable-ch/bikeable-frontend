@@ -457,6 +457,13 @@ export default {
           .list-entry__image::after {
             opacity: 0;
           }
+          .list-entry__meta {
+            color: #333;
+
+            &::before {
+              opacity: 1;
+            }
+          }
         }
 
         @include desktop() {
@@ -508,6 +515,8 @@ export default {
         padding-left: 24px;
         margin-right: 1rem;
         margin-top: .7rem;
+        color: #888;
+        transition: .2s color;
 
         &::before {
           content: "";
@@ -520,15 +529,17 @@ export default {
           background-size: 100%;
           background-position: center;
           background-repeat: no-repeat;
+          opacity: .4;
+          transition: .2s opacity;
         }
         &--votes::before {
-          background-image: url('../assets/upvote-small.png');
+          background-image: url('../assets/upvote-small-filled.png');
         }
         &--comments {
           padding-left: 26px;
         }
         &--comments::before {
-          background-image: url('../assets/comment-small.png');
+          background-image: url('../assets/comment-small-filled.png');
         }
       }
       h3 {

@@ -37,6 +37,9 @@ export default {
       if(!this.currentEntry) return false;
       if(!this.currentEntry.famed) return false;
       return true;
+    },
+    isEmbed() {
+      return this.$route.query.embed;
     }
   },
   watch: {
@@ -49,7 +52,14 @@ export default {
   },
   methods: {
     showEntry() {
-      this.$router.push({ name: 'entry', params: { id: this.entryId }});
+      if(this.isEmbed) {
+        window.open(
+          'https://beta.bikeable.ch/entries/' + this.entryId,
+          '_blank'
+        );
+      } else {
+        this.$router.push({ name: 'entry', params: { id: this.entryId }});
+      }
     },
     loadEntry() {
       this.$store.commit('LOAD_START');

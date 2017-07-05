@@ -6,7 +6,7 @@
     <transition name="slide-down">
       <div class="msg" v-if="msg"><span>{{ msg }}</span></div>
     </transition>
-    <header-view></header-view>
+    <header-view v-if="!isEmbed"></header-view>
     <transition :name="transitionName" mode="out-in">
       <router-view></router-view>
     </transition>
@@ -47,6 +47,9 @@ export default {
     },
     pending() {
       return this.$store.getters.pending;
+    },
+    isEmbed() {
+      return this.$route.query.embed;
     }
   },
   components: {

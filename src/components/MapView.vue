@@ -1,10 +1,10 @@
 <template>
-  <div class="map">
+  <div class="map" v-bind:class='{ embed: isEmbed }'>
     <entry-modal-view v-if="showModal" @close="showModal = false" :entryId="activeEntryId"></entry-modal-view>
     <sponsor-modal-view v-if="showSponsorModal" @close="showSponsorModal = false" :sponsoredEntry="activeSponsor"></sponsor-modal-view>
     <add-modal-view v-if="showAddModal" @close="showAddModal = false" :coords="clickedCoords"></add-modal-view>
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
-    <div class="spot-nav clearfix">
+    <div class="spot-nav clearfix" v-if="!isEmbed">
       <router-link v-if="isLoggedIn" to="/add" class="spot-nav__link spot-nav__link--add"></router-link>
       <a href="#" @click.prevent="showUserLocation" class="spot-nav__link spot-nav__link--location" v-bind:class="{ disabled: !userCoords }"></a>
     </div>
@@ -44,6 +44,9 @@ export default {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
     },
+    isEmbed() {
+      return this.$route.query.embed;
+    }
   },
 
   data () {
@@ -223,6 +226,11 @@ export default {
   @include desktop {
     top: 9rem;
     height: calc(100vh - 9rem);
+  }
+
+  &.embed {
+    height: 100vh;
+    top: 0;
   }
 }
 .gmaps {

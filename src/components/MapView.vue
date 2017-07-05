@@ -1,5 +1,5 @@
 <template>
-  <div class="map" v-bind:class='{ embed: isEmbed }'>
+  <div class="map">
     <entry-modal-view v-if="showModal" @close="showModal = false" :entryId="activeEntryId"></entry-modal-view>
     <sponsor-modal-view v-if="showSponsorModal" @close="showSponsorModal = false" :sponsoredEntry="activeSponsor"></sponsor-modal-view>
     <add-modal-view v-if="showAddModal" @close="showAddModal = false" :coords="clickedCoords"></add-modal-view>
@@ -228,7 +228,7 @@ export default {
     height: calc(100vh - 9rem);
   }
 
-  &.embed {
+  .embed & {
     height: 100vh;
     top: 0;
   }

@@ -36,6 +36,10 @@ export default {
       }else{
         this.showFooter = true;
       }
+
+      if(this.isEmbed) {
+        document.body.classList.add('embed');
+      }
     }
   },
   computed: {
@@ -57,6 +61,10 @@ export default {
     'footer-view': FooterView
   },
   mounted() {
+    if(this.isEmbed) {
+      document.body.classList.add('embed');
+    }
+
     this.$store.dispatch('loadEntries');
     this.$store.dispatch('loadSponsors');
     this.$store.dispatch('getUserCoords');

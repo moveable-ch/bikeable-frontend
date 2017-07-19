@@ -70,7 +70,8 @@ export default {
     meta: function () {
       return [
         { property: 'og:title', content: this.currentEntry.title + ' – Bikeable', id: 'og-title' },
-        { property: 'og:image', content: this.currentEntry.photo.large, id: 'og-image' }
+        { property: 'og:image', content: this.currentEntry.photo.large, id: 'og-image' },
+        { property: 'og:url', content: this.entryUrl, id: 'og-url' }
       ]
     }
   },
@@ -112,7 +113,7 @@ export default {
       return d.toLocaleDateString('de-DE');
     },
     entryUrl() {
-      return 'https://beta.bikeable.ch' + this.$route.fullPath;
+      return 'https://bikeable.netlify.com' + this.$route.fullPath;
     },
     entryTitle() {
       if(!this.currentEntry.title) return 'what';

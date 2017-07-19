@@ -56,10 +56,23 @@ import EntryMediaView from '@/components/EntryMediaView'
 
 export default {
   name: 'entry-view',
-  metaInfo() {
-    return {
-      title: this.currentEntry.title + ' — Bikeable'
-    };
+  // metaInfo() {
+  //   return {
+  //     title: this.currentEntry.title + ' — Bikeable'
+  //   };
+  // },
+  head: {
+    title: function () {
+      return {
+        inner: this.currentEntry.title
+      }
+    },
+    meta: function () {
+      return [
+        { property: 'og:title', content: this.currentEntry.title + ' – Bikeable', id: 'og-title' },
+        { property: 'og:image', content: this.currentEntry.photo.large, id: 'og-image' }
+      ]
+    }
   },
   props: [],
   components: {
@@ -100,6 +113,10 @@ export default {
     },
     entryUrl() {
       return 'https://beta.bikeable.ch' + this.$route.fullPath;
+    },
+    entryTitle() {
+      if(!this.currentEntry.title) return 'what';
+      return this.currentEntry.title;
     }
   },
 
@@ -126,11 +143,13 @@ export default {
     loadEntry() {
       this.entryId = this.$route.params.id;
       this.$store.commit('LOAD_START');
+      let self = this;
 
       this.$http.get('https://backend.bikeable.ch/api/v1/entries/'+this.entryId).then(response => {
         this.currentEntry = response.body.data;
         this.loadingData = false;
         this.$store.commit('LOAD_FINISH');
+        self.$emit('updateHead');
       }, response => {
         this.$store.commit('LOAD_FINISH');
         console.log(response);

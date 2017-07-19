@@ -114,7 +114,7 @@ export default {
       return d.toLocaleDateString('de-DE');
     },
     entryUrl() {
-      return 'https://bikeable.netlify.com' + this.$route.fullPath;
+      return 'https://beta.bikeable.com' + this.$route.fullPath;
     },
     entryTitle() {
       if(!this.currentEntry.title) return 'what';

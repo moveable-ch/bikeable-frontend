@@ -3,7 +3,7 @@
     <div class="entry__container" v-if="!loadingData">
       <div class="col">
         <entry-media-view
-          :img="currentEntry.photo.large"
+          :img="currentEntry.photo.large.url"
           :coords="currentEntry.coords">
         </entry-media-view>
         <div class="share">
@@ -70,7 +70,9 @@ export default {
     meta: function () {
       return [
         { property: 'og:title', content: this.currentEntry.title + ' – Bikeable', id: 'og-title' },
-        { property: 'og:image', content: this.currentEntry.photo.medium, id: 'og-image' },
+        { property: 'og:image', content: this.currentEntry.photo.medium.url, id: 'og-image' },
+        { property: 'og:image:width', content: this.currentEntry.photo.medium.width, id: 'og-image-width' },
+        { property: 'og:image:height', content: this.currentEntry.photo.medium.height, id: 'og-image-height' },
         { property: 'og:url', content: this.entryUrl, id: 'og-url' },
         { property: 'og:desc', content: this.currentEntry.text, id: 'og-desc' }
       ]
@@ -92,7 +94,8 @@ export default {
           name: ''
         },
         photo: {
-          large: ''
+          large: '',
+          medium: ''
         },
         famed: false
       },

@@ -25,7 +25,7 @@
         <ul class="list__entries">
           <li v-for="entry in displayEntries" class="list-entry" v-if="entries" v-bind:class="{ famed: entry.famed }" v-bind:key="entry._id">
             <router-link :to="'/entries/' + entry._id" class="list-entry__link">
-              <span class="list-entry__image" :style="{ backgroundImage: 'url(' + entry.photo.small + ')' }"></span>
+              <span class="list-entry__image" :style="{ backgroundImage: 'url(' + entry.photo.small.url + ')' }"></span>
               <span class="list-entry__content">
                 <h3>{{ entry.title }}</h3>
                 <span class="list-entry__location">{{ entry.address }}</span>

@@ -5,7 +5,7 @@
         <div class="entry-modal__inner" v-if="currentEntry" @click.stop>
           <div
             class="entry-modal__image"
-            v-bind:style="'background-image:url(' + currentEntry.photo.small + ')'">
+            v-bind:style="'background-image:url(' + currentEntry.photo.small.url + ')'">
           </div>
           <div class="entry-modal__content">
             <h2>{{ currentEntry.title }}</h2>

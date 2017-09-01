@@ -207,8 +207,6 @@ export default {
     text-align: center;
     text-decoration: none;
     font-size: 1rem;
-    // text-transform: uppercase;
-    // letter-spacing: .05rem;
     width: 100%;
     max-width: 400px;
     background-color: $c-main;
@@ -216,7 +214,8 @@ export default {
     font-weight: 500;
     margin: 0 auto;
     margin-bottom: 1.5rem;
-    border-radius: 4px;
+    font-family: $f-head;
+    font-weight: bold;
 
     &:hover {
       background-color: #333;
@@ -226,6 +225,7 @@ export default {
     margin-bottom: 5px;
     height: 1.5rem;
     overflow: hidden;
+    font-family: $f-head;
 
     @include desktop() {
       height: auto;
@@ -416,6 +416,7 @@ export default {
         text-overflow: ellipsis;
         width: 100%;
         margin-bottom: .5rem;
+        font-family: $f-head;
 
         @include desktop() {
           font-size: .8rem;
@@ -497,7 +498,7 @@ export default {
           top: 0;
           left: 0;
           background-color: $c-highlight;
-          opacity: .7;
+          opacity: .6;
           mix-blend-mode: color;
           transition: .2s opacity;
           // transition: .1s opacity;
@@ -516,6 +517,7 @@ export default {
         margin-right: 1rem;
         margin-top: .7rem;
         color: #888;
+        font-family: $f-head;
         transition: .2s color;
 
         &::before {
@@ -529,7 +531,7 @@ export default {
           background-size: 100%;
           background-position: center;
           background-repeat: no-repeat;
-          opacity: .4;
+          opacity: .5;
           transition: .2s opacity;
         }
         &--votes::before {

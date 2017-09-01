@@ -63,20 +63,16 @@ export default {
 
 .faq {
   h3 {
-    font-family: $f-body;
+    font-family: $f-head;
     text-transform: none;
-    font-weight: 500;
-    font-size: 1.25rem;
+    font-weight: bold;
+    font-size: 1.5rem;
     color: $c-main;
     padding: .3rem 0;
     margin-bottom: .5rem;
   }
   p {
-    padding-left: 0;
 
-    @include desktop() {
-      padding-left: 1rem;
-    }
   }
 
   &__item {

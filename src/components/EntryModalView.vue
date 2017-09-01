@@ -231,7 +231,8 @@ export default {
       line-height: 3rem;
       background-color: $c-highlight;
       color: #fff;
-      font-family: $f-body;
+      font-family: $f-head;
+      font-weight: bold;
       font-size: 1rem;
       cursor: pointer;
       transition: .2s background-color;

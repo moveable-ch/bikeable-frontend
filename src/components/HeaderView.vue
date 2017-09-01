@@ -1,8 +1,7 @@
 <template>
-  <header class="header" v-bind:class="{ 'is-expanded': isExpanded }">
+  <header class="header" v-bind:class="{ 'is-expanded': isExpanded, 'is-home': isHome }">
     <div class="header__backdrop" v-if="isExpanded" v-on:click="toggleNav"></div>
-    <div class="container">
-      <h1><router-link to="/">bikeable</router-link><span>beta</span></h1>
+      <router-link to="/" class="header__logo"><span>bikeable</span></router-link>
       <button class="burger" v-on:click="toggleNav"></button>
       <nav>
         <ul>
@@ -17,7 +16,6 @@
           <li v-if="isLoggedIn"><a href="#" @click.prevent="logout">Logout</a></li>
         </ul>
       </nav>
-    </div>
   </header>
 </template>
 
@@ -48,6 +46,9 @@ export default {
     },
     userData() {
       return this.$store.state.userData;
+    },
+    isHome() {
+      return this.$route.path == '/';
     }
   },
 
@@ -68,94 +69,63 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 4rem;
-  background-color: #fff;
-  color: $c-main;
+  height: 3rem;
+  background: #fff;
+  padding: 0 1rem;
+  color: #444;
   box-sizing: border-box;
   z-index: 2;
   overflow: hidden;
-  transition: .4s height $easeOutQuint;
+  transition: .4s height $easeOutQuint, .3s box-shadow, .3s background-color;
 
   &.is-expanded {
     height: 15rem;
+    box-shadow: 0 5px 5px rgba(#000, .05);
+    background-color: #fff !important;
   }
-
-  &__backdrop {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: calc(100% - 15rem);
-    background-color: rgba(#fff, 0);
-
-    @include desktop() {
-      display: none;
-    }
-  }
-
-  .container {
-    position: relative;
+  &.is-home {
+    background-color: transparent;
   }
 
   @include desktop() {
     position: relative;
-    padding-top: 3rem;
-    height: 9rem;
+    height: 7rem;
     max-height: 9rem;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    box-shadow: none !important;
   }
 
-  h1 {
-    font-size: 2rem;
-    line-height: 4rem;
-    margin: 0;
-    color: $c-main;
-    font-weight: 500;
-    position: relative;
-    padding-left: 2.3rem;
+  &__backdrop {
+    // position: fixed;
+    // bottom: 0;
+    // left: 0;
+    // width: 100%;
+    // height: calc(100% - 15rem);
+    // background-color: rgba(#fff, 0);
 
-    &::before {
-      content: "";
-      display: block;
-      background-image: url('../assets/bikeable-logo-gr.svg');
-      background-size: 100%;
-      background-repeat: no-repeat;
-      width: 2.1rem;
-      height: 3rem;
-      position: absolute;
-      top: .5rem;
-      left: 0;
-    }
+    // @include desktop() {
+    //   display: none;
+    // }
+  }
 
-    a {
-      color: $c-main;
-      text-decoration: none;
-    }
+  &__logo {
+    display: block;
+    width: 30px;
+    height: 3rem;
+    background-image: url('../assets/bikeable-logo-gr.svg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
 
     span {
-      font-size: .8rem;
-      position: absolute;
-      bottom: -1.2rem;
-      left: 2.4rem;
+      display: none;
     }
 
     @include desktop() {
-      display: inline-block;
-      padding-left: 4.4rem;
-      font-size: 2.75rem;
-      line-height: 2.75rem;
-
-      &::before {
-        width: 73px;
-        height: 100px;
-        top: -1.5rem;
-      }
-
-      span {
-        font-size: .9rem;
-        position: absolute;
-        bottom: -1.5rem;
-        left: 4.5rem;
-      }
+      width: 63px;
+      height: 87px;
     }
   }
 
@@ -164,7 +134,7 @@ export default {
     width: 1.5rem;
     height: 1.5rem;
     position: absolute;
-    top: 1rem;
+    top: .5rem;
     right: 1rem;
     background-color: transparent;
     border: none;
@@ -187,9 +157,9 @@ export default {
 
   nav {
     margin-bottom: 1rem;
-    margin-top: .5rem;
-    padding-left: 2.4rem;
-    font-family: $f-body;
+    margin-top: 1rem;
+    padding-left: 0;
+    font-family: $f-head;
 
     ul {
       list-style-type: none;
@@ -197,38 +167,37 @@ export default {
       margin: 0;
 
       a {
-        color: $c-main;
+        color: #444;
         text-decoration: none;
         font-size: 1.25rem;
         line-height: 1.5;
-        font-weight: 500;
-        transition: .1s color;
+        font-weight: bold;
 
         &.router-link-active {
-          color: $c-highlight;
+          // color: $c-highlight;
           // border-bottom: 2px solid $c-main;
+          text-decoration: underline;
+        }
+        &:hover {
+          color: $c-main;
         }
       }
     }
     .username {
       font-size: 1.25rem;
-      // display: inline-block;
-      // white-space: nowrap;
-      // max-width: 10rem;
-      // overflow: hidden;
-      // line-height: 1;
-      // height: auto;
-      // text-overflow: ellipsis;
     }
 
     @include desktop() {
       display: inline-block;
       margin-bottom: 0;
-      margin-left: 2rem;
+      margin-left: 1.5rem;
+      margin-top: 0;
       padding-left: 0;
 
       .username {
         font-size: 1rem;
+        font-weight: 400;
+        color: #888;
       }
 
       ul {
@@ -245,8 +214,17 @@ export default {
 
       &.nav-right {
         position: absolute;
-        bottom: 0;
-        right: 0;
+        top: 50%;
+        right: 2rem;
+        transform: translateY(-50%);
+        margin-top: 0;
+
+        ul {
+          li {
+            margin-right: 0;
+            margin-left: 1rem;
+          }
+        }
       }
     }
   }

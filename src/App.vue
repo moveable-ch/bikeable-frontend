@@ -135,26 +135,26 @@ export default {
   z-index: 3;
   left: 0;
   width: 100%;
-  height: 3px;
-  background-image: linear-gradient(to right,  $c-highlight 0%, $c-main 50%, $c-highlight 100%);
-  background-size: 25% 100%;
-  animation: stripe 4s infinite linear;
+  height: 2px;
+  background-image: linear-gradient(to right,  #fff 0%, #fff 50%, $c-main 50%, $c-main 100%);
+  background-size: 200% 100%;
+  animation: stripe 5s infinite linear;
 }
 
 @keyframes stripe {
   from {
-    background-position: left bottom;
+    background-position: 200% bottom;
   }
   to {
-    background-position: right bottom;
+    background-position: 0% bottom;
   }
 }
 
 @include desktop() {
   .loader {
-    height: 4px;
-    background-size: 33% 100%;
-    animation: stripe 2s infinite linear;
+    height: 2px;
+    background-size: 200% 100%;
+    animation: stripe 6s infinite linear;
   }
 }
 

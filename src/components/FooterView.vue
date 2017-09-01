@@ -9,7 +9,7 @@
           </ul>
         </div>
         <div class="footer__col footer__col--center">
-          <img class="footer__logo" src="/static/img/bikeable-logo.svg" alt="bikeable">
+          <img class="footer__logo" src="/static/img/bikeable-logo-gr.svg" alt="bikeable">
         </div>
         <div class="footer__col footer__col--right">
           <ul>
@@ -54,11 +54,11 @@ export default {
 @import '../styles/helpers';
 
 .footer {
-  background-color: $c-main;
+  background-color: #fff;
   padding: 1.5rem 0 0 0;
   margin-top: 1rem;
   width: 100%;
-  color: #fff;
+  color: #444;
   text-align: center;
 
   &__inner {
@@ -76,11 +76,11 @@ export default {
     }
   }
   &__logo {
-    width: 8rem;
+    width: 5rem;
     position: absolute;
-    top: -3.5rem;
+    top: -1rem;
     left: 50%;
-    margin-left: -4rem;
+    margin-left: -2.5rem;
   }
   ul {
     display: flex;
@@ -98,17 +98,17 @@ export default {
 
         &:hover {
           color: $c-highlight;
-          box-shadow: inset 0 -1px 0 0 $c-highlight;
+          // box-shadow: inset 0 -1px 0 0 $c-highlight;
         }
       }
     }
   }
 
   .partner {
-    background-color: #f4f4f4;
+    background-color: #fff;
     padding: 1.5rem 0;
     margin-top: 1.5rem;
-    color: $c-main;
+    color: #444;
 
     span {
       font-size: .8rem;

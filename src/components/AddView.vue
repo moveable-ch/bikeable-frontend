@@ -254,7 +254,7 @@ export default {
   }
   h3 {
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: bold;
     margin-bottom: 1.5rem;
     margin-top: 2rem;
 
@@ -263,7 +263,7 @@ export default {
       width: 2rem;
       height: 2rem;
       line-height: 2rem;
-      font-weight: 400;
+      font-weight: bold;
       background-color: #fff;
       text-align: center;
       margin-right: 1rem;
@@ -296,7 +296,7 @@ export default {
       display: block;
       color: #666;
       border: 2px solid #666;
-      border-radius: 4px;
+      // border-radius: 4px;
       width: 14rem;
       text-align: center;
       font-weight: 500;
@@ -331,7 +331,7 @@ export default {
     height: 3rem;
     margin-top: 1rem;
     background-color: #fff;
-    border-radius: 4px;
+    // border-radius: 4px;
   }
 
   &__preview {
@@ -444,7 +444,7 @@ export default {
   width: 100%;
   margin-bottom: 5px;
   white-space: nowrap;
-  border-radius: 4px;
+  // border-radius: 4px;
   overflow: hidden;
 
   @include desktop() {

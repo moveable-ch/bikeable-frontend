@@ -100,7 +100,7 @@ export default {
     box-sizing: border-box;
     border: 2px solid #fff;
     padding: 2rem;
-    transition: .4s border-color;
+    transition: .1s border-color;
 
     &__logo {
       display: block;
@@ -129,6 +129,8 @@ export default {
     padding: 0;
     display: flex;
     flex-wrap: wrap;
+    font-family: $f-head;
+    font-weight: bold;
 
     li {
       padding: 0 1rem;
@@ -139,6 +141,7 @@ export default {
       a {
         color: $c-main;
         font-size: 1.25rem;
+        text-decoration: none;
 
         &:hover {
           color: $c-highlight;

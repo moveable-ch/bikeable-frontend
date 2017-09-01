@@ -265,7 +265,7 @@ export default {
   .entry {
     margin: 0;
     padding-bottom: 2rem;
-    font-family: $f-body;
+    font-family: $f-head;
     min-height: calc(100vh - 600px);
     position: relative;
 
@@ -291,6 +291,7 @@ export default {
       margin-bottom: 1rem;
       font-size: .8rem;
       display: flex;
+      font-family: $f-head;
 
       &__image {
         width: 2.4rem;
@@ -308,7 +309,7 @@ export default {
         }
       }
       &__name {
-        font-weight: 500;
+        font-weight: bold;
       }
       &__date {
         color: #888;
@@ -384,8 +385,8 @@ export default {
 
       h1 {
         line-height: 1;
-        margin: 0 0 .5rem 0;
-        font-weight: 500;
+        margin: 0 0 .2rem 0;
+        font-weight: bold;
         color: $c-highlight;
         font-size: 1rem;
       }
@@ -418,7 +419,7 @@ export default {
       transition: .4s background-color;
       position: relative;
       overflow: hidden;
-      border-radius: 4px;
+      // border-radius: 4px;
 
       &.disabled {
         pointer-events: none;
@@ -442,7 +443,7 @@ export default {
       &__count {
         line-height: 3rem;
         color: $c-highlight;
-        font-weight: 500;
+        font-weight: bold;
         font-size: 1.75rem;
         transition: .4s color;
       }

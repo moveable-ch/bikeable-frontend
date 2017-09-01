@@ -224,8 +224,8 @@ export default {
   background-color: #fff;
 
   @include desktop {
-    top: 9rem;
-    height: calc(100vh - 9rem);
+    top: 7rem;
+    height: calc(100vh - 7rem);
   }
 
   .embed & {
@@ -251,14 +251,14 @@ export default {
     display: block;
     width: 4rem;
     height: 4rem;
-    background-color: #333;
+    background-color: #444;
     color: #eee;
     text-decoration: none;
     text-align: center;
     float: left;
     margin: 0 2px;
     position: relative;
-    border-radius: 4px;
+    // border-radius: 4px;
 
     &:hover {
       background-color: $c-main;

@@ -177,11 +177,12 @@ export default {
 
         &.router-link-active {
           // color: $c-highlight;
-          // border-bottom: 2px solid $c-main;
-          text-decoration: underline;
+          border-bottom: 2px solid #444;
+          // text-decoration: underline;
         }
         &:hover {
-          color: $c-main;
+          // border-bottom: 2px solid #444;
+          // color: $c-main;
         }
       }
     }

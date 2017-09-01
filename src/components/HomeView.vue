@@ -82,13 +82,22 @@ export default {
     &__container {
       margin-top: 2rem;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
     }
     &__item {
       display: block;
       text-decoration: none;
-      width: calc(33.3% - 1rem);
+      width: 100%;
+      max-width: 300px;
+      margin-bottom: 2rem;
+      margin-left: auto;
+      margin-right: auto;
       position: relative;
+
+      @include desktop() {
+        width: calc(33.3% - 1rem);
+      }
 
       &:hover {
         .home__spots__image::after {
@@ -224,7 +233,7 @@ export default {
     }
     p {
       font-size: 1rem;
-      line-height: 1.6;
+      line-height: 1.8;
       color: #444;
       max-width: 550px;
       margin: 0 auto;

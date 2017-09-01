@@ -58,6 +58,11 @@ export default new Router({
       component: AddView
     },
     {
+      path: '/register',
+      name: 'register',
+      component: RegisterView
+    },
+    {
       path: '/login',
       name: 'login',
       component: LoginView

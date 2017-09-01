@@ -5,6 +5,7 @@
       <button class="burger" v-on:click="toggleNav"></button>
       <nav>
         <ul>
+          <li><router-link to="/" exact>Home</router-link></li>
           <li><router-link to="/entries" exact>Spots</router-link></li>
           <li><router-link to="/map" exact>Map</router-link></li>
         </ul>
@@ -13,6 +14,7 @@
         <ul>
           <li v-if="userData" class="username">{{ userData.username }}</li>
           <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
+          <li v-if="!isLoggedIn"><router-link to="/register">Registrieren</router-link></li>
           <li v-if="isLoggedIn"><a href="#" @click.prevent="logout">Logout</a></li>
         </ul>
       </nav>
@@ -89,7 +91,7 @@ export default {
 
   @include desktop() {
     position: relative;
-    height: 7rem;
+    height: 6rem;
     max-height: 9rem;
     padding: 0 2rem;
     display: flex;

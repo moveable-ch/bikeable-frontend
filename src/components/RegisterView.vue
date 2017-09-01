@@ -1,13 +1,24 @@
 <template>
   <div class="register">
-    <h1>Registrieren</h1>
-    <form @submit.prevent="register">
-      <input type="text" placeholder="Username" v-model="formUsername">
-      <input type="email" placeholder="E-Mail" v-model="formEmail">
-      <input type="password" placeholder="Passwort" v-model="formPassword">
-      <button type="submit" class="btn">OK</button>
-      <div class="notice" v-if="message != ''">{{ message }}</div>
-    </form>
+    <div class="container">
+      <h1>Registrieren</h1>
+      <form @submit.prevent="register">
+        <label>
+          <span>Username</span>
+          <input type="text" v-model="formUsername">
+        </label>
+        <label>
+          <span>E-Mail</span>
+          <input type="email" v-model="formEmail">
+        </label>
+        <label>
+          <span>Passwort</span>
+          <input type="password" v-model="formPassword">
+        </label>
+        <button type="submit" class="btn">OK</button>
+        <div class="notice" v-if="message != ''">{{ message }}</div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -55,18 +66,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 @import '../styles/helpers';
 
 .register {
-  max-width: 700px;
-  margin: 2rem 0;
-  padding: 0 1rem;
-
-  @include desktop() {
-    padding: 0 2rem;
-  }
+  padding: 2rem 0;
+  min-height: calc(100vh - 600px);
 }
 
 h1 {

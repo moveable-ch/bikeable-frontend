@@ -31,7 +31,7 @@
           <span class="vote__count">{{ currentEntry.votes }}</span>
         </a>
 
-        <!--<div class="notice" v-if="!isLoggedIn">Jetzt <router-link to="/register">registrieren</router-link> und mitdiskutieren!</div>-->
+        <div class="notice" v-if="!isLoggedIn">Jetzt <router-link to="/register">registrieren</router-link> und mitdiskutieren!</div>
         <div class="comments__form" v-if="isLoggedIn">
           <form @submit.prevent="postComment">
             <label>

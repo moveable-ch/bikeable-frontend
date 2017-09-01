@@ -507,7 +507,7 @@ export default {
         @include desktop() {
           width: 6.5rem;
           height: 6.5rem;
-          margin: 0 1rem 0 0;
+          margin: 0 1.5rem 0 0;
         }
       }
       &__meta {

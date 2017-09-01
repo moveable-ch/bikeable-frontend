@@ -224,8 +224,8 @@ export default {
   background-color: #fff;
 
   @include desktop {
-    top: 7rem;
-    height: calc(100vh - 7rem);
+    top: 6rem;
+    height: calc(100vh - 6rem);
   }
 
   .embed & {

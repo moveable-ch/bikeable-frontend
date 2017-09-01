@@ -6,7 +6,7 @@
       <button class="burger" v-on:click="toggleNav"></button>
       <nav>
         <ul>
-          <li><router-link to="/" exact>Spots</router-link></li>
+          <li><router-link to="/entries" exact>Spots</router-link></li>
           <li><router-link to="/map" exact>Map</router-link></li>
         </ul>
       </nav>

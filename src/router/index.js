@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import HomeView from '@/components/HomeView'
 import MapView from '@/components/MapView'
 import ListView from '@/components/ListView'
 import AboutView from '@/components/AboutView'
@@ -17,10 +18,14 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/',
+      name: 'home',
+      component: HomeView
+    },
+    {
       path: '/entries',
       name: 'list',
-      component: ListView,
-      alias: '/'
+      component: ListView
     },
     {
       path: '/map',

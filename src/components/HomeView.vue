@@ -1,13 +1,15 @@
 <template>
   <div class="home">
     <div class="home__intro" v-if="!isLoggedIn">
-      <div class="home__intro__illu">
-        <img src="/static/img/paul.png" alt="Bikeapaul">
-      </div>
-      <div class="home__intro__content">
-        <h1>Let's make<br><a href="#">Your City</a> bikeable.</h1>
-        <p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>
-        <router-link to="/register" class="home__intro__cta">Jetzt registrieren</router-link>
+      <div class="container">
+        <div class="home__intro__illu">
+          <img src="/static/img/paul.png" alt="Bikeapaul">
+        </div>
+        <div class="home__intro__content">
+          <h1>Let's make<br><a href="#">Zürich</a> bikeable.</h1>
+          <p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>
+          <router-link to="/register" class="home__intro__cta">Jetzt registrieren</router-link>
+        </div>
       </div>
     </div>
 
@@ -199,13 +201,11 @@ export default {
     height: 600px;
     color: #444;
     margin-top: -7rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
     overflow: hidden;
+    position: relative;
 
     @include desktop() {
       height: 700px;
-      padding-left: calc(3.5rem + 63px);
     }
 
     &__content {
@@ -231,9 +231,8 @@ export default {
 
       @include desktop() {
         top: 14rem;
-        left: 45rem;
+        left: 40;
         width: 16rem;
-        margin-left: -7rem;
       }
     }
     &__cta {

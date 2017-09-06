@@ -1,43 +1,34 @@
 <template>
   <div class="list">
     <div class="list__container">
-      <div class="col col--left">
-        <router-link v-if="isLoggedIn" to="/add" class="addlink">Spot hinzufügen</router-link>
-        <div class="filter-item filter-item--filter" v-bind:class="{ visible: showFilter }">
-          <h3 @click="showFilter = !showFilter">Filter</h3>
-          <ul class="filter-item__list">
-          <li><a href="#" @click.prevent="entryFilter = 'all'" v-bind:class="{ active: isCurrentFilter('all') }">Alle Spots</a></li>
-          <li><a href="#" @click.prevent="entryFilter = 'shame'" v-bind:class="{ active: isCurrentFilter('shame') }">Wall of Shame</a></li>
-          <li><a href="#" @click.prevent="entryFilter = 'fame'" v-bind:class="{ active: isCurrentFilter('fame') }">Hall of Fame</a></li>
-          </ul>
-        </div>
-        <div class="filter-item filter-item--sort" v-bind:class="{ visible: showSort }">
-          <h3 @click="showSort = !showSort">Sortierung</h3>
-          <ul class="filter-item__list">
-            <li><a href="#" @click.prevent="setSort('votes')" v-bind:class="{ active: isCurrentSort('votes'), asc: (isCurrentSort('votes') && !entrySortDesc) }">Upvotes</a></li>
-            <li><a href="#" @click.prevent="setSort('comments')" v-bind:class="{ active: isCurrentSort('comments'), asc: (isCurrentSort('comments') && !entrySortDesc) }">Kommentare</a></li>
-            <li><a href="#" @click.prevent="setSort('date')" v-bind:class="{ active: isCurrentSort('date'), asc: (isCurrentSort('date') && !entrySortDesc) }">Datum</a></li>
-            <!-- <li><a href="#" @click.prevent="setSort('location')" v-bind:class="{ active: isCurrentSort('location'), disabled: !userCoords }">Distanz</a></li> -->
-          </ul>
-        </div>
+      <!--<router-link v-if="isLoggedIn" to="/add" class="addlink">Spot hinzufügen</router-link>-->
+      <div class="list__sort">
+        <select v-model="entrySort" @change="setSort">
+          <option value="votes">Upvotes</option>
+          <option value="comments">Kommentare</option>
+          <option value="date">Datum</option>
+        </select>
       </div>
-      <div class="col col--right">
-        <ul class="list__entries">
-          <li v-for="entry in displayEntries" class="list-entry" v-if="entries" v-bind:class="{ famed: entry.famed }" v-bind:key="entry._id">
-            <router-link :to="'/entries/' + entry._id" class="list-entry__link">
-              <span class="list-entry__image" :style="{ backgroundImage: 'url(' + entry.photo.small.url + ')' }"></span>
-              <span class="list-entry__content">
-                <h3>{{ entry.title }}</h3>
-                <span class="list-entry__location">{{ entry.address }}</span>
-                <span class="list-entry__meta list-entry__meta--votes">{{ entry.votes }}</span>
-                <span class="list-entry__meta list-entry__meta--comments">{{ entry.commentCount }}</span>
-                <span v-if="entry.distance" class="list-entry__distance">{{ entry.distance }}</span>
-              </span>
-            </router-link>
-          </li>
-        </ul>
-        <a class="showmore" href="#" v-if="entryDisplayCapped && entries" @click.prevent="displayEntryCount += 10">Mehr Spots anzeigen</a>
+      <div class="list__tabs">
+        <a href="#" class="list__tabs__item" @click.prevent="entryFilter = 'all'" v-bind:class="{ active: isCurrentFilter('all') }">Alle Spots</a>
+        <a href="#" class="list__tabs__item" @click.prevent="entryFilter = 'shame'" v-bind:class="{ active: isCurrentFilter('shame') }">Shit</a>
+        <a href="#" class="list__tabs__item" @click.prevent="entryFilter = 'fame'" v-bind:class="{ active: isCurrentFilter('fame') }">Hit</a>
       </div>
+      <ul class="list__entries">
+        <li v-for="entry in displayEntries" class="list-entry" v-if="entries" v-bind:class="{ famed: entry.famed }" v-bind:key="entry._id">
+          <router-link :to="'/entries/' + entry._id" class="list-entry__link">
+            <span class="list-entry__image" :style="{ backgroundImage: 'url(' + entry.photo.small.url + ')' }"></span>
+            <span class="list-entry__content">
+              <h3>{{ entry.title }}</h3>
+              <span class="list-entry__location">{{ entry.address }}</span>
+              <span class="list-entry__meta list-entry__meta--votes">{{ entry.votes }}</span>
+              <span class="list-entry__meta list-entry__meta--comments">{{ entry.commentCount }}</span>
+              <span v-if="entry.distance" class="list-entry__distance">{{ entry.distance }}</span>
+            </span>
+          </router-link>
+        </li>
+      </ul>
+      <a class="showmore" href="#" v-if="entryDisplayCapped && entries" @click.prevent="displayEntryCount += 10">Mehr Spots anzeigen</a>
     </div>
   </div>
 </template>
@@ -136,7 +127,9 @@ export default {
     }
   },
   methods: {
-    setSort(sort) {
+    setSort() {
+      console.log('hey sort');
+      return;
       // this.$store.dispatch('setEntrySorting', sort);
 
       if(this.entrySort == sort) {
@@ -171,11 +164,10 @@ export default {
   }
 
   &__container {
-    max-width: 1300px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 0 1rem;
-    display: flex;
-    flex-wrap: wrap;
+    position: relative;
 
     .col {
       &--left {
@@ -282,7 +274,7 @@ export default {
           margin-bottom: 5px;
           border: 2px solid #fff;
           position: relative;
-          border-radius: 4px;
+          // border-radius: 4px;
           transition: .2s color, .2s border-color;
 
           &:hover, &.active {
@@ -392,12 +384,8 @@ export default {
 
     .list-entry {
       margin-bottom: .5rem;
-      // padding: 1.5rem 1rem;
-      // transition: all .5s;
+      border: 1px solid lighten($c-highlight, 30%);
 
-      // &:nth-child(2n) {
-      //   background-color: #fff;
-      // }
       &__distance {
         display: block;
         color: #888;
@@ -488,6 +476,7 @@ export default {
         position: relative;
         overflow: hidden;
         z-index: 1;
+        box-sizing: border-box;
 
         &::after {
           content: "";
@@ -498,15 +487,15 @@ export default {
           top: 0;
           left: 0;
           background-color: $c-highlight;
-          opacity: .6;
+          opacity: .2;
           mix-blend-mode: color;
           transition: .2s opacity;
           // transition: .1s opacity;
         }
 
         @include desktop() {
-          width: 6.5rem;
-          height: 6.5rem;
+          width: 10rem;
+          height: 7rem;
           margin: 0 1.5rem 0 0;
         }
       }
@@ -558,6 +547,7 @@ export default {
       }
 
       &.famed {
+        border-color: lighten($c-main, 30%);
 
         .list-entry__link::after {
           background-image: linear-gradient(90deg, rgba($c-main, .3) 0%, #fff 70%);
@@ -579,6 +569,82 @@ export default {
     display: block;
     text-align: center;
     margin-top: 2rem;
+  }
+
+  &__tabs {
+    margin: 1rem 0 1rem 0;
+    border-bottom: 1px solid #ddd;
+    padding-top: 2rem;
+
+    @include desktop() {
+      padding-top: 0;
+    }
+
+    &__item {
+      display: inline-block;
+      text-decoration: none;
+      padding: .5rem 1rem;
+      border: 1px solid #ddd;
+      color: #888;
+      position: relative;
+      bottom: -1px;
+      background-color: #fafafa;
+
+      &.active {
+        border-color: $c-main;
+        border-bottom-color: #fff;
+        background-color: #fff;
+        color: $c-main;
+      }
+    }
+  }
+
+  &__sort {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+
+    @include desktop() {
+      left: auto;
+      right: 1rem;
+    }
+
+    &::after {
+      content: "↯";
+      position: absolute;
+      right: 0;
+      top: 0;
+      color: #888;
+      pointer-events: none;
+    }
+
+    select {
+      font-family: $f-body;
+      color: #888;
+      padding: 0;
+      font-size: .9rem;
+      width: 100%;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      background: transparent;
+      background-image: none;
+      -webkit-appearance: none;
+      line-height: 1;
+      border-bottom: 1px solid #ccc;
+      padding-right: 1.5rem;
+      padding-bottom: .25rem;
+
+      &::-ms-expand {
+        display: none;
+      }
+
+      &:focus {
+        outline: none;
+        color: #333;
+        border-color: #333;
+      }
+    }
   }
 }
 

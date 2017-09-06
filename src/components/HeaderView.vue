@@ -50,7 +50,7 @@ export default {
       return this.$store.state.userData;
     },
     isHome() {
-      return this.$route.path == '/';
+      return (this.$route.path == '/' && !this.isLoggedIn);
     }
   },
 

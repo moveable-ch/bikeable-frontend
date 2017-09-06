@@ -98,7 +98,7 @@ export default {
     }
 
     &__body {
-      background-color: #fff;
+      background-color: #f8f8f8;
       margin-bottom: 5px;
       padding: 1rem;
     }
@@ -106,7 +106,7 @@ export default {
       display: block;
       text-decoration: none;
       color: #333;
-      background-color: #fff;
+      background-color: #f8f8f8;
       height: 2rem;
       text-align: center;
       position: relative;

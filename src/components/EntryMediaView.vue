@@ -93,7 +93,8 @@ export default {
   margin-bottom: 1rem;
   width: 100%;
   height: 15rem;
-  background-color: #fff;
+  background-color: #fafafa;
+  border: 1px solid #eee;
   position: relative;
   overflow: hidden;
 
@@ -102,8 +103,8 @@ export default {
     width: 40px;
     height: 40px;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 2px;
+    right: 2px;
     z-index: 1;
     background-color: $c-main;
     background-image: url('../assets/mapbutton.png');
@@ -168,8 +169,8 @@ export default {
     &__image {
 
       img {
-        max-width: calc(100% - 2rem);
-        max-height: calc(100% - 2rem);
+        max-width: 100%;
+        max-height: 100%;
       }
     }
   }

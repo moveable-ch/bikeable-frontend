@@ -54,7 +54,7 @@ export default {
 @import '../styles/helpers';
 
 .footer {
-  background-color: #fff;
+  background-color: #f8f8f8;
   padding: 1.5rem 0 0 0;
   margin-top: 1rem;
   width: 100%;
@@ -94,7 +94,7 @@ export default {
       a {
         color: inherit;
         text-decoration: none;
-        box-shadow: inset 0 -1px 0 0 #fff;
+        // box-shadow: inset 0 -1px 0 0 #fff;
 
         &:hover {
           color: $c-highlight;
@@ -105,7 +105,7 @@ export default {
   }
 
   .partner {
-    background-color: #fff;
+    background-color: #eee;
     padding: 1.5rem 0;
     margin-top: 1.5rem;
     color: #444;

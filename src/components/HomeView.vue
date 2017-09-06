@@ -1,15 +1,13 @@
 <template>
   <div class="home">
     <div class="home__intro" v-if="!isLoggedIn">
-      <div class="container">
-        <div class="home__intro__illu">
-          <img src="/static/img/paul.png" alt="Bikeapaul">
-        </div>
-        <div class="home__intro__content">
-          <h1>Let's make <a href="#">Zürich</a> bikeable.</h1>
-          <p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>
-          <router-link to="/register" class="home__intro__cta">Jetzt registrieren</router-link>
-        </div>
+      <div class="home__intro__illu">
+        <img src="/static/img/paul.png" alt="Bikeapaul">
+      </div>
+      <div class="home__intro__content">
+        <h1>Let's make<br><a href="#">Your City</a> bikeable.</h1>
+        <p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>
+        <router-link to="/register" class="home__intro__cta">Jetzt registrieren</router-link>
       </div>
     </div>
 
@@ -31,7 +29,7 @@
       <div class="container">
         <h2>New Spots in Zürich</h2>
         <div class="home__spots__container">
-          <router-link :to="'/entries/' + spot._id" class="home__spots__item" v-for="spot in newSpots" :key="spot._id" v-bind:class="{ famed: spot.famed }">
+          <router-link :to="'/entries/' + spot._id" class="home__spots__item" v-for="spot in topSpots" :key="spot._id" v-bind:class="{ famed: spot.famed }">
             <span class="home__spots__image" :style="'background-image: url(' + spot.photo.medium.url + ')'"></span>
             <h3>{{ spot.title }}</h3>
             <span class="address">{{ spot.address }}</span>
@@ -117,8 +115,8 @@ export default {
       margin-left: auto;
       margin-right: auto;
       position: relative;
-      background-color: #fff;
-      padding-bottom: 2rem;
+      background-color: #fafafa;
+      padding-bottom: 1.5rem;
       transition: .4s box-shadow $easeOutQuint;
       box-shadow: 0 5px 5px 0 rgba(#000, 0);
 
@@ -130,7 +128,8 @@ export default {
       }
 
       &:hover {
-        box-shadow: 0 5px 20px 0 rgba(#000, .06);
+        background-color: #f0f0f0;
+        // box-shadow: 0 5px 20px 0 rgba(#000, .06);
 
         .home__spots__image::after {
           transform: rotate(15deg);
@@ -181,7 +180,7 @@ export default {
       margin-bottom: .5rem;
       hyphens: auto;
       padding: 0 1rem;
-      transition: .2s color;
+      // transition: .2s color;
     }
     .address {
       display: block;
@@ -196,29 +195,30 @@ export default {
   }
 
   &__intro {
-    background-color: #FAF8DB;
-    background-image: url('../assets/home-bg.png');
-    background-size: cover;
-    height: 650px;
+    background-image: linear-gradient(-180deg, $c-yellow 58%, $c-white 100%);
+    height: 600px;
     color: #444;
     margin-top: -7rem;
-    border-bottom: 6px solid darken(#FAF8DB, 5%);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    overflow: hidden;
 
     @include desktop() {
-      height: 850px;
+      height: 700px;
+      padding-left: calc(3.5rem + 63px);
     }
 
     &__content {
-      padding-top: 300px;
+      padding-top: 250px;
 
       @include desktop() {
-        padding-top: 500px;
+        padding-top: 150px;
       }
     }
     &__illu {
       position: absolute;
-      top: 7rem;
-      left: 50%;
+      top: 6.5rem;
+      left: 65%;
       width: 9rem;
       margin-left: -4.5rem;
       transform-origin: center bottom;
@@ -230,14 +230,15 @@ export default {
       }
 
       @include desktop() {
-        top: 3.5rem;
-        width: 14rem;
+        top: 14rem;
+        left: 45rem;
+        width: 16rem;
         margin-left: -7rem;
       }
     }
     &__cta {
       display: block;
-      margin: 3rem auto;
+      margin: 3rem 0;
       width: 13rem;
       background-color: transparent;
       border: 4px solid $c-highlight;
@@ -257,25 +258,30 @@ export default {
       color: $c-main;
       margin: 0;
       font-weight: bold;
-      font-size: 2.25rem;
-      line-height: 1.3;
-      margin-bottom: .5rem;
-      text-align: center;
+      font-size: 2rem;
+      line-height: 1.2;
+      margin-bottom: 1rem;
 
       a {
         color: $c-main;
       }
+
+      @include desktop() {
+        font-size: 3.75rem;
+      }
     }
     p {
-      font-size: 1.2rem;
-      line-height: 1.6;
+      font-size: 1.1rem;
+      line-height: 1.7;
       color: $c-main;
       max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
 
       a {
         color: #444;
+      }
+
+      @include desktop() {
+        font-size: 1.3rem;
       }
     }
   }

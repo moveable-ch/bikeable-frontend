@@ -273,7 +273,7 @@ export default {
       li {
 
         a {
-          background-color: #fff;
+          background-color: #f8f8f8;
           display: block;
           text-decoration: none;
           color: #666;
@@ -449,7 +449,7 @@ export default {
         }
 
         &:hover, &:focus {
-          background-color: #fff;
+          background-color: #f0f0f0;
 
           h3 {
             color: $c-highlight;

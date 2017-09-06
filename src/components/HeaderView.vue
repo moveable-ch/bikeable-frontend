@@ -72,7 +72,7 @@ export default {
   left: 0;
   width: 100%;
   height: 3rem;
-  background: #fff;
+  background: #fafafa;
   padding: 0 1rem;
   color: #444;
   box-sizing: border-box;
@@ -83,7 +83,7 @@ export default {
   &.is-expanded {
     height: 15rem;
     box-shadow: 0 5px 5px rgba(#000, .05);
-    background-color: #fff !important;
+    background-color: #fafafa !important;
   }
   &.is-home {
     background-color: transparent;

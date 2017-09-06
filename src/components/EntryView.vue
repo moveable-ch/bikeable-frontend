@@ -380,7 +380,8 @@ export default {
     }
 
     .lead {
-      background-color: #fff;
+      background-color: #fafafa;
+      border: 1px solid #eee;
       padding: 1rem;
 
       h1 {
@@ -412,7 +413,8 @@ export default {
     .vote {
       display: block;
       text-decoration: none;
-      background-color: #fff;
+      background-color: #fafafa;
+      border: 1px solid #eee;
       height: 3rem;
       margin-top: 5px;
       text-align: center;
@@ -505,11 +507,11 @@ export default {
         display: block;
         width: 40px;
         height: 40px;
-        background-color: #fff;
+        background-color: #fafafa;
         background-size: 100%;
         background-position: center;
         margin-left: 5px;
-        border: 2px solid #fff;
+        border: 1px solid #eee;
         transition: .2s border-color;
 
         &--fb {

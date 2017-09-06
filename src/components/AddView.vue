@@ -264,14 +264,16 @@ export default {
       height: 2rem;
       line-height: 2rem;
       font-weight: bold;
-      background-color: #fff;
+      background-color: #fafafa;
+      border: 1px solid #eee;
       text-align: center;
       margin-right: 1rem;
       border-radius: 99%;
     }
 
     @include desktop() {
-      margin-top: 3rem;
+      margin-top: 3.5rem;
+      margin-bottom: 2rem;
     }
   }
   &__btn {
@@ -295,7 +297,7 @@ export default {
     label {
       display: block;
       color: #666;
-      border: 2px solid #666;
+      border: 1px solid #666;
       // border-radius: 4px;
       width: 14rem;
       text-align: center;
@@ -304,7 +306,7 @@ export default {
       line-height: 3rem;
       cursor: pointer;
       margin-top: 1rem;
-      background-color: #fff;
+      background-color: #fafafa;
       font-size: 1rem;
 
       &:hover {
@@ -330,14 +332,14 @@ export default {
     line-height: 3rem;
     height: 3rem;
     margin-top: 1rem;
-    background-color: #fff;
+    background-color: #fafafa;
     // border-radius: 4px;
   }
 
   &__preview {
     width: 15rem;
     height: 10rem;
-    background-color: #fff;
+    background-color: #fafafa;
     padding: 5px;
     display: flex;
     justify-content: center;
@@ -398,7 +400,7 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #fff;
+    background-color: #fafafa;
     box-shadow: 0 0 0 2px #ccc;
     // border: 2px solid #ccc;
     box-sizing: border-box;
@@ -434,7 +436,8 @@ export default {
   display: block;
   height: 2.5rem;
   font-size: .8rem;
-  background-color: #fff;
+  background-color: #fafafa;
+  border: 1px solid #eee;
   padding: 0 1rem 0 3.5rem;
   color: #333;
   box-sizing: border-box;
@@ -475,6 +478,8 @@ export default {
   }
   &:hover {
     color: $c-main;
+    border-color: $c-main;
+
     &::before {
       background-color: $c-main;
     }

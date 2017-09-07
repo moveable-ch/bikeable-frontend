@@ -1,15 +1,30 @@
 <template>
-  <div class="comment">
-    <div class="comment__avatar" :style="'background-image:url(' + comment.user.avatar.small + ')'"></div>
+  <div class="comment" v-bind:class="{child: isChild}">
+    <div class="comment__avatar" v-if="comment.user.avatar" :style="'background-image:url(' + comment.user.avatar.small + ')'"></div>
     <div class="comment__body">
       <div class="comment__meta">
         <span class="username">{{ comment.user.name }}</span><span class="date">{{ dateCreated }}</span>
       </div>
       <p>{{ comment.text }}</p>
     </div>
-    <a @click.prevent="upvoteComment" href="#" class="comment__vote" v-bind:class="{ disabled: !isLoggedIn }">
-      <span class="comment__vote__count">{{ comment.votesCount }}</span>
-    </a>
+    <div class="comment__buttons" v-if="!isChild">
+      <a @click.prevent="upvoteComment" href="#" class="comment__button comment__button--vote" v-bind:class="{ disabled: !isLoggedIn }">
+        <span class="count">{{ comment.votesCount }}</span>
+      </a>
+      <a @click.prevent="showForm = !showForm" href="#" class="comment__button reply">Antworten</a>
+    </div>
+
+    <div class="comment__reply" v-if="showForm">
+      <div class="comment__reply__image"></div>
+      <form @submit.prevent="postReply">
+        <textarea placeholder="Kommentar" v-model="replyText" rows="2"></textarea>
+        <button type="submit" class="btn comment__reply__button" v-bind:class="{ 'disabled': !replyText }">Senden</button>
+      </form>
+    </div>
+
+    <div class="comment__children" v-if="responses">
+      <comment-view v-for="comment in responses" :isChild="true" :key="comment._id" :comment="comment" :loadComments="loadComments"></comment-view>
+    </div>
   </div>
 </template>
 
@@ -17,12 +32,16 @@
 export default {
   name: 'comment-view',
   props: [
+    'entryId',
+    'fetchData',
     'comment',
-    'loadComments'
+    'loadComments',
+    'isChild'
   ],
   data () {
     return {
-      commentText: ''
+      replyText: '',
+      showForm: false
     }
   },
 
@@ -34,6 +53,9 @@ export default {
     },
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
+    },
+    responses() {
+      return this.comment.responses;
     }
   },
 
@@ -45,6 +67,35 @@ export default {
   },
 
   methods: {
+    postReply() {
+      if(this.commentText == '') return;
+      if(!this.isLoggedIn) return;
+
+      let userId = localStorage.getItem('userId');
+      let token = localStorage.getItem('token');
+
+      this.$store.commit('LOAD_START');
+
+      this.$http.post('https://backend.bikeable.ch/api/v1/comments',
+        {
+          'entryId': this.entryId,
+          'parentId': this.comment._id,
+          'text': this.replyText,
+          'user': {
+            '_id': userId
+          }
+        },
+        {
+          headers: {
+            'X-User-Id': userId,
+            'X-Auth-Token': token
+          }
+        }).then(response => {
+          this.replyText = '';
+          this.showForm = false;
+          this.fetchData();
+        });
+    },
     upvoteComment() {
       if(!this.isLoggedIn) return;
 
@@ -82,70 +133,112 @@ export default {
     margin-bottom: 1rem;
     font-size: .8rem;
     position: relative;
-    padding-left: 3rem;
+    padding-left: 2.5rem;
+
+    &.child {
+      margin-top: .5rem;
+      margin-bottom: .5rem;
+    }
+
+    &__reply {
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      position: relative;
+      padding-left: 2.5rem;
+
+      &__image {
+        width: 2rem;
+        height: 2rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #ffa;
+      }
+
+      label {
+        margin-bottom: .5rem;
+      }
+      &__button {
+        font-size: .8rem;
+        min-width: 6rem;
+        height: 2rem;
+        line-height: 2rem;
+        margin-top: .5rem;
+      }
+
+      textarea {
+        display: block;
+        padding: .5rem;
+        font-size: .8rem;
+        // height: 4rem;
+      }
+
+      @include desktop {
+        // margin-top: 2rem;
+      }
+    }
 
     &__avatar {
-      width: 2.4rem;
-      height: 2.4rem;
+      width: 2rem;
+      height: 2rem;
       background-color: #fff;
       background-size: cover;
       background-position: center;
-      border-radius: 99%;
       margin-right: 1rem;
       position: absolute;
       top: 0;
       left: 0;
+      border: 1px solid #eee;
     }
 
     &__body {
-      background-color: #f8f8f8;
-      margin-bottom: 5px;
+      background-color: #fafafa;
+      margin-bottom: 4px;
       padding: 1rem;
     }
-    &__vote {
+    &__buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+    &__button {
       display: block;
       text-decoration: none;
-      color: #333;
-      background-color: #f8f8f8;
       height: 2rem;
+      line-height: 2rem;
       text-align: center;
-      position: relative;
-      box-sizing: border-box;
-      border: 2px solid #fff;
-      transition: .3s border-color;
+      color: #888;
+      border: 1px solid #eee;
+      background-color: #fafafa;
+      width: 100%;
 
-      &__count {
-        font-weight: 500;
-        line-height: 2rem;
-        position: relative;
-        padding-left: 1.5rem;
-
-        &::before {
-          content: "";
-          display: block;
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 100%;
-          width: .75rem;
-          background: none;
-          border: none;
-          background-image: url('../assets/upvote-black.png');
-          background-size: 100%;
-          background-position: 50% 45%;
-          background-repeat: no-repeat;
-          transition: .3s transform $easeOutQuint;
-        }
-      }
-      &.disabled {
-        pointer-events: none;
-      }
       &:hover {
-        border-color: $c-main;
+        color: #444;
+        border-color: #444;
+      }
 
-        .comment__vote__count {
+      &--vote {
+
+        .count {
+          font-weight: bold;
+          line-height: 1.5rem;
+          position: relative;
+          padding-left: 1.25rem;
+
           &::before {
-            transform: translateY(-3px);
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: .65rem;
+            background: none;
+            border: none;
+            background-image: url('../assets/upvote-black.png');
+            background-size: 100%;
+            background-position: 50% 45%;
+            background-repeat: no-repeat;
+            transition: .3s transform $easeOutQuint;
           }
         }
       }

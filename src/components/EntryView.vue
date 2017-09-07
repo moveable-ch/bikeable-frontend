@@ -33,17 +33,15 @@
 
         <div class="notice" v-if="!isLoggedIn">Jetzt <router-link to="/register">registrieren</router-link> und mitdiskutieren!</div>
         <div class="comments__form" v-if="isLoggedIn">
+          <div class="comments__form__image"></div>
           <form @submit.prevent="postComment">
-            <label>
-              <span>Kommentar</span>
-              <textarea v-model="commentText" rows="2"></textarea>
-            </label>
+            <textarea placeholder="Kommentar" v-model="commentText" rows="2"></textarea>
             <button type="submit" class="btn comments__form__button" v-bind:class="{ 'disabled': !commentText }">Senden</button>
           </form>
         </div>
 
         <div class="comments">
-          <comment-view v-for="comment in comments" :key="comment._id" :comment="comment" :loadComments="loadComments"></comment-view>
+          <comment-view v-for="comment in comments" :key="comment._id" :isChild="false" :comment="comment" :loadComments="loadComments" :entryId="entryId" :fetchData="fetchData"></comment-view>
         </div>
       </div>
     </div>
@@ -122,6 +120,9 @@ export default {
     entryTitle() {
       if(!this.currentEntry.title) return 'what';
       return this.currentEntry.title;
+    },
+    userData() {
+      return this.$store.state.userData;
     }
   },
 
@@ -271,7 +272,7 @@ export default {
 
     &::before {
       content: "";
-      display: block;
+      display: none;
       width: 100%;
       height: 10rem;
       position: absolute;
@@ -292,15 +293,18 @@ export default {
       font-size: .8rem;
       display: flex;
       font-family: $f-head;
+      background-color: #fafafa;
+      padding: .5rem;
+      border: 1px solid #eee;
 
       &__image {
-        width: 2.4rem;
-        height: 2.4rem;
+        width: 2rem;
+        height: 2rem;
         background-color: #fff;
         background-size: cover;
         background-position: center;
-        border-radius: 99%;
         margin-right: 1rem;
+        border: 1px solid #eee;
       }
       &__content {
 
@@ -338,6 +342,9 @@ export default {
       .vote__icon--main {
         background-image: url('../assets/upvote-green.png');
       }
+      .vote {
+        border-color: $c-main;
+      }
       .vote.is-active, .vote:hover {
         background-color: $c-main;
       }
@@ -347,7 +354,7 @@ export default {
     }
 
     @include desktop() {
-      padding-bottom: 4rem;
+      padding-bottom: 0;
     }
     .col {
       box-sizing: border-box;
@@ -380,16 +387,13 @@ export default {
     }
 
     .lead {
-      background-color: #fafafa;
-      border: 1px solid #eee;
-      padding: 1rem;
 
       h1 {
         line-height: 1;
-        margin: 0 0 .2rem 0;
+        margin: 0 0 .5rem 0;
         font-weight: bold;
         color: $c-highlight;
-        font-size: 1rem;
+        font-size: 1.5rem;
       }
       h2 {
         margin-bottom: 1rem;
@@ -399,14 +403,16 @@ export default {
       }
       &__desc {
         font-size: .9rem;
+        margin-bottom: 2rem;
       }
       &__meta {
         display: block;
         color: #888;
+        border-bottom: 1px solid #444;
       }
 
       @include desktop() {
-        padding: 1.5rem;
+        // padding: 1.5rem;
       }
     }
 
@@ -414,7 +420,7 @@ export default {
       display: block;
       text-decoration: none;
       background-color: #fafafa;
-      border: 1px solid #eee;
+      border: 1px solid $c-highlight;
       height: 3rem;
       margin-top: 5px;
       text-align: center;
@@ -472,28 +478,41 @@ export default {
     }
 
     .comments {
-      margin-top: 3rem;
+      margin-top: 2rem;
 
       &__form {
-        margin-top: 3rem;
+        margin-top: 2rem;
         margin-bottom: 2rem;
+        position: relative;
+        padding-left: 2.5rem;
+
+        &__image {
+          width: 2rem;
+          height: 2rem;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background-color: #ffa;
+        }
 
         label {
           margin-bottom: .5rem;
         }
         &__button {
-          // font-size: .9rem;
-          // height: 2rem;
+          font-size: .8rem;
+          min-width: 6rem;
+          height: 2rem;
           line-height: 2rem;
-          // min-width: 6rem;
         }
 
         textarea {
-          // height: 5rem;
+          padding: .5rem;
+          font-size: .8rem;
+          // height: 4rem;
         }
 
         @include desktop {
-          // margin-top: 2rem;
+          margin-top: 4rem;
         }
       }
     }

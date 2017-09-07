@@ -22,7 +22,7 @@ import GoogleMapsLoader from 'google-maps';
 
 export default {
   name: 'entry-media-view',
-  props: ['img', 'coords'],
+  props: ['img', 'coords', 'famed'],
   components: {
   },
   data () {
@@ -89,14 +89,17 @@ export default {
 
 .entry-media {
   display: block;
-  margin: 0 auto;
-  margin-bottom: 1rem;
-  width: 100%;
+  margin: 1rem auto;
+  width: calc(100% - 2rem);
   height: 15rem;
   background-color: #fafafa;
-  border: 1px solid #eee;
+  border: 1px solid $c-highlight;
   position: relative;
   overflow: hidden;
+
+  .is-famed & {
+    border-color: $c-main;
+  }
 
   .switch-btn {
     display: block;
@@ -106,7 +109,7 @@ export default {
     top: 2px;
     right: 2px;
     z-index: 1;
-    background-color: $c-main;
+    background-color: $c-highlight;
     background-image: url('../assets/mapbutton.png');
     background-size: 60%;
     background-repeat: no-repeat;
@@ -115,7 +118,11 @@ export default {
     &.active {
       background-image: url('../assets/imagebutton.png');
     }
-    &:hover {
+    // &:hover {
+    //   background-color: $c-main;
+    // }
+
+    .is-famed & {
       background-color: $c-main;
     }
   }
@@ -164,13 +171,13 @@ export default {
 
   @include desktop() {
     height: 30rem;
-    margin-bottom: 0;
+    margin: 0 auto;
 
     &__image {
 
       img {
-        max-width: 100%;
-        max-height: 100%;
+        max-width: calc(100% - 4px);
+        max-height: calc(100% - 4px);
       }
     }
   }

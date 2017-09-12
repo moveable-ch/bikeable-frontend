@@ -1,5 +1,5 @@
 <template>
-  <header class="header" v-bind:class="{ 'is-expanded': isExpanded, 'is-home': isHome }">
+  <header class="header" v-bind:class="{ 'is-expanded': isExpanded, 'is-home': isHome, 'is-scrolled': isScrolled }">
     <div class="container">
       <router-link to="/" class="header__logo"><span>bikeable</span></router-link>
       <button class="burger" v-on:click="toggleNav"></button>
@@ -27,7 +27,8 @@ export default {
   name: 'header-view',
   data () {
     return {
-      isExpanded: false
+      isExpanded: false,
+      isScrolled: false
     }
   },
 
@@ -40,7 +41,24 @@ export default {
         .then(() => {
           this.$router.push('/');
         });
+    },
+    handleScroll() {
+      if(!this.isHome) return;
+
+      if(window.scrollY > 400) {
+        this.isScrolled = true;
+      }else{
+        this.isScrolled = false;
+      }
     }
+  },
+
+  created() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll);
   },
 
   computed: {
@@ -81,12 +99,16 @@ export default {
   transition: .4s height $easeOutQuint, .3s box-shadow, .3s background-color;
 
   &.is-expanded {
-    height: 15rem;
+    height: 50vh;
     box-shadow: 0 5px 5px rgba(#000, .05);
     background-color: #fafafa !important;
   }
   &.is-home {
     background-color: transparent;
+
+    &.is-scrolled {
+      background-color: rgba(#fafafa, .98);
+    }
   }
 
   .container {

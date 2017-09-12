@@ -5,7 +5,8 @@
         <div class="footer__col footer__col--left">
           <ul>
             <li><strong>bikeable.ch</strong></li>
-            <li><a href="/">info@bikeable.ch</a></li>
+            <li><a href="mailto:info@bikeable.ch">info@bikeable.ch</a></li>
+            <li><router-link to="/about" exact>About</router-link></li>
           </ul>
         </div>
         <div class="footer__col footer__col--center">
@@ -13,7 +14,7 @@
         </div>
         <div class="footer__col footer__col--right">
           <ul>
-            <li><router-link to="/about" exact>About</router-link></li>
+            <li><router-link to="/news">News</router-link></li>
             <li><router-link to="/faq" exact>FAQ</router-link></li>
             <li><router-link to="/partner" exact>Partner</router-link></li>
           </ul>
@@ -60,6 +61,10 @@ export default {
   width: 100%;
   color: #444;
   text-align: center;
+
+  strong {
+    font-weight: 700;
+  }
 
   &__inner {
     display: flex;

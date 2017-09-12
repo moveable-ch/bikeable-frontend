@@ -2,6 +2,7 @@
   <div class="contentpage news">
     <div class="container" v-if="doc">
       <h1 class="news__headline">{{ doc.title }}</h1>
+      <span class="date">{{ doc.date }}</span>
       <img class="news__image" :src="doc.image">
       <div v-html="doc.text"></div>
     </div>
@@ -38,6 +39,8 @@ export default {
         );
       }).then(function(payload) {
         const y = {};
+        let date = new Date(payload.results[0].firstPublicationDate);
+        y.date = date.getDate() + '.' + (date.getMonth()+1) + '.' + date.getFullYear();
         y.title = payload.results[0].getText('news.news_title');
         y.text = payload.results[0].getStructuredText('news.news_text').asHtml();
         y.image = payload.results[0].getImage('news.news_image').url;
@@ -60,12 +63,20 @@ export default {
     font-size: 1.75rem;
     text-align: left;
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: .5rem;
 
     @include desktop() {
       text-align: center;
       font-size: 3rem;
       margin-top: 2rem;
+    }
+  }
+  .date {
+    display: block;
+    text-align: left;
+
+    @include desktop() {
+      text-align: center;
     }
   }
   &__image {

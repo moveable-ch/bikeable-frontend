@@ -13,6 +13,7 @@ import RegisterView from '@/components/RegisterView'
 import PasswordRetrievalView from '@/components/PasswordRetrievalView'
 import NotFoundView from '@/components/NotFoundView'
 import NewsArticleView from '@/components/NewsArticleView'
+import NewsView from '@/components/NewsView'
 
 Vue.use(Router)
 
@@ -74,8 +75,13 @@ export default new Router({
       component: PasswordRetrievalView
     },
     {
-      path: '/news/:id',
+      path: '/news',
       name: 'news',
+      component: NewsView
+    },
+    {
+      path: '/news/:id',
+      name: 'newsarticle',
       component: NewsArticleView
     },
     {

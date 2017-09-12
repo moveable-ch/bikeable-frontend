@@ -166,8 +166,8 @@ export default {
       a {
         color: #444;
         text-decoration: none;
-        font-size: .9rem;
-        line-height: 1.5;
+        font-size: 1rem;
+        line-height: 1.75;
         font-weight: bold;
         text-transform: uppercase;
 
@@ -183,7 +183,7 @@ export default {
       }
     }
     .username {
-      font-size: 1.25rem;
+      font-size: 1rem;
     }
 
     @include desktop() {

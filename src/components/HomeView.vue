@@ -26,11 +26,13 @@
         <div class="home__spots__container">
           <router-link :to="'/entries/' + spot._id" class="home__spots__item" v-for="spot in topSpots" :key="spot._id" v-bind:class="{ famed: spot.famed }">
             <span class="home__spots__image" :style="'background-image: url(' + spot.photo.medium.url + ')'"></span>
-            <h3>{{ spot.title }}</h3>
-            <span class="address">{{ spot.address }}</span>
+            <span class="home__spots__content">
+              <h3>{{ spot.title }}</h3>
+              <span class="address">{{ spot.address }}</span>
+            </span>
           </router-link>
         </div>
-        <router-link to="/entries" class="btn-centered">Alle Spots anzeigen</router-link>
+        <router-link to="/entries" class="home__spots__button">Alle Spots anzeigen</router-link>
       </div>
     </div>
 
@@ -40,17 +42,38 @@
         <div class="home__spots__container">
           <router-link :to="'/entries/' + spot._id" class="home__spots__item" v-for="spot in topSpots" :key="spot._id" v-bind:class="{ famed: spot.famed }">
             <span class="home__spots__image" :style="'background-image: url(' + spot.photo.medium.url + ')'"></span>
-            <h3>{{ spot.title }}</h3>
-            <span class="address">{{ spot.address }}</span>
+            <span class="home__spots__content">
+              <h3>{{ spot.title }}</h3>
+              <span class="address">{{ spot.address }}</span>
+            </span>
           </router-link>
         </div>
-        <router-link to="/entries" class="btn-centered">Alle Spots anzeigen</router-link>
+        <router-link to="/entries" class="home__spots__button">Alle Spots anzeigen</router-link>
+      </div>
+    </div>
+
+    <div class="home__news">
+      <div class="container">
+        <h2>Bikeable News</h2>
+        <div class="home__news__container">
+          <div class="home__news__item" v-for="article in news">
+            <router-link :to="'/news/' + article.id"><img class="home__news__image" :src="article.image"></router-link>
+            <div class="home__news__content">
+              <h3><router-link :to="'/news/' + article.id">{{ article.title }}</router-link></h3>
+              <p>{{ article.abstract }}</p>
+              <router-link class="home__news__more" :to="'/news/' + article.id">Mehr</router-link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
+import Prismic from 'prismic.io';
+
 export default {
   name: 'home-view',
   metaInfo: {
@@ -87,15 +110,47 @@ export default {
   },
   data() {
     return {
+      news: {}
     }
   },
   watch: {
   },
   methods: {
 
+    loadNews() {
+      this.$store.commit('LOAD_START');
+
+      this.fetchNews().then(data => {
+        this.news = data;
+        this.$store.commit('LOAD_FINISH');
+      });
+    },
+
+    fetchNews() {
+      return Prismic.api("https://bikeable.prismic.io/api").then(function(api) {
+        return api.query(
+          Prismic.Predicates.at('document.type', 'news'),
+          {}
+        );
+      }).then(function(payload) {
+        const y = [];
+        y.questions = payload.results.slice(0,3).map((x) => {
+          const z = {};
+          z.id = x.id;
+          z.title = x.getText('news.news_title');
+          z.abstract = x.getText('news.news_abstract');
+          z.image = x.getImage('news.news_image').views.preview.url;
+          y.push(z);
+        });
+        return y;
+      }, function(err) {
+        console.log("Something went wrong: ", err);
+      });
+    }
   },
   mounted() {
     this.$store.dispatch('loadEntries');
+    this.loadNews();
   }
 }
 </script>
@@ -105,6 +160,68 @@ export default {
 @import '../styles/helpers';
 
 .home {
+
+  &__news {
+    margin: 3rem 0;
+
+    @include desktop() {
+      margin: 4rem 0;
+    }
+
+    &__container {
+      margin-top: 2rem;
+    }
+
+    &__item {
+      display: flex;
+      margin-top: 1rem;
+
+      @include desktop() {
+        max-width: 850px;
+      }
+    }
+
+    &__more {
+      display: inline-block;
+      font-size: .9rem;
+      margin-top: 1rem;
+    }
+
+    &__content {
+      padding-left: 1rem;
+      padding-top: 0;
+
+      h3 {
+        line-height: 1.1;
+        font-size: 1.25rem;
+        margin-bottom: .5rem;
+
+        a {
+          text-decoration: none;
+        }
+      }
+
+      p {
+        font-size: .9rem;
+      }
+
+      @include desktop() {
+        padding-left: 1.5rem;
+        padding-top: .5rem;
+      }
+    }
+
+    &__image {
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+
+      @include desktop() {
+        width: 200px;
+        height: 200px;
+      }
+    }
+  }
 
   &__spots {
     margin: 3rem 0;
@@ -119,25 +236,36 @@ export default {
       flex-wrap: wrap;
       justify-content: space-between;
     }
+    &__button {
+      text-decoration: none;
+      font-weight: 700;
+
+      &::before {
+        content: "→";
+        margin-right: .5rem;
+        // color: #aaa;
+      }
+    }
     &__item {
-      display: block;
+      display: flex;
       text-decoration: none;
       width: 100%;
-      max-width: 300px;
+      // max-width: 300px;
       margin-bottom: 2rem;
       margin-left: auto;
       margin-right: auto;
       position: relative;
       background-color: #fafafa;
-      padding-bottom: 1.5rem;
       transition: .4s box-shadow $easeOutQuint;
       box-shadow: 0 5px 5px 0 rgba(#000, 0);
 
       @include desktop() {
         width: calc(33.3% - 1rem);
+        padding-bottom: 1.5rem;
         max-width: none;
         margin-left: 0;
         margin-right: 0;
+        flex-wrap: wrap;
       }
 
       &:hover {
@@ -157,14 +285,30 @@ export default {
         }
       }
     }
+    &__content {
+      display: block;
+      width: 60%;
+      padding: 1rem;
+      overflow: hidden;
+
+      @include desktop {
+        width: 100%;
+      }
+    }
     &__image {
       display: block;
-      width: 100%;
+      width: 40%;
+      flex-shrink: 0;
       height: 0;
-      padding-bottom: 70%;
+      padding-bottom: 30%;
       background-size: cover;
       background-position: center;
       position: relative;
+
+      @include desktop() {
+        width: 100%;
+        padding-bottom: 70%;
+      }
 
       &::after {
         content: "";
@@ -187,10 +331,8 @@ export default {
     }
     h3 {
       font-family: $f-body;
-      padding: 0 1rem;
       text-transform: none;
       font-size: 1rem;
-      margin-top: 1rem;
       color: #333;
       line-height: 1.2;
       margin-bottom: .5rem;
@@ -200,9 +342,12 @@ export default {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      font-size: .75rem;
+      font-size: .9rem;
       color: #333;
-      padding: 0 1rem;
+
+      @include desktop() {
+        font-size: .75rem;
+      }
     }
   }
 
@@ -258,7 +403,7 @@ export default {
       }
       @media screen and (max-width: 700px) {
         top: -.5rem;
-        right: -.5rem;
+        right: 0rem;
         width: 36rem;
         height: 24rem;
       }
@@ -278,7 +423,7 @@ export default {
         width: 12rem;
         z-index: 1;
         top: 9.75rem;
-        right: 1rem;
+        right: 1.5rem;
       }
 
       img {
@@ -295,6 +440,12 @@ export default {
       &::before {
         content: "→";
         margin-right: .5rem;
+      }
+
+      @media screen and (max-width: 700px) {
+        position: absolute;
+        bottom: 2rem;
+        left: 0;
       }
     }
     h1 {

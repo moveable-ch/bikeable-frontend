@@ -42,10 +42,10 @@ export default {
 
 .sponsor-modal {
   position: fixed;
-  top: 4rem;
+  top: 3rem;
   left: 0;
   width: 100%;
-  height: calc(100% - 4rem);
+  height: calc(100% - 3rem);
   background-color: rgba(#333, .8);
   display: flex;
   align-items: center;
@@ -72,11 +72,13 @@ export default {
     position: relative;
 
     h2 {
+      font-family: $f-body;
+      text-transform: none;
       font-size: 1.25rem;
       z-index: 1;
       position: relative;
       margin-bottom: .25rem;
-      font-weight: 500;
+      font-weight: 700;
     }
     .address {
       display: block;

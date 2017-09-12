@@ -125,17 +125,17 @@ small {
   background-color: #333;
   color: #fff;
   font-family: $f-head;
-  font-size: 1rem;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .03rem;
   font-weight: bold;
   padding: 0 1rem;
   height: 3rem;
   line-height: 3rem;
   cursor: pointer;
   min-width: 12rem;
-  // border-radius: 4px;
   text-decoration: none;
   text-align: center;
-  // transition: .2s background-color;
 
   &:hover {
     background-color: $c-main;
@@ -246,7 +246,7 @@ textarea {
   min-height: calc(100vh - 500px);
 
   @include desktop() {
-    padding: 3rem 0;
+    padding: 2rem 0;
   }
 
   p {

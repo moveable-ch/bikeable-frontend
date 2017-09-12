@@ -15,7 +15,7 @@
           <span>Passwort</span>
           <input type="password" v-model="formPassword">
         </label>
-        <button type="submit" class="btn">OK</button>
+        <button type="submit" class="btn">Senden</button>
         <div class="notice" v-if="message != ''">{{ message }}</div>
       </form>
     </div>

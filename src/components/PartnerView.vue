@@ -98,7 +98,7 @@ export default {
     height: 10rem;
     background-color: #fff;
     box-sizing: border-box;
-    border: 2px solid #fff;
+    border: 2px solid #eee;
     padding: 2rem;
     transition: .1s border-color;
 
@@ -129,7 +129,7 @@ export default {
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    font-family: $f-head;
+    font-family: $f-body;
     font-weight: bold;
 
     li {

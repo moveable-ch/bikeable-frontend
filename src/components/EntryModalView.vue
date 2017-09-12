@@ -177,6 +177,8 @@ export default {
       }
     }
     h2 {
+      font-family: $f-body;
+      text-transform: none;
       font-size: 1rem;
       z-index: 1;
       position: relative;

@@ -63,7 +63,7 @@ export default {
 
 .faq {
   h3 {
-
+    margin-bottom: .5rem;
   }
   p {
 

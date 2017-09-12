@@ -1,6 +1,6 @@
 <template>
   <header class="header" v-bind:class="{ 'is-expanded': isExpanded, 'is-home': isHome }">
-    <div class="header__backdrop" v-if="isExpanded" v-on:click="toggleNav"></div>
+    <div class="container">
       <router-link to="/" class="header__logo"><span>bikeable</span></router-link>
       <button class="burger" v-on:click="toggleNav"></button>
       <nav>
@@ -14,10 +14,11 @@
         <ul>
           <li v-if="userData" class="username">{{ userData.username }}</li>
           <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
-          <li v-if="!isLoggedIn"><router-link to="/register">Registrieren</router-link></li>
+          <!--<li v-if="!isLoggedIn"><router-link to="/register">Registrieren</router-link></li>-->
           <li v-if="isLoggedIn"><a href="#" @click.prevent="logout">Logout</a></li>
         </ul>
       </nav>
+    </div>
   </header>
 </template>
 
@@ -72,8 +73,7 @@ export default {
   left: 0;
   width: 100%;
   height: 3rem;
-  background: #fafafa;
-  padding: 0 1rem;
+  background: $c-yellow;
   color: #444;
   box-sizing: border-box;
   z-index: 2;
@@ -89,27 +89,18 @@ export default {
     background-color: transparent;
   }
 
-  @include desktop() {
+  .container {
     position: relative;
-    height: 6rem;
-    max-height: 9rem;
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    box-shadow: none !important;
   }
 
-  &__backdrop {
-    // position: fixed;
-    // bottom: 0;
-    // left: 0;
-    // width: 100%;
-    // height: calc(100% - 15rem);
-    // background-color: rgba(#fff, 0);
-
-    // @include desktop() {
-    //   display: none;
-    // }
+  @include desktop() {
+    top: 0;
+    position: relative;
+    height: 5rem;
+    max-height: 5rem;
+    padding-top: 3rem;
+    box-shadow: none !important;
+    overflow: visible;
   }
 
   &__logo {
@@ -128,6 +119,10 @@ export default {
     @include desktop() {
       width: 63px;
       height: 87px;
+      position: absolute;
+      left: 50%;
+      top: -1.25rem;
+      margin-left: -31px;
     }
   }
 
@@ -171,9 +166,10 @@ export default {
       a {
         color: #444;
         text-decoration: none;
-        font-size: 1.25rem;
+        font-size: .9rem;
         line-height: 1.5;
         font-weight: bold;
+        text-transform: uppercase;
 
         &.router-link-active {
           // color: $c-highlight;
@@ -193,7 +189,7 @@ export default {
     @include desktop() {
       display: inline-block;
       margin-bottom: 0;
-      margin-left: 1.5rem;
+      margin-left: 0;
       margin-top: 0;
       padding-left: 0;
 
@@ -210,16 +206,16 @@ export default {
           margin-right: 1rem;
 
           a {
-            font-size: 1rem;
+            font-size: .8rem;
+            letter-spacing: .03rem;
           }
         }
       }
 
       &.nav-right {
         position: absolute;
-        top: 50%;
-        right: 2rem;
-        transform: translateY(-50%);
+        top: 0;
+        right: 1rem;
         margin-top: 0;
 
         ul {

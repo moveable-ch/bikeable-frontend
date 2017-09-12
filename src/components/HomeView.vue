@@ -2,12 +2,19 @@
   <div class="home">
     <div class="home__intro" v-if="!isLoggedIn">
       <div class="container">
+        <div class="home__intro__path">
+          <svg width="961px" height="689px" viewBox="0 0 961 689" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="Artboard" transform="translate(-75.000000, 0.000000)" stroke="#FE0094" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-dasharray="10,20">
+              <path d="M893,688 C943,648 976,622 992,610 C1016,592 1040,521 1033,486 C1026,451 969,370 841,390 C713,410 687,475 548,540 C409,605 165,567 105,452 C45,337 81,209 194,153 C307,97 484,135 544,166 C604,197 675,222 723,183 C771,144 752,118 753,109 C754,100 735,80 716,68 C697,56 635,40 634,0 C633.333333,-26.6666667 647.666667,-39.3333333 677,-38" id="bikepath"></path>
+            </g>
+          </svg>
+        </div>
         <div class="home__intro__illu">
           <img src="/static/img/paul.png" alt="Bikeapaul">
         </div>
         <div class="home__intro__content">
-          <h1>Let's make<br><a href="#">Zürich</a> bikeable.</h1>
-          <p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>
+          <h1>Let's make<br>Your City<br>bikeable!</h1>
+          <!--<p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>-->
           <router-link to="/register" class="home__intro__cta">Jetzt registrieren</router-link>
         </div>
       </div>
@@ -100,10 +107,14 @@ export default {
 .home {
 
   &__spots {
-    margin: 4rem 0;
+    margin: 3rem 0;
+
+    @include desktop() {
+      margin: 4rem 0;
+    }
 
     &__container {
-      margin-top: 2rem;
+      margin-top: 1rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -197,76 +208,114 @@ export default {
   }
 
   &__intro {
-    background-image: linear-gradient(-180deg, $c-yellow 58%, $c-white 100%);
-    height: 600px;
+    // background-image: linear-gradient(-180deg, $c-yellow 58%, $c-white 100%);
+    background-color: $c-yellow;
+    height: 350px;
+    max-width: 1200px;
+    margin: 0 auto;
     color: #444;
-    margin-top: -7rem;
-    overflow: hidden;
+    // overflow: hidden;
     position: relative;
+    margin-top: -3rem;
+    padding-top: 3rem;
 
     @include desktop() {
-      height: 700px;
+      height: 650px;
+      margin-top: 0;
+      padding-top: 0;
     }
 
     &__content {
-      padding-top: 250px;
+      padding-top: 1rem;
 
       @include desktop() {
-        padding-top: 150px;
+        padding-top: 4rem;
+      }
+    }
+    &__path {
+      position: absolute;
+      right: 13rem;
+      top: -6rem;
+      width: 961px;
+      height: 691px;
+      pointer-events: none;
+      // padding-bottom: 58%;
+
+      svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      #bikepath {
+        stroke-dasharray: 10, 20;
+        animation: bikedash 1s linear infinite;
+      }
+
+      @media screen and (max-width: 1130px) {
+        right: 0rem;
+      }
+      @media screen and (max-width: 700px) {
+        top: -.5rem;
+        right: -.5rem;
+        width: 36rem;
+        height: 24rem;
       }
     }
     &__illu {
       position: absolute;
-      top: 6.5rem;
-      left: 65%;
-      width: 9rem;
-      margin-left: -4.5rem;
+      top: 6.2rem;
+      right: 12rem;
+      width: 19rem;
       transform-origin: center bottom;
       animation: paul .7s ease-out 0s infinite normal forwards;
+
+      @media screen and (max-width: 1130px) {
+        right: 0rem;
+      }
+      @media screen and (max-width: 700px) {
+        width: 12rem;
+        z-index: 1;
+        top: 9.75rem;
+        right: 1rem;
+      }
 
       img {
         width: 100%;
         height: auto;
       }
-
-      @include desktop() {
-        top: 14rem;
-        left: 40;
-        width: 16rem;
-      }
     }
     &__cta {
-      display: block;
-      margin: 3rem 0;
-      width: 13rem;
-      background-color: transparent;
-      border: 4px solid $c-highlight;
-      text-align: center;
-      color: $c-highlight;
-      font-family: $f-head;
-      font-weight: bold;
-      padding: 1rem 0;
+      font-family: $f-body;
       text-decoration: none;
+      margin-left: 1rem;
+      font-weight: 400;
 
-      &:hover {
-        color: $c-main;
-        border-color: $c-main;
+      &::before {
+        content: "→";
+        margin-right: .5rem;
       }
     }
     h1 {
       color: $c-main;
       margin: 0;
       font-weight: bold;
-      font-size: 2rem;
-      line-height: 1.2;
+      font-size: 2.75rem;
+      line-height: .9;
       margin-bottom: 1rem;
+      transform-origin: 0% 0%;
+      transform: skew(0, -4deg);
+      opacity: 0;
+      animation: headline 1s ease-out .3s 1 normal forwards;
 
       a {
         color: $c-main;
       }
 
       @include desktop() {
-        font-size: 3.75rem;
+        font-size: 4.25rem;
       }
     }
     p {
@@ -288,16 +337,36 @@ export default {
 
 @keyframes paul {
   0% {
-    transform: rotate(0deg);
+    transform: rotate(0deg) translateY(0);
   }
   25% {
-    transform: scale(1, 1.01) translateY(-2px) rotate(-1deg);
+    transform: rotate(.5deg) translateY(2px);
   }
   75% {
-    transform: scale(1, .99) rotate(1.5deg);
+    transform: rotate(-.5deg) translateY(-2px);
   }
   100% {
-    transform: rotate(0deg);
+    transform: rotate(0deg) translateY(0);
+  }
+}
+
+@keyframes bikedash {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 30;
+  }
+}
+
+@keyframes headline {
+  0% {
+    transform: translateY(40px) skew(0, -4deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) skew(0, -4deg);
+    opacity: 1;
   }
 }
 

@@ -398,17 +398,13 @@ export default {
       }
       &__location {
         display: block;
-        font-size: .8rem;
+        font-size: .75rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         width: 100%;
         margin-bottom: .5rem;
-        font-family: $f-head;
-
-        @include desktop() {
-          font-size: .8rem;
-        }
+        font-family: $f-body;
       }
       &__link {
         display: flex;
@@ -506,7 +502,7 @@ export default {
         margin-right: 1rem;
         margin-top: .7rem;
         color: #888;
-        font-family: $f-head;
+        font-family: $f-body;
         transition: .2s color;
 
         &::before {
@@ -534,9 +530,11 @@ export default {
         }
       }
       h3 {
+        font-family: $f-body;
+        text-transform: none;
         font-size: 1rem;
         font-weight: 600;
-        margin-bottom: .2rem;
+        margin-bottom: .5rem;
         color: #333;
         transition: .2s color;
         line-height: 1.1;

@@ -12,7 +12,7 @@ html {
 body {
   margin: 0;
   padding-top: 3rem;
-  font-family: $f-head;
+  font-family: $f-body;
   background-color: $c-white;
   color: #444;
 
@@ -72,14 +72,14 @@ h2 {
   font-size: 1.75rem;
   line-height: .9;
   color: #444;
-  transform-origin: 0% 0%;
-  transform: skew(0, -2deg);
 
   @include desktop() {
     font-size: 1.7rem;
   }
 }
 h3 {
+  font-family: $f-body;
+  text-transform: none;
   color: $c-main;
   font-size: 1.2rem;
   line-height: 1.4;
@@ -152,6 +152,7 @@ small {
 }
 
 .btn-centered {
+  font-family: $f-head;
   display: block;
   width: 14rem;
   margin: 1rem auto;
@@ -159,14 +160,15 @@ small {
   font-size: .75rem;
   color: #333;
   text-align: center;
-  background-color: $c-yellow;
+  background-color: #fafafa;
+  border: 2px solid #eee;
   padding: 1rem 0;
 
   letter-spacing: .03rem;
   text-decoration: none;
 
   &:hover {
-
+    border-color: $c-main;
   }
 }
 
@@ -229,7 +231,8 @@ textarea {
 }
 
 .notice {
-  background-color: #ddd;
+  background-color: #fafafa;
+  border: 1px solid #ccc;
   padding: 1rem;
   font-size: .9rem;
   text-align: center;

@@ -266,7 +266,7 @@ export default {
   .entry {
     margin: 0;
     padding-bottom: 2rem;
-    font-family: $f-head;
+    font-family: $f-body;
     min-height: calc(100vh - 600px);
     position: relative;
 
@@ -292,7 +292,7 @@ export default {
       margin-bottom: 1rem;
       font-size: .8rem;
       display: flex;
-      font-family: $f-head;
+      align-items: center;
       background-color: #fafafa;
       padding: .5rem;
       border: 1px solid #eee;
@@ -389,13 +389,15 @@ export default {
     .lead {
 
       h1 {
-        line-height: 1;
-        margin: 0 0 .5rem 0;
-        font-weight: bold;
+        font-family: $f-body;
         color: $c-highlight;
+        margin: 2rem 0 .5rem 0;
+        text-transform: none;
         font-size: 1.5rem;
       }
       h2 {
+        font-family: $f-body;
+        text-transform: none;
         margin-bottom: 1rem;
         font-size: .9rem;
         color: #888;
@@ -420,7 +422,7 @@ export default {
       display: block;
       text-decoration: none;
       background-color: #fafafa;
-      border: 1px solid $c-highlight;
+      border: 2px solid $c-highlight;
       height: 3rem;
       margin-top: 5px;
       text-align: center;

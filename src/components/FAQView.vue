@@ -63,13 +63,7 @@ export default {
 
 .faq {
   h3 {
-    font-family: $f-head;
-    text-transform: none;
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: $c-main;
-    padding: .3rem 0;
-    margin-bottom: .5rem;
+
   }
   p {
 

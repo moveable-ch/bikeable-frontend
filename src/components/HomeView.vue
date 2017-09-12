@@ -141,7 +141,7 @@ export default {
       }
 
       &:hover {
-        background-color: #f0f0f0;
+        // background-color: #f0f0f0;
         // box-shadow: 0 5px 20px 0 rgba(#000, .06);
 
         .home__spots__image::after {
@@ -186,23 +186,22 @@ export default {
       }
     }
     h3 {
-      color: #444;
-      font-size: 1.25rem;
-      line-height: 1.2;
-      margin-top: 1rem;
-      margin-bottom: .5rem;
-      hyphens: auto;
+      font-family: $f-body;
       padding: 0 1rem;
-      // transition: .2s color;
+      text-transform: none;
+      font-size: 1rem;
+      margin-top: 1rem;
+      color: #333;
+      line-height: 1.2;
+      margin-bottom: .5rem;
     }
     .address {
       display: block;
-      // width: 100%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      font-size: .9rem;
-      color: #888;
+      font-size: .75rem;
+      color: #333;
       padding: 0 1rem;
     }
   }

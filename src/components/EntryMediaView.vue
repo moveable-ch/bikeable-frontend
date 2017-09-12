@@ -93,12 +93,12 @@ export default {
   width: calc(100% - 2rem);
   height: 15rem;
   background-color: #fafafa;
-  border: 1px solid $c-highlight;
+  border: 1px solid #ccc;
   position: relative;
   overflow: hidden;
 
   .is-famed & {
-    border-color: $c-main;
+    // border-color: $c-main;
   }
 
   .switch-btn {
@@ -172,6 +172,7 @@ export default {
   @include desktop() {
     height: 30rem;
     margin: 0 auto;
+    width: 100%;
 
     &__image {
 

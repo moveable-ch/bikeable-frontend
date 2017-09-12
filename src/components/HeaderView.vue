@@ -73,7 +73,7 @@ export default {
   left: 0;
   width: 100%;
   height: 3rem;
-  background: $c-yellow;
+  background: #fafafa;
   color: #444;
   box-sizing: border-box;
   z-index: 2;
@@ -196,7 +196,7 @@ export default {
       .username {
         font-size: 1rem;
         font-weight: 400;
-        color: #888;
+        color: #aaa;
       }
 
       ul {

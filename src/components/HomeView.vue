@@ -13,7 +13,7 @@
           <img src="/static/img/paul.png" alt="Bikeapaul">
         </div>
         <div class="home__intro__content">
-          <h1>Let's make<br>Your City<br>bikeable!</h1>
+          <h1>Let's make<br>our cities<br>bikeable!</h1>
           <!--<p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>-->
           <router-link to="/register" class="home__intro__cta">Jetzt registrieren</router-link>
         </div>
@@ -353,7 +353,8 @@ export default {
 
   &__intro {
     // background-image: linear-gradient(-180deg, $c-yellow 58%, $c-white 100%);
-    background-color: $c-yellow;
+    // background-color: $c-yellow;
+    background-image: linear-gradient(-220deg, #FCFFD6 0%, #E2FDFF 100%);
     height: 350px;
     max-width: 1200px;
     margin: 0 auto;
@@ -364,7 +365,7 @@ export default {
     padding-top: 3rem;
 
     @include desktop() {
-      height: 650px;
+      height: 550px;
       margin-top: 0;
       padding-top: 0;
     }

@@ -39,15 +39,12 @@ export default {
     submitForm() {
       if(this.formEmail == '') return;
 
-      this.$store.dispatch('forgottenpw', {
+      this.$store.dispatch('forgottenPassword', {
           email: this.formEmail
         })
       .then((data) => {
-          console.log(data);
-          // this.$router.push('/login');
-        }, (data) => {
-          console.log('error', data);
-          this.message = data.body.message;
+          this.$router.push('/login');
+          this.$store.dispatch('handleError', data.message);
         });
     }
   }

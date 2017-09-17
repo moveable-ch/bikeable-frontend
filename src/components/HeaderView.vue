@@ -66,7 +66,7 @@ export default {
       return this.$store.getters.isLoggedIn;
     },
     userData() {
-      return this.$store.state.userData;
+      return this.$store.getters.userData;
     },
     isHome() {
       return (this.$route.path == '/' && !this.isLoggedIn);

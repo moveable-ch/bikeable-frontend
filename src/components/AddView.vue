@@ -80,7 +80,7 @@ export default {
 
   computed: {
     userCoords() {
-      return this.$store.state.userCoords;
+      return this.$store.getters.userCoords;
     },
     formReady() {
       return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.imageId != null);
@@ -204,11 +204,9 @@ export default {
           data: reader.result
         })
         .then((data) => {
-            this.imageId = data.body.data.imageId;
+            this.imageId = data.imageId;
           }, (data) => {
-            let msg = response.body.status + ': ' + response.body.message;
-            this.$store.commit('SET_MESSAGE', msg);
-            console.log('error', data);
+            this.$store.dispatch('handleError', 'Error');
           });
       };
     },
@@ -219,7 +217,7 @@ export default {
     postEntry(e) {
       if(!this.formReady) return;
 
-      this.$store.dispatch('postEntry', {
+      this.$store.dispatch('addSpot', {
           title: this.entryTitle,
           text: this.entryText,
           imageId: this.imageId,
@@ -228,13 +226,7 @@ export default {
           famed: this.entryFamed
         })
       .then((data) => {
-          // console.log('success', data);
-          this.$store.dispatch('loadEntries');
-          this.$router.push('/entries/' + data.body.data._id);
-          console.log(data);
-        }, (data) => {
-          console.log('error', data);
-          // this.message = data.body.message;
+          this.$router.push('/entries/' + data._id);
         });
     }
   }

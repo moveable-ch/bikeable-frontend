@@ -82,7 +82,7 @@ export default {
   props: [],
   computed: {
     entries() {
-      return this.$store.state.entries;
+      return this.$store.getters.allSpots;
     },
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
@@ -149,7 +149,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('loadEntries');
+    this.$store.dispatch('getAllSpots');
     this.loadNews();
   }
 }

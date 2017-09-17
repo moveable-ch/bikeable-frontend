@@ -33,13 +33,13 @@ export default {
 
   computed: {
     entries() {
-      return this.$store.state.entries
+      return this.$store.getters.allSpots;
     },
     sponsors() {
-      return this.$store.state.sponsors
+      return this.$store.getters.sponsoredEntries
     },
     userCoords() {
-      return this.$store.state.userCoords
+      return this.$store.getters.userCoords
     },
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
@@ -61,6 +61,8 @@ export default {
   },
 
   mounted() {
+    this.$store.dispatch('getSponsoredEntries');
+    this.$store.dispatch('getAllSpots');
     this.initMap();
   },
 
@@ -120,7 +122,7 @@ export default {
 
     locateUser() {
 
-      if(!this.userCoords) return;
+      if(!this.userCoords || !this.google) return;
 
       let icon = {
         url: 'static/img/userloc.png',

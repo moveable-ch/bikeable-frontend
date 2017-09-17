@@ -7,7 +7,7 @@
       </div>
       <p>{{ comment.text }}</p>
     </div>
-    <div class="comment__buttons" v-if="!isChild">
+    <div class="comment__buttons" v-if="!isChild && isLoggedIn">
       <a @click.prevent="upvoteComment" href="#" class="comment__button comment__button--vote" v-bind:class="{ disabled: !isLoggedIn }">
         <span class="count">{{ comment.votesCount }}</span>
       </a>

@@ -55,11 +55,10 @@ export default {
           password: this.formPassword
         })
       .then((data) => {
-          console.log('success', data);
-          this.message = data.body.message;
+          this.$router.push('/');
+          this.$store.dispatch('handleError', 'Erfolgreich registriert, bitte Account bestätigen.');
         }, (data) => {
-          console.log('error', data);
-          this.message = data.body.message;
+          // this.message = data.body.message;
         });
     }
   }

@@ -20,6 +20,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'login-view',
   data () {
@@ -50,10 +51,8 @@ export default {
           password: this.formPassword
         })
       .then((data) => {
-          // console.log('success', data);
           this.$router.push('/');
         }, (data) => {
-          this.$store.dispatch('handleError', 'Fehler');
         });
     }
   }

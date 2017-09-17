@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     userCoords() {
-      return this.$store.state.userCoords
+      return this.$store.getters.userCoords
     }
   },
   watch: {

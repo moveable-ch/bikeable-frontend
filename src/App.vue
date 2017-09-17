@@ -65,8 +65,6 @@ export default {
       document.body.classList.add('embed');
     }
 
-    this.$store.dispatch('loadEntries');
-    this.$store.dispatch('loadSponsors');
     this.$store.dispatch('getUserCoords');
 
     if(this.isLoggedIn) {

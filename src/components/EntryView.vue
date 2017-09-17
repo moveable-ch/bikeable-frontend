@@ -52,13 +52,11 @@
 import CommentView from '@/components/CommentView'
 import EntryMediaView from '@/components/EntryMediaView'
 
+import spots from '../api/spots'
+import comments from '../api/comments'
+
 export default {
   name: 'entry-view',
-  // metaInfo() {
-  //   return {
-  //     title: this.currentEntry.title + ' — Bikeable'
-  //   };
-  // },
   head: {
     title: function () {
       return {
@@ -104,7 +102,7 @@ export default {
 
   computed: {
     entries() {
-      return this.$store.state.entries
+      return this.$store.getters.entries
     },
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
@@ -122,7 +120,7 @@ export default {
       return this.currentEntry.title;
     },
     userData() {
-      return this.$store.state.userData;
+      return this.$store.getters.userData;
     }
   },
 
@@ -149,31 +147,33 @@ export default {
     loadEntry() {
       this.entryId = this.$route.params.id;
       this.$store.commit('LOAD_START');
-      let self = this;
 
-      this.$http.get('https://backend.bikeable.ch/api/v1/entries/'+this.entryId).then(response => {
-        this.currentEntry = response.body.data;
-        this.loadingData = false;
-        this.$store.commit('LOAD_FINISH');
-        self.$emit('updateHead');
-      }, response => {
-        this.$store.commit('LOAD_FINISH');
-        console.log(response);
-      });
+      spots.getSpotById(this.entryId)
+        .then((data) => {
+          this.currentEntry = data;
+          this.loadingData = false;
+          this.$store.commit('LOAD_FINISH');
+          this.$emit('updateHead');
+        },
+        (error) => {
+          this.$store.commit('LOAD_FINISH');
+          this.$router.push('/entries');
+          this.$store.dispatch('handleError', 'Spot nicht gefunden');
+        });
     },
 
     loadComments() {
-      this.$http.get('https://backend.bikeable.ch/api/v1/comments?entry='+this.entryId).then(response => {
-        this.$store.commit('LOAD_FINISH');
-        this.comments = response.body.data;
-        /* temporarycomment sorting */
-        // this.comments = comments.sort(function(a,b) {
-        //   return new Date(b.createdAt) - new Date(a.createdAt);
-        // });
-      }, response => {
-        this.$store.commit('LOAD_FINISH');
-        console.log(response);
-      });
+      this.$store.commit('LOAD_START');
+
+      comments.getCommentsBySpot(this.entryId)
+      .then((data) => {
+          this.comments = data;
+          this.$store.commit('LOAD_FINISH');
+        },
+        (error) => {
+          this.$store.commit('LOAD_FINISH');
+          this.$store.dispatch('handleError', error);
+        });
     },
 
     postComment() {
@@ -185,42 +185,37 @@ export default {
 
       this.$store.commit('LOAD_START');
 
-      this.$http.post('https://backend.bikeable.ch/api/v1/comments',
-        {
-          'entryId': this.entryId,
-          'text': this.commentText,
-          'user': {
-            '_id': userId
-          }
-        },
-        {
-          headers: {
-            'X-User-Id': userId,
-            'X-Auth-Token': token
-          }
-        }).then(response => {
-          this.commentText = '';
-          this.fetchData();
-        });
+      comments.postComment({
+        entryId: this.entryId,
+        comment: this.commentText,
+        userId: userId,
+        authToken: token
+      })
+      .then((data) => {
+        this.commentText = '';
+        this.fetchData();
+        this.$store.commit('LOAD_FINISH');
+      },
+      (error) => {
+        this.$store.dispatch('handleError', error);
+        this.$store.commit('LOAD_FINISH');
+      });
     },
 
     checkUpvote() {
       let userId = localStorage.getItem('userId');
       let token = localStorage.getItem('token');
 
-      this.$http.get('https://backend.bikeable.ch/api/v1/votes/' + this.entryId,
+      spots.checkUpvote(
         {
-          headers: {
-            'X-User-Id': userId,
-            'X-Auth-Token': token
-          }
-        }).then(response => {
-          this.hasVoted = false;
-        }, response => {
-          if(response.status == 400) {
-            this.hasVoted = true;
-          }
-        });
+          spotId: this.entryId,
+          userId: userId,
+          authToken: token
+        }
+      ).then(
+        () => this.hasVoted = true,
+        () => this.hasVoted = false
+      );
 
     },
 
@@ -233,26 +228,25 @@ export default {
       this.$store.commit('LOAD_START');
       this.hasVoted = true;
 
-      this.$http.post('https://backend.bikeable.ch/api/v1/votes/' + this.currentEntry._id, {},
+      spots.upvoteSpot(
         {
-          headers: {
-            'X-User-Id': userId,
-            'X-Auth-Token': token
-          }
-        }).then(response => {
+          spotId: this.entryId,
+          userId: userId,
+          authToken: token
+        })
+        .then((data) => {
           this.$store.commit('LOAD_FINISH');
-          this.loadEntry();
 
-          if(response.body.lastAction == 'addVote') {
+          if(data.lastAction == 'addVote') {
             this.hasVoted = true;
           }else{
             this.hasVoted = false;
           }
-        }, response => {
-          let msg = response.body.message;
-          this.$store.commit('SET_MESSAGE', msg);
+          this.loadEntry();
+        },
+        (error) => {
+          this.$store.commit('SET_MESSAGE', error);
           this.$store.commit('LOAD_FINISH');
-
         });
     }
   }

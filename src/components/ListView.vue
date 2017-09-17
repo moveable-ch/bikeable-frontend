@@ -11,8 +11,8 @@
       </div>
       <div class="list__tabs">
         <a href="#" class="list__tabs__item" @click.prevent="entryFilter = 'all'" v-bind:class="{ active: isCurrentFilter('all') }">Alle Spots</a>
-        <a href="#" class="list__tabs__item" @click.prevent="entryFilter = 'shame'" v-bind:class="{ active: isCurrentFilter('shame') }">Shit</a>
-        <a href="#" class="list__tabs__item" @click.prevent="entryFilter = 'fame'" v-bind:class="{ active: isCurrentFilter('fame') }">Hit</a>
+        <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--bad" @click.prevent="entryFilter = 'shame'" v-bind:class="{ active: isCurrentFilter('shame') }"><span>Shame</span></a>
+        <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--good" @click.prevent="entryFilter = 'fame'" v-bind:class="{ active: isCurrentFilter('fame') }"><span>Fame</span></a>
       </div>
       <ul class="list__entries">
         <li v-for="entry in displayEntries" class="list-entry" v-if="entries" v-bind:class="{ famed: entry.famed }" v-bind:key="entry._id">
@@ -572,21 +572,33 @@ export default {
   &__tabs {
     margin: 1rem 0 1rem 0;
     border-bottom: 1px solid #ddd;
-    padding-top: 2rem;
+    margin-bottom: 3.5rem;
+    padding-left: .5rem;
 
     @include desktop() {
-      padding-top: 0;
+      padding-bottom: 0;
+      margin-bottom: 2rem;
     }
 
     &__item {
       display: inline-block;
       text-decoration: none;
-      padding: .5rem 1rem;
+      padding: 0 1rem;
+      width: 32%;
+      font-size: .8rem;
+      text-align: center;
+      height: 2rem;
+      line-height: 2rem;
       border: 1px solid #ddd;
       color: #888;
       position: relative;
       bottom: -1px;
       background-color: #fafafa;
+      box-sizing: border-box;
+
+      @include desktop() {
+        width: 7rem;
+      }
 
       &.active {
         border-color: $c-main;
@@ -594,26 +606,61 @@ export default {
         background-color: #fff;
         color: $c-main;
       }
+
+      &--icon {
+        span {
+          visibility: hidden;
+        }
+
+        &::before {
+          content: "";
+          display: block;
+          width: 2.5rem;
+          height: 2.5rem;
+          background-size: 100%;
+          position: absolute;
+          top: -.25rem;
+          left: 50%;
+          margin-left: -1.25rem;
+          background-image: url('../assets/thumbs-down.png');
+          opacity: .6;
+          transform: scale(.8);
+          transition: .2s transform $easeOutQuint, .2s opacity;
+        }
+
+        &.active {
+
+          &::before {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+      }
+      &--good {
+        &::before {
+          background-image: url('../assets/thumbs-up.png');
+        }
+      }
     }
   }
 
   &__sort {
     position: absolute;
-    top: 0;
-    left: 1rem;
+    top: 2.5rem;
+    right: 1rem;
 
     @include desktop() {
-      left: auto;
-      right: 1rem;
+      top: 0;
     }
 
     &::after {
-      content: "↯";
+      content: "↙";
       position: absolute;
-      right: 0;
-      top: 0;
+      left: .5rem;
+      top: .5rem;
       color: #888;
       pointer-events: none;
+      transform: rotate(-45deg);
     }
 
     select {
@@ -628,10 +675,14 @@ export default {
       background: transparent;
       background-image: none;
       -webkit-appearance: none;
-      line-height: 1;
-      border-bottom: 1px solid #ccc;
-      padding-right: 1.5rem;
-      padding-bottom: .25rem;
+      line-height: 2rem;
+      background-color: #eee;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      padding-left: 2rem;
+      padding-right: 1rem;
+      padding-bottom: 0;
+      padding-top: 0;
 
       &::-ms-expand {
         display: none;
@@ -641,6 +692,10 @@ export default {
         outline: none;
         color: #333;
         border-color: #333;
+      }
+
+      @include desktop() {
+        border-bottom: none;
       }
     }
   }

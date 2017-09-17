@@ -85,7 +85,6 @@ export default {
         this.locateUser();
 
         this.map.addListener('click', (e) => {
-          console.log(this.marker.position, e.latLng);
           this.marker.setPosition(e.latLng);
         });
 

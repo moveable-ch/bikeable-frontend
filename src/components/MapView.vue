@@ -184,13 +184,13 @@ export default {
 
       this.entries.forEach((entry, index) => {
 
-        let imgurl = 'static/img/smile-bad.png';
+        let imgurl = 'static/img/marker-bad.png';
 
-        if(entry.famed) imgurl = 'static/img/smile-good.png';
+        if(entry.famed) imgurl = 'static/img/marker-good.png';
 
         let icon = {
           url: imgurl,
-          scaledSize: new google.maps.Size(30, 30)
+          scaledSize: new google.maps.Size(22, 30)
         }
 
         let marker = new this.google.maps.Marker({

@@ -5,7 +5,7 @@ import SocialSharing from 'vue-social-sharing'
 import App from './App'
 import router from './router'
 import VueHead from 'vue-head'
-import store from '@/store/store'
+import store from '@/store'
 
 Vue.use(VueHead);
 Vue.use(SocialSharing);

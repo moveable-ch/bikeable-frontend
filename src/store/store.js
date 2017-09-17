@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import VueResource from 'vue-resource'
 
 import map from './modules/map'
 import spots from './modules/spots'
@@ -9,7 +8,6 @@ import users from './modules/users'
 import images from './modules/images'
 
 Vue.use(Vuex)
-Vue.use(VueResource)
 
 const state = {
   pending: false,

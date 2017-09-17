@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import AddMapModalView from '@/components/AddMapModalView';
 
 export default {
@@ -154,9 +155,9 @@ export default {
     getAddress(coords) {
 
       return new Promise((resolve, reject) => {
-        this.$http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+coords+'&key=AIzaSyDSPhuEAL3Hv0zmbnhGQlTu9ax0uLXmuOE').then(response => {
-          if(response.body.results[0].formatted_address != '') {
-            let address = response.body.results[0].formatted_address;
+        axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+coords+'&key=AIzaSyDSPhuEAL3Hv0zmbnhGQlTu9ax0uLXmuOE').then(response => {
+          if(response.data.results[0].formatted_address != '') {
+            let address = response.data.results[0].formatted_address;
             resolve(address);
           }else{
             reject(response);
@@ -174,10 +175,11 @@ export default {
         return;
       }
 
-      this.$http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.entryAddress + '&key=AIzaSyDSPhuEAL3Hv0zmbnhGQlTu9ax0uLXmuOE').then(response => {
-        if(response.body.results[0]) {
-          this.entryAddress = response.body.results[0].formatted_address;
-          this.entryCoords = response.body.results[0].geometry.location;
+      axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.entryAddress + '&key=AIzaSyDSPhuEAL3Hv0zmbnhGQlTu9ax0uLXmuOE')
+      .then(response => {
+        if(response.data.results[0]) {
+          this.entryAddress = response.data.results[0].formatted_address;
+          this.entryCoords = response.data.results[0].geometry.location;
         } else {
           this.clearAddress();
         }

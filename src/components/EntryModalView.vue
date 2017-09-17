@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import spots from '../api/spots';
+
 export default {
   name: 'entry-modal-view',
   props: ['entryId'],
@@ -64,12 +66,13 @@ export default {
     loadEntry() {
       this.$store.commit('LOAD_START');
 
-      this.$http.get('https://backend.bikeable.ch/api/v1/entries/'+this.entryId).then(response => {
-        this.currentEntry = response.body.data;
-        this.$store.commit('LOAD_FINISH');
-      }, response => {
-        this.$store.commit('LOAD_FINISH');
-      });
+      spots.getSpotById(this.entryId)
+        .then((entry) => {
+          this.currentEntry = entry;
+          this.$store.commit('LOAD_FINISH');
+        }, (response) => {
+          this.$store.commit('LOAD_FINISH');
+        });
     }
   }
 }

@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'comment-view',
   props: [
@@ -76,7 +78,7 @@ export default {
 
       this.$store.commit('LOAD_START');
 
-      this.$http.post('https://backend.bikeable.ch/api/v1/comments',
+      axios.post('https://backend.bikeable.ch/api/v1/comments',
         {
           'entryId': this.entryId,
           'parentId': this.comment._id,
@@ -103,7 +105,7 @@ export default {
       let token = localStorage.getItem('token');
 
       this.$store.commit('LOAD_START');
-      this.$http.post('https://backend.bikeable.ch/api/v1/comments/' + this.comment._id + '/vote', {},
+      axios.post('https://backend.bikeable.ch/api/v1/comments/' + this.comment._id + '/vote', {},
         {
           headers: {
             'X-User-Id': userId,
@@ -112,9 +114,9 @@ export default {
         }).then(response => {
           this.$store.commit('LOAD_FINISH');
           this.loadComments();
-        }, response => {
+        }, error => {
           let msg = 'Error';
-          if(response.body.status) {
+          if(error.request.data.status) {
             let msg = response.body.status + ': ' + response.body.message;
           }
           this.$store.commit('SET_MESSAGE', msg);

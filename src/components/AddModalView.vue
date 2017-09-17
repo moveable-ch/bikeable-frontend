@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'add-modal-view',
   props: ['coords'],
@@ -34,9 +36,9 @@ export default {
       if(!this.coords) return;
       let latlng = this.coords.lat + ',' + this.coords.lng;
 
-      this.$http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng + '&key=AIzaSyDSPhuEAL3Hv0zmbnhGQlTu9ax0uLXmuOE').then(response => {
-        if(response.body.results[0].formatted_address != '') {
-          this.address = response.body.results[0].formatted_address;
+      axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng + '&key=AIzaSyDSPhuEAL3Hv0zmbnhGQlTu9ax0uLXmuOE').then(response => {
+        if(response.data.results[0].formatted_address != '') {
+          this.address = response.data.results[0].formatted_address;
         }
       }, response => {
         this.$store.dispatch('handleError', 'Keine Addresse gefunden');

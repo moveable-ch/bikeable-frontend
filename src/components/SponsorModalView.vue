@@ -26,11 +26,9 @@ export default {
   watch: {
   },
   mounted() {
-    // console.log(this.sponsoredEntry);
   },
   methods: {
     showEntry() {
-      // this.$router.push({ name: 'entry', params: { id: this.entryId }});
     }
   }
 }

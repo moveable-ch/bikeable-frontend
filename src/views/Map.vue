@@ -25,7 +25,7 @@ export default {
   props: [],
   components: {
     'c-sponsor-modal': SponsorModal,
-    'c-entry-modal-view': EntryModal
+    'c-entry-modal': EntryModal
   },
 
   computed: {

@@ -19,7 +19,7 @@ export default {
     if(limit) params.append('limit', limitParam);
     if(filterParam) params.append('filter', filterParam);
 
-    // console.log(params.toString());
+    console.log(params.toString());
 
     return new Promise((resolve, reject) => {
       axios.get(url, {
@@ -28,6 +28,7 @@ export default {
         .then(response => {
           resolve(response.data.data);
         }, error => {
+          console.log(error.request);
           if(!error.request.response) reject('');
           let msg = JSON.parse(error.request.response);
           reject(msg.message);

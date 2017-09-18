@@ -6,8 +6,8 @@
         <select v-model="entrySort" @change="setSort">
           <option value="votes">Upvotes</option>
           <option v-if="userCoords" value="distance">Distanz</option>
-          <!-- <option value="comments">Kommentare</option> -->
-          <!-- <option value="date">Datum</option> -->
+          <option value="comments">Kommentare</option>
+          <option value="date">Datum</option>
         </select>
       </div>
       <div class="list__tabs">
@@ -79,7 +79,7 @@ export default {
       this.$store.commit('SET_LIST_FILTER', this.entryFilter);
     },
     'userCoords': function(to, from) {
-      // this.getSpots();
+      this.getSpots();
     },
     'displayEntryCount': function(to, from) {
       this.getSpots();
@@ -89,10 +89,10 @@ export default {
     getSpots() {
       this.$store.commit('LOAD_START');
 
-      let coords = null;
-      if(this.entrySort == 'distance') {
-        coords = this.userCoords ? this.userCoords : null;
-      }
+      // let coords = null;
+      // if(this.entrySort == 'distance') {
+        let coords = this.userCoords ? this.userCoords : null;
+      // }
 
       spots.getAllSpots({
           location: coords,

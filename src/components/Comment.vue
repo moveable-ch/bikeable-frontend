@@ -15,7 +15,7 @@
     </div>
 
     <div class="comment__reply" v-if="showForm">
-      <div class="comment__reply__image"></div>
+      <div class="comment__reply__image" :style="'background-image:url(' + avatar + ')'"></div>
       <form @submit.prevent="postReply">
         <textarea placeholder="Kommentar" v-model="replyText" rows="2"></textarea>
         <button type="submit" class="btn comment__reply__button" v-bind:class="{ 'disabled': !replyText }">Senden</button>
@@ -23,7 +23,7 @@
     </div>
 
     <div class="comment__children" v-if="responses">
-      <c-comment v-for="comment in responses" :isChild="true" :key="comment._id" :comment="comment" :loadComments="loadComments"></c-comment>
+      <c-comment v-for="comment in responses" :isChild="true" :key="comment._id" :comment="comment" :loadComments="loadComments" :avatar="avatar"></c-comment>
     </div>
   </div>
 </template>
@@ -38,7 +38,8 @@ export default {
     'fetchData',
     'comment',
     'loadComments',
-    'isChild'
+    'isChild',
+    'avatar'
   ],
   data () {
     return {
@@ -154,18 +155,19 @@ export default {
         position: absolute;
         top: 0;
         left: 0;
-        background-color: #ffa;
+        background-color: #fff;
+        background-size: cover;
+        border: 1px solid #eee;
       }
 
       label {
         margin-bottom: .5rem;
       }
       &__button {
-        font-size: .8rem;
         min-width: 6rem;
         height: 2rem;
         line-height: 2rem;
-        margin-top: .5rem;
+        margin-top: 4px;
       }
 
       textarea {

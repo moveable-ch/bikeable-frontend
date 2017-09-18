@@ -32,16 +32,16 @@
         </a>
 
         <div class="notice" v-if="!isLoggedIn">Jetzt <router-link to="/register">registrieren</router-link> und mitdiskutieren!</div>
-        <div class="comments__form" v-if="isLoggedIn">
-          <div class="comments__form__image"></div>
+        <div class="comments__form" v-if="isLoggedIn && userData">
+          <div class="comments__form__image" :style="'background-image:url(' + userAvatar + ')'"></div>
           <form @submit.prevent="postComment">
             <textarea placeholder="Kommentar" v-model="commentText" rows="2"></textarea>
             <button type="submit" class="btn comments__form__button" v-bind:class="{ 'disabled': !commentText }">Senden</button>
           </form>
         </div>
 
-        <div class="comments">
-          <comment-view v-for="comment in comments" :key="comment._id" :isChild="false" :comment="comment" :loadComments="loadComments" :entryId="entryId" :fetchData="fetchData"></comment-view>
+        <div class="comments" v-if="userData">
+          <comment-view v-for="comment in comments" :key="comment._id" :isChild="false" :comment="comment" :loadComments="loadComments" :entryId="entryId" :fetchData="fetchData" :avatar="userAvatar"></comment-view>
         </div>
       </div>
     </div>
@@ -121,6 +121,10 @@ export default {
     },
     userData() {
       return this.$store.getters.userData;
+    },
+    userAvatar() {
+      if(!this.userData.avatar) return '';
+      return this.userData.avatar.small;
     }
   },
 
@@ -488,14 +492,15 @@ export default {
           position: absolute;
           top: 0;
           left: 0;
-          background-color: #ffa;
+          background-color: #fff;
+          border: 1px solid #eee;
+          background-size: 100%;
         }
 
         label {
           margin-bottom: .5rem;
         }
         &__button {
-          font-size: .8rem;
           min-width: 6rem;
           height: 2rem;
           line-height: 2rem;

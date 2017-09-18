@@ -15,6 +15,7 @@ import PasswordRetrieval from '@/views/PasswordRetrieval'
 import NotFound from '@/views/NotFound'
 import NewsArticle from '@/views/NewsArticle'
 import News from '@/views/News'
+import UserProfile from '@/views/UserProfile'
 
 Vue.use(Router)
 
@@ -74,6 +75,11 @@ export default new Router({
       path: '/forgottenpw',
       name: 'forgottenpw',
       component: PasswordRetrieval
+    },
+    {
+      path: '/profile',
+      name: 'userprofile',
+      component: UserProfile
     },
     {
       path: '/news',

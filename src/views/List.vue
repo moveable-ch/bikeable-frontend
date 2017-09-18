@@ -495,7 +495,7 @@ export default {
       text-decoration: none;
       padding: 0 1rem;
       width: 32%;
-      font-size: .8rem;
+      font-size: .75rem;
       text-align: center;
       height: 2rem;
       line-height: 2rem;

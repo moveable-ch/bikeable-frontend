@@ -209,6 +209,10 @@ input[type=text], input[type=password], input[type=email], textarea {
     background-color: #ccc;
     color: #666;
   }
+  &:disabled {
+    color: #888;
+    background-color: #f0f0f0;
+  }
 }
 
 input[type=file] {

@@ -19,7 +19,7 @@ export default {
     if(limit) params.append('limit', limitParam);
     if(filterParam) params.append('filter', filterParam);
 
-    console.log(params.toString());
+    // console.log(params.toString());
 
     return new Promise((resolve, reject) => {
       axios.get(url, {

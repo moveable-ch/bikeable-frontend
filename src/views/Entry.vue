@@ -296,8 +296,8 @@ export default {
       border: 1px solid #eee;
 
       &__image {
-        width: 2rem;
-        height: 2rem;
+        width: 2.5rem;
+        height: 2.5rem;
         background-color: #fff;
         background-size: cover;
         background-position: center;
@@ -494,7 +494,8 @@ export default {
           left: 0;
           background-color: #fff;
           border: 1px solid #eee;
-          background-size: 100%;
+          background-size: cover;
+          background-position: center;
         }
 
         label {

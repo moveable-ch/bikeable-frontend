@@ -12,12 +12,17 @@
       </nav>
       <nav class="nav-right">
         <ul>
-          <li v-if="userData" class="username">{{ userData.username }}</li>
+          <li v-if="userData" class="username" @click.prevent="metaNavExpanded = !metaNavExpanded">{{ userData.username }}</li>
           <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
           <!--<li v-if="!isLoggedIn"><router-link to="/register">Registrieren</router-link></li>-->
-          <li v-if="isLoggedIn"><a href="#" @click.prevent="logout">Logout</a></li>
         </ul>
       </nav>
+      <div class="header__metanav" v-bind:class="{ 'is-expanded': metaNavExpanded }">
+        <ul>
+          <li v-if="isLoggedIn"><router-link to="/profile">Profil</router-link></li>
+          <li v-if="isLoggedIn"><a href="#" @click.prevent="logout">Logout</a></li>
+        </ul>
+      </div>
     </div>
   </header>
 </template>
@@ -28,7 +33,8 @@ export default {
   data () {
     return {
       isExpanded: false,
-      isScrolled: false
+      isScrolled: false,
+      metaNavExpanded: false
     }
   },
 
@@ -76,6 +82,7 @@ export default {
   watch: {
     '$route': function() {
       this.isExpanded = false;
+      this.metaNavExpanded = false;
     }
   }
 }
@@ -99,8 +106,8 @@ export default {
   transition: .4s height $easeOutQuint, .3s box-shadow, .3s background-color;
 
   &.is-expanded {
-    height: 50vh;
-    box-shadow: 0 5px 5px rgba(#000, .05);
+    height: 300px;
+    box-shadow: 0 5px 5px rgba(#000, .1);
     background-color: #fafafa !important;
   }
   &.is-home {
@@ -123,6 +130,46 @@ export default {
     padding-top: 3rem;
     box-shadow: none !important;
     overflow: visible;
+  }
+
+  &__metanav {
+
+
+    ul {
+      li {
+        display: block;
+
+        a {
+          font-family: $f-head;
+          color: #000;
+          text-decoration: none;
+          font-size: 1rem;
+          line-height: 1.75;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    @include desktop() {
+      position: absolute;
+      right: 1rem;
+      top: 1.5rem;
+      width: 8rem;
+      background-color: #fafafa;
+      border: 1px solid #eee;
+      text-align: right;
+      padding: .5rem;
+      display: none;
+
+      &.is-expanded {
+        display: block;
+      }
+
+      ul li a {
+        font-size: .8rem;
+      }
+    }
   }
 
   &__logo {
@@ -207,6 +254,29 @@ export default {
     .username {
       font-family: $f-body;
       font-size: 1rem;
+      border-top: 1px solid #ddd;
+      padding-top: .5rem;
+
+      @include desktop() {
+        border-top: 0;
+        cursor: pointer;
+
+        &:hover {
+          color: #000;
+        }
+
+        &::after {
+          display: inline-block;
+          content: "◢";
+          transform: translateY(-6px) rotate(45deg);
+          font-size: .5rem;
+          margin-left: .5rem;
+        }
+      }
+    }
+
+    &.nav-right {
+      margin-bottom: .5rem;
     }
 
     @include desktop() {

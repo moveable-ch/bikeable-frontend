@@ -52,6 +52,29 @@ const actions = {
         { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
       );
     }
+  },
+
+  updateUser({ commit, dispatch }, data) {
+
+    commit('LOAD_START');
+    let userId = localStorage.getItem('userId');
+    let token = localStorage.getItem('token');
+
+    return new Promise((resolve, reject) => {
+    users.updateUser({
+        userId: userId,
+        authToken: token
+      }, data)
+      .then((data) => {
+        commit('LOAD_FINISH');
+        resolve(data);
+      },
+      (error) => {
+        commit('LOAD_FINISH');
+        dispatch('handleError', error);
+        reject(error);
+      });
+    });
   }
 }
 

@@ -5,36 +5,39 @@
       <div class="list__sort">
         <select v-model="entrySort" @change="setSort">
           <option value="votes">Upvotes</option>
-          <option value="comments">Kommentare</option>
-          <option value="date">Datum</option>
+          <option v-if="userCoords" value="distance">Distanz</option>
+          <!-- <option value="comments">Kommentare</option> -->
+          <!-- <option value="date">Datum</option> -->
         </select>
       </div>
       <div class="list__tabs">
-        <a href="#" class="list__tabs__item" @click.prevent="entryFilter = 'all'" v-bind:class="{ active: isCurrentFilter('all') }">Alle Spots</a>
-        <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--bad" @click.prevent="entryFilter = 'shame'" v-bind:class="{ active: isCurrentFilter('shame') }"><span>Shame</span></a>
-        <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--good" @click.prevent="entryFilter = 'fame'" v-bind:class="{ active: isCurrentFilter('fame') }"><span>Fame</span></a>
+        <a href="#" class="list__tabs__item" @click.prevent="entryFilter = null" v-bind:class="{ active: isCurrentFilter(null) }">Alle Spots</a>
+        <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--bad" @click.prevent="entryFilter = 'shamed'" v-bind:class="{ active: isCurrentFilter('shamed') }"><span>Shame</span></a>
+        <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--good" @click.prevent="entryFilter = 'famed'" v-bind:class="{ active: isCurrentFilter('famed') }"><span>Fame</span></a>
       </div>
       <ul class="list__entries">
-        <li v-for="entry in displayEntries" class="list-entry" v-if="entries" v-bind:class="{ famed: entry.famed }" v-bind:key="entry._id">
+        <li v-for="entry in listSpots" class="list-entry" v-if="listSpots" v-bind:class="{ famed: entry.famed }" v-bind:key="entry._id">
           <router-link :to="'/entries/' + entry._id" class="list-entry__link">
             <span class="list-entry__image" :style="{ backgroundImage: 'url(' + entry.photo.small.url + ')' }"></span>
             <span class="list-entry__content">
               <h3>{{ entry.title }}</h3>
               <span class="list-entry__date">{{ formatDate(entry.createdAt) }}</span>
               <span class="list-entry__location">{{ entry.address }}</span>
+              <span v-if="entry.distance" class="list-entry__distance">{{ entry.distance }}m entfernt</span>
               <span class="list-entry__meta list-entry__meta--votes">{{ entry.votes }}</span>
               <span class="list-entry__meta list-entry__meta--comments">{{ entry.commentCount }}</span>
-              <span v-if="entry.distance" class="list-entry__distance">{{ entry.distance }}</span>
             </span>
           </router-link>
         </li>
       </ul>
-      <a class="showmore" href="#" v-if="entryDisplayCapped && entries" @click.prevent="displayEntryCount += 10">Mehr Spots anzeigen</a>
+      <a class="showmore" href="#" v-if="entryDisplayCapped && listSpots" @click.prevent="displayEntryCount += 10">Mehr Spots anzeigen</a>
     </div>
   </div>
 </template>
 
 <script>
+import spots from '../api/spots';
+
 export default {
   name: 'list-view',
   metaInfo: {
@@ -42,103 +45,71 @@ export default {
   },
   props: [],
   computed: {
-    entries() {
+    allSpots() {
       return this.$store.getters.allSpots;
     },
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
     },
     userCoords() {
-      return this.$store.state.userCoords;
+      return this.$store.getters.userCoords;
     },
-    sort() {
-      return this.$store.state.sort;
+    listSort() {
+      return this.$store.getters.listSort;
     },
     entryDisplayCapped() {
-      return (this.displayEntryCount < this.filteredEntries.length);
-    },
-    sortedEntries() {
-      if(!this.entries) return [];
-
-      if(this.entrySort == 'votes') {
-        if(this.entrySortDesc) {
-          return this.entries.sort(function(a,b) {
-            return b.votes - a.votes;
-          });
-        }else{
-          return this.entries.sort(function(a,b) {
-            return a.votes - b.votes;
-          });
-        }
-      }else if(this.entrySort == 'comments') {
-        if(this.entrySortDesc) {
-          return this.entries.sort(function(a,b) {
-            return b.commentCount - a.commentCount;
-          });
-        }else{
-          return this.entries.sort(function(a,b) {
-            return a.commentCount - b.commentCount;
-          });
-        }
-      }else if(this.entrySort == 'date') {
-        if(this.entrySortDesc) {
-          return this.entries.sort(function(a,b) {
-            return new Date(b.createdAt) - new Date(a.createdAt);
-          });
-        }else{
-          return this.entries.sort(function(a,b) {
-            return new Date(a.createdAt) - new Date(b.createdAt);
-          });
-        }
-      }else{ 
-        return this.entries;
-      }
-    },
-    filteredEntries() {
-      if(this.entryFilter == 'all') {
-        return this.sortedEntries;
-      }else if(this.entryFilter == 'shame') {
-        return this.sortedEntries.filter(function(entry) {
-          return !entry.famed;
-        });
-      }else if(this.entryFilter == 'fame') {
-        return this.sortedEntries.filter(function(entry) {
-          return entry.famed;
-        });
-      }
-    },
-    displayEntries() {
-      return this.filteredEntries.slice(0, this.displayEntryCount);
+      // return true;
+      return (this.displayEntryCount < this.allSpots.length);
     }
   },
   data() {
     return {
-      entryFilter: 'all',
+      listSpots: [],
+      entryFilter: null,
       entrySort: 'votes',
       entrySortDesc: true,
-      displayEntryCount: 15,
-
-      showFilter: false,
-      showSort: false
+      displayEntryCount: 15
     }
   },
   watch: {
     'entryFilter': function(to, from) {
+      this.getSpots();
       this.displayEntryCount = 15;
+    },
+    'userCoords': function(to, from) {
+      // this.getSpots();
+    },
+    'displayEntryCount': function(to, from) {
+      this.getSpots();
     }
   },
   methods: {
-    setSort() {
-      console.log('hey sort');
-      return;
-      // this.$store.dispatch('setEntrySorting', sort);
+    getSpots() {
+      this.$store.commit('LOAD_START');
 
-      if(this.entrySort == sort) {
-        this.entrySortDesc = !this.entrySortDesc;
-      }else{
-        this.entrySort = sort;
-        this.entrySortDesc = true;
+      let coords = null;
+      if(this.entrySort == 'distance') {
+        coords = this.userCoords ? this.userCoords : null;
       }
+
+      spots.getAllSpots({
+          location: coords,
+          limit: this.displayEntryCount,
+          filter: this.entryFilter,
+          sort: this.entrySort
+        })
+        .then((entries) => {
+          this.$store.commit('LOAD_FINISH');
+          this.listSpots = entries;
+        },
+        (error) => {
+          this.$store.commit('LOAD_FINISH');
+          this.$store.dispatch('handleError', 'Fehler');
+        });
+    },
+    setSort() {
+      this.$store.commit('SET_LIST_SORT', this.entrySort);
+      this.getSpots();
     },
     isCurrentFilter(filter) {
       return this.entryFilter == filter;
@@ -153,6 +124,8 @@ export default {
     }
   },
   mounted() {
+    this.entrySort = this.$store.getters.listSort;
+    this.getSpots();
     this.$store.dispatch('getAllSpots');
   }
 }
@@ -305,13 +278,9 @@ export default {
 
       &__distance {
         display: block;
-        color: #888;
-        margin-top: .25rem;
-        font-size: .8rem;
-
-        @include desktop() {
-          font-size: 1rem;
-        }
+        color: #000;
+        font-size: .7rem;
+        font-weight: 700;
       }
       &__location {
         display: block;
@@ -320,7 +289,7 @@ export default {
         overflow: hidden;
         text-overflow: ellipsis;
         width: 100%;
-        margin-bottom: .5rem;
+        margin-bottom: .2rem;
         font-family: $f-body;
         color: #888;
       }
@@ -492,7 +461,18 @@ export default {
   .showmore {
     display: block;
     text-align: center;
-    margin-top: 2rem;
+    margin: 4rem auto 0 auto;
+    border: 2px solid $c-main;
+    max-width: 10rem;
+    padding: 1rem;
+    text-decoration: none;
+    font-size: .8rem;
+    color: #000;
+    width: 100%;
+
+    &:hover {
+      color: $c-main;
+    }
   }
 
   &__tabs {
@@ -582,7 +562,7 @@ export default {
     &::after {
       content: "↙";
       position: absolute;
-      left: .5rem;
+      left: 0rem;
       top: .5rem;
       color: #888;
       pointer-events: none;
@@ -601,14 +581,8 @@ export default {
       background: transparent;
       background-image: none;
       -webkit-appearance: none;
+      padding-left: 1.5rem;
       line-height: 2rem;
-      background-color: #eee;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-      padding-left: 2rem;
-      padding-right: 1rem;
-      padding-bottom: 0;
-      padding-top: 0;
 
       &::-ms-expand {
         display: none;

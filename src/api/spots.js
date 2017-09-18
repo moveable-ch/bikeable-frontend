@@ -1,21 +1,41 @@
 import axios from 'axios';
 
 export default {
-  getAllSpots() {
+  getAllSpots( { limit, filter, sort, order, location } ) {
     let url = 'https://backend.bikeable.ch/api/v1/entries';
 
+    let sortParam = sort ? sort : 'votes';
+    let orderParam = order ? order : 'descending';
+    let filterParam = filter ? filter : null;
+    let limitParam = limit ? limit : null;
+
+    let params = new URLSearchParams();
+    if(location) {
+      params.append('lat', location.lat);
+      params.append('lng', location.lng);
+    }
+
+    params.append('sort', sortParam);
+    if(limit) params.append('limit', limitParam);
+    if(filterParam) params.append('filter', filterParam);
+
+    // console.log(params.toString());
+
     return new Promise((resolve, reject) => {
-      axios.get(url)
+      axios.get(url, {
+          params: params
+        })
         .then(response => {
           resolve(response.data.data);
-        }, response => {
-          reject(response.data.message);
+        }, error => {
+          if(!error.request.response) reject('');
+          let msg = JSON.parse(error.request.response);
+          reject(msg.message);
         });
     });
   },
 
   getSpotById(spotId) {
-
     let url = 'https://backend.bikeable.ch/api/v1/entries/' + spotId;
 
     return new Promise((resolve, reject) => {

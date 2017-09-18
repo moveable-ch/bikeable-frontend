@@ -22,7 +22,7 @@
 
     <div class="home__spots">
       <div class="container">
-        <h2>Hot Spots in Zürich</h2>
+        <h2>Hot Spots</h2>
         <div class="home__spots__container">
           <router-link :to="'/entries/' + spot._id" class="home__spots__item" v-for="spot in topSpots" :key="spot._id" v-bind:class="{ famed: spot.famed }">
             <span class="home__spots__image" :style="'background-image: url(' + spot.photo.medium.url + ')'"></span>
@@ -38,7 +38,7 @@
 
     <div class="home__spots">
       <div class="container">
-        <h2>New Spots in Zürich</h2>
+        <h2>New Spots</h2>
         <div class="home__spots__container">
           <router-link :to="'/entries/' + spot._id" class="home__spots__item" v-for="spot in topSpots" :key="spot._id" v-bind:class="{ famed: spot.famed }">
             <span class="home__spots__image" :style="'background-image: url(' + spot.photo.medium.url + ')'"></span>
@@ -103,7 +103,9 @@ export default {
       if(!this.entries) return;
 
       let e = this.entries.sort(function(a,b) {
-        return new Date(b.createdAt) - new Date(a.createdAt);
+        let dateA = new Date(a.createdAt);
+        let dateB = new Date(b.createdAt);
+        return dateB - dateA;
       });
       return e.slice(0, 3);
     }
@@ -261,7 +263,7 @@ export default {
 
       @include desktop() {
         width: calc(33.3% - 1rem);
-        padding-bottom: 1.5rem;
+        // padding-bottom: 1.5rem;
         max-width: none;
         margin-left: 0;
         margin-right: 0;

@@ -1,19 +1,25 @@
 import spots from '../../api/spots';
 
 const state = {
-  allSpots: []
+  allSpots: [],
+  listSort: 'votes'
 }
 
 const getters = {
-  allSpots: state => state.allSpots
+  allSpots: state => state.allSpots,
+  listSort: state => state.listSort
 }
 
 const actions = {
-  getAllSpots({ commit, dispatch }) {
+  getAllSpots({ commit, dispatch, getters }) {
 
     commit('LOAD_START');
 
-    spots.getAllSpots()
+    let coords = getters.userCoords ? getters.userCoords : null;
+
+    spots.getAllSpots({
+        location: coords
+      })
       .then((entries) => {
         commit('LOAD_FINISH');
         commit('SET_SPOTS', entries);
@@ -53,6 +59,9 @@ const actions = {
 const mutations = {
   SET_SPOTS(state, entries) {
     state.allSpots = entries;
+  },
+  SET_LIST_SORT(state, sort) {
+    state.listSort = sort;
   }
 }
 

@@ -20,7 +20,7 @@
 import Prismic from 'prismic.io';
 
 export default {
-  name: 'partner-view',
+  name: 'v-partner',
   data () {
     return {
       partners: null,

@@ -1,19 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HomeView from '@/components/HomeView'
-import MapView from '@/components/MapView'
-import ListView from '@/components/ListView'
-import AboutView from '@/components/AboutView'
-import FAQView from '@/components/FAQView'
-import PartnerView from '@/components/PartnerView'
-import EntryView from '@/components/EntryView'
-import AddView from '@/components/AddView'
-import LoginView from '@/components/LoginView'
-import RegisterView from '@/components/RegisterView'
-import PasswordRetrievalView from '@/components/PasswordRetrievalView'
-import NotFoundView from '@/components/NotFoundView'
-import NewsArticleView from '@/components/NewsArticleView'
-import NewsView from '@/components/NewsView'
+
+import Home from '@/views/Home'
+import Map from '@/views/Map'
+import List from '@/views/List'
+import About from '@/views/About'
+import FAQ from '@/views/FAQ'
+import Partner from '@/views/Partner'
+import Entry from '@/views/Entry'
+import AddForm from '@/views/AddForm'
+import LoginForm from '@/views/LoginForm'
+import RegisterForm from '@/views/RegisterForm'
+import PasswordRetrieval from '@/views/PasswordRetrieval'
+import NotFound from '@/views/NotFound'
+import NewsArticle from '@/views/NewsArticle'
+import News from '@/views/News'
 
 Vue.use(Router)
 
@@ -22,72 +23,72 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: Home
     },
     {
       path: '/entries',
       name: 'list',
-      component: ListView
+      component: List
     },
     {
       path: '/map',
       name: 'map',
-      component: MapView
+      component: Map
     },
     {
       path: '/about',
       name: 'about',
-      component: AboutView
+      component: About
     },
     {
       path: '/faq',
       name: 'faq',
-      component: FAQView
+      component: FAQ
     },
     {
       path: '/partner',
       name: 'partner',
-      component: PartnerView
+      component: Partner
     },
     {
       path: '/entries/:id',
       name: 'entry',
-      component: EntryView
+      component: Entry
     },
     {
       path: '/add',
       name: 'add',
-      component: AddView
+      component: AddForm
     },
     {
       path: '/register',
       name: 'register',
-      component: RegisterView
+      component: RegisterForm
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: LoginForm
     },
     {
       path: '/forgottenpw',
       name: 'forgottenpw',
-      component: PasswordRetrievalView
+      component: PasswordRetrieval
     },
     {
       path: '/news',
       name: 'news',
-      component: NewsView
+      component: News
     },
     {
       path: '/news/:id',
       name: 'newsarticle',
-      component: NewsArticleView
+      component: NewsArticle
     },
     {
       path: '*',
       name: 'not-found',
-      component: NotFoundView
+      component: NotFound
     }
   ],
   mode: 'history',

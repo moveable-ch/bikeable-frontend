@@ -75,7 +75,7 @@
 import Prismic from 'prismic.io';
 
 export default {
-  name: 'home-view',
+  name: 'v-home',
   metaInfo: {
     title: 'Bikeable'
   },

@@ -49,14 +49,14 @@
 </template>
 
 <script>
-import CommentView from '@/components/CommentView'
-import EntryMediaView from '@/components/EntryMediaView'
+import Comment from '@/components/Comment'
+import EntryMedia from '@/components/EntryMedia'
 
 import spots from '../api/spots'
 import comments from '../api/comments'
 
 export default {
-  name: 'entry-view',
+  name: 'v-entry',
   head: {
     title: function () {
       return {
@@ -76,8 +76,8 @@ export default {
   },
   props: [],
   components: {
-    'comment-view': CommentView,
-    'entry-media-view': EntryMediaView
+    'comment-view': Comment,
+    'entry-media-view': EntryMedia
   },
   data () {
     return {

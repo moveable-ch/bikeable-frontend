@@ -22,7 +22,7 @@
 <script>
 
 export default {
-  name: 'login-view',
+  name: 'v-login',
   data () {
     return {
       message: '',

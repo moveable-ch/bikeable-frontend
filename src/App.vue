@@ -6,17 +6,17 @@
     <transition name="slide-down">
       <div class="msg" v-if="msg"><span>{{ msg }}</span></div>
     </transition>
-    <header-view v-if="!isEmbed"></header-view>
+    <c-header v-if="!isEmbed"></c-header>
     <transition :name="transitionName" mode="out-in">
       <router-view></router-view>
     </transition>
-    <footer-view v-if="showFooter"></footer-view>
+    <c-footer v-if="showFooter"></c-footer>
   </div>
 </template>
 
 <script>
-import HeaderView from '@/components/HeaderView'
-import FooterView from '@/components/FooterView'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 export default {
   name: 'app',
@@ -57,8 +57,8 @@ export default {
     }
   },
   components: {
-    'header-view': HeaderView,
-    'footer-view': FooterView
+    'c-header': Header,
+    'c-footer': Footer
   },
   mounted() {
     if(this.isEmbed) {

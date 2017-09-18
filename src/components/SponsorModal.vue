@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'sponsor-modal-view',
+  name: 'c-sponsor-modal',
   props: ['sponsoredEntry'],
   data () {
     return {

@@ -23,7 +23,7 @@
     </div>
 
     <div class="comment__children" v-if="responses">
-      <comment-view v-for="comment in responses" :isChild="true" :key="comment._id" :comment="comment" :loadComments="loadComments"></comment-view>
+      <c-comment v-for="comment in responses" :isChild="true" :key="comment._id" :comment="comment" :loadComments="loadComments"></c-comment>
     </div>
   </div>
 </template>
@@ -32,7 +32,7 @@
 import axios from 'axios';
 
 export default {
-  name: 'comment-view',
+  name: 'c-comment',
   props: [
     'entryId',
     'fetchData',

@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'password-retrieval-view',
+  name: 'v-password-retrieval',
   data () {
     return {
       message: '',

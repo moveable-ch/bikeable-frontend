@@ -10,7 +10,7 @@
 <script>
 
 export default {
-  name: 'not-found-view',
+  name: 'v-not-found',
   data () {
     return {
       doc: null

@@ -21,7 +21,7 @@ import mapstyle from '@/assets/gmaps.json';
 import GoogleMapsLoader from 'google-maps';
 
 export default {
-  name: 'entry-media-view',
+  name: 'c-entry-media',
   props: ['img', 'coords', 'famed'],
   components: {
   },

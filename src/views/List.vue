@@ -39,7 +39,7 @@
 import spots from '../api/spots';
 
 export default {
-  name: 'list-view',
+  name: 'v-list',
   metaInfo: {
     title: 'Spots — Bikeable'
   },

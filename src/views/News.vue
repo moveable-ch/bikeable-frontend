@@ -22,7 +22,7 @@
 import Prismic from 'prismic.io';
 
 export default {
-  name: 'news-view',
+  name: 'v-news',
   data () {
     return {
       news: null

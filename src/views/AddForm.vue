@@ -56,13 +56,13 @@
 
 <script>
 import axios from 'axios';
-import AddMapModalView from '@/components/AddMapModalView';
+import AddMapModal from '@/components/AddMapModal';
 
 export default {
-  name: 'add-view',
+  name: 'v-add-form',
   props: ['propCoords'],
   components: {
-    'map-modal-view': AddMapModalView
+    'map-modal-view': AddMapModal
   },
   data () {
     return {

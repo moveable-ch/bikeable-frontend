@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: 'footer-view',
+  name: 'c-footer',
   data () {
     return {
     }

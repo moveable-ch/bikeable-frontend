@@ -27,7 +27,7 @@
 import spots from '../api/spots';
 
 export default {
-  name: 'entry-modal-view',
+  name: 'c-entry-modal',
   props: ['entryId'],
   data () {
     return {

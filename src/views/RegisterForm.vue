@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: 'register-view',
+  name: 'v-register',
   data () {
     return {
       message: '',

@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: 'header-view',
+  name: 'c-header',
   data () {
     return {
       isExpanded: false,

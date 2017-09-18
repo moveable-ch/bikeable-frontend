@@ -14,7 +14,7 @@
 import Prismic from 'prismic.io';
 
 export default {
-  name: 'news-view',
+  name: 'v-news-article',
   data () {
     return {
       newsId: 0,

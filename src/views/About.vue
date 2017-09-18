@@ -11,7 +11,7 @@
 import Prismic from 'prismic.io';
 
 export default {
-  name: 'about-view',
+  name: 'v-about',
   data () {
     return {
       doc: null

@@ -186,7 +186,7 @@ export default {
       margin: 0;
 
       a {
-        color: #444;
+        color: #000;
         text-decoration: none;
         font-size: 1rem;
         line-height: 1.75;
@@ -205,6 +205,7 @@ export default {
       }
     }
     .username {
+      font-family: $f-body;
       font-size: 1rem;
     }
 
@@ -218,7 +219,7 @@ export default {
       .username {
         font-size: 1rem;
         font-weight: 400;
-        color: #aaa;
+        color: #888;
       }
 
       ul {

@@ -59,7 +59,7 @@ export default {
   padding: 1.5rem 0 0 0;
   margin-top: 1rem;
   width: 100%;
-  color: #444;
+  color: #000;
   text-align: center;
 
   strong {
@@ -113,7 +113,7 @@ export default {
     background-color: #eee;
     padding: 1.5rem 0;
     margin-top: 1.5rem;
-    color: #444;
+    color: #000;
 
     span {
       font-size: .8rem;

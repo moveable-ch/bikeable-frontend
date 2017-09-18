@@ -14,7 +14,7 @@ body {
   padding-top: 3rem;
   font-family: $f-body;
   background-color: $c-white;
-  color: #444;
+  color: #000;
 
   @include desktop() {
     padding-top: 0;
@@ -30,7 +30,7 @@ a {
 
 
   &:hover {
-    color: #444;
+    color: #000;
   }
 }
 
@@ -41,23 +41,12 @@ strong {
 h1, h2, h3 {
   font-family: $f-head;
   font-weight: 700;
-  color: #444;
+  color: #000;
   text-transform: uppercase;
 }
-// h1 {
-//   font-size: 1.75rem;
-//   line-height: .9;
-//   margin: 1rem 0;
-//   color: #333;
-
-//   @include desktop() {
-//     font-size: 2.75rem;
-//   }
-// }
 h1 {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #444;
   margin: 2rem 0 2rem 0;
 
   @include desktop() {
@@ -71,7 +60,6 @@ p + h1 {
 h2 {
   font-size: 1.75rem;
   line-height: .9;
-  color: #444;
 
   @include desktop() {
     font-size: 1.7rem;
@@ -122,32 +110,35 @@ small {
 .btn {
   display: inline-block;
   border: none;
-  background-color: #333;
+  background-color: $c-main;
+  border: 2px solid $c-main;
   color: #fff;
-  font-family: $f-head;
-  font-size: .75rem;
+  border-radius: 4px;
+  font-family: $f-body;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .04rem;
   text-transform: uppercase;
-  letter-spacing: .03rem;
-  font-weight: bold;
   padding: 0 1rem;
-  height: 3rem;
-  line-height: 3rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
   cursor: pointer;
-  min-width: 12rem;
+  min-width: 7rem;
   text-decoration: none;
   text-align: center;
+  box-sizing: content-box;
 
   &:hover {
-    background-color: $c-main;
-    color: #fff;
+    border-color: darken($c-main, 10%);
   }
   &.disabled {
-    opacity: .3;
+    background-color: #ccc;
+    border-color: #ccc;
     pointer-events: none;
   }
   &:focus {
     outline: none;
-    background-color: #333;
+    border-color: darken($c-main, 10%);
   }
 }
 

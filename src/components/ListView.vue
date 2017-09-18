@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    <div class="list__container">
+    <div class="container list__container">
       <!--<router-link v-if="isLoggedIn" to="/add" class="addlink">Spot hinzufügen</router-link>-->
       <div class="list__sort">
         <select v-model="entrySort" @change="setSort">
@@ -20,6 +20,7 @@
             <span class="list-entry__image" :style="{ backgroundImage: 'url(' + entry.photo.small.url + ')' }"></span>
             <span class="list-entry__content">
               <h3>{{ entry.title }}</h3>
+              <span class="list-entry__date">{{ formatDate(entry.createdAt) }}</span>
               <span class="list-entry__location">{{ entry.address }}</span>
               <span class="list-entry__meta list-entry__meta--votes">{{ entry.votes }}</span>
               <span class="list-entry__meta list-entry__meta--comments">{{ entry.commentCount }}</span>
@@ -144,6 +145,11 @@ export default {
     },
     isCurrentSort(sort) {
       return this.entrySort == sort;
+    },
+    formatDate(date) {
+      if(!date) return '';
+      let d = new Date(date);
+      return d.toLocaleDateString('de-DE');
     }
   },
   mounted() {
@@ -164,33 +170,7 @@ export default {
   }
 
   &__container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 1rem;
     position: relative;
-
-    .col {
-      &--left {
-        width: 100%;
-        flex-shrink: 0;
-        padding-right: 0;
-        box-sizing: border-box;
-
-        @include desktop() {
-          width: 15rem;
-          padding-right: 1.5rem;
-        }
-      }
-      &--right {
-        flex-shrink: 1;
-        flex-grow: 1;
-        width: 100%;
-
-        @include desktop() {
-          width: calc(100% - 15rem);
-        }
-      }
-    }
   }
   .addlink {
     display: block;
@@ -307,70 +287,6 @@ export default {
       }
     }
   }
-  .hero {
-    margin-bottom: 1rem;
-    position: relative;
-
-    &__sort {
-      margin: 1rem 0 0 0;
-      display: flex;
-      flex-wrap: wrap;
-
-      li {
-        display: block;
-        margin-right: 5px;
-        margin-bottom: 5px;
-        width: 100%;
-
-        @include desktop() {
-          width: auto;
-        }
-
-        a {
-          display: inline-block;
-          text-transform: uppercase;
-          padding: 0 1.5rem;
-          background-color: #fff;
-          border: 2px solid #fff;
-          color: #aaa;
-          text-decoration: none;
-          font-size: .8rem;
-          font-weight: 700;
-          letter-spacing: .05rem;
-          line-height: 2rem;
-
-          @include desktop() {
-            width: auto;
-          }
-
-          &.active {
-            color: #333;
-            pointer-events: none;
-            border-color: #333;
-            // border-bottom: 1px solid #333;
-          }
-          &.disabled {
-            color: #bbb;
-            pointer-events: none;
-          }
-          &:hover {
-            color: #333;
-          }
-        }
-      }
-
-      @include desktop  {
-        margin: 2rem 0 2rem 0;
-
-        li {
-
-          a {
-
-          }
-        }
-      }
-    }
-  }
 
   ul.list__entries {
     list-style-type: none;
@@ -383,8 +299,9 @@ export default {
     }
 
     .list-entry {
-      margin-bottom: .5rem;
-      border: 1px solid lighten($c-highlight, 30%);
+      margin-bottom: 1rem;
+      // border: 2px solid lighten($c-highlight, 35%);
+      // padding: 2px;
 
       &__distance {
         display: block;
@@ -405,15 +322,22 @@ export default {
         width: 100%;
         margin-bottom: .5rem;
         font-family: $f-body;
+        color: #888;
+      }
+      &__date {
+        display: block;
+        font-size: .7rem;
+        color: #888;
+        margin-bottom: .2rem;
       }
       &__link {
         display: flex;
-        align-items: center;
+        align-items: top;
         width: 100%;
         margin: 0 auto;
         text-decoration: none;
         color: #333;
-        background-color: #fafafa;
+        // background-color: #fafafa;
         // padding: .5rem;
         box-sizing: border-box;
         // border-left: 4px solid $c-highlight;
@@ -433,7 +357,7 @@ export default {
         }
 
         &:hover, &:focus {
-          background-color: #f0f0f0;
+          background-color: #fafafa;
 
           h3 {
             color: $c-highlight;
@@ -473,10 +397,11 @@ export default {
         overflow: hidden;
         z-index: 1;
         box-sizing: border-box;
+        box-shadow: 4px 4px 0 0 $c-highlight;
 
         &::after {
           content: "";
-          display: block;
+          display: none;
           width: 100%;
           height: 100%;
           position: absolute;
@@ -492,7 +417,7 @@ export default {
         @include desktop() {
           width: 10rem;
           height: 7rem;
-          margin: 0 1.5rem 0 0;
+          margin: 0 1rem 0 0;
         }
       }
       &__meta {
@@ -532,20 +457,21 @@ export default {
       h3 {
         font-family: $f-body;
         text-transform: none;
-        font-size: 1rem;
+        font-size: 1.25rem;
         font-weight: 600;
         margin-bottom: .5rem;
-        color: #333;
+        color: #000;
         transition: .2s color;
         line-height: 1.1;
+        margin-top: .5rem;
 
         @include desktop() {
-          font-size: 1rem;
+          font-size: 1.1rem;
         }
       }
 
       &.famed {
-        border-color: lighten($c-main, 30%);
+        border-color: $c-main;
 
         .list-entry__link::after {
           background-image: linear-gradient(90deg, rgba($c-main, .3) 0%, #fff 70%);
@@ -556,8 +482,8 @@ export default {
         .list-entry__link {
           border-color: $c-main;
         }
-        .list-entry__image::after {
-          background-color: $c-main;
+        .list-entry__image {
+          box-shadow: 4px 4px 0 0 $c-main;
         }
       }
 

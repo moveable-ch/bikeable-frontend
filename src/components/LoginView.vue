@@ -11,7 +11,7 @@
           <span>Passwort</span>
           <input type="password" v-model="formPassword">
         </label>
-        <button type="submit" class="btn">OK</button>
+        <button type="submit" class="btn">Login</button>
         <div class="notice" v-if="message != ''">{{ message }}</div>
         <router-link to="/forgottenpw" class="forgotten-link">Passwort vergessen?</router-link>
       </form>

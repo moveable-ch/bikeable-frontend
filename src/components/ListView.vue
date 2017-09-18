@@ -75,6 +75,8 @@ export default {
     'entryFilter': function(to, from) {
       this.getSpots();
       this.displayEntryCount = 15;
+
+      this.$store.commit('SET_LIST_FILTER', this.entryFilter);
     },
     'userCoords': function(to, from) {
       // this.getSpots();
@@ -125,6 +127,8 @@ export default {
   },
   mounted() {
     this.entrySort = this.$store.getters.listSort;
+    this.entryFilter = this.$store.getters.listFilter;
+
     this.getSpots();
     this.$store.dispatch('getAllSpots');
   }

@@ -2,12 +2,14 @@ import spots from '../../api/spots';
 
 const state = {
   allSpots: [],
-  listSort: 'votes'
+  listSort: 'votes',
+  listFilter: null
 }
 
 const getters = {
   allSpots: state => state.allSpots,
-  listSort: state => state.listSort
+  listSort: state => state.listSort,
+  listFilter: state => state.listFilter
 }
 
 const actions = {
@@ -62,6 +64,9 @@ const mutations = {
   },
   SET_LIST_SORT(state, sort) {
     state.listSort = sort;
+  },
+  SET_LIST_FILTER(state, filter) {
+    state.listFilter = filter;
   }
 }
 

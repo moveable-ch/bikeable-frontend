@@ -64,7 +64,7 @@ export default {
 @import '../styles/helpers';
 
 .login {
-  padding: 2rem 0;
+  padding: 0 0 2rem 0;
   min-height: calc(100vh - 600px);
 
   @include desktop() {

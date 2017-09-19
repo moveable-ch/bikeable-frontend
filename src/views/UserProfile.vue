@@ -120,7 +120,12 @@ export default {
 @import '../styles/helpers';
 
 .v-profile {
+  padding-top: 0;
   padding-bottom: 4rem;
+
+  @include desktop() {
+    padding-top: 2rem;
+  }
 
   &__submit {
     margin-top: 2rem;

@@ -1,6 +1,6 @@
 <template>
   <div class="map">
-    <c-entry-modal v-if="showModal" @close="showModal = false" :entryId="activeEntryId"></c-entry-modal>
+    <c-entry-modal v-if="showModal" @close="showModal = false" :entryId="activeEntryId" :markerOffset="markerOffset"></c-entry-modal>
     <c-sponsor-modal v-if="showSponsorModal" @close="showSponsorModal = false" :sponsoredEntry="activeSponsor"></c-sponsor-modal>
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
     <div class="spot-nav clearfix" v-if="!isEmbed">
@@ -52,7 +52,8 @@ export default {
       activeSponsor: null,
       clickedCoords: null,
       showModal: false,
-      showSponsorModal: false
+      showSponsorModal: false,
+      markerOffset: {x:0,y:0}
     }
   },
 
@@ -184,14 +185,36 @@ export default {
           icon: icon
         });
 
-        marker.addListener('click', function(m) {
+        marker.addListener('click', function(e) {
           this.activeEntryId = entry._id;
           this.showModal = true;
+
+          let point = this.fromLatLngToPoint(marker.getPosition(), this.map);
+          this.markerOffset = this.calculateMarkerOffset(point);
           // this.$router.push({ name: 'entry', params: { id: entry._id }});
         }.bind(this));
 
       });
 
+    },
+
+    fromLatLngToPoint(latLng, map) {
+      let topRight = map.getProjection().fromLatLngToPoint(map.getBounds().getNorthEast());
+      var bottomLeft = map.getProjection().fromLatLngToPoint(map.getBounds().getSouthWest());
+
+      var scale = Math.pow(2, map.getZoom());
+      var worldPoint = map.getProjection().fromLatLngToPoint(latLng);
+      return new google.maps.Point((worldPoint.x - bottomLeft.x) * scale, (worldPoint.y - topRight.y) * scale);
+    },
+
+    calculateMarkerOffset(point) {
+      let centerX = (this.$refs.gmaps.offsetWidth / 2);
+      let centerY = (this.$refs.gmaps.offsetHeight / 2);
+
+      let offsetX = Math.round(point.x - centerX);
+      let offsetY = Math.round(point.y - centerY);
+
+      return { x: offsetX, y: offsetY };
     }
 
   }
@@ -233,22 +256,33 @@ export default {
   bottom: 1.5rem;
   left: 50%;
   transform: translateX(-50%);
+  background-color: #fafafa;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 10px 0 rgba(#000, .1);
+  border-radius: 4rem;
 
   &__link {
     display: block;
     width: 4rem;
     height: 4rem;
-    background-color: #444;
-    color: #eee;
+    background-color: $c-main;
+    border-radius: 99%;
+    color: #fff;
     text-decoration: none;
     text-align: center;
     float: left;
-    margin: 0 2px;
     position: relative;
-    // border-radius: 4px;
+    border: 2px solid $c-main;
+    box-sizing: border-box;
+
+    &:first-child {
+      margin-right: 4px;
+    }
 
     &:hover {
-      background-color: $c-main;
+      border-color: darken($c-main, 10%);
       color: #fff;
     }
     &.disabled {

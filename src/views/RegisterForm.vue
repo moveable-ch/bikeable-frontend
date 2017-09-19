@@ -70,13 +70,18 @@ export default {
 @import '../styles/helpers';
 
 .register {
-  padding: 2rem 0;
+  padding: 0 0 2rem 0;
   min-height: calc(100vh - 600px);
+
+  @include desktop() {
+    padding: 2rem 0;
+  }
+  
+  h1 {
+    margin-bottom: 2rem;
+  }
 }
 
-h1 {
-  margin-bottom: 2rem;
-}
 
 
 </style>

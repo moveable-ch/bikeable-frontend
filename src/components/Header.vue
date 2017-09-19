@@ -12,7 +12,7 @@
       </nav>
       <nav class="nav-right">
         <ul>
-          <li v-if="userData" class="username" @click.prevent="metaNavExpanded = !metaNavExpanded">{{ userData.username }}</li>
+          <li v-if="isLoggedIn" class="username" @click.prevent="metaNavExpanded = !metaNavExpanded">{{ userData.username }}</li>
           <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
           <!--<li v-if="!isLoggedIn"><router-link to="/register">Registrieren</router-link></li>-->
         </ul>

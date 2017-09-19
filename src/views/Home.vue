@@ -418,6 +418,7 @@ export default {
       width: 19rem;
       transform-origin: center bottom;
       animation: paul .7s ease-out 0s infinite normal forwards;
+      pointer-events: none;
 
       @media screen and (max-width: 1130px) {
         right: 0rem;

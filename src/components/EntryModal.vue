@@ -1,7 +1,7 @@
 <template>
-  <transition name="modal">
+  <transition v-bind:css="false" v-on:leave="leave" v-on:enter="enter">
     <div class="entry-modal" v-bind:class="{ 'is-famed': getFamed }" @click="$emit('close')">
-      <transition name="modal_inner">
+      <transition v-bind:css="false" v-on:enter="enterInner">
         <div class="entry-modal__inner" v-if="currentEntry" @click.stop>
           <div
             class="entry-modal__image"
@@ -24,11 +24,12 @@
 </template>
 
 <script>
+import Velocity from 'velocity-animate';
 import spots from '../api/spots';
 
 export default {
   name: 'c-entry-modal',
-  props: ['entryId'],
+  props: ['entryId', 'markerOffset'],
   data () {
     return {
       currentEntry: null
@@ -73,6 +74,63 @@ export default {
         }, (response) => {
           this.$store.commit('LOAD_FINISH');
         });
+    },
+    enterInner(el, done) {
+      Velocity(el,
+        {
+          opacity: [1, 0],
+          translateX: [0, this.markerOffset.x+'px'],
+          translateY: [0, this.markerOffset.y+'px'],
+          scale: [1, .1]
+        },
+        {
+          duration: 600,
+          complete: function () {
+            done();
+          },
+          easing: 'easeOutQuint'
+        }
+      );
+    },
+    enter(el, done) {
+      Velocity(el,
+        {
+          opacity: [1, 0]
+        },
+        {
+          duration: 400,
+          complete: function () {
+            done();
+          },
+        }
+      );
+    },
+    leave(el, done) {
+      let inner = el.querySelector('.entry-modal__inner');
+      Velocity(el,
+        {
+          opacity: [0, 1]
+        },
+        {
+          duration: 600,
+          complete: function () {
+            done();
+          },
+        }
+      );
+
+      Velocity(inner,
+        {
+          opacity: [0, 1],
+          translateX: [this.markerOffset.x+'px', 0],
+          translateY: [this.markerOffset.y+'px', 0],
+          scale: [.1, 1]
+        },
+        {
+          duration: 400,
+          easing: 'easeInSine'
+        }
+      );
     }
   }
 }
@@ -88,7 +146,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(#333, .8);
+  background-color: rgba(#000, .4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,9 +205,8 @@ export default {
   }
 
   &__inner {
-    padding: .5rem;
+    padding: 4px;
     background-color: #fff;
-    // display: flex;
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0 1rem;
@@ -159,6 +216,12 @@ export default {
     padding-bottom: 3.5rem;
     display: flex;
     align-items: center;
+    border-radius: 4px;
+    box-shadow: -4px -4px 0 0 rgba($c-highlight, 1);
+
+    .is-famed & {
+      box-shadow: -4px -4px 0 0 rgba($c-main, 1);
+    }
 
     .upvotes {
       display: none;
@@ -182,10 +245,11 @@ export default {
     h2 {
       font-family: $f-body;
       text-transform: none;
-      font-size: 1rem;
+      font-size: 1.25rem;
       z-index: 1;
       position: relative;
       margin-bottom: .25rem;
+      line-height: 1.2;
     }
     .address {
       font-size: .8rem;
@@ -223,15 +287,19 @@ export default {
         outline: none;
         color: $c-main;
       }
+      &:hover {
+        color: $c-main;
+      }
     }
     .btn-show {
       background: none;
       border: none;
       padding: 0;
       position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
+      bottom: 4px;
+      left: 4px;
+      border-radius: 4px;
+      width: calc(100% - 8px);
       height: 3rem;
       line-height: 3rem;
       background-color: $c-highlight;
@@ -240,7 +308,6 @@ export default {
       font-weight: bold;
       font-size: 1rem;
       cursor: pointer;
-      transition: .2s background-color;
 
       &:active, &:focus {
         outline: none;
@@ -260,24 +327,24 @@ export default {
   }
 }
 
-.modal-enter-active, .modal-leave-active {
-  transition: .5s opacity;
-}
-.modal-enter, .modal-leave-to {
-  opacity: 0;
-}
-.modal-leave-to {
-  .entry-modal__inner {
-    transition: .3s transform $easeInQuint;
-    transform: scale(.8);
-  }
-}
+// .modal-enter-active, .modal-leave-active {
+//   transition: .5s opacity;
+// }
+// .modal-enter, .modal-leave-to {
+//   opacity: 0;
+// }
+// .modal-leave-to {
+  // .entry-modal__inner {
+  //   transition: .3s transform $easeInQuint;
+  //   transform: scale(.8);
+  // }
+// }
 
-.modal_inner-enter-active, .modal_inner-leave-active {
-  transition: .4s transform $easeOutQuint;
-}
-.modal_inner-enter, .modal_inner-leave-to {
-  transform: scale(.8);
-}
+// .modal_inner-enter-active, .modal_inner-leave-active {
+//   transition: .4s transform $easeOutQuint;
+// }
+// .modal_inner-enter, .modal_inner-leave-to {
+//   transform: scale(.8);
+// }
 
 </style>

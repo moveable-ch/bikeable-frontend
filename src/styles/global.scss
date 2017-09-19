@@ -45,12 +45,12 @@ h1, h2, h3 {
   text-transform: uppercase;
 }
 h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   margin: 2rem 0 2rem 0;
 
   @include desktop() {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 3rem;
   }
 }
@@ -115,7 +115,7 @@ small {
   color: #fff;
   border-radius: 4px;
   font-family: $f-body;
-  font-size: .7rem;
+  font-size: .75rem;
   font-weight: 700;
   letter-spacing: .04rem;
   text-transform: uppercase;
@@ -127,6 +127,7 @@ small {
   text-decoration: none;
   text-align: center;
   box-sizing: content-box;
+  margin-top: 2rem;
 
   &:hover {
     border-color: darken($c-main, 10%);

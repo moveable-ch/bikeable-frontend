@@ -205,20 +205,20 @@ export default {
   }
 }
 
-.modal-enter-active, .modal-leave-active {
-  transition: 1s opacity;
+// .modal-enter-active, .modal-leave-active {
+//   transition: 1s opacity;
 
-  .map-modal__inner {
-    transition: 1s transform $easeOutQuint;
-  }
-}
-.modal-enter, .modal-leave-to {
-  opacity: 0;
+//   .map-modal__inner {
+//     transition: 1s transform $easeOutQuint;
+//   }
+// }
+// .modal-enter, .modal-leave-to {
+//   opacity: 0;
 
-  .map-modal__inner {
-    transform: translateY(100%);
-    transition: .6s transform $easeInQuint;
-  }
-}
+//   .map-modal__inner {
+//     transform: translateY(100%);
+//     transition: .6s transform $easeInQuint;
+//   }
+// }
 
 </style>

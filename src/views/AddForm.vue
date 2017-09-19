@@ -275,6 +275,7 @@ export default {
     height: 3rem;
     width: 100%;
     margin: 2rem auto 4rem auto;
+    box-sizing: border-box;
 
     @include desktop() {
       width: 15rem;

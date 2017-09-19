@@ -8,7 +8,7 @@
             v-bind:style="'background-image:url(' + currentEntry.photo.small.url + ')'">
           </div>
           <div class="entry-modal__content">
-            <h2>{{ currentEntry.title }}</h2>
+            <h3>{{ currentEntry.title }}</h3>
             <span class="address">{{ currentEntry.address }}</span>
             <div class="entry-modal__meta">
               <span class="entry-modal__meta__item entry-modal__meta__item--votes">{{ currentEntry.votes }}</span>
@@ -136,7 +136,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 @import '../styles/helpers';
 
@@ -146,7 +146,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(#000, .4);
+  background-color: rgba(#000, .6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -217,10 +217,12 @@ export default {
     display: flex;
     align-items: center;
     border-radius: 4px;
-    box-shadow: -4px -4px 0 0 rgba($c-highlight, 1);
+    box-shadow: 4px 4px 0 0 rgba($c-highlight, 1);
+    border: 2px solid $c-highlight;
 
     .is-famed & {
-      box-shadow: -4px -4px 0 0 rgba($c-main, 1);
+      border-color: $c-main;
+      box-shadow: 4px 4px 0 0 rgba($c-main, 1);
     }
 
     .upvotes {
@@ -242,14 +244,9 @@ export default {
         border-color: $c-main;
       }
     }
-    h2 {
-      font-family: $f-body;
-      text-transform: none;
-      font-size: 1.25rem;
-      z-index: 1;
-      position: relative;
-      margin-bottom: .25rem;
-      line-height: 1.2;
+    h3 {
+      margin-bottom: 0;
+      color: $c-black;
     }
     .address {
       font-size: .8rem;

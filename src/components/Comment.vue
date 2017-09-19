@@ -11,7 +11,7 @@
       <a @click.prevent="upvoteComment" href="#" class="comment__button comment__button--vote" v-bind:class="{ disabled: !isLoggedIn }">
         <span class="count">{{ comment.votesCount }}</span>
       </a>
-      <a @click.prevent="showForm = !showForm" href="#" class="comment__button reply">Antworten</a>
+      <a @click.prevent="showForm = !showForm" href="#" class="comment__button comment__button--reply">Antworten</a>
     </div>
 
     <div class="comment__reply" v-if="showForm">
@@ -157,16 +157,13 @@ export default {
         left: 0;
         background-color: #fff;
         background-size: cover;
-        border: 1px solid #eee;
+        border: 1px solid $c-grey-dark;
       }
 
       label {
         margin-bottom: .5rem;
       }
       &__button {
-        min-width: 6rem;
-        height: 2rem;
-        line-height: 2rem;
         margin-top: 4px;
       }
 
@@ -192,12 +189,15 @@ export default {
       position: absolute;
       top: 0;
       left: 0;
-      border: 1px solid #eee;
+      border: 1px solid $c-grey-dark;
     }
 
     &__body {
-      background-color: #fafafa;
-      margin-bottom: 4px;
+      background-color: $c-grey;
+      border-radius: 4px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      margin-bottom: 0px;
       padding: 1rem;
     }
     &__buttons {
@@ -210,17 +210,20 @@ export default {
       height: 2rem;
       line-height: 2rem;
       text-align: center;
-      color: #888;
-      border: 1px solid #eee;
-      background-color: #fafafa;
+      color: #666;
+      border: 1px solid $c-grey-dark;
+      background-color: $c-grey;
       width: 100%;
 
       &:hover {
-        color: #444;
-        border-color: #444;
+        background-color: $c-grey-dark;
       }
 
+      &--reply {
+        border-bottom-right-radius: 4px;
+      }
       &--vote {
+        border-bottom-left-radius: 4px;
 
         .count {
           font-weight: bold;

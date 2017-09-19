@@ -4,7 +4,7 @@
       <div class="sponsor-modal__inner" v-if="sponsoredEntry" @click.stop>
         <div class="sponsor-modal__content">
           <img class="sponsor-modal__image" :src="sponsoredEntry.logo" alt="">
-          <h2>{{ sponsoredEntry.name }}</h2>
+          <h3>{{ sponsoredEntry.name }}</h3>
           <p v-if="sponsoredEntry.text">{{ sponsoredEntry.text }}</p>
           <span class="address">{{ sponsoredEntry.address }}, {{ sponsoredEntry.stadt }}</span>
           <a v-if="sponsoredEntry.website" :href="sponsoredEntry.website" target="_blank" class="link">Website</a>
@@ -69,14 +69,9 @@ export default {
     margin: 0 1rem;
     position: relative;
 
-    h2 {
-      font-family: $f-body;
-      text-transform: none;
-      font-size: 1.25rem;
-      z-index: 1;
-      position: relative;
-      margin-bottom: .25rem;
-      font-weight: 700;
+    h3 {
+      color: $c-black;
+      margin-bottom: 0;
     }
     .address {
       display: block;

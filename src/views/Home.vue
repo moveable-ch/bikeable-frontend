@@ -172,6 +172,10 @@ export default {
 
     &__container {
       margin-top: 2rem;
+
+      @include desktop() {
+        margin-top: 3rem;
+      }
     }
 
     &__item {
@@ -209,7 +213,7 @@ export default {
 
       @include desktop() {
         padding-left: 1.5rem;
-        padding-top: .5rem;
+        padding-top: 0;
       }
     }
 
@@ -217,6 +221,7 @@ export default {
       width: 80px;
       height: 80px;
       flex-shrink: 0;
+      box-shadow: 2px 2px 0 0 $c-grey-dark;
 
       @include desktop() {
         width: 200px;
@@ -229,7 +234,7 @@ export default {
     margin: 3rem 0;
 
     @include desktop() {
-      margin: 4rem 0;
+      margin: 4rem 0 5rem 0;
     }
 
     &__container {
@@ -237,10 +242,11 @@ export default {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
+      align-items: flex-start;
     }
     &__button {
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 500;
 
       &::before {
         content: "→";
@@ -257,7 +263,7 @@ export default {
       margin-left: auto;
       margin-right: auto;
       position: relative;
-      background-color: #fafafa;
+      // background-color: $c-grey;
       transition: .4s box-shadow $easeOutQuint;
       box-shadow: 0 5px 5px 0 rgba(#000, 0);
 
@@ -290,16 +296,17 @@ export default {
     &__content {
       display: block;
       width: 60%;
-      padding: 1rem;
+      padding-left: 1rem;
       overflow: hidden;
 
       @include desktop {
         width: 100%;
+        padding: 1rem 1rem 0 0;
       }
     }
     &__image {
       display: block;
-      width: 40%;
+      width: 35%;
       flex-shrink: 0;
       height: 0;
       padding-bottom: 30%;
@@ -334,7 +341,7 @@ export default {
     h3 {
       font-family: $f-body;
       text-transform: none;
-      font-size: 1rem;
+      font-size: 1.25rem;
       color: #333;
       line-height: 1.2;
       margin-bottom: .5rem;

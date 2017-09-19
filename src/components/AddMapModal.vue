@@ -117,7 +117,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 @import '../styles/helpers';
 
@@ -195,6 +195,9 @@ export default {
     text-align: center;
     box-sizing: border-box;
 
+    .btn {
+      margin: 0;
+    }
     p {
       font-size: .8rem;
       max-width: none;

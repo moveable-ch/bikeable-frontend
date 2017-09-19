@@ -88,14 +88,16 @@ export default {
 @import '../styles/helpers';
 
 .entry-media {
+  position: absolute;
+  top: -1rem;
+  left: 0;
   display: block;
   margin: 1rem auto;
-  width: calc(100% - 2rem);
+  width: 100%;
   height: 15rem;
-  background-color: #fafafa;
-  border: 1px solid #ccc;
-  position: relative;
+  background-color: $c-grey;
   overflow: hidden;
+  z-index: 2;
 
   .is-famed & {
     // border-color: $c-main;
@@ -106,8 +108,8 @@ export default {
     width: 40px;
     height: 40px;
     position: absolute;
-    top: 2px;
-    right: 2px;
+    top: 0;
+    right: 0;
     z-index: 1;
     background-color: $c-highlight;
     background-image: url('../assets/mapbutton.png');
@@ -170,15 +172,17 @@ export default {
 
 
   @include desktop() {
-    height: 30rem;
+    height: 25rem;
     margin: 0 auto;
-    width: 100%;
+    top: 2rem;
+    left: 2rem;
+    width: calc(100% - 2rem);
 
     &__image {
 
       img {
-        max-width: calc(100% - 4px);
-        max-height: calc(100% - 4px);
+        max-width: 100%;
+        max-height: 100%;
       }
     }
   }

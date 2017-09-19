@@ -21,7 +21,7 @@
             <span class="list-entry__image" :style="{ backgroundImage: 'url(' + entry.photo.small.url + ')' }"></span>
             <span class="list-entry__content">
               <h3>{{ entry.title }}</h3>
-              <span class="list-entry__date">{{ formatDate(entry.createdAt) }}</span>
+              <span class="list-entry__date">{{ entry.user.name }}, {{ formatDate(entry.createdAt) }}</span>
               <span class="list-entry__location">{{ entry.address }}</span>
               <span v-if="entry.distance" class="list-entry__distance">{{ entry.distance }}m entfernt</span>
               <span class="list-entry__meta list-entry__meta--votes">{{ entry.votes }}</span>
@@ -235,8 +235,8 @@ export default {
           transition: .2s color, .2s border-color;
 
           &:hover, &.active {
-            border-color: $c-main;
-            color: $c-main;
+            border-color: $c-black;
+            color: $c-black;
           }
           &.disabled {
             opacity: .4;
@@ -282,9 +282,9 @@ export default {
 
       &__distance {
         display: block;
-        color: #000;
+        color: $c-black;
         font-size: .7rem;
-        font-weight: 700;
+        font-weight: 400;
       }
       &__location {
         display: block;
@@ -301,7 +301,7 @@ export default {
         display: block;
         font-size: .7rem;
         color: #888;
-        margin-bottom: .2rem;
+        margin-bottom: .4rem;
       }
       &__link {
         display: flex;
@@ -432,7 +432,7 @@ export default {
         text-transform: none;
         font-size: 1.25rem;
         font-weight: 600;
-        margin-bottom: .5rem;
+        margin-bottom: .2rem;
         color: #000;
         transition: .2s color;
         line-height: 1.1;
@@ -505,16 +505,18 @@ export default {
       bottom: -1px;
       background-color: #fafafa;
       box-sizing: border-box;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
 
       @include desktop() {
         width: 7rem;
       }
 
       &.active {
-        border-color: $c-main;
+        border-color: $c-black;
         border-bottom-color: #fff;
         background-color: #fff;
-        color: $c-main;
+        color: $c-black;
       }
 
       &--icon {

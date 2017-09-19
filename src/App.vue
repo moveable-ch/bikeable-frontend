@@ -130,11 +130,11 @@ export default {
 .loader {
   position: fixed;
   top: 0;
-  z-index: 3;
+  z-index: 4;
   left: 0;
   width: 100%;
   height: 2px;
-  background-image: linear-gradient(to right,  #fff 0%, #fff 50%, $c-main 50%, $c-main 100%);
+  background-image: linear-gradient(to right,  transparent 0%, transparent 50%, $c-main 50%, $c-main 100%);
   background-size: 200% 100%;
   animation: stripe 5s infinite linear;
 }

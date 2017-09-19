@@ -98,19 +98,20 @@ export default {
   left: 0;
   width: 100%;
   height: 3rem;
-  background: #fafafa;
-  color: #444;
+  background: #25292B;
+  color: #fff;
   box-sizing: border-box;
-  z-index: 2;
+  z-index: 3;
   overflow: hidden;
   transition: .4s height $easeOutQuint, .3s box-shadow, .3s background-color;
 
   &.is-expanded {
     height: 300px;
     box-shadow: 0 5px 5px rgba(#000, .1);
-    background-color: #fafafa !important;
+    background-color: $c-black !important;
   }
   &.is-home {
+    color: $c-black;
     background-color: transparent;
 
     &.is-scrolled {
@@ -127,7 +128,7 @@ export default {
     position: relative;
     height: 5rem;
     max-height: 5rem;
-    padding-top: 3rem;
+    padding-top: 2.5rem;
     box-shadow: none !important;
     overflow: visible;
   }
@@ -140,26 +141,24 @@ export default {
         display: block;
 
         a {
-          font-family: $f-head;
-          color: #000;
+          font-family: $f-body;
+          color: inherit;
           text-decoration: none;
           font-size: 1rem;
           line-height: 1.75;
-          font-weight: bold;
-          text-transform: uppercase;
         }
       }
     }
 
     @include desktop() {
       position: absolute;
-      right: 1rem;
+      right: .5rem;
       top: 1.5rem;
-      width: 8rem;
-      background-color: #fafafa;
-      border: 1px solid #eee;
+      width: 5rem;
+      background-color: $c-black;
       text-align: right;
       padding: .5rem;
+      padding-right: 1.5rem;
       display: none;
 
       &.is-expanded {
@@ -167,7 +166,7 @@ export default {
       }
 
       ul li a {
-        font-size: .8rem;
+        font-size: .9rem;
       }
     }
   }
@@ -190,7 +189,7 @@ export default {
       height: 87px;
       position: absolute;
       left: 50%;
-      top: -1.25rem;
+      top: -1.5rem;
       margin-left: -31px;
     }
   }
@@ -225,7 +224,7 @@ export default {
     margin-bottom: 1rem;
     margin-top: 1rem;
     padding-left: 0;
-    font-family: $f-head;
+    font-family: $f-body;
 
     ul {
       list-style-type: none;
@@ -233,16 +232,17 @@ export default {
       margin: 0;
 
       a {
-        color: #000;
+        color: inherit;
         text-decoration: none;
         font-size: 1rem;
         line-height: 1.75;
-        font-weight: bold;
-        text-transform: uppercase;
+        font-weight: 400;
+        // text-transform: uppercase;
 
         &.router-link-active {
           // color: $c-highlight;
-          border-bottom: 2px solid #444;
+          // border-bottom: 2px solid #444;
+          font-weight: 700;
           // text-decoration: underline;
         }
         &:hover {
@@ -254,15 +254,16 @@ export default {
     .username {
       font-family: $f-body;
       font-size: 1rem;
-      border-top: 1px solid #ddd;
+      border-top: 1px solid lighten($c-black, 10%);
       padding-top: .5rem;
 
       @include desktop() {
         border-top: 0;
         cursor: pointer;
+        font-size: .9rem;
 
         &:hover {
-          color: #000;
+          color: #ccc;
         }
 
         &::after {
@@ -286,21 +287,16 @@ export default {
       margin-top: 0;
       padding-left: 0;
 
-      .username {
-        font-size: 1rem;
-        font-weight: 400;
-        color: #888;
-      }
-
       ul {
 
         li {
           display: inline;
           margin-right: 1rem;
+          line-height: 1.75;
+          font-size: .9rem;
 
           a {
-            font-size: .8rem;
-            letter-spacing: .03rem;
+            // letter-spacing: .03rem;
           }
         }
       }
@@ -310,6 +306,7 @@ export default {
         top: 0;
         right: 1rem;
         margin-top: 0;
+        margin-bottom: 0;
 
         ul {
           li {

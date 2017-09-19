@@ -67,13 +67,15 @@ export default {
 
     @include desktop() {
       text-align: center;
-      font-size: 3rem;
+      font-size: 3.25rem;
       margin-top: 2rem;
     }
   }
   .date {
     display: block;
     text-align: left;
+    font-size: 1.25rem;
+    color: #aaa;
 
     @include desktop() {
       text-align: center;

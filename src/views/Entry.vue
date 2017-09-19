@@ -22,7 +22,7 @@
         </div>
         <div class="lead">
           <h1>{{ currentEntry.title }}</h1>
-          <h2>{{ currentEntry.address }}</h2>
+          <span class="lead__location">{{ currentEntry.address }}</span>
           <p class="lead__desc">{{ currentEntry.text }}</p>
         </div>
         <a href="#" class="vote" v-bind:class="{ 'is-active': hasVoted, disabled: !isLoggedIn }" @click.prevent="upvoteEntry">
@@ -123,8 +123,8 @@ export default {
       return this.$store.getters.userData;
     },
     userAvatar() {
-      if(!this.userData.avatar) return '';
-      return this.userData.avatar.small;
+      if(!this.userData.profile) return '';
+      return this.userData.profile.avatar.small;
     }
   },
 
@@ -291,9 +291,11 @@ export default {
       font-size: .8rem;
       display: flex;
       align-items: center;
-      background-color: #fafafa;
+      background-color: $c-grey;
       padding: .5rem;
-      border: 1px solid #eee;
+      border: 1px solid $c-grey-dark;
+      border-radius: 4px;
+      box-shadow: 0 2px 0 0 rgba($c-grey, .5);
 
       &__image {
         width: 2.5rem;
@@ -302,7 +304,7 @@ export default {
         background-size: cover;
         background-position: center;
         margin-right: 1rem;
-        border: 1px solid #eee;
+        border: 1px solid $c-grey-dark;
       }
       &__content {
 
@@ -357,14 +359,16 @@ export default {
     .col {
       box-sizing: border-box;
       position: relative;
-      z-index: 1;
       width: 100%;
 
       &:first-child {
         padding-right: 0;
+        z-index: 2;
       }
       &:nth-child(2) {
         padding: 0 1rem;
+        z-index: 1;
+        padding-top: 16rem;
       }
 
       @include desktop() {
@@ -372,11 +376,11 @@ export default {
 
         &:first-child {
           padding-top: 2rem;
-          width: 50%;;
+          width: 40%;;
           padding-left: 2rem;
         }
         &:nth-child(2) {
-          width: 50%;
+          width: 60%;
           padding-top: 2rem;
           padding-right: 2rem;
           padding-left: 2rem;
@@ -392,14 +396,16 @@ export default {
         margin: 2rem 0 .5rem 0;
         text-transform: none;
         font-size: 1.5rem;
+        text-align: left;
       }
-      h2 {
+      &__location {
         font-family: $f-body;
         text-transform: none;
         margin-bottom: 1rem;
         font-size: .9rem;
         color: #888;
         font-weight: 400;
+        line-height: 1.2;
       }
       &__desc {
         font-size: .9rem;
@@ -505,6 +511,7 @@ export default {
           min-width: 6rem;
           height: 2rem;
           line-height: 2rem;
+          margin: 0;
         }
 
         textarea {
@@ -520,7 +527,7 @@ export default {
     }
 
     .share {
-      margin-top: 5px;
+      margin-top: 26rem;
       display: none;
       justify-content: flex-end;
 
@@ -551,6 +558,7 @@ export default {
 
       }
       @include desktop() {
+        margin-top: 26rem;
         display: flex;
       }
     }

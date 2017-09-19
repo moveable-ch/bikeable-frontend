@@ -47,11 +47,11 @@ export default {
       return this.$store.getters.userData;
     },
     userAvatar() {
-      if(!this.userData.avatar) return null;
+      if(!this.userData.profile.avatar) return null;
       if(this.imageId) {
         return this.imagePreviewUrl;
       }
-      return this.userData.avatar.small;
+      return this.userData.profile.avatar.small;
     },
     imagePreviewUrl() {
       return 'https://backend.bikeable.ch/api/v1/photos/' + this.imageId + '?size=small';

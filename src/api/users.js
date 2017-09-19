@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default {
   getUserData({ userId, authToken }) {
-    let url = 'https://backend.bikeable.ch/api/v1/users/' + userId;
+    let url = 'https://backend.bikeable.ch/api/v1/users/current';
 
     return new Promise((resolve, reject) => {
       axios.get(url, {

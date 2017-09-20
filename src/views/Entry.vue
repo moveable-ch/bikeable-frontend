@@ -25,7 +25,7 @@
           <h1>{{ currentEntry.title }}</h1>
           <span class="lead__location">{{ currentEntry.address }}</span>
           <p class="lead__desc">{{ currentEntry.text }}</p>
-          <p class="lead__notice lead__notice--good">Dieser Spot wurde in der Zwischenzeit verbessert.</p>
+          <p v-if="currentEntry.fixed" class="lead__notice lead__notice--good">Dieser Spot wurde in der Zwischenzeit verbessert.</p>
         </div>
         <a href="#" class="vote" v-bind:class="{ 'is-active': hasVoted, disabled: !isLoggedIn }" @click.prevent="upvoteEntry">
           <span class="vote__icon vote__icon--main"></span>

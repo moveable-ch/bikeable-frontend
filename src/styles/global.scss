@@ -27,6 +27,7 @@ body {
 
 a {
   color: $c-main;
+  text-decoration: none;
 
   &:hover {
     color: $c-black;

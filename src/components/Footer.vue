@@ -55,7 +55,7 @@ export default {
 @import '../styles/helpers';
 
 .footer {
-  background-color: #f8f8f8;
+  background-color: $c-grey;
   padding: 1.5rem 0 0 0;
   margin-top: 1rem;
   width: 100%;
@@ -110,7 +110,7 @@ export default {
   }
 
   .partner {
-    background-color: #eee;
+    background-color: $c-grey-dark;
     padding: 1.5rem 0;
     margin-top: 1.5rem;
     color: #000;
@@ -122,6 +122,7 @@ export default {
       display: block;
       max-width: 150px;
       margin: .5rem auto;
+
       img {
         width: 100%;
         height: auto;

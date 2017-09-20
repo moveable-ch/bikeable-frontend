@@ -212,8 +212,8 @@ export default {
 
       h3 {
         line-height: 1.1;
-        font-size: 1.25rem;
-        margin-bottom: .5rem;
+        font-size: 1.5rem;
+        margin-bottom: .75rem;
 
         a {
           text-decoration: none;
@@ -286,11 +286,20 @@ export default {
       }
 
       &:hover {
+        .home__spots__image::after {
+          opacity: .6;
+          transform: rotate(160deg);
+          transition: .5s transform $easeOutBack, .5s opacity;
+        }
         .home__spots__image::before {
           opacity: 1;
         }
       }
       &.famed:hover {
+        .home__spots__image::after {
+          opacity: .6;
+          transform: rotate(-15deg);
+        }
       }
     }
     &__content {
@@ -322,14 +331,21 @@ export default {
       &::after {
         content: "";
         display: none;
-        width: 61px;
-        height: 61px;
+        width: 150px;
+        height: 150px;
         background-size: 100%;
         position: absolute;
-        bottom: -10px;
-        right: -10px;
-        background-image: url('../assets/thumbs-down.png');
-        transition: .2s transform $easeOutQuint;
+        top: 2rem;
+        right: 2rem;
+        background-image: url('../assets/thumbs-up-white.svg');
+        background-repeat: no-repeat;
+        opacity: 0;
+        transform: rotate(180deg);
+        transition: .5s transform ease-in, .5s opacity;
+
+        @include desktop() {
+          display: block;
+        }
       }
       &::before {
         content: "";
@@ -341,15 +357,15 @@ export default {
         left: 0;
         transition: .5s opacity;
         opacity: .6;
-        background-image: linear-gradient(-160deg, rgba($c-highlight,.7) 0%, rgba(40,52,61,.9) 100%);
+        background-image: linear-gradient(-160deg, rgba($c-highlight, .7) 0%, rgba(40,52,61,.9) 100%);
       }
 
       .famed & {
         &::after {
-          background-image: url('../assets/thumbs-up.png');
+          transform: rotate(5deg);
         }
         &::before {
-          background-image: linear-gradient(-160deg, rgba($c-main,.7) 0%, rgba(40,52,61,.9) 100%);
+          background-image: linear-gradient(-160deg, rgba($c-main, .7) 0%, rgba(40,52,61,.9) 100%);
         }
       }
     }

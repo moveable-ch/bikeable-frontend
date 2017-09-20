@@ -194,12 +194,18 @@ export default {
       }
       &--votes::before {
         background-image: url('../assets/upvote-small.png');
+        @include retina {
+          background-image: url('../assets/upvote-small@2x.png');
+        }
       }
       &--comments {
         padding-left: 26px;
       }
       &--comments::before {
         background-image: url('../assets/comment-small.png');
+        @include retina {
+          background-image: url('../assets/comment-small@2x.png');
+        }
       }
     }
   }
@@ -257,6 +263,7 @@ export default {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      line-height: 1.2;
     }
     .meta {
       line-height: 1.6;

@@ -157,27 +157,34 @@ export default {
           text-decoration: none;
           font-size: 1rem;
           line-height: 1.75;
+
+          &:hover {
+            border-bottom: 1px solid $c-main;
+          }
         }
       }
     }
 
     @include desktop() {
       position: absolute;
-      right: .5rem;
+      right: 1rem;
       top: 1.5rem;
       width: 5rem;
       background-color: $c-black;
       text-align: right;
       padding: .5rem;
-      padding-right: 1.5rem;
+      padding-right: 30px;
       display: none;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 2px 0 0 rgba($c-black, .2);
 
       &.is-expanded {
         display: block;
       }
 
       ul li a {
-        font-size: .9rem;
+        font-size: 1rem;
       }
     }
   }
@@ -257,12 +264,13 @@ export default {
 
         &.router-link-active {
           // color: $c-highlight;
-          // border-bottom: 2px solid #444;
-          font-weight: 700;
+          border-bottom: 1px solid $c-main;
+          // font-weight: 700;
           // text-decoration: underline;
         }
         &:hover {
           // border-bottom: 2px solid #444;
+          border-bottom: 1px solid $c-main;
           // color: $c-main;
         }
       }
@@ -274,20 +282,32 @@ export default {
       padding-top: .5rem;
 
       @include desktop() {
-        border-top: 0;
+        border-top: none;
         cursor: pointer;
-        font-size: .9rem;
+        font-size: 1rem;
+        line-height: 1.75;
+        position: relative;
+        padding-right: 30px;
 
         &:hover {
           color: #ccc;
         }
 
         &::after {
-          display: inline-block;
-          content: "◢";
-          transform: translateY(-6px) rotate(45deg);
-          font-size: .5rem;
+          display: block;
+          position: absolute;
+          right: 0;
+          bottom: 3px;
+          content: "";
+          width: 20px;
+          height: 20px;
+          background-image: url('../assets/username-dropdown.png');
+          background-size: 100%;
           margin-left: .5rem;
+
+          @include retina {
+            background-image: url('../assets/username-dropdown@2x.png');
+          }
         }
       }
     }

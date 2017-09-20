@@ -47,6 +47,7 @@ export default {
       return this.$store.getters.userData;
     },
     userAvatar() {
+      if(!this.userData.profile) return null;
       if(!this.userData.profile.avatar) return null;
       if(this.imageId) {
         return this.imagePreviewUrl;
@@ -115,7 +116,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 @import '../styles/helpers';
 
@@ -155,6 +156,80 @@ export default {
       width: 11rem;
       border: 2px solid $c-main;
       background-color: transparent;
+    }
+  }
+}
+
+.file-upload {
+
+  &__form {
+
+    label {
+      display: block;
+      color: #666;
+      border: 1px solid #666;
+      // border-radius: 4px;
+      width: 14rem;
+      text-align: center;
+      font-weight: 500;
+      height: 3rem;
+      line-height: 3rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      background-color: #fafafa;
+      font-size: 1rem;
+
+      &:hover {
+        border-color: $c-main;
+        color: $c-main;
+      }
+    }
+    input {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+  }
+
+  &__pending {
+    display: block;
+    color: #aaa;
+    width: 14rem;
+    text-align: center;
+    line-height: 3rem;
+    height: 3rem;
+    margin-top: 1rem;
+    background-color: #fafafa;
+    // border-radius: 4px;
+  }
+
+  &__preview {
+    width: 15rem;
+    height: 10rem;
+    background-color: #fafafa;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    &__close {
+      color: #333;
+      text-decoration: none;
+      position: absolute;
+      top: 0;
+      right: -1.5rem;
+      font-size: 2rem;
+      color: #aaa;
+    }
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      height: auto;
+      width: auto;
     }
   }
 }

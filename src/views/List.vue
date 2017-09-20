@@ -419,12 +419,18 @@ export default {
         }
         &--votes::before {
           background-image: url('../assets/upvote-small-filled.png');
+          @include retina {
+            background-image: url('../assets/upvote-small-filled@2x.png');
+          }
         }
         &--comments {
           padding-left: 26px;
         }
         &--comments::before {
           background-image: url('../assets/comment-small-filled.png');
+          @include retina {
+            background-image: url('../assets/comment-small-filled@2x.png');
+          }
         }
       }
       h3 {
@@ -433,7 +439,7 @@ export default {
         font-size: 1.25rem;
         font-weight: 600;
         margin-bottom: .2rem;
-        color: #000;
+        color: $c-black;
         transition: .2s color;
         line-height: 1.1;
         margin-top: .5rem;
@@ -471,7 +477,7 @@ export default {
     padding: 1rem;
     text-decoration: none;
     font-size: .8rem;
-    color: #000;
+    color: $c-black;
     width: 100%;
 
     &:hover {

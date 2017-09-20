@@ -102,7 +102,7 @@ export default {
         // box-shadow: inset 0 -1px 0 0 #fff;
 
         &:hover {
-          color: $c-highlight;
+          color: $c-main;
           // box-shadow: inset 0 -1px 0 0 $c-highlight;
         }
       }

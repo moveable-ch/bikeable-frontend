@@ -112,12 +112,14 @@ export default {
   left: 0;
   width: 100%;
   height: auto;
-  z-index: 3;
-  background-color: rgba(#222, .8);
-  color: #fff;
-  padding: 1rem 0;
+  z-index: 4;
+  background-color: rgba($c-grey, .9);
+  color: $c-black;
+  height: 3rem;
   text-align: center;
   font-size: .9rem;
+  display: flex;
+  align-items: center;
 
   span {
     display: block;

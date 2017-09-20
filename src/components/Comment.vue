@@ -226,10 +226,11 @@ export default {
         border-bottom-left-radius: 4px;
 
         .count {
-          font-weight: bold;
+          font-weight: 400;
           line-height: 1.5rem;
           position: relative;
           padding-left: 1.25rem;
+          color: $c-black;
 
           &::before {
             content: "";
@@ -238,14 +239,18 @@ export default {
             top: 0;
             left: 0;
             height: 100%;
-            width: .65rem;
+            width: 18px;
             background: none;
             border: none;
-            background-image: url('../assets/upvote-black.png');
+            background-image: url('../assets/upvote-small-filled.png');
             background-size: 100%;
             background-position: 50% 45%;
             background-repeat: no-repeat;
             transition: .3s transform $easeOutQuint;
+
+            @include retina {
+              background-image: url('../assets/upvote-small-filled@2x.png');
+            }
           }
         }
       }

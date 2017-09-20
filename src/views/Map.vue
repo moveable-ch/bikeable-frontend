@@ -233,6 +233,10 @@ export default {
   height: calc(100vh - 3rem);
   background-color: #fff;
 
+  @include desktop {
+    height: calc(100vh - 5rem);
+  }
+
   .embed & {
     height: 100vh;
     top: 0;
@@ -262,35 +266,47 @@ export default {
     display: block;
     width: 4rem;
     height: 4rem;
-    background-color: $c-main;
+    background-color: $c-black;
     border-radius: 99%;
     color: #fff;
     text-decoration: none;
     text-align: center;
     float: left;
     position: relative;
-    border: 2px solid $c-main;
+    border: 2px solid $c-black;
     box-sizing: border-box;
 
-    &:first-child {
-      margin-right: 4px;
+    &:nth-child(2) {
+      margin-left: 4px;
     }
 
     &:hover {
-      border-color: darken($c-main, 10%);
-      color: #fff;
+      background-color: lighten($c-black, 10%);
     }
     &.disabled {
       opacity: .2;
       pointer-events: none;
     }
 
+    &::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-size: 40px 40px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
     &--add {
       &::before {
-        content: "+";
-        font-family: Arial;
-        font-size: 3rem;
-        line-height: 4rem;
+        background-image: url('../assets/addbutton.png');
+        @include retina {
+          background-image: url('../assets/addbutton@2x.png');
+        }
       }
     }
     &--location {
@@ -306,6 +322,10 @@ export default {
         background-size: 40px 40px;
         background-position: center;
         background-repeat: no-repeat;
+
+        @include retina {
+          background-image: url('../assets/locatebutton@2x.png');
+        }
       }
     }
   }

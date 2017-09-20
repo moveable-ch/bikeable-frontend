@@ -457,7 +457,7 @@ export default {
     .vote {
       display: block;
       text-decoration: none;
-      background-color: #fafafa;
+      background-color: $c-grey;
       border: 2px solid $c-highlight;
       height: 3rem;
       margin-top: 2rem;
@@ -465,7 +465,7 @@ export default {
       transition: .4s background-color;
       position: relative;
       overflow: hidden;
-      // border-radius: 4px;
+      border-radius: 4px;
 
       &.disabled {
         pointer-events: none;
@@ -489,7 +489,7 @@ export default {
       &__count {
         line-height: 3rem;
         color: $c-highlight;
-        font-weight: bold;
+        font-weight: 400;
         font-size: 1.75rem;
         transition: .4s color;
       }
@@ -567,11 +567,12 @@ export default {
         display: block;
         width: 40px;
         height: 40px;
-        background-color: #fafafa;
+        background-color: $c-grey;
         background-size: 100%;
         background-position: center;
         margin-left: 5px;
-        border: 1px solid #eee;
+        border: 1px solid $c-grey-dark;;
+        border-radius: 4px;
         transition: .2s border-color;
 
         &--fb {
@@ -585,7 +586,7 @@ export default {
         }
 
         &:hover {
-          border-color: $c-main;
+          border-color: $c-black;
         }
 
       }

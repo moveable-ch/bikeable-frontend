@@ -98,7 +98,7 @@ export default {
   left: 0;
   width: 100%;
   height: 3rem;
-  background: #25292B;
+  background: $c-black;
   color: #fff;
   box-sizing: border-box;
   z-index: 3;
@@ -109,14 +109,16 @@ export default {
     height: 300px;
     box-shadow: 0 5px 5px rgba(#000, .1);
     background-color: $c-black !important;
+    color: #fff !important;
   }
   &.is-home {
     color: $c-black;
     background-color: transparent;
 
     &.is-scrolled {
-      background-color: rgba(#fafafa, .98);
+      background-color: rgba($c-black, .98);
     }
+
   }
 
   .container {

@@ -395,20 +395,21 @@ export default {
         color: $c-highlight;
         margin: 2rem 0 .5rem 0;
         text-transform: none;
-        font-size: 1.5rem;
+        font-size: 1.75rem;
         text-align: left;
       }
       &__location {
+        display: block;
         font-family: $f-body;
         text-transform: none;
         margin-bottom: 1rem;
-        font-size: .9rem;
+        font-size: 1rem;
         color: #888;
         font-weight: 400;
         line-height: 1.2;
       }
       &__desc {
-        font-size: .9rem;
+        font-size: 1rem;
         margin-bottom: 2rem;
       }
       &__meta {

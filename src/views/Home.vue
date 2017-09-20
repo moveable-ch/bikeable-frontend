@@ -20,33 +20,16 @@
       </div>
     </div>
 
-    <div class="home__spots">
+    <div class="home__spots" v-for="cat in spotCategories">
       <div class="container">
-        <h2>Hot Spots</h2>
+        <h2>{{ cat.title}}</h2>
         <div class="home__spots__container">
-          <router-link :to="'/entries/' + spot._id" class="home__spots__item" v-for="spot in topSpots" :key="spot._id" v-bind:class="{ famed: spot.famed }">
+          <router-link :to="'/entries/' + spot._id" class="home__spots__item" v-for="spot in cat.spots" :key="spot._id" v-bind:class="{ famed: spot.famed }">
             <span class="home__spots__image" :style="'background-image: url(' + spot.photo.medium.url + ')'"></span>
             <span class="home__spots__content">
+              <span class="meta">{{ cat.meta(spot) }}</span>
               <h3>{{ spot.title }}</h3>
               <span class="address">{{ spot.address }}</span>
-              <span class="meta">{{ spot.votes }} Votes</span>
-            </span>
-          </router-link>
-        </div>
-        <router-link to="/entries" class="home__spots__button">Alle Spots anzeigen</router-link>
-      </div>
-    </div>
-
-    <div class="home__spots">
-      <div class="container">
-        <h2>New Spots</h2>
-        <div class="home__spots__container">
-          <router-link :to="'/entries/' + spot._id" class="home__spots__item" v-for="spot in newSpots" :key="spot._id" v-bind:class="{ famed: spot.famed }">
-            <span class="home__spots__image" :style="'background-image: url(' + spot.photo.medium.url + ')'"></span>
-            <span class="home__spots__content">
-              <h3>{{ spot.title }}</h3>
-              <span class="address">{{ spot.address }}</span>
-              <span class="meta">{{ formatDate(spot.createdAt) }}</span>
             </span>
           </router-link>
         </div>
@@ -97,8 +80,26 @@ export default {
   data() {
     return {
       news: {},
-      newSpots: [],
-      topSpots: []
+      spotCategories: [
+        {
+          title: 'Top Spots',
+          spots: this.topSpots,
+          sort: 'votes',
+          meta(spot) {
+            return spot.votes + ' Votes';
+          }
+        },
+        {
+          title: 'New Spots',
+          spots: this.newSpots,
+          sort: 'date',
+          meta(spot) {
+            if(!spot.createdAt) return '';
+            let d = new Date(spot.createdAt);
+            return d.toLocaleDateString('de-DE');
+          }
+        }
+      ]
     }
   },
   watch: {
@@ -117,31 +118,20 @@ export default {
     loadSpots() {
       this.$store.commit('LOAD_START');
 
-      spots.getAllSpots({
-          limit: 3,
-          sort: 'votes'
-        })
-        .then((entries) => {
-          this.$store.commit('LOAD_FINISH');
-          this.topSpots = entries;
-        },
-        (error) => {
-          this.$store.commit('LOAD_FINISH');
-          this.$store.dispatch('handleError', 'Fehler');
-        });
-
-      spots.getAllSpots({
-          limit: 3,
-          sort: 'date'
-        })
-        .then((entries) => {
-          this.$store.commit('LOAD_FINISH');
-          this.newSpots = entries;
-        },
-        (error) => {
-          this.$store.commit('LOAD_FINISH');
-          this.$store.dispatch('handleError', 'Fehler');
-        });
+      this.spotCategories.forEach((cat) => {
+        spots.getAllSpots({
+            limit: 4,
+            sort: cat.sort
+          })
+          .then((entries) => {
+            this.$store.commit('LOAD_FINISH');
+            cat.spots = entries;
+          },
+          (error) => {
+            this.$store.commit('LOAD_FINISH');
+            this.$store.dispatch('handleError', 'Fehler');
+          });
+      });
     },
 
     fetchNews() {
@@ -173,7 +163,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('getAllSpots');
+    // this.$store.dispatch('getAllSpots');
     this.loadNews();
     this.loadSpots();
   }
@@ -274,77 +264,64 @@ export default {
       &::before {
         content: "→";
         margin-right: .5rem;
-        // color: #aaa;
       }
     }
     &__item {
-      display: flex;
+      display: block;
       text-decoration: none;
       width: 100%;
-      // max-width: 300px;
-      margin-bottom: 2rem;
+      height: 12rem;
+      margin-bottom: 1rem;
       margin-left: auto;
       margin-right: auto;
       position: relative;
-      // background-color: $c-grey;
-      transition: .4s box-shadow $easeOutQuint;
-      box-shadow: 0 5px 5px 0 rgba(#000, 0);
+      // border-radius: 4px;
+      overflow: hidden;
 
       @include desktop() {
-        width: calc(33.3% - 1rem);
-        // padding-bottom: 1.5rem;
-        max-width: none;
+        width: calc(50% - .5rem);
+        height: 15rem;
         margin-left: 0;
         margin-right: 0;
-        flex-wrap: wrap;
       }
 
       &:hover {
-        // background-color: #f0f0f0;
-        // box-shadow: 0 5px 20px 0 rgba(#000, .06);
-
-        .home__spots__image::after {
-          transform: rotate(15deg);
-        }
-        h3 {
-          color: $c-highlight;
+        .home__spots__image::before {
+          opacity: 1;
         }
       }
       &.famed:hover {
-        h3 {
-          color: $c-main;
-        }
       }
     }
     &__content {
       display: block;
-      width: 60%;
-      padding-left: 1rem;
-      overflow: hidden;
+      width: calc(100% - 2rem);
+      z-index: 1;
+      color: #fff;
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
 
       @include desktop {
-        width: 100%;
-        padding: 1rem 1rem 0 0;
       }
     }
     &__image {
       display: block;
-      width: 35%;
-      flex-shrink: 0;
-      height: 0;
-      padding-bottom: 30%;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
       background-size: cover;
       background-position: center;
       position: relative;
 
       @include desktop() {
-        width: 100%;
-        padding-bottom: 70%;
       }
 
       &::after {
         content: "";
-        display: block;
+        display: none;
         width: 61px;
         height: 61px;
         background-size: 100%;
@@ -354,20 +331,37 @@ export default {
         background-image: url('../assets/thumbs-down.png');
         transition: .2s transform $easeOutQuint;
       }
+      &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: .5s opacity;
+        opacity: .6;
+        background-image: linear-gradient(-160deg, rgba($c-highlight,.7) 0%, rgba(40,52,61,.9) 100%);
+      }
 
       .famed & {
         &::after {
           background-image: url('../assets/thumbs-up.png');
         }
+        &::before {
+          background-image: linear-gradient(-160deg, rgba($c-main,.7) 0%, rgba(40,52,61,.9) 100%);
+        }
       }
     }
     h3 {
-      font-family: $f-body;
-      text-transform: none;
-      font-size: 1.25rem;
-      color: $c-black;
-      line-height: 1.2;
+      font-family: $f-head;
+      text-transform: uppercase;
+      font-size: 1.75rem;
+      color: inherit;
+      line-height: 1;
       margin-bottom: .2rem;
+      hyphens: auto;
+      text-shadow: 2px 2px 0 rgba($c-black, .5);
     }
     .address {
       display: block;
@@ -375,20 +369,23 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       font-size: .9rem;
-      color: $c-black;
+      color: inherit;
+      line-height: 1.1;
 
       @include desktop() {
         font-size: .75rem;
       }
     }
     .meta {
-      display: block;
+      display: inline-block;
+      background-color: $c-highlight;
+      padding: 4px 8px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       font-size: .9rem;
-      color: #888;
-      margin-top: .2rem;
+      color: inherit;
+      margin-bottom: .2rem;
 
       @include desktop() {
         font-size: .75rem;

@@ -60,12 +60,11 @@ p + h1 {
 h2 {
   font-size: 1.75rem;
   line-height: .9;
-  text-shadow: 4px 4px 0 rgba($c-main, .25);
   margin-bottom: 2rem;
-  text-align: center;
+  // text-align: center;
 
   @include desktop() {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
   }
 }
 h3 {

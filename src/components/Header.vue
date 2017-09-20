@@ -49,9 +49,9 @@ export default {
         });
     },
     handleScroll() {
-      if(!this.isHome) return;
+      // if(!this.isHome) return;
 
-      if(window.scrollY > 400) {
+      if(window.scrollY > 100) {
         this.isScrolled = true;
       }else{
         this.isScrolled = false;
@@ -103,7 +103,7 @@ export default {
   box-sizing: border-box;
   z-index: 3;
   overflow: hidden;
-  transition: .4s height $easeOutQuint, .3s box-shadow, .3s background-color;
+  transition: .4s height $easeOutQuint, .3s box-shadow, .4s padding-top $easeOutQuint, .3s background-color;
 
   &.is-expanded {
     height: 300px;
@@ -117,7 +117,11 @@ export default {
 
     &.is-scrolled {
       background-color: rgba($c-black, .98);
+      color: #fff;
     }
+
+  }
+  &.is-scrolled {
 
   }
 
@@ -127,12 +131,17 @@ export default {
 
   @include desktop() {
     top: 0;
-    position: relative;
+    position: fixed;
     height: 5rem;
     max-height: 5rem;
     padding-top: 2.5rem;
     box-shadow: none !important;
     overflow: visible;
+
+    &.is-scrolled {
+      height: 3rem;
+      padding-top: .6rem;
+    }
   }
 
   &__metanav {
@@ -181,6 +190,7 @@ export default {
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
+    transition: .4s transform $easeOutQuint;
 
     span {
       display: none;
@@ -193,6 +203,10 @@ export default {
       left: 50%;
       top: -1.5rem;
       margin-left: -31px;
+
+      .is-scrolled & {
+        transform: translateY(10px) scale(.7);
+      }
     }
   }
 

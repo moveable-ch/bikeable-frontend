@@ -233,11 +233,6 @@ export default {
   height: calc(100vh - 3rem);
   background-color: #fff;
 
-  @include desktop {
-    top: 5rem;
-    height: calc(100vh - 5rem);
-  }
-
   .embed & {
     height: 100vh;
     top: 0;

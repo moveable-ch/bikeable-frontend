@@ -17,7 +17,7 @@ body {
   color: $c-black;
 
   @include desktop() {
-    padding-top: 0;
+    padding-top: 5rem;
   }
 
   &.embed {
@@ -284,4 +284,15 @@ textarea {
       margin: 4rem 0;
     }
   }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
 }

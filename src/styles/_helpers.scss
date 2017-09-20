@@ -18,3 +18,9 @@ $easeInOutQuint: cubic-bezier(0.860, 0.000, 0.070, 1.000);
 @mixin desktop() {
   @media screen and (min-width: 700px) { @content; }
 }
+
+@mixin retina() {
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @content;
+  }
+}

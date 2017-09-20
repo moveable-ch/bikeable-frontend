@@ -1,5 +1,5 @@
 <template>
-  <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed, 'pending': loadingData }">
+  <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed, 'is-fixed': currentEntry.fixed, 'pending': loadingData }">
     <div class="entry__container" v-if="!loadingData">
       <div class="col">
         <entry-media-view
@@ -21,9 +21,11 @@
           </div>
         </div>
         <div class="lead">
+          <span v-if="currentEntry.fixed" class="lead__fixed">Fixed!</span>
           <h1>{{ currentEntry.title }}</h1>
           <span class="lead__location">{{ currentEntry.address }}</span>
           <p class="lead__desc">{{ currentEntry.text }}</p>
+          <p class="lead__notice lead__notice--good">Dieser Spot wurde in der Zwischenzeit verbessert.</p>
         </div>
         <a href="#" class="vote" v-bind:class="{ 'is-active': hasVoted, disabled: !isLoggedIn }" @click.prevent="upvoteEntry">
           <span class="vote__icon vote__icon--main"></span>
@@ -287,7 +289,7 @@ export default {
     }
 
     &__user {
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
       font-size: .8rem;
       display: flex;
       align-items: center;
@@ -352,6 +354,10 @@ export default {
         color: $c-main;
       }
     }
+    &.is-fixed {
+      .lead h1 {
+      }
+    }
 
     @include desktop() {
       padding-bottom: 0;
@@ -391,9 +397,10 @@ export default {
     .lead {
 
       h1 {
+        display: block;
         font-family: $f-body;
         color: $c-highlight;
-        margin: 2rem 0 .5rem 0;
+        margin: 0 0 .5rem 0;
         text-transform: none;
         font-size: 1.75rem;
         text-align: left;
@@ -410,12 +417,36 @@ export default {
       }
       &__desc {
         font-size: 1rem;
-        margin-bottom: 2rem;
       }
       &__meta {
         display: block;
         color: #888;
         border-bottom: 1px solid #444;
+      }
+      &__notice {
+        // font-size: .8rem;
+        margin: 2rem 0;
+        padding: 1rem .5rem;
+        line-height: 1.2;
+        background-color: $c-grey;
+        text-align: center;
+
+        &--good {
+          color: $c-main;
+          border: 1px solid $c-main;
+          border-radius: 4px;
+          box-shadow: 0 2px 0 0 rgba($c-main, .15);
+        }
+      }
+      &__fixed {
+        display: inline-block;
+        background-color: $c-main;
+        font-size: .8rem;
+        padding: 5px 10px;
+        color: #fff;
+        font-weight: bold;
+        margin-left: -5px;
+        transform: rotate(-4deg);
       }
 
       @include desktop() {
@@ -429,7 +460,7 @@ export default {
       background-color: #fafafa;
       border: 2px solid $c-highlight;
       height: 3rem;
-      margin-top: 5px;
+      margin-top: 2rem;
       text-align: center;
       transition: .4s background-color;
       position: relative;

@@ -227,12 +227,15 @@ textarea {
 }
 
 .notice {
-  background-color: #fafafa;
-  border: 1px solid #ccc;
+  background-color: $c-grey;
+  border: 1px solid $c-grey-dark;
   padding: 1rem;
-  font-size: .9rem;
+  font-size: 1rem;
   text-align: center;
-  margin: 1.5rem 0;
+  margin: 2rem 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 0 0 rgba($c-grey, .5);
+  line-height: 1.2;
 }
 
 

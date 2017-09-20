@@ -42,7 +42,7 @@
           </form>
         </div>
 
-        <div class="comments" v-if="userData">
+        <div class="comments" v-if="comments">
           <comment-view v-for="comment in comments" :key="comment._id" :isChild="false" :comment="comment" :loadComments="loadComments" :entryId="entryId" :fetchData="fetchData" :avatar="userAvatar"></comment-view>
         </div>
       </div>

@@ -29,6 +29,7 @@
             <span class="home__spots__content">
               <h3>{{ spot.title }}</h3>
               <span class="address">{{ spot.address }}</span>
+              <span class="meta">{{ spot.votes }} Votes</span>
             </span>
           </router-link>
         </div>
@@ -40,11 +41,12 @@
       <div class="container">
         <h2>New Spots</h2>
         <div class="home__spots__container">
-          <router-link :to="'/entries/' + spot._id" class="home__spots__item" v-for="spot in topSpots" :key="spot._id" v-bind:class="{ famed: spot.famed }">
+          <router-link :to="'/entries/' + spot._id" class="home__spots__item" v-for="spot in newSpots" :key="spot._id" v-bind:class="{ famed: spot.famed }">
             <span class="home__spots__image" :style="'background-image: url(' + spot.photo.medium.url + ')'"></span>
             <span class="home__spots__content">
               <h3>{{ spot.title }}</h3>
               <span class="address">{{ spot.address }}</span>
+              <span class="meta">{{ formatDate(spot.createdAt) }}</span>
             </span>
           </router-link>
         </div>
@@ -73,6 +75,7 @@
 <script>
 
 import Prismic from 'prismic.io';
+import spots from '../api/spots';
 
 export default {
   name: 'v-home',
@@ -89,30 +92,13 @@ export default {
     },
     userCoords() {
       return this.$store.state.userCoords;
-    },
-    topSpots() {
-      if(!this.entries) return;
-
-      let e = this.entries.sort(function(a,b) {
-        return b.votes - a.votes;
-      });
-      return e.slice(0, 3);
-    },
-    newSpots() {
-      // return this.entries;
-      if(!this.entries) return;
-
-      let e = this.entries.sort(function(a,b) {
-        let dateA = new Date(a.createdAt);
-        let dateB = new Date(b.createdAt);
-        return dateB - dateA;
-      });
-      return e.slice(0, 3);
     }
   },
   data() {
     return {
-      news: {}
+      news: {},
+      newSpots: [],
+      topSpots: []
     }
   },
   watch: {
@@ -126,6 +112,36 @@ export default {
         this.news = data;
         this.$store.commit('LOAD_FINISH');
       });
+    },
+
+    loadSpots() {
+      this.$store.commit('LOAD_START');
+
+      spots.getAllSpots({
+          limit: 3,
+          sort: 'votes'
+        })
+        .then((entries) => {
+          this.$store.commit('LOAD_FINISH');
+          this.topSpots = entries;
+        },
+        (error) => {
+          this.$store.commit('LOAD_FINISH');
+          this.$store.dispatch('handleError', 'Fehler');
+        });
+
+      spots.getAllSpots({
+          limit: 3,
+          sort: 'date'
+        })
+        .then((entries) => {
+          this.$store.commit('LOAD_FINISH');
+          this.newSpots = entries;
+        },
+        (error) => {
+          this.$store.commit('LOAD_FINISH');
+          this.$store.dispatch('handleError', 'Fehler');
+        });
     },
 
     fetchNews() {
@@ -148,11 +164,18 @@ export default {
       }, function(err) {
         console.log("Something went wrong: ", err);
       });
+    },
+
+    formatDate(date) {
+      if(!date) return '';
+      let d = new Date(date);
+      return d.toLocaleDateString('de-DE');
     }
   },
   mounted() {
     this.$store.dispatch('getAllSpots');
     this.loadNews();
+    this.loadSpots();
   }
 }
 </script>
@@ -342,9 +365,9 @@ export default {
       font-family: $f-body;
       text-transform: none;
       font-size: 1.25rem;
-      color: #333;
+      color: $c-black;
       line-height: 1.2;
-      margin-bottom: .5rem;
+      margin-bottom: .2rem;
     }
     .address {
       display: block;
@@ -352,7 +375,20 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       font-size: .9rem;
-      color: #333;
+      color: $c-black;
+
+      @include desktop() {
+        font-size: .75rem;
+      }
+    }
+    .meta {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: .9rem;
+      color: #888;
+      margin-top: .2rem;
 
       @include desktop() {
         font-size: .75rem;

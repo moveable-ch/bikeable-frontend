@@ -173,6 +173,7 @@ export default {
         let imgurl = 'static/img/marker-bad.png';
 
         if(entry.famed) imgurl = 'static/img/marker-good.png';
+        if(entry.fixed) imgurl = 'static/img/marker-fixed.png';
 
         let icon = {
           url: imgurl,

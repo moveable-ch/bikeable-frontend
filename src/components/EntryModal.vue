@@ -217,12 +217,12 @@ export default {
     display: flex;
     align-items: center;
     border-radius: 4px;
-    box-shadow: 4px 4px 0 0 rgba($c-highlight, 1);
+    // box-shadow: 4px 4px 0 0 rgba($c-highlight, 1);
     border: 2px solid $c-highlight;
 
     .is-famed & {
       border-color: $c-main;
-      box-shadow: 4px 4px 0 0 rgba($c-main, 1);
+      // box-shadow: 4px 4px 0 0 rgba($c-main, 1);
     }
 
     .upvotes {

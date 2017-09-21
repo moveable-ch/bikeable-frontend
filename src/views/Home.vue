@@ -234,7 +234,7 @@ export default {
       width: 80px;
       height: 80px;
       flex-shrink: 0;
-      box-shadow: 2px 2px 0 0 $c-grey-dark;
+      // box-shadow: 2px 2px 0 0 $c-grey-dark;
 
       @include desktop() {
         width: 200px;

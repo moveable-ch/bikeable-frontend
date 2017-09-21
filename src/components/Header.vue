@@ -159,7 +159,8 @@ export default {
           line-height: 1.75;
 
           &:hover {
-            border-bottom: 1px solid $c-main;
+            // border-bottom: 1px solid $c-main;
+            color: $c-main;
           }
         }
       }
@@ -263,14 +264,15 @@ export default {
         // text-transform: uppercase;
 
         &.router-link-active {
-          // color: $c-highlight;
-          border-bottom: 1px solid $c-main;
+          color: $c-main;
+          // border-bottom: 2px solid $c-main;
           // font-weight: 700;
           // text-decoration: underline;
         }
         &:hover {
+          color: $c-main;
           // border-bottom: 2px solid #444;
-          border-bottom: 1px solid $c-main;
+          // border-bottom: 1px solid $c-main;
           // color: $c-main;
         }
       }

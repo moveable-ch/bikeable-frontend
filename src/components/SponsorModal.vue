@@ -8,6 +8,7 @@
           <p v-if="sponsoredEntry.text">{{ sponsoredEntry.text }}</p>
           <span class="address">{{ sponsoredEntry.address }}, {{ sponsoredEntry.stadt }}</span>
           <a v-if="sponsoredEntry.website" :href="sponsoredEntry.website" target="_blank" class="link">Website</a>
+          <p class="sponsor-modal__notice" v-if="sponsoredEntry.isSponsor">{{ sponsoredEntry.name }} unterstützt Bikeable mit einem Sponsorenbeitrag.<br><router-link to="/about">So kannst du auch Sponsor werden</router-link></p>
           <button class="btn-close" @click="$emit('close')">✕</button>
         </div>
       </div>
@@ -49,6 +50,16 @@ export default {
   align-items: center;
   justify-content: center;
   z-index: 1;
+
+  &__notice {
+    margin-top: 1rem;
+    background-color: $c-grey;
+    padding: .5rem;
+    border: 1px solid $c-black;
+    border-radius: 4px;
+    font-size: .8rem;
+    margin-bottom: 2rem;
+  }
 
   &__image {
     display: block;
@@ -114,6 +125,7 @@ export default {
       font-size: .8rem;
       color: $c-highlight;
       cursor: pointer;
+      z-index: 2;
 
       &:active, &:focus {
         outline: none;

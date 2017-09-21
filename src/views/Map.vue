@@ -5,6 +5,7 @@
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
     <div class="spot-nav clearfix" v-if="!isEmbed">
       <router-link v-if="isLoggedIn" to="/add" class="spot-nav__link spot-nav__link--add"></router-link>
+      <router-link v-if="!isLoggedIn" to="/login" class="spot-nav__link spot-nav__link--add"></router-link>
       <a href="#" @click.prevent="showUserLocation" class="spot-nav__link spot-nav__link--location" v-bind:class="{ disabled: !userCoords }"></a>
     </div>
   </div>

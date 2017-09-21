@@ -13,7 +13,8 @@
         </label>
         <button type="submit" class="btn">Login</button>
         <div class="notice" v-if="message != ''">{{ message }}</div>
-        <router-link to="/forgottenpw" class="forgotten-link">Passwort vergessen?</router-link>
+        <router-link to="/forgottenpw" class="link-more">Passwort vergessen?</router-link>
+        <router-link to="/register" class="link-more">Neuen Account erstellen</router-link>
       </form>
     </div>
   </div>
@@ -75,10 +76,14 @@ export default {
     margin-bottom: 2rem;
   }
 
-  .forgotten-link {
+  .btn {
+    margin-bottom: 2rem;
+  }
+
+  .link-more {
     font-size: .9rem;
     display: block;
-    margin-top: 2rem;
+    margin-top: .5rem;
   }
 }
 

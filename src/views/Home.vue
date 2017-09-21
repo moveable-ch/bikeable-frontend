@@ -462,28 +462,29 @@ export default {
       }
       @media screen and (max-width: 700px) {
         top: -.5rem;
-        right: 0rem;
+        right: 0;
         width: 36rem;
         height: 24rem;
       }
     }
     &__illu {
       position: absolute;
-      top: 6.2rem;
-      right: 12rem;
-      width: 19rem;
-      transform-origin: center bottom;
+      top: 5.3rem;
+      right: 13.8rem;
+      width: 17rem;
+      transform-origin: 50% 93%;
       animation: paul .7s ease-out 0s infinite normal forwards;
+      // transform: rotate(-10deg);
       pointer-events: none;
 
       @media screen and (max-width: 1130px) {
-        right: 0rem;
+        right: .7rem;
       }
       @media screen and (max-width: 700px) {
-        width: 12rem;
+        width: 10rem;
         z-index: 1;
-        top: 9.75rem;
-        right: 1.5rem;
+        top: 10rem;
+        right: 2.8rem;
       }
 
       img {
@@ -517,6 +518,13 @@ export default {
       margin-bottom: 1rem;
       transform-origin: 0% 0%;
       transform: skew(0, -4deg);
+      text-shadow:
+          1px 1px 0 darken($c-main, 12%),
+           2px 2px 0 darken($c-main, 12%),
+           3px 3px 0 darken($c-main, 12%),
+           4px 4px 0 darken($c-main, 12%),
+           5px 5px 0 darken($c-main, 12%);
+      // text-shadow: 4px 4px 0 $c-highlight;
       opacity: 0;
       animation: headline 1s ease-out .3s 1 normal forwards;
 
@@ -547,16 +555,16 @@ export default {
 
 @keyframes paul {
   0% {
-    transform: rotate(0deg) translateY(0);
+    transform: rotate(0deg);
   }
   25% {
-    transform: rotate(.5deg) translateY(2px);
+    transform: rotate(.5deg);
   }
   75% {
-    transform: rotate(-.5deg) translateY(-2px);
+    transform: rotate(-.5deg);
   }
   100% {
-    transform: rotate(0deg) translateY(0);
+    transform: rotate(0deg);
   }
 }
 

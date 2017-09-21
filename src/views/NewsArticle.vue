@@ -40,7 +40,7 @@ export default {
       }).then(function(payload) {
         const y = {};
         let date = new Date(payload.results[0].firstPublicationDate);
-        y.date = date.getDate() + '.' + (date.getMonth()+1) + '.' + date.getFullYear();
+        y.date = date.toLocaleDateString('de-DE');
         y.title = payload.results[0].getText('news.news_title');
         y.text = payload.results[0].getStructuredText('news.news_text').asHtml();
         y.image = payload.results[0].getImage('news.news_image').url;

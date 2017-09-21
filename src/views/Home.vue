@@ -42,8 +42,9 @@
         <h2>Bikeable News</h2>
         <div class="home__news__container">
           <div class="home__news__item" v-for="article in news">
-            <router-link :to="'/news/' + article.id"><img class="home__news__image" :src="article.image"></router-link>
+            <router-link class="home__news__imagewrap" :to="'/news/' + article.id"><img class="home__news__image" :src="article.image"></router-link>
             <div class="home__news__content">
+              <span class="home__news__date">{{ article.date }}</span>
               <h3><router-link :to="'/news/' + article.id">{{ article.title }}</router-link></h3>
               <p>{{ article.abstract }}</p>
               <router-link class="home__news__more" :to="'/news/' + article.id">Mehr</router-link>
@@ -145,6 +146,8 @@ export default {
         y.questions = payload.results.slice(0,3).map((x) => {
           const z = {};
           z.id = x.id;
+          let date = new Date(x.firstPublicationDate);
+          z.date = date.toLocaleDateString('de-DE');
           z.title = x.getText('news.news_title');
           z.abstract = x.getText('news.news_abstract');
           z.image = x.getImage('news.news_image').views.preview.url;
@@ -206,17 +209,32 @@ export default {
       margin-top: 1rem;
     }
 
+    &__date {
+      font-size: .8rem;
+      background-color: $c-grey-dark;
+      color: #888;
+      padding: 4px 8px;
+    }
+
     &__content {
       padding-left: 1rem;
       padding-top: 0;
 
       h3 {
-        line-height: 1.1;
-        font-size: 1.5rem;
+        line-height: 1;
+        font-size: 1.75rem;
         margin-bottom: .75rem;
+        text-transform: uppercase;
+        font-family: $f-head;
+        margin-top: .2rem;
 
         a {
+          color: $c-main;
           text-decoration: none;
+
+          &:hover {
+            color: $c-black;
+          }
         }
       }
 
@@ -237,8 +255,8 @@ export default {
       // box-shadow: 2px 2px 0 0 $c-grey-dark;
 
       @include desktop() {
-        width: 200px;
-        height: 200px;
+        width: 250px;
+        height: 250px;
       }
     }
   }

@@ -50,6 +50,7 @@ export default {
     z-index: 1;
     font-size: 5rem;
     position: relative;
+    text-align: center;
   }
   p {
     max-width: none;

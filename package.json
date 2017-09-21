@@ -1,8 +1,8 @@
 {
   "name": "bikeable-frontend",
   "version": "1.0.0",
-  "description": "web frontend for bikeable.ch",
-  "author": "verein bikable",
+  "description": "Web frontend for bikeable.ch",
+  "author": "Verein Bikeable",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",

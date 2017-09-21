@@ -20,6 +20,12 @@
       </div>
     </div>
 
+    <div v-if="isLoggedIn" class="home__add">
+      <div class="home__add__inner">
+        <router-link to="/add" class="home__add__cta">Spot hinzufügen</router-link>
+      </div>
+    </div>
+
     <div class="home__spots" v-for="cat in spotCategories">
       <div class="container">
         <h2>{{ cat.title}}</h2>
@@ -427,6 +433,32 @@ export default {
     }
   }
 
+  &__add {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-image: linear-gradient(-220deg, #FCFFD6 0%, #E2FDFF 100%);
+
+    @include desktop {
+      margin: 1rem auto;
+    }
+
+    &__inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 6rem;
+    }
+    &__cta {
+      display: inline-block;
+      font-size: 1rem;
+      background-color: $c-main;
+      padding: 1rem 2rem;
+      border-radius: 4px;
+      color: $c-grey;
+      box-shadow: 0 2px 0 0 lighten($c-main, 30%);
+    }
+  }
+
   &__intro {
     // background-image: linear-gradient(-180deg, $c-yellow 58%, $c-white 100%);
     // background-color: $c-yellow;
@@ -511,20 +543,34 @@ export default {
       }
     }
     &__cta {
-      font-family: $f-body;
+      display: inline-block;
+      font-family: $f-head;
+      font-size: 1.25rem;
       text-decoration: none;
-      margin-left: 1rem;
       font-weight: 400;
+      margin-left: 2rem;
+      letter-spacing: .03rem;
+      text-transform: uppercase;
+      transform: skew(0, -4deg);
+      color: $c-highlight;
+      // border-bottom: 2px solid $c-highlight;
+      opacity: 0;
+      animation: headline 1s ease-out .6s 1 normal forwards;
 
       &::before {
         content: "→";
         margin-right: .5rem;
+        text-decoration: none;
       }
 
       @media screen and (max-width: 700px) {
         position: absolute;
         bottom: 2rem;
         left: 0;
+      }
+
+      &:hover {
+        border-color: $c-black;
       }
     }
     h1 {
@@ -533,7 +579,7 @@ export default {
       font-weight: bold;
       font-size: 2.75rem;
       line-height: .9;
-      margin-bottom: 1rem;
+      margin-bottom: .25rem;
       transform-origin: 0% 0%;
       transform: skew(0, -4deg);
       text-shadow:
@@ -597,7 +643,7 @@ export default {
 
 @keyframes headline {
   0% {
-    transform: translateY(40px) skew(0, -4deg);
+    transform: translateY(30px) skew(0, -4deg);
     opacity: 0;
   }
   100% {

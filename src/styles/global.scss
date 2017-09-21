@@ -2,7 +2,7 @@
 @import 'helpers';
 
 html {
-  font-size: 18px;
+  font-size: 20px;
 
   @media screen and(max-width: 700px) {
     font-size: 16px;
@@ -11,13 +11,13 @@ html {
 
 body {
   margin: 0;
-  padding-top: 4rem;
+  padding-top: 3rem;
   font-family: $f-body;
-  background-color: #f4f4f4;
-  color: #333;
+  background-color: $c-white;
+  color: $c-black;
 
   @include desktop() {
-    padding-top: 0;
+    padding-top: 5rem;
   }
 
   &.embed {
@@ -26,10 +26,11 @@ body {
 }
 
 a {
-  color: $c-highlight;
+  color: $c-main;
+  text-decoration: none;
 
   &:hover {
-    color: #000;
+    color: $c-black;
   }
 }
 
@@ -40,52 +41,52 @@ strong {
 h1, h2, h3 {
   font-family: $f-head;
   font-weight: 400;
-  color: #333;
+  color: $c-black;
+  text-transform: uppercase;
 }
-// h1 {
-//   font-size: 1.75rem;
-//   line-height: .9;
-//   margin: 1rem 0;
-//   color: #333;
-
-//   @include desktop() {
-//     font-size: 2.75rem;
-//   }
-// }
 h1 {
-  font-size: 1.75rem;
-  font-weight: 500;
-  color: $c-main;
-  margin: 2rem 0 2rem 0;
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 1rem 0 2rem 0;
+  text-align: left;
 
   @include desktop() {
-    font-size: 3rem;
-    margin-bottom: 3rem;
+    font-size: 3.5rem;
+    margin: 2rem 0 3rem 0;
   }
 }
 p + h1 {
   margin-top: 4rem;
 }
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  line-height: .9;
+  margin-bottom: 2rem;
+  // text-align: center;
+
+  @include desktop() {
+    font-size: 2.75rem;
+  }
 }
 h3 {
+  font-family: $f-body;
+  text-transform: none;
   color: $c-main;
   font-size: 1.2rem;
   line-height: 1.4;
   margin-bottom: 1rem;
-  max-width: 700px;
+  max-width: 850px;
 
   @include desktop() {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 }
 
 p {
   font-family: $f-body;
-  max-width: 750px;
+  max-width: 850px;
   line-height: 1.5;
-  color: #333;
+  color: #444;
 
   & + & {
     margin-top: 1rem;
@@ -112,31 +113,55 @@ small {
 .btn {
   display: inline-block;
   border: none;
-  background-color: #333;
-  color: #fff;
-  font-family: $f-body;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 0 1rem;
-  height: 3rem;
-  line-height: 3rem;
-  cursor: pointer;
-  min-width: 12rem;
+  background-color: $c-black;
+  border: 2px solid $c-black;
+  color: $c-grey;
   border-radius: 4px;
+  font-family: $f-body;
+  font-size: .9rem;
+  font-weight: 400;
+  padding: 0 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  cursor: pointer;
   text-decoration: none;
-  transition: .2s background-color;
+  text-align: center;
+  box-sizing: content-box;
+  margin-top: 2rem;
 
   &:hover {
-    background-color: $c-main;
-    color: #fff;
+    background-color: lighten($c-black, 10%);
   }
   &.disabled {
-    opacity: .3;
+    background-color: $c-grey;
+    border-color: $c-grey;
     pointer-events: none;
+    color: #aaa;
   }
   &:focus {
     outline: none;
-    background-color: #333;
+    background-color: lighten($c-black, 10%);
+  }
+}
+
+.btn-centered {
+  font-family: $f-head;
+  display: block;
+  width: 14rem;
+  margin: 1rem auto;
+  text-transform: uppercase;
+  font-size: .75rem;
+  color: #333;
+  text-align: center;
+  background-color: #fafafa;
+  border: 2px solid #eee;
+  padding: 1rem 0;
+
+  letter-spacing: .03rem;
+  text-decoration: none;
+
+  &:hover {
+    border-color: $c-main;
   }
 }
 
@@ -163,14 +188,14 @@ input[type=text], input[type=password], input[type=email], textarea {
   max-width: 700px;
   font-family: $f-body;
   font-size: 1rem;
-  padding: 0 1rem;
+  padding: 0 .75rem;
   height: 2.5rem;
   line-height: 2.5rem;
   margin: 0;
-  border: 2px solid #ccc;
+  border: 1px solid #ccc;
   box-sizing: border-box;
-  border-radius: 0;
-  box-shadow: none;
+  border-radius: 4px;
+  box-shadow: 0 2px 0 #fafafa;
   -webkit-appearance: none;
 
   &:focus {
@@ -186,6 +211,10 @@ input[type=text], input[type=password], input[type=email], textarea {
     background-color: #ccc;
     color: #666;
   }
+  &:disabled {
+    color: #888;
+    background-color: #f0f0f0;
+  }
 }
 
 input[type=file] {
@@ -199,22 +228,25 @@ textarea {
 }
 
 .notice {
-  background-color: #ddd;
+  background-color: $c-grey;
+  border: 1px solid $c-grey-dark;
   padding: 1rem;
-  font-size: .8rem;
+  font-size: 1rem;
   text-align: center;
-  border: 2px solid #ccc;
-  margin: 1.5rem 0;
+  margin: 2rem 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 0 0 rgba($c-grey, .5);
+  line-height: 1.2;
 }
 
 
 .contentpage {
   margin: 0;
-  padding: 2rem 0;
+  padding: 1rem 0;
   min-height: calc(100vh - 500px);
 
   @include desktop() {
-    padding: 3rem 0;
+    padding: 2rem 0;
   }
 
   p {
@@ -222,13 +254,15 @@ textarea {
   }
 
   ul {
-    padding-left: 2rem;
+    padding-left: 1rem;
     margin: 1.5rem 0;
+    font-family: $f-body;
 
     li {
       margin: 1rem 0;
       position: relative;
-      padding-left: 1.5rem;
+      padding-left: 2rem;
+      line-height: 1.3;
 
       &::before {
         content: "— ";
@@ -251,4 +285,15 @@ textarea {
       margin: 4rem 0;
     }
   }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
 }

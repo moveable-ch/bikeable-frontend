@@ -1,76 +1,109 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MapView from '@/components/MapView'
-import ListView from '@/components/ListView'
-import AboutView from '@/components/AboutView'
-import FAQView from '@/components/FAQView'
-import PartnerView from '@/components/PartnerView'
-import EntryView from '@/components/EntryView'
-import AddView from '@/components/AddView'
-import LoginView from '@/components/LoginView'
-import RegisterView from '@/components/RegisterView'
-import PasswordRetrievalView from '@/components/PasswordRetrievalView'
-import NotFoundView from '@/components/NotFoundView'
+
+import Home from '@/views/Home'
+import Map from '@/views/Map'
+import List from '@/views/List'
+import About from '@/views/About'
+import FAQ from '@/views/FAQ'
+import Partner from '@/views/Partner'
+import Entry from '@/views/Entry'
+import AddForm from '@/views/AddForm'
+import LoginForm from '@/views/LoginForm'
+import RegisterForm from '@/views/RegisterForm'
+import PasswordRetrieval from '@/views/PasswordRetrieval'
+import NotFound from '@/views/NotFound'
+import NewsArticle from '@/views/NewsArticle'
+import News from '@/views/News'
+import UserProfile from '@/views/UserProfile'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
+      path: '/',
+      name: 'home',
+      component: Home
+    },
+    {
       path: '/entries',
       name: 'list',
-      component: ListView,
-      alias: '/'
+      component: List
     },
     {
       path: '/map',
       name: 'map',
-      component: MapView
+      component: Map
     },
     {
       path: '/about',
       name: 'about',
-      component: AboutView
+      component: About
     },
     {
       path: '/faq',
       name: 'faq',
-      component: FAQView
+      component: FAQ
     },
     {
       path: '/partner',
       name: 'partner',
-      component: PartnerView
+      component: Partner
     },
     {
       path: '/entries/:id',
       name: 'entry',
-      component: EntryView
+      component: Entry
     },
     {
       path: '/add',
       name: 'add',
-      component: AddView
+      component: AddForm
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterForm
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: LoginForm
     },
     {
       path: '/forgottenpw',
       name: 'forgottenpw',
-      component: PasswordRetrievalView
+      component: PasswordRetrieval
+    },
+    {
+      path: '/profile',
+      name: 'userprofile',
+      component: UserProfile
+    },
+    {
+      path: '/news',
+      name: 'news',
+      component: News
+    },
+    {
+      path: '/news/:id',
+      name: 'newsarticle',
+      component: NewsArticle
     },
     {
       path: '*',
       name: 'not-found',
-      component: NotFoundView
+      component: NotFound
     }
   ],
   mode: 'history',
-  saveScrollPosition: false,
+  saveScrollPosition: true,
   scrollBehavior(to, from, savedPosition) {
-    return { x: 0, y: 0 }
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
   }
 })

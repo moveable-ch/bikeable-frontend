@@ -92,6 +92,15 @@ var webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
+    ]),
+    // copy Netlify _redirects file (for history pushstate)
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../static/_redirects'),
+        dot: true,
+        toType: 'file',
+        to: '_redirects'
+      }
     ])
   ]
 })

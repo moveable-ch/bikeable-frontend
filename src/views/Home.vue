@@ -59,6 +59,13 @@
         </div>
       </div>
     </div>
+
+    <!--<div class="home__newsletter">
+      <div class="container">
+        <h2>Newsletter</h2>
+
+      </div>
+    </div>-->
   </div>
 </template>
 
@@ -232,7 +239,7 @@ export default {
         margin-bottom: .75rem;
         text-transform: uppercase;
         font-family: $f-head;
-        margin-top: .2rem;
+        margin-top: .4rem;
 
         a {
           color: $c-main;
@@ -319,10 +326,15 @@ export default {
           opacity: 1;
         }
       }
-      &.famed:hover {
-        .home__spots__image::after {
-          opacity: .6;
-          transform: rotate(-15deg);
+      &.famed {
+        &:hover {
+          .home__spots__image::after {
+            opacity: .6;
+            transform: rotate(-15deg);
+          }
+        }
+        .meta {
+          background-color: $c-main;
         }
       }
     }
@@ -337,6 +349,7 @@ export default {
 
       @include desktop {
       }
+
     }
     &__image {
       display: block;
@@ -401,7 +414,7 @@ export default {
       line-height: 1;
       margin-bottom: .2rem;
       hyphens: auto;
-      text-shadow: 2px 2px 0 rgba($c-black, .5);
+      text-shadow: 2px 2px 0 rgba($c-black, .3);
     }
     .address {
       display: block;

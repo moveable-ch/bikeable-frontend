@@ -160,11 +160,13 @@ export default {
           this.loadingData = false;
           this.$store.commit('LOAD_FINISH');
           this.$emit('updateHead');
+          window.prerenderReady = true;
         },
         (error) => {
           this.$store.commit('LOAD_FINISH');
           this.$router.push('/entries');
           this.$store.dispatch('handleError', 'Spot nicht gefunden');
+          window.prerenderReady = true;
         });
     },
 

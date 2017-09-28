@@ -1,3 +1,5 @@
+<!-- /about -->
+
 <template>
   <div class="contentpage about">
     <div class="container" v-if="doc">

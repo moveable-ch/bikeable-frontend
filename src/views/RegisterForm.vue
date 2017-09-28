@@ -1,3 +1,5 @@
+<!-- /register -->
+
 <template>
   <div class="register">
     <div class="container">
@@ -76,7 +78,7 @@ export default {
   @include desktop() {
     padding: 2rem 0;
   }
-  
+
   h1 {
     margin-bottom: 2rem;
   }

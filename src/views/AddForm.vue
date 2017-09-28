@@ -1,3 +1,5 @@
+<!-- /add -->
+
 <template>
   <div class="add">
     <map-modal-view
@@ -10,7 +12,6 @@
       <h1>Spot hinzufügen</h1>
       <form @submit.prevent="postEntry">
         <h3><span class="num">1</span>Fame or Shame?</h3>
-        <!--<span class="fametoggle-label">Guter Spot oder schlechter Spot?</span>-->
         <label class="fametoggle">
           <input type="checkbox" v-model="entryFamed" name="famed">
           <span class="slider">

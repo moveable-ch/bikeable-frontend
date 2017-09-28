@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Web frontend for bikeable.ch",
   "author": "Verein Bikeable",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js"

@@ -1,3 +1,5 @@
+<!-- /entries/{id} -->
+
 <template>
   <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed, 'is-fixed': currentEntry.fixed, 'pending': loadingData }">
     <div class="entry__container" v-if="!loadingData">

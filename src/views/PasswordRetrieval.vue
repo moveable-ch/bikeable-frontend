@@ -1,3 +1,5 @@
+<!-- /forgottenpw -->
+
 <template>
   <div class="password-retrieval">
     <div class="container">

@@ -1,3 +1,5 @@
+<!-- /faq -->
+
 <template>
   <div class="contentpage faq">
     <div class="container" v-if="doc">

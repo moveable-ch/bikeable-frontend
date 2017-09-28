@@ -1,3 +1,5 @@
+<!-- /partner -->
+
 <template>
   <div class="contentpage partner">
     <div class="container">

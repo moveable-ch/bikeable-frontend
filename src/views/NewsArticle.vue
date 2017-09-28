@@ -1,3 +1,5 @@
+<!-- /news/{id} -->
+
 <template>
   <div class="contentpage news">
     <div class="container" v-if="doc">

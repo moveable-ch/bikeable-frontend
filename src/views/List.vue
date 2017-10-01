@@ -1,7 +1,8 @@
+<!-- /entries -->
+
 <template>
   <div class="list">
     <div class="container list__container">
-      <!--<router-link v-if="isLoggedIn" to="/add" class="addlink">Spot hinzufügen</router-link>-->
       <div class="list__sort">
         <select v-model="entrySort" @change="setSort">
           <option value="votes">Upvotes</option>

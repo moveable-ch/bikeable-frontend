@@ -1,3 +1,5 @@
+<!-- /profile -->
+
 <template>
   <div class="v-profile">
     <div class="container">

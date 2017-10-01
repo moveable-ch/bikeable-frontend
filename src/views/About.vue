@@ -1,7 +1,29 @@
+<!-- /about -->
+
 <template>
   <div class="contentpage about">
     <div class="container" v-if="doc">
       <div v-html="doc.text"></div>
+
+      <div class="about__paypal">
+        <h3>Unterstütze uns via PayPal:</h3>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="QLV8ZWA3FCS3S">
+        <input type="image" src="https://www.paypalobjects.com/de_DE/CH/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal.">
+        <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+        </form>
+        <!--<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="HQFBMY4GKF2PW">
+        <table>
+        <tr><td><input type="hidden" name="on0" value="Werbeabo auf bikeable.ch">Werbeabo auf bikeable.ch</td></tr><tr><td><input type="text" name="os0" maxlength="200"></td></tr>
+        </table>
+        <input type="image" src="https://www.paypalobjects.com/de_DE/CH/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal.">
+        <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+        </form>-->
+
+      </div>
     </div>
   </div>
 </template>

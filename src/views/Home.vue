@@ -1,3 +1,5 @@
+<!-- / -->
+
 <template>
   <div class="home">
     <div class="home__intro" v-if="!isLoggedIn">
@@ -17,6 +19,12 @@
           <!--<p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>-->
           <router-link to="/register" class="home__intro__cta">Jetzt registrieren</router-link>
         </div>
+      </div>
+    </div>
+
+    <div v-if="isLoggedIn" class="home__add">
+      <div class="home__add__inner">
+        <router-link to="/add" class="home__add__cta">Spot hinzufügen</router-link>
       </div>
     </div>
 
@@ -42,14 +50,55 @@
         <h2>Bikeable News</h2>
         <div class="home__news__container">
           <div class="home__news__item" v-for="article in news">
-            <router-link :to="'/news/' + article.id"><img class="home__news__image" :src="article.image"></router-link>
+            <router-link class="home__news__imagewrap" :to="'/news/' + article.id"><img class="home__news__image" :src="article.image"></router-link>
             <div class="home__news__content">
+              <span class="home__news__date">{{ article.date }}</span>
               <h3><router-link :to="'/news/' + article.id">{{ article.title }}</router-link></h3>
               <p>{{ article.abstract }}</p>
               <router-link class="home__news__more" :to="'/news/' + article.id">Mehr</router-link>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="home__newsletter">
+      <div class="container">
+        <h2>Newsletter</h2>
+        <p>Melde dich hier für unseren Newsletter an und erfahre regelmässig, was bei bikeable läuft.<br>Kein Spam imfall!</p>
+        <!-- Begin MailChimp Signup Form -->
+        <div id="mc_embed_signup">
+          <form action="//bikeable.us15.list-manage.com/subscribe/post?u=5a9614abf208b7faae96233ff&amp;id=6d62b30edc" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+            <div id="mc_embed_signup_scroll">
+              <div class="mc-field-group">
+                <label>
+                  <span>Email Adresse</span>
+                  <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+                </label>
+              </div>
+              <div class="mc-field-group">
+                <label>
+                  <span>Vorname</span>
+                  <input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+                </label>
+              </div>
+              <div class="mc-field-group">
+                <label>
+                  <span>Nachname</span>
+                  <input type="text" value="" name="LNAME" class="" id="mce-LNAME">
+                </label>
+              </div>
+              <div id="mce-responses" class="clear">
+                <div class="response" id="mce-error-response" style="display:none"></div>
+                <div class="response" id="mce-success-response" style="display:none"></div>
+              </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+              <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_5a9614abf208b7faae96233ff_6d62b30edc" tabindex="-1" value=""></div>
+              <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn"></div>
+            </div>
+          </form>
+        </div>
+
+        <!--End mc_embed_signup-->
       </div>
     </div>
   </div>
@@ -145,6 +194,8 @@ export default {
         y.questions = payload.results.slice(0,3).map((x) => {
           const z = {};
           z.id = x.id;
+          let date = new Date(x.firstPublicationDate);
+          z.date = date.toLocaleDateString('de-DE');
           z.title = x.getText('news.news_title');
           z.abstract = x.getText('news.news_abstract');
           z.image = x.getImage('news.news_image').views.preview.url;
@@ -176,6 +227,13 @@ export default {
 
 .home {
 
+  &__newsletter {
+
+    p {
+      margin-bottom: 2rem;
+    }
+  }
+
   &__news {
     margin: 3rem 0;
 
@@ -206,17 +264,32 @@ export default {
       margin-top: 1rem;
     }
 
+    &__date {
+      font-size: .8rem;
+      background-color: $c-grey-dark;
+      color: #888;
+      padding: 4px 8px;
+    }
+
     &__content {
       padding-left: 1rem;
       padding-top: 0;
 
       h3 {
-        line-height: 1.1;
-        font-size: 1.5rem;
+        line-height: 1;
+        font-size: 1.75rem;
         margin-bottom: .75rem;
+        text-transform: uppercase;
+        font-family: $f-head;
+        margin-top: .4rem;
 
         a {
+          color: $c-main;
           text-decoration: none;
+
+          &:hover {
+            color: $c-black;
+          }
         }
       }
 
@@ -237,8 +310,8 @@ export default {
       // box-shadow: 2px 2px 0 0 $c-grey-dark;
 
       @include desktop() {
-        width: 200px;
-        height: 200px;
+        width: 250px;
+        height: 250px;
       }
     }
   }
@@ -295,10 +368,15 @@ export default {
           opacity: 1;
         }
       }
-      &.famed:hover {
-        .home__spots__image::after {
-          opacity: .6;
-          transform: rotate(-15deg);
+      &.famed {
+        &:hover {
+          .home__spots__image::after {
+            opacity: .6;
+            transform: rotate(-15deg);
+          }
+        }
+        .meta {
+          background-color: $c-main;
         }
       }
     }
@@ -313,6 +391,7 @@ export default {
 
       @include desktop {
       }
+
     }
     &__image {
       display: block;
@@ -377,7 +456,7 @@ export default {
       line-height: 1;
       margin-bottom: .2rem;
       hyphens: auto;
-      text-shadow: 2px 2px 0 rgba($c-black, .5);
+      text-shadow: 2px 2px 0 rgba($c-black, .3);
     }
     .address {
       display: block;
@@ -406,6 +485,32 @@ export default {
       @include desktop() {
         font-size: .75rem;
       }
+    }
+  }
+
+  &__add {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-image: linear-gradient(-220deg, #FCFFD6 0%, #E2FDFF 100%);
+
+    @include desktop {
+      margin: 1rem auto;
+    }
+
+    &__inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 6rem;
+    }
+    &__cta {
+      display: inline-block;
+      font-size: 1rem;
+      background-color: $c-main;
+      padding: 1rem 2rem;
+      border-radius: 4px;
+      color: $c-grey;
+      box-shadow: 0 2px 0 0 lighten($c-main, 30%);
     }
   }
 
@@ -493,20 +598,34 @@ export default {
       }
     }
     &__cta {
-      font-family: $f-body;
+      display: inline-block;
+      font-family: $f-head;
+      font-size: 1.25rem;
       text-decoration: none;
-      margin-left: 1rem;
       font-weight: 400;
+      margin-left: 2rem;
+      letter-spacing: .03rem;
+      text-transform: uppercase;
+      transform: skew(0, -4deg);
+      color: $c-highlight;
+      // border-bottom: 2px solid $c-highlight;
+      opacity: 0;
+      animation: headline 1s ease-out .6s 1 normal forwards;
 
       &::before {
         content: "→";
         margin-right: .5rem;
+        text-decoration: none;
       }
 
       @media screen and (max-width: 700px) {
         position: absolute;
         bottom: 2rem;
         left: 0;
+      }
+
+      &:hover {
+        border-color: $c-black;
       }
     }
     h1 {
@@ -515,7 +634,7 @@ export default {
       font-weight: bold;
       font-size: 2.75rem;
       line-height: .9;
-      margin-bottom: 1rem;
+      margin-bottom: .25rem;
       transform-origin: 0% 0%;
       transform: skew(0, -4deg);
       text-shadow:
@@ -579,7 +698,7 @@ export default {
 
 @keyframes headline {
   0% {
-    transform: translateY(40px) skew(0, -4deg);
+    transform: translateY(30px) skew(0, -4deg);
     opacity: 0;
   }
   100% {

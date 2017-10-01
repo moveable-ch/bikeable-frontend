@@ -1,3 +1,5 @@
+<!-- /entries/{id} -->
+
 <template>
   <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed, 'is-fixed': currentEntry.fixed, 'pending': loadingData }">
     <div class="entry__container" v-if="!loadingData">
@@ -115,7 +117,7 @@ export default {
       return d.toLocaleDateString('de-DE');
     },
     entryUrl() {
-      return 'https://beta.bikeable.ch' + this.$route.fullPath;
+      return 'https://bikeable.ch' + this.$route.fullPath;
     },
     entryTitle() {
       if(!this.currentEntry.title) return 'what';

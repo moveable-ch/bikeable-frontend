@@ -10,7 +10,6 @@ import store from '@/store'
 Vue.use(VueHead);
 Vue.use(SocialSharing);
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   store,

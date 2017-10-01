@@ -57,7 +57,7 @@ export default {
     showEntry() {
       if(this.isEmbed) {
         window.open(
-          'https://beta.bikeable.ch/entries/' + this.entryId,
+          'https://bikeable.ch/entries/' + this.entryId,
           '_blank'
         );
       } else {

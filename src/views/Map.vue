@@ -1,3 +1,5 @@
+<!-- /map -->
+
 <template>
   <div class="map">
     <c-entry-modal v-if="showModal" @close="showModal = false" :entryId="activeEntryId" :markerOffset="markerOffset"></c-entry-modal>

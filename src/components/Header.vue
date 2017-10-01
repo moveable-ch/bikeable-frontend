@@ -6,6 +6,7 @@
       <nav>
         <ul>
           <li><router-link to="/" exact>Home</router-link></li>
+          <li><router-link to="/news" exact>News</router-link></li>
           <li><router-link to="/entries" exact>Spots</router-link></li>
           <li><router-link to="/map" exact>Map</router-link></li>
         </ul>

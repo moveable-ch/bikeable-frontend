@@ -1,3 +1,5 @@
+<!-- /news -->
+
 <template>
   <div class="contentpage newsarchive">
     <div class="container" v-if="news">

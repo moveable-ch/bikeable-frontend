@@ -78,7 +78,11 @@ export default {
           clickableIcons: false,
           gestureHandling: 'greedy',
           styles: mapstyle,
-          scrollwheel: false
+          scrollwheel: false,
+          zoomControlOptions: {
+            position: google.maps.ControlPosition.RIGHT_TOP,
+          },
+          fullscreenControl: false
         });
 
         this.addMarker();

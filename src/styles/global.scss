@@ -40,13 +40,13 @@ strong {
 
 h1, h2, h3 {
   font-family: $f-head;
-  font-weight: 400;
+  font-weight: 700;
   color: $c-black;
   text-transform: uppercase;
+  font-style: normal;
 }
 h1 {
   font-size: 2rem;
-  font-weight: 400;
   margin: 1rem 0 2rem 0;
   text-align: left;
 

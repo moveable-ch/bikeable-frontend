@@ -602,7 +602,7 @@ export default {
       font-family: $f-head;
       font-size: 1.25rem;
       text-decoration: none;
-      font-weight: 400;
+      font-weight: 700;
       margin-left: 2rem;
       letter-spacing: .03rem;
       text-transform: uppercase;

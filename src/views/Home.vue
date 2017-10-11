@@ -131,14 +131,6 @@ export default {
       news: {},
       spotCategories: [
         {
-          title: 'Top Spots',
-          spots: this.topSpots,
-          sort: 'votes',
-          meta(spot) {
-            return spot.votes + ' Votes';
-          }
-        },
-        {
           title: 'New Spots',
           spots: this.newSpots,
           sort: 'date',
@@ -146,6 +138,14 @@ export default {
             if(!spot.createdAt) return '';
             let d = new Date(spot.createdAt);
             return d.toLocaleDateString('de-DE');
+          }
+        },
+        {
+          title: 'Top Spots',
+          spots: this.topSpots,
+          sort: 'votes',
+          meta(spot) {
+            return spot.votes + ' Votes';
           }
         }
       ]

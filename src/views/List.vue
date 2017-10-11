@@ -5,10 +5,10 @@
     <div class="container list__container">
       <div class="list__sort">
         <select v-model="entrySort" @change="setSort">
+          <option value="date">Datum</option>
           <option value="votes">Upvotes</option>
           <option v-if="userCoords" value="distance">Distanz</option>
           <option value="comments">Kommentare</option>
-          <option value="date">Datum</option>
         </select>
       </div>
       <div class="list__tabs">
@@ -67,7 +67,7 @@ export default {
     return {
       listSpots: [],
       entryFilter: null,
-      entrySort: 'votes',
+      entrySort: 'date',
       entrySortDesc: true,
       displayEntryCount: 15
     }

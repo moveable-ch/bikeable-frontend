@@ -2,7 +2,7 @@ import spots from '../../api/spots';
 
 const state = {
   allSpots: [],
-  listSort: 'votes',
+  listSort: 'date',
   listFilter: null
 }
 

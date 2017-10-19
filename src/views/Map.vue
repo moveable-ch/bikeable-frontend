@@ -91,8 +91,11 @@ export default {
       GoogleMapsLoader.load(function(google) {
         this.google = google;
 
+        let center = {lat: 47.377235, lng: 8.5314407};
+        if(this.userCoords) center = this.userCoords;
+
         this.map = new google.maps.Map(this.$refs.gmaps, {
-          center: {lat: 47.377235, lng: 8.5314407},
+          center: center,
           zoom: 15,
           disableDefaultUI: false,
           clickableIcons: false,

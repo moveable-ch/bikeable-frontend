@@ -57,7 +57,7 @@ export default {
       return this.userData.profile.avatar.small;
     },
     imagePreviewUrl() {
-      return 'https://backend.bikeable.ch/api/v1/photos/' + this.imageId + '?size=small';
+      return 'https://backend.bikeable.ch/api/v1/photos/' + this.imageId + '?store=small';
     }
   },
 

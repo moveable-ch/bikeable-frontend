@@ -2,27 +2,32 @@
 
 <template>
   <div class="list">
+    <div class="list__controls">
+      <div class="container">
+        <div class="list__tabs">
+          <a href="#" class="list__tabs__item" @click.prevent="entryFilter = null" v-bind:class="{ active: isCurrentFilter(null) }">Alle Spots</a>
+          <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--bad" @click.prevent="entryFilter = 'shamed'" v-bind:class="{ active: isCurrentFilter('shamed') }"><span>Shame</span></a>
+          <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--good" @click.prevent="entryFilter = 'famed'" v-bind:class="{ active: isCurrentFilter('famed') }"><span>Fame</span></a>
+        </div>
+        <div class="list__sort">
+          <span>Sortieren nach:</span>
+          <select v-model="entrySort" @change="setSort">
+            <option value="date">Aktualität</option>
+            <option value="votes">Beliebtheit</option>
+            <option v-if="userCoords" value="distance">Nähe</option>
+            <option value="comments">Kommentare</option>
+          </select>
+        </div>
+      </div>
+    </div>
     <div class="container list__container">
-      <div class="list__sort">
-        <select v-model="entrySort" @change="setSort">
-          <option value="date">Datum</option>
-          <option value="votes">Upvotes</option>
-          <option v-if="userCoords" value="distance">Distanz</option>
-          <option value="comments">Kommentare</option>
-        </select>
-      </div>
-      <div class="list__tabs">
-        <a href="#" class="list__tabs__item" @click.prevent="entryFilter = null" v-bind:class="{ active: isCurrentFilter(null) }">Alle Spots</a>
-        <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--bad" @click.prevent="entryFilter = 'shamed'" v-bind:class="{ active: isCurrentFilter('shamed') }"><span>Shame</span></a>
-        <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--good" @click.prevent="entryFilter = 'famed'" v-bind:class="{ active: isCurrentFilter('famed') }"><span>Fame</span></a>
-      </div>
       <ul class="list__entries">
         <li v-for="entry in listSpots" class="list-entry" v-if="listSpots" v-bind:class="{ famed: entry.famed }" v-bind:key="entry._id">
           <router-link :to="'/entries/' + entry._id" class="list-entry__link">
             <span class="list-entry__image" :style="{ backgroundImage: 'url(' + entry.photo.small.url + ')' }"></span>
             <span class="list-entry__content">
+              <span class="list-entry__date"><strong>{{ formatDate(entry.createdAt) }}</strong> • {{ entry.user.name }}</span>
               <h3>{{ entry.title }}</h3>
-              <span class="list-entry__date">{{ entry.user.name }}, {{ formatDate(entry.createdAt) }}</span>
               <span class="list-entry__location">{{ entry.address }}</span>
               <span v-if="entry.distance" class="list-entry__distance">{{ entry.distance }}m entfernt</span>
               <span class="list-entry__meta list-entry__meta--votes">{{ entry.votes }}</span>
@@ -141,14 +146,31 @@ export default {
 @import '../styles/helpers';
 
 .list {
-  padding: 1rem 0 4rem 0;
+  padding: 0 0 4rem 0;
+  background: #fafafa;
 
   @include desktop {
-    padding: 2rem 1rem;
+    padding: 0 0 4rem 0;
+    margin-bottom: -8rem;
+  }
+
+  &__controls {
+    background-color: $c-blue;
+    padding-top: 1rem;
+    position: relative;
+
+    @include desktop {
+      padding-top: 3rem;
+    }
   }
 
   &__container {
     position: relative;
+    padding: 0 .5rem;
+
+    @include desktop {
+      padding: 0 1rem;
+    }
   }
   .addlink {
     display: block;
@@ -277,46 +299,46 @@ export default {
     }
 
     .list-entry {
-      margin-bottom: 1rem;
-      // border: 2px solid lighten($c-highlight, 35%);
-      // padding: 2px;
+      margin-bottom: .5rem;
 
       &__distance {
         display: block;
-        color: $c-black;
-        font-size: .7rem;
+        color: lighten($c-black, 40%);
+        font-size: .8rem;
         font-weight: 400;
       }
       &__location {
         display: block;
-        font-size: .75rem;
+        font-size: .8rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         width: 100%;
         margin-bottom: .2rem;
         font-family: $f-body;
-        color: #888;
+        line-height: 1.3;
+        // color: #888;
       }
       &__date {
         display: block;
-        font-size: .7rem;
-        color: #888;
+        font-size: .8rem;
         margin-bottom: .4rem;
       }
       &__link {
-        display: flex;
+        display: block;
+        padding-left: 6rem;
         align-items: top;
         width: 100%;
         margin: 0 auto;
         text-decoration: none;
         color: #333;
-        // background-color: #fafafa;
-        // padding: .5rem;
+        background-color: #fff;
+        border: 1px solid $c-grey-dark;
         box-sizing: border-box;
-        // border-left: 4px solid $c-highlight;
         position: relative;
         transition: .2s background-color;
+        border-radius: 4px;
+        overflow: hidden;
 
         &::after {
           content: "";
@@ -331,7 +353,7 @@ export default {
         }
 
         &:hover, &:focus {
-          background-color: #fafafa;
+          border-color: #ccc;
 
           h3 {
             color: $c-highlight;
@@ -350,48 +372,34 @@ export default {
         }
 
         @include desktop() {
-          // padding: 1rem;
+          padding-left: 10rem;
         }
       }
       &__content {
-        flex-shrink: 1;
-        overflow: hidden;
+        display: block;
+        // overflow: hidden;
         text-overflow: ellipsis;
-        z-index: 1;
+        padding: .75rem 1rem;
+        position: relative;
+        z-index: 5;
+
+        @include desktop {
+          padding: 1rem 1.5rem;
+        }
       }
       &__image {
-        flex-shrink: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
         display: block;
-        width: 5rem;
-        height: 6rem;
+        width: 6rem;
+        height: 100%;
         background-size: cover;
         background-position: center;
-        margin: 0 1rem 0 0;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        box-sizing: border-box;
-        box-shadow: 4px 4px 0 0 $c-highlight;
-
-        &::after {
-          content: "";
-          display: none;
-          width: 100%;
-          height: 100%;
-          position: absolute;
-          top: 0;
-          left: 0;
-          background-color: $c-highlight;
-          opacity: .2;
-          mix-blend-mode: color;
-          transition: .2s opacity;
-          // transition: .1s opacity;
-        }
 
         @include desktop() {
           width: 10rem;
-          height: 7rem;
-          margin: 0 1rem 0 0;
+          height: 100%;
         }
       }
       &__meta {
@@ -399,9 +407,11 @@ export default {
         display: inline-block;
         padding-left: 24px;
         margin-right: 1rem;
-        margin-top: .7rem;
-        color: #888;
+        margin-top: 1rem;
+        // color: #888;
         font-family: $f-body;
+        font-size: .8rem;
+        font-weight: 700;
         transition: .2s color;
 
         &::before {
@@ -415,8 +425,6 @@ export default {
           background-size: 100%;
           background-position: center;
           background-repeat: no-repeat;
-          opacity: .5;
-          transition: .2s opacity;
         }
         &--votes::before {
           background-image: url('../assets/upvote-small-filled.png');
@@ -437,16 +445,47 @@ export default {
       h3 {
         font-family: $f-body;
         text-transform: none;
-        font-size: 1.25rem;
+        font-size: 1rem;
         font-weight: 600;
-        margin-bottom: .2rem;
+        margin-bottom: .25rem;
+        margin-top: .25rem;
         color: $c-black;
-        transition: .2s color;
+        // transition: .2s color;
+        position: relative;
+        padding-left: 0;
         line-height: 1.1;
-        margin-top: .5rem;
+        padding-top: 6px;
+        padding-bottom: 10px;
 
-        @include desktop() {
-          font-size: 1.1rem;
+        @include desktop {
+          line-height: 32px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          padding: 0;
+          padding-left: 40px;
+        }
+
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          left: -38px;
+          width: 32px;
+          height: 32px;
+          background-size: 100%;
+          background-repeat: no-repeat;
+          background-image: url('../assets/list-icon-shame.png');
+          @include retina {
+            background-image: url('../assets/list-icon-shame@2x.png');
+          }
+
+          @include desktop {
+            left: 0;
+            width: 32px;
+            height: 32px;
+          }
         }
       }
 
@@ -459,11 +498,11 @@ export default {
         .list-entry__link:hover h3, .list-entry__link:focus h3 {
           color: $c-main;
         }
-        .list-entry__link {
-          border-color: $c-main;
-        }
-        .list-entry__image {
-          box-shadow: 4px 4px 0 0 $c-main;
+        h3::before {
+          background-image: url('../assets/list-icon-fame.png');
+          @include retina {
+            background-image: url('../assets/list-icon-fame@2x.png');
+          }
         }
       }
 
@@ -472,25 +511,25 @@ export default {
   .showmore {
     display: block;
     text-align: center;
-    margin: 4rem auto 0 auto;
-    border: 2px solid $c-main;
+    margin: 2rem auto 0 auto;
+    background-color: #fff;
+    color: $c-black;
+    border: 1px solid $c-grey-dark;
     max-width: 10rem;
-    padding: 1rem;
+    padding: .75rem 1rem;
     text-decoration: none;
     font-size: .8rem;
-    color: $c-black;
+    border-radius: 4px;
     width: 100%;
 
     &:hover {
-      color: $c-main;
+      border-color: $c-black;
     }
   }
 
   &__tabs {
-    margin: 1rem 0 1rem 0;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 3.5rem;
-    padding-left: .5rem;
+    margin: 0 0 1rem 0;
+    margin-bottom: 2.5rem;
 
     @include desktop() {
       padding-bottom: 0;
@@ -500,29 +539,38 @@ export default {
     &__item {
       display: inline-block;
       text-decoration: none;
-      padding: 0 1rem;
+      padding: 0 .5rem;
       width: 32%;
-      font-size: .75rem;
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .02rem;
+      white-space: nowrap;
       text-align: center;
       height: 2rem;
       line-height: 2rem;
-      border: 1px solid #ddd;
-      color: #888;
       position: relative;
-      bottom: -1px;
-      background-color: #fafafa;
+      bottom: 0;
+      background-color: $c-grey;
       box-sizing: border-box;
+      border-bottom: 2px solid $c-blue;
+      color: lighten($c-black, 60%);
+      margin-right: -2px;
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
 
       @include desktop() {
         width: 7rem;
+        font-size: .7rem;
+      }
+
+      &:hover::before {
+        opacity: 1;
       }
 
       &.active {
-        border-color: $c-black;
-        border-bottom-color: #fff;
-        background-color: #fff;
+        border-bottom-color: $c-grey;
+        background-color: $c-grey;
         color: $c-black;
       }
 
@@ -534,30 +582,35 @@ export default {
         &::before {
           content: "";
           display: block;
-          width: 2.5rem;
-          height: 2.5rem;
+          width: 20px;
+          height: 20px;
           background-size: 100%;
           position: absolute;
-          top: -.25rem;
+          top: 50%;
           left: 50%;
-          margin-left: -1.25rem;
-          background-image: url('../assets/thumbs-down.png');
-          opacity: .6;
-          transform: scale(.8);
-          transition: .2s transform $easeOutQuint, .2s opacity;
+          margin-left: -10px;
+          margin-top: -10px;
+          background-image: url('../assets/tab-shame.png');
+          opacity: .4;
+
+          @include desktop {
+            width: 27px;
+            height: 27px;
+            margin-left: -13px;
+            margin-top: -13px;
+          }
         }
 
         &.active {
 
           &::before {
             opacity: 1;
-            transform: scale(1);
           }
         }
       }
       &--good {
         &::before {
-          background-image: url('../assets/thumbs-up.png');
+          background-image: url('../assets/tab-fame.png');
         }
       }
     }
@@ -565,37 +618,32 @@ export default {
 
   &__sort {
     position: absolute;
-    top: 2.5rem;
+    top: 2rem;
     right: 1rem;
+    font-size: .8rem;
 
     @include desktop() {
-      top: 0;
-    }
-
-    &::after {
-      content: "↙";
-      position: absolute;
-      left: 0rem;
-      top: .5rem;
-      color: #888;
-      pointer-events: none;
-      transform: rotate(-45deg);
+      bottom: 0;
+      right: 1rem;
+      top: auto;
     }
 
     select {
       font-family: $f-body;
-      color: #888;
+      color: $c-black;
       padding: 0;
-      font-size: .9rem;
-      width: 100%;
+      font-size: .8rem;
+      font-weight: 700;
+      width: auto;
       border: none;
+      text-decoration: underline;
       border-radius: 0;
       box-shadow: none;
       background: transparent;
       background-image: none;
       -webkit-appearance: none;
-      padding-left: 1.5rem;
       line-height: 2rem;
+      margin-left: .5rem;
 
       &::-ms-expand {
         display: none;

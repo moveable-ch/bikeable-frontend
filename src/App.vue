@@ -7,7 +7,7 @@
       <div class="msg" v-if="msg"><span>{{ msg }}</span></div>
     </transition>
     <c-header v-if="!isEmbed"></c-header>
-      <router-view></router-view>
+    <router-view></router-view>
     <c-footer v-if="showFooter"></c-footer>
   </div>
 </template>

@@ -381,7 +381,7 @@ export default {
         text-overflow: ellipsis;
         padding: .75rem 1rem;
         position: relative;
-        z-index: 5;
+        z-index: 2;
 
         @include desktop {
           padding: 1rem 1.5rem;

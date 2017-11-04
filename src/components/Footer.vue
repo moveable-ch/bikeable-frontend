@@ -112,7 +112,7 @@ export default {
   }
 
   .partner {
-    background-color: $c-grey-dark;
+    background-color: $c-blue;
     padding: 1.5rem 0;
     margin-top: 1.5rem;
     color: #000;

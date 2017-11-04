@@ -49,10 +49,14 @@ h1 {
   font-size: 2rem;
   margin: 1rem 0 2rem 0;
   text-align: left;
+  transform: skew(0, -2deg);
+  text-shadow: 2px 2px 0 lighten($c-main, 30%);
 
   @include desktop() {
     font-size: 3.5rem;
-    margin: 2rem 0 3rem 0;
+    margin: 2rem 0 2rem 0;
+    transform: skew(0, -2deg) translateX(-10px);
+    text-shadow: 3px 3px 0 lighten($c-main, 30%);
   }
 }
 p + h1 {
@@ -249,7 +253,7 @@ textarea {
   }
 
   p {
-    line-height: 1.6;
+    line-height: 1.5;
   }
 
   ul {

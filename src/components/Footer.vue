@@ -61,6 +61,8 @@ export default {
   width: 100%;
   color: #000;
   text-align: center;
+  border-bottom: 1px solid $c-grey-dark;
+  border-top: 1px solid $c-grey-dark;
 
   strong {
     font-weight: 700;

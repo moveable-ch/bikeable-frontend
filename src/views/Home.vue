@@ -28,13 +28,13 @@
       </div>
     </div>
 
-    <div class="home__spots" v-for="cat in spotCategories">
+    <div class="home__spots" v-for="cat in spotCategories" v-bind:key="cat.id">
       <div class="container">
         <h2>{{ cat.title}}</h2>
         <div class="home__spots__container">
           <router-link :to="'/entries/' + spot._id" class="home__spots__item" v-for="spot in cat.spots" :key="spot._id" v-bind:class="{ famed: spot.famed }">
-            <span class="home__spots__image" :style="'background-image: url(' + spot.photo.medium.url + ')'"></span>
-            <span class="home__spots__content">
+            <span v-if="spot.photo" class="home__spots__image" :style="'background-image: url(' + spot.photo.medium.url + ')'"></span>
+            <span v-if="spot.title" class="home__spots__content">
               <span class="meta">{{ cat.meta(spot) }}</span>
               <h3>{{ spot.title }}</h3>
               <span class="address">{{ spot.address }}</span>
@@ -49,7 +49,7 @@
       <div class="container">
         <h2>Bikeable News</h2>
         <div class="home__news__container">
-          <div class="home__news__item" v-for="article in news">
+          <div class="home__news__item" v-for="article in news" v-bind:key="article.id">
             <router-link class="home__news__imagewrap" :to="'/news/' + article.id"><img class="home__news__image" :src="article.image"></router-link>
             <div class="home__news__content">
               <span class="home__news__date">{{ article.date }}</span>
@@ -131,8 +131,9 @@ export default {
       news: {},
       spotCategories: [
         {
+          id: 0,
           title: 'New Spots',
-          spots: this.newSpots,
+          spots: [{},{},{},{}],
           sort: 'date',
           meta(spot) {
             if(!spot.createdAt) return '';
@@ -141,8 +142,9 @@ export default {
           }
         },
         {
+          id: 1,
           title: 'Top Spots',
-          spots: this.topSpots,
+          spots: [{},{},{},{}],
           sort: 'votes',
           meta(spot) {
             return spot.votes + ' Votes';
@@ -175,6 +177,7 @@ export default {
           .then((entries) => {
             this.$store.commit('LOAD_FINISH');
             cat.spots = entries;
+            console.log(entries);
           },
           (error) => {
             this.$store.commit('LOAD_FINISH');
@@ -340,6 +343,7 @@ export default {
       }
     }
     &__item {
+      background-color: #f0f0f0;
       display: block;
       text-decoration: none;
       width: 100%;

@@ -7,9 +7,7 @@
       <div class="msg" v-if="msg"><span>{{ msg }}</span></div>
     </transition>
     <c-header v-if="!isEmbed"></c-header>
-    <transition :name="transitionName" mode="out-in">
       <router-view></router-view>
-    </transition>
     <c-footer v-if="showFooter"></c-footer>
   </div>
 </template>

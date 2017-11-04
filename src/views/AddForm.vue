@@ -11,8 +11,21 @@
     <div class="container">
       <h1>Spot hinzufügen</h1>
       <form @submit.prevent="postEntry">
+        <h3><span class="num">1</span>Foto</h3>
+        <span class="label">Lade ein Bild von deinem Spot hoch</span>
+        <div class="file-upload">
+          <div class="file-upload__form" v-if="!imageChosen">
+            <label for="add-file">Bild wählen</label>
+            <input id="add-file" @change.prevent="uploadImage" type="file">
+          </div>
+          <span class="file-upload__pending" v-if="!imageId && imageChosen">Loading</span>
+          <div class="file-upload__preview" v-if="imageId">
+            <a href="#" class="file-upload__preview__close" @click.prevent="resetImage">×</a>
+            <img v-bind:src="imagePreviewUrl" @error="imageLoadError">
+          </div>
+        </div>
         <div class="fameorshame">
-          <h3><span class="num">1</span>Fame or Shame?</h3>
+          <h3><span class="num">2</span>Fame or Shame?</h3>
           <div class="checkboxes">
             <input id="fame" type="radio" name="fameorshame" value="famed" v-model="entryFamed">
             <label for="fame" class="fameradio-label radio-label">
@@ -24,7 +37,7 @@
             </label>
           </div>
         </div>
-        <h3><span class="num">2</span>Adresse</h3>
+        <h3><span class="num">3</span>Adresse</h3>
         <label>
           <span>Wo befindet sich dein Spot?</span>
           <input placeholder="Adresse eingeben" type="text" v-model="entryAddress" v-bind:class="{ inactive: addressPending }" v-on:blur="checkAddress">
@@ -32,19 +45,6 @@
         <div class="address-btns">
           <a href="#" class="address-btn address-btn--userloc" v-bind:class="{ disabled: !userCoords }" @click.prevent="handleUserCoords">Aktuellen Standort einfügen</a>
           <a href="#" class="address-btn address-btn--map" @click.prevent="showMapModal = true">Standort auf Karte wählen</a>
-        </div>
-        <h3><span class="num">3</span>Bild</h3>
-        <span class="label">Lade ein Foto von deinem Spot hoch</span>
-        <div class="file-upload">
-          <div class="file-upload__form" v-if="!imageChosen">
-            <label for="add-file">Bild wählen</label>
-            <input id="add-file" @change.prevent="uploadImage" type="file">
-          </div>
-          <span class="file-upload__pending" v-if="!imageId && imageChosen">Loading</span>
-          <div class="file-upload__preview" v-if="imageId">
-            <a href="#" class="file-upload__preview__close" @click.prevent="resetImage">×</a>
-            <img v-bind:src="imagePreviewUrl" @error="imageLoadError">
-          </div>
         </div>
         <h3><span class="num">4</span>Beschreibung</h3>
         <label>
@@ -382,11 +382,13 @@ export default {
   }
 
   input+label {
-    opacity: 0.2;
+    opacity: .4;
+    transform: scale(.9);
   }
 
   input:checked+label {
     opacity: 1.0;
+    transform: scale(1.1);
   }
 
   input:hover+label {
@@ -395,12 +397,12 @@ export default {
 
   label {
     cursor: pointer;
-    transition: all .25s ease-in-out;
-    opacity: 0.2;
+    transition: opacity .4s $easeOutQuint, transform .4s $easeOutQuint;
+    opacity: .2;
     position: relative;
     display: block;
     font-size: .8rem;
-    margin: 1rem 0 2rem 0;
+    margin: 1rem 0 1rem 0;
     width: 5.4rem;
     height: 7rem;
     background-size: 5.4rem 5.4rem;

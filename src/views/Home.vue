@@ -343,7 +343,7 @@ export default {
       }
     }
     &__item {
-      background-color: #f0f0f0;
+      background-color: $c-grey;
       display: block;
       text-decoration: none;
       width: 100%;
@@ -392,10 +392,6 @@ export default {
       position: absolute;
       bottom: 1rem;
       left: 1rem;
-
-      @include desktop {
-      }
-
     }
     &__image {
       display: block;
@@ -407,9 +403,6 @@ export default {
       background-size: cover;
       background-position: center;
       position: relative;
-
-      @include desktop() {
-      }
 
       &::after {
         content: "";
@@ -455,12 +448,16 @@ export default {
     h3 {
       font-family: $f-head;
       text-transform: uppercase;
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       color: inherit;
       line-height: 1;
       margin-bottom: .2rem;
       hyphens: auto;
       text-shadow: 2px 2px 0 rgba($c-black, .3);
+
+      @include desktop {
+        font-size: 1.75rem;
+      }
     }
     .address {
       display: block;
@@ -535,6 +532,10 @@ export default {
       height: 550px;
       margin-top: 0;
       padding-top: 0;
+    }
+
+    .container {
+      position: static;
     }
 
     &__content {

@@ -1,10 +1,21 @@
 <template>
   <div class="entry-media" v-bind:class="{ 'is-expanded': isExpanded }">
+    <div class="entry-media__viewer">
+      <div
+        v-bind:class="{ visible: !showMap }"
+        v-bind:style="'background-image: url(' + img + ')'"
+        class="entry-media__image">
+      </div>
+      <div v-bind:class="{ visible: showMap }" class="entry-media__map">
+        <div class="gmaps" id="gmaps" ref="gmaps"></div>
+      </div>
+    </div>
     <div class="controls">
       <a
         class="controls__btn controls__btn--view"
         @click.prevent="showMap = !showMap"
         v-bind:class="{ active: showMap }"
+        title="Ansicht wechseln"
         href="#">
         <span class="sr-only">Switch View</span>
       </a>
@@ -12,15 +23,15 @@
         class="controls__btn controls__btn--expand"
         @click.prevent="isExpanded = !isExpanded"
         v-bind:class="{ active: isExpanded }"
+        title="Vollbild"
         href="#">
         <span class="sr-only">Fullscreen</span>
       </a>
-    </div>
-    <div v-bind:class="{ visible: !showMap }" class="entry-media__image">
-      <img :src="img">
-    </div>
-    <div v-bind:class="{ visible: showMap }" class="entry-media__map">
-      <div class="gmaps" id="gmaps" ref="gmaps"></div>
+      <div class="share">
+        <a class="share__button share__button--fb" target="_blank" :href="'https://www.facebook.com/sharer/sharer.php?u=' + entryUrl"></a>
+        <a class="share__button share__button--twitter" target="_blank" :href="'https://twitter.com/home?status=' + entryUrl"></a>
+        <a class="share__button share__button--mail" :href="'mailto:?subject=' + title + '&body=' + entryUrl"></a>
+      </div>
     </div>
   </div>
 </template>
@@ -32,7 +43,7 @@ import GoogleMapsLoader from 'google-maps';
 
 export default {
   name: 'c-entry-media',
-  props: ['img', 'coords', 'famed'],
+  props: ['img', 'coords', 'entryUrl', 'title'],
   components: {
   },
   data () {
@@ -107,17 +118,19 @@ export default {
 @import '../styles/helpers';
 
 .entry-media {
-  position: absolute;
-  top: -1rem;
-  left: 0;
+  position: relative;
   display: block;
-  margin: 1rem auto;
   width: 100%;
-  height: 15rem;
-  background-color: $c-black;
+  height: auto;
+  background-color: #fff;
   overflow: hidden;
   z-index: 2;
   transition: .1s height $easeOutQuint, .1s width $easeOutQuint, .1s top, .1s left;
+
+  @include desktop() {
+    border: 1px solid $c-grey-dark;
+    border-radius: 4px;
+  }
 
   &.is-expanded {
     height: calc(100vh - 3rem);
@@ -127,6 +140,11 @@ export default {
     top: 3rem;
     left: 0;
     margin: 0;
+    border: none;
+
+    .entry-media__viewer {
+      height: calc(100% - 45px);
+    }
 
     @include desktop() {
       top: 5rem;
@@ -138,27 +156,36 @@ export default {
     // border-color: $c-main;
   }
 
+  &__viewer {
+    position: relative;
+    width: 100%;
+    height: 15rem;
+
+    @include desktop {
+      height: 25rem;
+    }
+  }
+
   .controls {
-    position: absolute;
-    bottom: 4px;
-    right: 4px;
-    z-index: 1;
+    position: relative;
     display: flex;
+    background-color: $c-grey;
+    border-top: 1px solid $c-grey-dark;
 
     &__btn {
       display: block;
-      width: 40px;
-      height: 40px;
-      background-color: lighten($c-black, 10%);
-      border: 1px solid lighten($c-black, 25%);
-      border-radius: 4px;
-      background-size: 100%;
+      width: 45px;
+      height: 45px;
+      // background-color: $c-black;
+      // border: 1px solid darken($c-black, 25%);
+      // border-radius: 4px;
+      background-size: 40px;
       background-repeat: no-repeat;
       background-position: center;
-      margin-left: 4px;
+      // margin-left: 4px;
 
       &:hover {
-        background-color: lighten($c-black, 15%);
+        background-color: #fff;
       }
 
       &--view {
@@ -223,9 +250,6 @@ export default {
         background-image: url('../assets/imagebutton@2x.png');
       }
     }
-    // &:hover {
-    //   background-color: $c-main;
-    // }
 
     .is-famed & {
       background-color: $c-main;
@@ -233,25 +257,14 @@ export default {
   }
 
   &__image {
-    width: 100%;
-    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-
-    // &.visible {
-    //   display: flex;
-    // }
-
-    img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-    }
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   &__map {
@@ -273,20 +286,47 @@ export default {
     }
   }
 
+  .share {
+    // display: none;
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    right: 0;
+    top: 0;
 
-  @include desktop() {
-    height: 25rem;
-    margin: 0 auto;
-    top: 2rem;
-    left: 2rem;
-    width: calc(100% - 2rem);
+    @include desktop() {
+    }
 
-    &__image {
+    &__button {
+      display: block;
+      width: 45px;
+      height: 45px;
+      background-size: 40px;
+      background-position: center;
 
-      img {
-        max-width: 100%;
-        max-height: 100%;
+      &--fb {
+        background-image: url('../assets/share-fb.png');
+        @include retina {
+          background-image: url('../assets/share-fb@2x.png');
+        }
       }
+      &--twitter {
+        background-image: url('../assets/share-twitter.png');
+        @include retina {
+          background-image: url('../assets/share-twitter@2x.png');
+        }
+      }
+      &--mail {
+        background-image: url('../assets/share-mail.png');
+        @include retina {
+          background-image: url('../assets/share-mail@2x.png');
+        }
+      }
+
+      &:hover {
+        background-color: #fff;
+      }
+
     }
   }
 }

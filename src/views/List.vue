@@ -594,6 +594,9 @@ export default {
           background-image: url('../assets/tab-shame.png');
           opacity: .4;
 
+          @include retina {
+            background-image: url('../assets/tab-shame@2x.png');
+          }
           @include desktop {
             width: 27px;
             height: 27px;
@@ -612,6 +615,9 @@ export default {
       &--good {
         &::before {
           background-image: url('../assets/tab-fame.png');
+          @include retina {
+            background-image: url('../assets/tab-fame@2x.png');
+          }
         }
       }
     }

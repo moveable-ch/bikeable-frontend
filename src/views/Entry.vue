@@ -6,13 +6,10 @@
       <div class="col">
         <entry-media-view
           :img="currentEntry.photo.large.url"
-          :coords="currentEntry.coords">
+          :coords="currentEntry.coords"
+          :entryUrl="entryUrl"
+          :title="currentEntry.title">
         </entry-media-view>
-        <div class="share">
-          <a class="share__button share__button--fb" target="_blank" :href="'https://www.facebook.com/sharer/sharer.php?u=' + entryUrl"></a>
-          <a class="share__button share__button--twitter" target="_blank" :href="'https://twitter.com/home?status=' + entryUrl"></a>
-          <a class="share__button share__button--mail" :href="'mailto:?subject=' + currentEntry.title + '&body=' + entryUrl"></a>
-        </div>
       </div>
       <div class="col">
         <div class="entry__user">
@@ -305,7 +302,6 @@ export default {
       padding: .25rem;
       border: 1px solid $c-grey-dark;
       border-radius: 4px;
-      box-shadow: 0 2px 0 0 rgba($c-grey, .5);
 
       &__image {
         width: 2.5rem;
@@ -380,7 +376,7 @@ export default {
       &:nth-child(2) {
         padding: 0 1rem;
         z-index: 1;
-        padding-top: 16rem;
+        padding-top: 1rem;
       }
 
       @include desktop() {
@@ -539,7 +535,7 @@ export default {
           top: 0;
           left: 0;
           background-color: #fff;
-          border: 1px solid #eee;
+          border: 1px solid $c-grey-dark;
           background-size: cover;
           background-position: center;
         }
@@ -557,50 +553,14 @@ export default {
         textarea {
           padding: .5rem;
           font-size: .8rem;
+          border-color: $c-grey-dark;
+          margin-bottom: .25rem;
           // height: 4rem;
         }
 
         @include desktop {
           margin-top: 4rem;
         }
-      }
-    }
-
-    .share {
-      margin-top: 26rem;
-      display: none;
-      justify-content: flex-end;
-
-      &__button {
-        display: block;
-        width: 40px;
-        height: 40px;
-        background-color: #fff;
-        background-size: 100%;
-        background-position: center;
-        margin-left: 5px;
-        border: 1px solid $c-grey-dark;;
-        border-radius: 4px;
-        transition: .2s border-color;
-
-        &--fb {
-          background-image: url('../assets/share-fb.png');
-        }
-        &--twitter {
-          background-image: url('../assets/share-twitter.png');
-        }
-        &--mail {
-          background-image: url('../assets/share-mail.png');
-        }
-
-        &:hover {
-          border-color: $c-black;
-        }
-
-      }
-      @include desktop() {
-        margin-top: 26rem;
-        display: flex;
       }
     }
   }

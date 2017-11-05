@@ -148,6 +148,7 @@ export default {
 .list {
   padding: 0 0 4rem 0;
   background: #fafafa;
+  margin-bottom: -1rem;
 
   @include desktop {
     padding: 0 0 4rem 0;

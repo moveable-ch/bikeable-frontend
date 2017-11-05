@@ -190,15 +190,18 @@ export default {
       top: 0;
       left: 0;
       border: 1px solid $c-grey-dark;
+      border-radius: 4px;;
     }
 
     &__body {
-      background-color: $c-grey;
+      background-color: #fff;
+      border: 1px solid $c-grey-dark;
       border-radius: 4px;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       margin-bottom: 0px;
       padding: 1rem;
+      overflow: hidden;
     }
     &__buttons {
       display: flex;
@@ -212,11 +215,12 @@ export default {
       text-align: center;
       color: #666;
       border: 1px solid $c-grey-dark;
+      border-top: none;
       background-color: $c-grey;
       width: 100%;
 
       &:hover {
-        background-color: $c-grey-dark;
+        background-color: #fff;
       }
 
       &--reply {
@@ -224,6 +228,7 @@ export default {
       }
       &--vote {
         border-bottom-left-radius: 4px;
+        border-right: none;
 
         .count {
           font-weight: 400;

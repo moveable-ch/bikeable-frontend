@@ -137,8 +137,8 @@ small {
     background-color: lighten($c-black, 10%);
   }
   &.disabled {
-    background-color: $c-grey;
-    border-color: $c-grey;
+    background-color: $c-grey-dark;
+    border-color: $c-grey-dark;
     pointer-events: none;
     color: #aaa;
   }

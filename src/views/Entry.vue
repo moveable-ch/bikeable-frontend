@@ -267,10 +267,16 @@ export default {
 
   .entry {
     margin: 0;
-    padding-bottom: 2rem;
+    padding-bottom: 4rem;
     font-family: $f-body;
     min-height: calc(100vh - 600px);
     position: relative;
+    background-color: $c-grey;
+    margin-bottom: -1rem;
+
+    @include desktop {
+      margin-bottom: -8rem;
+    }
 
     &::before {
       content: "";
@@ -291,12 +297,12 @@ export default {
     }
 
     &__user {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       font-size: .8rem;
       display: flex;
       align-items: center;
-      background-color: $c-grey;
-      padding: .5rem;
+      background-color: #fff;
+      padding: .25rem;
       border: 1px solid $c-grey-dark;
       border-radius: 4px;
       box-shadow: 0 2px 0 0 rgba($c-grey, .5);
@@ -307,8 +313,9 @@ export default {
         background-color: #fff;
         background-size: cover;
         background-position: center;
-        margin-right: 1rem;
+        margin-right: .75rem;
         border: 1px solid $c-grey-dark;
+        border-radius: 4px;
       }
       &__content {
 
@@ -361,9 +368,6 @@ export default {
       }
     }
 
-    @include desktop() {
-      padding-bottom: 0;
-    }
     .col {
       box-sizing: border-box;
       position: relative;
@@ -406,6 +410,8 @@ export default {
         text-transform: none;
         font-size: 1.75rem;
         text-align: left;
+        text-shadow: none;
+        transform: none;
       }
       &__location {
         display: block;
@@ -569,7 +575,7 @@ export default {
         display: block;
         width: 40px;
         height: 40px;
-        background-color: $c-grey;
+        background-color: #fff;
         background-size: 100%;
         background-position: center;
         margin-left: 5px;

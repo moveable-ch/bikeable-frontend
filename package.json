@@ -6,6 +6,7 @@
   "private": false,
   "scripts": {
     "dev": "node build/dev-server.js",
+    "local": "node build/local-server.js",
     "build": "node build/build.js"
   },
   "dependencies": {

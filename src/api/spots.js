@@ -1,8 +1,10 @@
 import axios from 'axios';
+var config = require('../../config');
+
 
 export default {
   getAllSpots( { limit, filter, sort, order, location } ) {
-    let url = 'https://backend.bikeable.ch/api/v1/entries';
+    let url =  process.env.BACKEND_URL + '/api/v1/entries';
 
     let sortParam = sort ? sort : 'votes';
     let orderParam = order ? order : 'descending';
@@ -37,7 +39,7 @@ export default {
   },
 
   getSpotById(spotId) {
-    let url = 'https://backend.bikeable.ch/api/v1/entries/' + spotId;
+    let url = process.env.BACKEND_URL + '/api/v1/entries/' + spotId;
 
     return new Promise((resolve, reject) => {
       axios.get(url)
@@ -53,7 +55,7 @@ export default {
 
   checkUpvote({ spotId, userId, authToken }) {
 
-    let url = 'https://backend.bikeable.ch/api/v1/votes/' + spotId;
+    let url = process.env.BACKEND_URL + '/api/v1/votes/' + spotId;
 
     return new Promise((resolve, reject) => {
       axios.get(url,
@@ -82,7 +84,7 @@ export default {
 
   upvoteSpot({ spotId, userId, authToken }) {
 
-    let url = 'https://backend.bikeable.ch/api/v1/votes/' + spotId;
+    let url = process.env.BACKEND_URL + '/api/v1/votes/' + spotId;
 
     return new Promise((resolve, reject) => {
       axios.post(url, {},
@@ -109,7 +111,7 @@ export default {
 
   addSpot({ data, userId, authToken}) {
 
-    let url = 'https://backend.bikeable.ch/api/v1/entries'
+    let url = process.env.BACKEND_URL + '/api/v1/entries'
 
     return new Promise((resolve, reject) => {
       axios.post(url, data,

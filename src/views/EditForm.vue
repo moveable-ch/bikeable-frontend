@@ -1,7 +1,7 @@
-<!-- /add -->
+<!-- /edit/{id} -->
 
 <template>
-  <div class="add">
+  <div class="add" v-if="currentEntry">
     <map-modal-view
       v-if="showMapModal"
       @close="showMapModal = false"
@@ -9,7 +9,7 @@
       :propCoords="entryCoords">
     </map-modal-view>
     <div class="container">
-      <h1>Spot hinzufügen</h1>
+      <h1>Spot bearbeiten</h1>
       <form @submit.prevent="postEntry">
         <h3><span class="num">1</span>Foto</h3>
         <span class="label">Lade ein Bild von deinem Spot hoch</span>
@@ -64,15 +64,31 @@
 <script>
 import axios from 'axios';
 import AddMapModal from '@/components/AddMapModal';
+import spots from '../api/spots'
 
 export default {
-  name: 'v-add-form',
+  name: 'v-edit-form',
   props: ['propCoords'],
   components: {
     'map-modal-view': AddMapModal
   },
   data () {
     return {
+
+      entryId: 0,
+      loadingData: true,
+      currentEntry: {
+        title: ' ',
+        user: {
+          name: ''
+        },
+        photo: {
+          large: '',
+          medium: ''
+        },
+        famed: false
+      },
+
       showMapModal: false,
       addressPending: false,
 
@@ -85,28 +101,58 @@ export default {
       imageChosen: false
     }
   },
-
   computed: {
     userCoords() {
       return this.$store.getters.userCoords;
     },
     formReady() {
-      console.log(this.entryFamed);
       return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.imageId != null && this.entryFamed != null);
     },
     imagePreviewUrl() {
-      return process.env.BACKEND_URL + 'api/v1/photos/' + this.imageId + '?size=small';
+      return process.env.BACKEND_URL+ '/api/v1/photos/' + this.imageId + '?size=small';
     }
   },
 
   watch: {
-  },
+    'currentEntry': function() {
+      this.fillForm();
+    },  },
 
   mounted() {
     this.handleParamCoords();
+    this.loadEntry()
   },
 
   methods: {
+
+    loadEntry() {
+      this.entryId = this.$route.params.id;
+      this.$store.commit('LOAD_START');
+
+      spots.getSpotById(this.entryId)
+        .then((data) => {
+          this.currentEntry = data;
+          this.loadingData = false;
+          this.$store.commit('LOAD_FINISH');
+          this.$emit('updateHead');
+        },
+        (error) => {
+          this.$store.commit('LOAD_FINISH');
+          this.$router.push('/edit/'+this.$route.params.id);
+          this.$store.dispatch('handleError', 'Spot nicht gefunden');
+        });
+    },
+
+    fillForm() {
+      this.entryAddress = this.currentEntry.address,
+      this.entryCoords = this.currentEntry.coords,
+      this.entryTitle = this.currentEntry.title,
+      this.entryText = this.currentEntry.text,
+      this.entryFamed = this.currentEntry.famed ? "famed" : "shamed",
+      this.imageId = this.currentEntry.imageId,
+      this.imageChosen = true
+    },
+
     imageLoadError() {
       console.log('image load error');
     },
@@ -227,7 +273,7 @@ export default {
     postEntry(e) {
       if(!this.formReady) return;
 
-      this.$store.dispatch('addSpot', {
+      this.$store.dispatch('editSpot', {
           title: this.entryTitle,
           text: this.entryText,
           imageId: this.imageId,

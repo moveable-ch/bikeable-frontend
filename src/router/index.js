@@ -9,6 +9,7 @@ import FAQ from '@/views/FAQ'
 import Partner from '@/views/Partner'
 import Entry from '@/views/Entry'
 import AddForm from '@/views/AddForm'
+import EditForm from '@/views/EditForm'
 import LoginForm from '@/views/LoginForm'
 import RegisterForm from '@/views/RegisterForm'
 import PasswordRetrieval from '@/views/PasswordRetrieval'
@@ -60,6 +61,11 @@ export default new Router({
       path: '/add',
       name: 'add',
       component: AddForm
+    },
+        {
+      path: '/edit/:id',
+      name: 'edit',
+      component: EditForm
     },
     {
       path: '/register',

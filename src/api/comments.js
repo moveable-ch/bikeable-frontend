@@ -1,8 +1,9 @@
 import axios from 'axios';
+var config = require('../../config');
 
 export default {
   getCommentsBySpot(spotId) {
-    let url = 'https://backend.bikeable.ch/api/v1/comments?entry=' + spotId;
+    let url = process.env.BACKEND_URL + '/api/v1/comments?entry=' + spotId;
 
     return new Promise((resolve, reject) => {
       axios.get(url)
@@ -15,7 +16,7 @@ export default {
   },
 
   postComment({ entryId, comment, userId, authToken }) {
-    let url = 'https://backend.bikeable.ch/api/v1/comments';
+    let url = process.env.BACKEND_URL + '/api/v1/comments';
 
     return new Promise((resolve, reject) => {
       axios.post(

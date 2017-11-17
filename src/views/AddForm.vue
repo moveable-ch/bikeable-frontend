@@ -95,7 +95,7 @@ export default {
       return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.imageId != null && this.entryFamed != null);
     },
     imagePreviewUrl() {
-      return process.env.BACKEND_URL + 'api/v1/photos/' + this.imageId + '?size=small';
+      return process.env.BACKEND_URL + '/api/v1/photos/' + this.imageId + '?size=small';
     }
   },
 

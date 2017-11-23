@@ -49,7 +49,7 @@ const actions = {
         function(e) {
           console.log('error');
         },
-        { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+        { enableHighAccuracy: false, timeout: timeoutVal, maximumAge: 0 }
       );
     }
   },

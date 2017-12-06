@@ -61,6 +61,10 @@ export default {
 
 .news {
 
+  p {
+    margin: 1rem auto;
+  }
+
   &__headline {
     font-size: 1.75rem;
     text-align: left;

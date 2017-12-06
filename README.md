@@ -19,6 +19,7 @@ We have not yet made our backend code public. Please contact us if you'd like to
 ## Contributors
 - [diluno](//github.com/diluno)
 - [LucNaterop](//github.com/lucNaterop)
+- [mgschwend](//github.com/mgschwend)
 
 
 ## Build Setup

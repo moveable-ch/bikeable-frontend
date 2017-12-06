@@ -2,7 +2,7 @@
 
 <template>
   <div class="home">
-    <div class="home__intro" v-if="!isLoggedIn">
+    <div class="home__intro">
       <div class="container">
         <div class="home__intro__path">
           <svg width="961px" height="689px" viewBox="0 0 961 689" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -17,14 +17,9 @@
         <div class="home__intro__content">
           <h1>Let's make<br>our cities<br>bikeable!</h1>
           <!--<p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>-->
-          <router-link to="/register" class="home__intro__cta">Jetzt registrieren</router-link>
+          <router-link v-if="!isLoggedIn" to="/register" class="home__intro__cta">Jetzt registrieren</router-link>
+          <router-link v-if="isLoggedIn" to="/add" class="home__intro__cta">Spot hinzufügen</router-link>
         </div>
-      </div>
-    </div>
-
-    <div v-if="isLoggedIn" class="home__add">
-      <div class="home__add__inner">
-        <router-link to="/add" class="home__add__cta">Spot hinzufügen</router-link>
       </div>
     </div>
 
@@ -177,7 +172,6 @@ export default {
           .then((entries) => {
             this.$store.commit('LOAD_FINISH');
             cat.spots = entries;
-            console.log(entries);
           },
           (error) => {
             this.$store.commit('LOAD_FINISH');
@@ -520,7 +514,7 @@ export default {
     // background-color: $c-yellow;
     background-image: linear-gradient(-220deg, #FCFFD6 0%, #E2FDFF 100%);
     height: 350px;
-    max-width: 1200px;
+    // max-width: 1200px;
     margin: 0 auto;
     color: #444;
     // overflow: hidden;
@@ -529,8 +523,8 @@ export default {
     padding-top: 3rem;
 
     @include desktop() {
-      height: 550px;
-      margin-top: 0;
+      height: 650px;
+      margin-top: -4rem;
       padding-top: 0;
     }
 
@@ -542,13 +536,13 @@ export default {
       padding-top: 1rem;
 
       @include desktop() {
-        padding-top: 4rem;
+        padding-top: 12rem;
       }
     }
     &__path {
       position: absolute;
       right: 13rem;
-      top: -6rem;
+      top: 0;
       width: 961px;
       height: 691px;
       pointer-events: none;
@@ -579,7 +573,7 @@ export default {
     }
     &__illu {
       position: absolute;
-      top: 5.3rem;
+      top: 11.3rem;
       right: 13.8rem;
       width: 17rem;
       transform-origin: 50% 93%;
@@ -642,12 +636,14 @@ export default {
       margin-bottom: .25rem;
       transform-origin: 0% 0%;
       transform: skew(0, -4deg);
-      text-shadow:
-          1px 1px 0 darken($c-main, 12%),
-           2px 2px 0 darken($c-main, 12%),
-           3px 3px 0 darken($c-main, 12%),
-           4px 4px 0 darken($c-main, 12%),
-           5px 5px 0 darken($c-main, 12%);
+      text-align: left;
+      text-decoration: none;
+      // text-shadow:
+      //     1px 1px 0 darken($c-main, 12%),
+      //      2px 2px 0 darken($c-main, 12%),
+      //      3px 3px 0 darken($c-main, 12%),
+      //      4px 4px 0 darken($c-main, 12%),
+      //      5px 5px 0 darken($c-main, 12%);
       // text-shadow: 4px 4px 0 $c-highlight;
       opacity: 0;
       animation: headline 1s ease-out .3s 1 normal forwards;

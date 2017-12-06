@@ -76,7 +76,7 @@ export default {
       return this.$store.getters.userData;
     },
     isHome() {
-      return (this.$route.path == '/' && !this.isLoggedIn);
+      return (this.$route.path == '/');
     }
   },
 
@@ -99,8 +99,8 @@ export default {
   left: 0;
   width: 100%;
   height: 3rem;
-  background: $c-black;
-  color: #fff;
+  background: $c-white;
+  color: $c-black;
   box-sizing: border-box;
   z-index: 3;
   overflow: hidden;
@@ -113,14 +113,11 @@ export default {
     color: #fff !important;
   }
   &.is-home {
-    color: $c-black;
     background-color: transparent;
 
     &.is-scrolled {
-      background-color: rgba($c-black, .98);
-      color: #fff;
+      background: $c-white;
     }
-
   }
   &.is-scrolled {
 
@@ -136,12 +133,13 @@ export default {
     height: 5rem;
     max-height: 5rem;
     padding-top: 2.5rem;
-    box-shadow: none !important;
+    // box-shadow: none !important;
     overflow: visible;
 
     &.is-scrolled {
       height: 3rem;
       padding-top: .6rem;
+      box-shadow: 0 4px 15px 0 rgba(#000, .05);
     }
   }
 
@@ -158,6 +156,7 @@ export default {
           text-decoration: none;
           font-size: 1rem;
           line-height: 1.75;
+          font-weight: 400;
 
           &:hover {
             // border-bottom: 1px solid $c-main;
@@ -170,16 +169,16 @@ export default {
     @include desktop() {
       position: absolute;
       right: 1rem;
-      top: 1.5rem;
+      top: 2rem;
       width: 5rem;
-      background-color: $c-black;
+      background-color: $c-grey;
       text-align: right;
       padding: .5rem;
       padding-right: 30px;
       display: none;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
-      box-shadow: 0 2px 0 0 rgba($c-black, .2);
+      box-shadow: 0 2px 15px 0 rgba($c-black, .1);
 
       &.is-expanded {
         display: block;
@@ -261,20 +260,14 @@ export default {
         text-decoration: none;
         font-size: 1rem;
         line-height: 1.75;
-        font-weight: 400;
+        font-weight: 700;
         // text-transform: uppercase;
 
         &.router-link-active {
           color: $c-main;
-          // border-bottom: 2px solid $c-main;
-          // font-weight: 700;
-          // text-decoration: underline;
         }
         &:hover {
           color: $c-main;
-          // border-bottom: 2px solid #444;
-          // border-bottom: 1px solid $c-main;
-          // color: $c-main;
         }
       }
     }

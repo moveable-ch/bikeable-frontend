@@ -401,10 +401,11 @@ export default {
       h1 {
         display: block;
         font-family: $f-body;
-        color: $c-highlight;
+        // color: $c-highlight;
         margin: 0 0 .5rem 0;
         text-transform: none;
-        font-size: 1.75rem;
+        font-weight: 400;
+        font-size: 1.25rem;
         text-align: left;
         text-shadow: none;
         transform: none;

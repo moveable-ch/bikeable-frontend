@@ -17,7 +17,7 @@ body {
   color: $c-black;
 
   @include desktop() {
-    padding-top: 5rem;
+    padding-top: 4rem;
   }
 
   &.embed {
@@ -48,15 +48,11 @@ h1, h2, h3 {
 h1 {
   font-size: 2rem;
   margin: 1rem 0 2rem 0;
-  text-align: left;
-  transform: skew(0, -2deg);
-  text-shadow: 2px 2px 0 lighten($c-main, 30%);
+  text-align: center;
 
   @include desktop() {
-    font-size: 3.5rem;
+    font-size: 2rem;
     margin: 2rem 0 2rem 0;
-    transform: skew(0, -2deg) translateX(-10px);
-    text-shadow: 3px 3px 0 lighten($c-main, 30%);
   }
 }
 p + h1 {
@@ -255,6 +251,7 @@ textarea {
 
   p {
     line-height: 1.5;
+    margin: 1rem auto;
   }
 
   ul {

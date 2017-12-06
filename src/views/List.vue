@@ -26,7 +26,7 @@
           <router-link :to="'/entries/' + entry._id" class="list-entry__link">
             <span class="list-entry__image" :style="{ backgroundImage: 'url(' + entry.photo.small.url + ')' }"></span>
             <span class="list-entry__content">
-              <span class="list-entry__date"><strong>{{ formatDate(entry.createdAt) }}</strong> • {{ entry.user.name }}</span>
+              <span class="list-entry__date">{{ formatDate(entry.createdAt) }} — {{ entry.user.name }}</span>
               <h3>{{ entry.title }}</h3>
               <span class="list-entry__location">{{ entry.address }}</span>
               <span v-if="entry.distance" class="list-entry__distance">{{ entry.distance }}m entfernt</span>
@@ -147,7 +147,7 @@ export default {
 
 .list {
   padding: 0 0 4rem 0;
-  background: #fafafa;
+  // background: #fafafa;
   margin-bottom: -1rem;
 
   @include desktop {
@@ -184,7 +184,7 @@ export default {
     max-width: 400px;
     background-color: $c-main;
     color: #fff;
-    font-weight: 500;
+    font-weight: 400;
     margin: 0 auto;
     margin-bottom: 1.5rem;
     font-family: $f-head;
@@ -300,7 +300,8 @@ export default {
     }
 
     .list-entry {
-      margin-bottom: .5rem;
+      // margin-bottom: .5rem;
+      border-bottom: 1px solid $c-grey-dark;
 
       &__distance {
         display: block;
@@ -328,17 +329,16 @@ export default {
       &__link {
         display: block;
         padding-left: 6rem;
-        align-items: top;
         width: 100%;
         margin: 0 auto;
         text-decoration: none;
         color: #333;
         background-color: #fff;
-        border: 1px solid $c-grey-dark;
+        // border: 1px solid $c-grey-dark;
         box-sizing: border-box;
         position: relative;
-        transition: .2s background-color;
-        border-radius: 4px;
+        // transition: .2s background-color;
+        // border-radius: 4px;
         overflow: hidden;
 
         &::after {
@@ -390,17 +390,18 @@ export default {
       }
       &__image {
         position: absolute;
-        top: 0;
+        top: 10%;
         left: 0;
         display: block;
         width: 6rem;
-        height: 100%;
+        height: 80%;
         background-size: cover;
         background-position: center;
 
         @include desktop() {
           width: 10rem;
-          height: 100%;
+          height: 80%;
+          top: 10%;
         }
       }
       &__meta {
@@ -412,7 +413,7 @@ export default {
         // color: #888;
         font-family: $f-body;
         font-size: .8rem;
-        font-weight: 700;
+        font-weight: 600;
         transition: .2s color;
 
         &::before {
@@ -446,8 +447,8 @@ export default {
       h3 {
         font-family: $f-body;
         text-transform: none;
-        font-size: 1rem;
-        font-weight: 600;
+        font-size: .9rem;
+        font-weight: 400;
         margin-bottom: .25rem;
         margin-top: .25rem;
         color: $c-black;
@@ -464,7 +465,7 @@ export default {
           text-overflow: ellipsis;
           overflow: hidden;
           padding: 0;
-          padding-left: 40px;
+          padding-left: 45px;
         }
 
         &::before {
@@ -491,7 +492,7 @@ export default {
       }
 
       &.famed {
-        border-color: $c-main;
+        // border-color: $c-main;
 
         .list-entry__link::after {
           background-image: linear-gradient(90deg, rgba($c-main, .3) 0%, #fff 70%);
@@ -543,7 +544,7 @@ export default {
       padding: 0 .5rem;
       width: 32%;
       font-size: .7rem;
-      font-weight: 700;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: .02rem;
       white-space: nowrap;
@@ -640,7 +641,7 @@ export default {
       color: $c-black;
       padding: 0;
       font-size: .8rem;
-      font-weight: 700;
+      font-weight: 600;
       width: auto;
       border: none;
       text-decoration: underline;

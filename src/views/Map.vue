@@ -46,6 +46,24 @@ export default {
     },
     isEmbed() {
       return this.$route.query.embed;
+    },
+    queryLocation() {
+      if(!this.$route.query.center) return false;
+
+      let locArray = this.$route.query.center.split(',');
+      if(locArray.length != 2) return false;
+      
+      let parsedLoc = {
+        lat: parseFloat(locArray[0]),
+        lng: parseFloat(locArray[1])
+      }
+
+      if(isNaN(parseFloat(locArray[0])) || isNaN(parseFloat(locArray[0]))) return false;
+
+      return parsedLoc;
+    },
+    queryZoom() {
+      return parseInt(this.$route.query.zoom);
     }
   },
 
@@ -94,9 +112,21 @@ export default {
         let center = {lat: 47.377235, lng: 8.5314407};
         if(this.userCoords) center = this.userCoords;
 
+        if(this.queryLocation) {
+          center = this.queryLocation;
+        }
+
+        let zoom = 15;
+
+        if(this.queryZoom) {
+          if(this.queryZoom > 1 && this.queryZoom < 22) {
+            zoom = this.queryZoom;
+          }
+        }
+
         this.map = new google.maps.Map(this.$refs.gmaps, {
           center: center,
-          zoom: 15,
+          zoom: zoom,
           disableDefaultUI: false,
           clickableIcons: false,
           gestureHandling: 'greedy',

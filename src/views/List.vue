@@ -24,7 +24,7 @@
               <h3>{{ entry.title }}</h3>
               <span class="list-entry__date">{{ entry.user.name }}, {{ formatDate(entry.createdAt) }}</span>
               <span class="list-entry__location">{{ entry.address }}</span>
-              <span v-if="entry.distance" class="list-entry__distance">{{ entry.distance }}m entfernt</span>
+              <span v-if="entry.humanizedDistance" class="list-entry__distance">{{ entry.humanizedDistance }} entfernt</span>
               <span class="list-entry__meta list-entry__meta--votes">{{ entry.votes }}</span>
               <span class="list-entry__meta list-entry__meta--comments">{{ entry.commentCount }}</span>
             </span>

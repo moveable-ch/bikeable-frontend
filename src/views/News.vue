@@ -47,7 +47,7 @@ export default {
         );
       }).then(function(payload) {
         const y = [];
-        y.questions = payload.results.slice(0,3).map((x) => {
+        y.questions = payload.results.map((x) => {
           const z = {};
           z.id = x.id;
           let date = new Date(x.firstPublicationDate);

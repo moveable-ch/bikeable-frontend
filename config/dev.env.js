@@ -3,5 +3,5 @@ var prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  BACKEND_URL: '\'https://backend.bikeable.ch\''
+  BACKEND_URL: '\'139.59.147.177\''
 })

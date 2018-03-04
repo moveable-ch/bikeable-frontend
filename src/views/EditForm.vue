@@ -24,19 +24,6 @@
             <img v-bind:src="imagePreviewUrl" @error="imageLoadError">
           </div>
         </div>
-        <div class="fameorshame">
-          <h3><span class="num">2</span>Fame or Shame?</h3>
-          <div class="checkboxes">
-            <input id="fame" type="radio" name="fameorshame" value="famed" v-model="entryFamed">
-            <label for="fame" class="fameradio-label radio-label">
-              <span>Fame</span>
-            </label>
-            <input id="shame" type="radio" name="fameorshame" value="shamed" v-model="entryFamed">
-            <label for="shame" class="shameradio-label radio-label">
-              <span>Shame</span>
-            </label>
-          </div>
-        </div>
         <h3><span class="num">3</span>Adresse</h3>
         <label>
           <span>Wo befindet sich dein Spot?</span>
@@ -271,16 +258,17 @@ export default {
       this.imageId = null;
     },
     postEntry(e) {
+
       if(!this.formReady) return;
 
-      this.$store.dispatch('editSpot', {
+      this.$store.dispatch('editSpot', {data: {
           title: this.entryTitle,
           text: this.entryText,
           imageId: this.imageId,
           address: this.entryAddress,
           coords: this.entryCoords,
           famed: this.entryFamed == "famed"
-        })
+        }, spotId: this.entryId})
       .then((data) => {
           this.$router.push('/entries/' + data._id);
         });

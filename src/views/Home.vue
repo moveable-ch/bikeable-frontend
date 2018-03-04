@@ -1,4 +1,19 @@
-<!-- / -->
+<i18n>
+{
+  "en": {
+    "registernow": "Join now!",
+    "addspot": "Add Spot!",
+    "showall": "Show all Spots",
+    "more": "More"
+  },
+  "de": {
+    "registernow": "Jetzt registrieren!",
+    "addspot": "Spot hinzufügen",
+    "showall": "Alle Spots anzeigen",
+    "more": "Mehr"
+  }
+}
+</i18n>
 
 <template>
   <div class="home">
@@ -17,8 +32,8 @@
         <div class="home__intro__content">
           <h1>Let's make<br>our cities<br>bikeable!</h1>
           <!--<p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>-->
-          <router-link v-if="!isLoggedIn" to="/register" class="home__intro__cta">Jetzt registrieren</router-link>
-          <router-link v-if="isLoggedIn" to="/add" class="home__intro__cta">Spot hinzufügen</router-link>
+          <router-link v-if="!isLoggedIn" to="/register" class="home__intro__cta">{{ $t('registernow') }}</router-link>
+          <router-link v-if="isLoggedIn" to="/add" class="home__intro__cta">{{ $t('addspot') }}</router-link>
         </div>
       </div>
     </div>
@@ -36,7 +51,7 @@
             </span>
           </router-link>
         </div>
-        <router-link to="/entries" class="home__spots__button">Alle Spots anzeigen</router-link>
+        <router-link to="/entries" class="home__spots__button">{{ $t('showall') }}</router-link>
       </div>
     </div>
 
@@ -50,7 +65,7 @@
               <span class="home__news__date">{{ article.date }}</span>
               <h3><router-link :to="'/news/' + article.id">{{ article.title }}</router-link></h3>
               <p>{{ article.abstract }}</p>
-              <router-link class="home__news__more" :to="'/news/' + article.id">Mehr</router-link>
+              <router-link class="home__news__more" :to="'/news/' + article.id">{{ $t('more') }}</router-link>
             </div>
           </div>
         </div>

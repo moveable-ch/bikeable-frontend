@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@kazupon/vue-i18n-loader": "^0.3.0",
     "axios": "^0.16.2",
     "velocity-animate": "^1.5.0",
     "vue": "^2.4.4",

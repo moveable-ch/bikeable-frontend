@@ -15,6 +15,8 @@
         <ul>
           <li v-if="isLoggedIn" class="username" @click.prevent="metaNavExpanded = !metaNavExpanded">{{ userData.username }}</li>
           <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
+          <li><button @click="setLang('de')">DE</button></li>
+          <li><button @click="setLang('en')">EN</button></li>
           <!--<li v-if="!isLoggedIn"><router-link to="/register">Registrieren</router-link></li>-->
         </ul>
       </nav>
@@ -57,6 +59,13 @@ export default {
       }else{
         this.isScrolled = false;
       }
+    },
+    setLang(lang) {
+      this.$store.dispatch('setLang', lang)
+      .then((data) => {
+        }, (data) => {
+          this.$store.dispatch('handleError', 'Error');
+        });
     }
   },
 
@@ -77,6 +86,9 @@ export default {
     },
     isHome() {
       return (this.$route.path == '/');
+    },
+    currentLang() {
+      return this.$store.getters.lang;
     }
   },
 
@@ -84,6 +96,9 @@ export default {
     '$route': function() {
       this.isExpanded = false;
       this.metaNavExpanded = false;
+    },
+    currentLang (to, from) {
+      this.$i18n.locale = to;
     }
   }
 }

@@ -10,12 +10,16 @@ import images from './modules/images'
 Vue.use(Vuex)
 
 const state = {
+  lang: 'en',
   pending: false,
   msg: '',
   sort: 'shame'
 }
 
 const mutations = {
+  SET_LANG(state, lang) {
+    state.lang = lang;
+  },
   SET_ENTRY_SORTING(state, sort) {
     state.sort = sort;
   },
@@ -47,7 +51,12 @@ const actions = {
 
   handleError(context, msg) {
     context.commit('SET_MESSAGE', msg);
+  },
+
+  setLang(context, lang) {
+    context.commit('SET_LANG', lang);
   }
+
 }
 
 const getters = {
@@ -56,6 +65,9 @@ const getters = {
   },
   msg: state => {
     return state.msg;
+  },
+  lang : state => {
+    return state.lang;
   }
 }
 

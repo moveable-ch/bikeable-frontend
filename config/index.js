@@ -2,9 +2,10 @@
 var path = require('path')
 
 module.exports = {
-  build: {
+  build-production: {
     NODE_ENV: '"production"',
     BACKEND_URL: '\'https://backend.bikeable.ch/\'',
+    env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
@@ -22,7 +23,7 @@ module.exports = {
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report
   },
-  staging: {
+  build-staging: {
     NODE_ENV: '"development"',
     BACKEND_URL: '\'139.59.147.177\'',
     index: path.resolve(__dirname, '../dist/index.html'),
@@ -42,10 +43,9 @@ module.exports = {
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report
   },
-  dev: {
+  dev-staging: {
     NODE_ENV: '"development"',
-    BACKEND_URL: '\'139.59.147.177\'',
-    port: 8080,
+    BACKEND_URL: '\'139.59.147.177\''    port: 8080,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -57,7 +57,7 @@ module.exports = {
     // just be aware of this issue when enabling this option.
     cssSourceMap: false
   },
-  local: {
+  dev-local: {
     NODE_ENV: '"development"',
     BACKEND_URL: '\'http://localhost:3000\'',
     port: 8080,

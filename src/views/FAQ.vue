@@ -65,6 +65,8 @@ export default {
 
 .faq {
   h3 {
+    margin: 0 auto;
+    max-width: 650px;
     margin-bottom: .5rem;
     color: $c-black;
     font-size: 1.5rem;

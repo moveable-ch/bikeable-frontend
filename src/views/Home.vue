@@ -30,7 +30,7 @@
           <img src="/static/img/paul.png" alt="Bikeapaul">
         </div>
         <div class="home__intro__content">
-          <h1>Let's make<br>our cities<br>bikeable!</h1>
+          <h1>Let's Make Our<br>Cities Bikeable!</h1>
           <!--<p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>-->
           <router-link v-if="!isLoggedIn" to="/register" class="home__intro__cta">{{ $t('registernow') }}</router-link>
           <router-link v-if="isLoggedIn" to="/add" class="home__intro__cta">{{ $t('addspot') }}</router-link>
@@ -525,14 +525,10 @@ export default {
   }
 
   &__intro {
-    // background-image: linear-gradient(-180deg, $c-yellow 58%, $c-white 100%);
-    // background-color: $c-yellow;
     background-image: linear-gradient(-220deg, #FCFFD6 0%, #E2FDFF 100%);
     height: 350px;
-    // max-width: 1200px;
     margin: 0 auto;
     color: #444;
-    // overflow: hidden;
     position: relative;
     margin-top: -3rem;
     padding-top: 3rem;
@@ -548,7 +544,7 @@ export default {
     }
 
     &__content {
-      padding-top: 1rem;
+      padding-top: 6rem;
 
       @include desktop() {
         padding-top: 12rem;
@@ -572,7 +568,9 @@ export default {
       }
 
       #bikepath {
-        stroke-dasharray: 10, 20;
+        stroke: $c-main;
+        stroke-width: 4;
+        stroke-dasharray: 10, 40;
         animation: bikedash 1s linear infinite;
       }
 
@@ -616,21 +614,12 @@ export default {
       font-family: $f-head;
       font-size: 1.25rem;
       text-decoration: none;
-      font-weight: 700;
-      margin-left: 2rem;
+      font-weight: 300;
+      margin-left: 0;
       letter-spacing: .03rem;
-      text-transform: uppercase;
-      transform: skew(0, -4deg);
       color: $c-highlight;
-      // border-bottom: 2px solid $c-highlight;
       opacity: 0;
       animation: headline 1s ease-out .6s 1 normal forwards;
-
-      &::before {
-        content: "→";
-        margin-right: .5rem;
-        text-decoration: none;
-      }
 
       @media screen and (max-width: 700px) {
         position: absolute;
@@ -643,23 +632,16 @@ export default {
       }
     }
     h1 {
-      color: $c-main;
+      color: $c-black;
       margin: 0;
       font-weight: bold;
-      font-size: 2.75rem;
-      line-height: .9;
+      font-size: 2.5rem;
+      line-height: 1.2;
       margin-bottom: .25rem;
-      transform-origin: 0% 0%;
-      transform: skew(0, -4deg);
+      text-transform: none;
       text-align: left;
       text-decoration: none;
-      // text-shadow:
-      //     1px 1px 0 darken($c-main, 12%),
-      //      2px 2px 0 darken($c-main, 12%),
-      //      3px 3px 0 darken($c-main, 12%),
-      //      4px 4px 0 darken($c-main, 12%),
-      //      5px 5px 0 darken($c-main, 12%);
-      // text-shadow: 4px 4px 0 $c-highlight;
+      font-weight: 300;
       opacity: 0;
       animation: headline 1s ease-out .3s 1 normal forwards;
 
@@ -668,7 +650,7 @@ export default {
       }
 
       @include desktop() {
-        font-size: 4.25rem;
+        font-size: 3rem;
       }
     }
     p {
@@ -708,17 +690,17 @@ export default {
     stroke-dashoffset: 0;
   }
   to {
-    stroke-dashoffset: 30;
+    stroke-dashoffset: 50;
   }
 }
 
 @keyframes headline {
   0% {
-    transform: translateY(30px) skew(0, -4deg);
+    transform: translateY(30px);
     opacity: 0;
   }
   100% {
-    transform: translateY(0) skew(0, -4deg);
+    transform: translateY(0);
     opacity: 1;
   }
 }

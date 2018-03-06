@@ -272,6 +272,7 @@ export default {
     margin-bottom: -1rem;
 
     @include desktop {
+      padding-top: 6rem;
       margin-bottom: -8rem;
     }
 

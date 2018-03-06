@@ -156,12 +156,12 @@ export default {
   }
 
   &__controls {
-    background-color: $c-blue;
-    padding-top: 1rem;
+    background-image: linear-gradient(-127deg, #FCFFD6 0%, #E2FDFF 100%);
+    padding-top: 3rem;
     position: relative;
 
     @include desktop {
-      padding-top: 3rem;
+      padding-top: 8rem;
     }
   }
 
@@ -246,7 +246,7 @@ export default {
       li {
 
         a {
-          background-color: #f8f8f8;
+          background-color: #fff;
           display: block;
           text-decoration: none;
           color: #666;
@@ -553,9 +553,8 @@ export default {
       line-height: 2rem;
       position: relative;
       bottom: 0;
-      background-color: $c-grey;
+      background-color: #fafafa;
       box-sizing: border-box;
-      border-bottom: 2px solid $c-blue;
       color: lighten($c-black, 60%);
       margin-right: -2px;
       border-top-left-radius: 4px;
@@ -571,8 +570,7 @@ export default {
       }
 
       &.active {
-        border-bottom-color: $c-grey;
-        background-color: $c-grey;
+        background-color: #fff;
         color: $c-black;
       }
 

@@ -132,7 +132,8 @@ export default {
     display: flex;
     flex-wrap: wrap;
     font-family: $f-body;
-    font-weight: bold;
+    font-weight: 300;
+    max-width: none;
 
     li {
       padding: 0 1rem;

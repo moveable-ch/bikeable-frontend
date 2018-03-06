@@ -123,11 +123,29 @@ export default {
 @import '../styles/helpers';
 
 .v-profile {
-  padding-top: 0;
+  padding-top: 3rem;
   padding-bottom: 4rem;
 
   @include desktop() {
-    padding-top: 2rem;
+    padding-top: 6rem;
+  }
+
+  &::before, &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 30rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  &::before {
+    z-index: -1;
+    background-image: linear-gradient(0deg, #FFFFFF 2%, rgba(255,255,255,0.00) 74%);
+  }
+  &::after {
+    z-index: -2;
+    background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
   }
 
   &__submit {

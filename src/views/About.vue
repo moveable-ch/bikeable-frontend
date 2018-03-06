@@ -3,6 +3,8 @@
 <template>
   <div class="contentpage about">
     <div class="container" v-if="doc">
+      <h1>{{ doc.title }}</h1>
+      <p class="lead" v-html="doc.lead"></p>
       <div v-html="doc.text"></div>
 
       <div class="about__paypal">
@@ -57,6 +59,7 @@ export default {
       }).then(function(payload) {
         const y = {};
         y.title = payload.results[0].getText('about.title');
+        y.lead = payload.results[0].getText('about.lead');
         y.text = payload.results[0].getStructuredText('about.text').asHtml();
         return y;
       }, function(err) {

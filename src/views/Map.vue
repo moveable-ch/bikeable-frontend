@@ -267,16 +267,31 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(100vh - 3rem);
+  height: 100vh;
   background-color: #fff;
 
   @include desktop {
-    height: calc(100vh - 5rem);
+    height: 100vh;
+
+    &::before, &::after {
+      height: 7rem;
+    }
   }
 
   .embed & {
     height: 100vh;
     top: 0;
+  }
+  &::before, &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: linear-gradient(-137deg, rgba(#FCFFD6, .9) 0%, rgba(#E2FDFF, .7) 100%);
   }
 }
 .gmaps {

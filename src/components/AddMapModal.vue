@@ -135,7 +135,7 @@ export default {
   padding-top: 4rem;
   box-sizing: border-box;
 
-  @include desktop() {
+  @include tablet() {
     // padding-top: 9rem;
     padding-top: 0;
     z-index: 2;
@@ -149,7 +149,7 @@ export default {
     margin: 0 1rem;
     position: relative;
 
-    @include desktop() {
+    @include tablet() {
       width: 80%;
       height: 80%;
     }

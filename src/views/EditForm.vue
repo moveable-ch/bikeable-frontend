@@ -307,7 +307,7 @@ export default {
       border-radius: 99%;
     }
 
-    @include desktop() {
+    @include tablet() {
       margin-top: 3.5rem;
       margin-bottom: 2rem;
     }
@@ -319,7 +319,7 @@ export default {
     margin: 2rem auto 4rem auto;
     box-sizing: border-box;
 
-    @include desktop() {
+    @include tablet() {
       width: 15rem;
       margin: 3rem 0 4rem 0;
     }
@@ -485,7 +485,7 @@ export default {
   // border-radius: 4px;
   overflow: hidden;
 
-  @include desktop() {
+  @include tablet() {
     width: calc(50% - 3px);
   }
 

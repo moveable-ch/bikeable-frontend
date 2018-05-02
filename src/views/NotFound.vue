@@ -35,7 +35,7 @@ export default {
   text-align: center;
   margin-top: 0;
 
-  @include desktop() {
+  @include tablet() {
     margin-top: -2rem;
   }
 

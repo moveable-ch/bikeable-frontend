@@ -6,7 +6,7 @@
       <h1>News</h1>
       <div class="newsarchive__container">
         <div class="newsarchive__item" v-for="article in news">
-          <router-link :to="'/news/' + article.id"><img class="newsarchive__image" :src="article.image"></router-link>
+          <router-link class="newsarchive__imagebox" :to="'/news/' + article.id"><img class="newsarchive__image" :src="article.image"></router-link>
           <div class="newsarchive__content">
             <h3><router-link :to="'/news/' + article.id">{{ article.title }}</router-link></h3>
             <span class="date">{{ article.date }}</span>
@@ -78,9 +78,9 @@ export default {
 
   &__item {
     display: flex;
-    margin-top: 1rem;
+    margin: 2rem 0;
 
-    @include desktop() {
+    @include tablet() {
       max-width: 850px;
     }
   }
@@ -115,21 +115,30 @@ export default {
       color: #aaa;
     }
 
-    @include desktop() {
+    @include tablet() {
       padding-left: 1.5rem;
       padding-top: .5rem;
     }
   }
 
-  &__image {
+  &__imagebox {
+    display: block;
+    border-radius: 4px;
+    overflow: hidden;
     width: 80px;
     height: 80px;
-    flex-shrink: 0;
+    box-shadow: 0 5px 15px -5px rgba($c-black, .2);
 
-    @include desktop() {
+    @include tablet() {
       width: 200px;
       height: 200px;
     }
+  }
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100% !important;
+    flex-shrink: 0;
   }
 }
 

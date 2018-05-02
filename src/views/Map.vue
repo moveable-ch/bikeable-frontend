@@ -52,7 +52,7 @@ export default {
 
       let locArray = this.$route.query.center.split(',');
       if(locArray.length != 2) return false;
-      
+
       let parsedLoc = {
         lat: parseFloat(locArray[0]),
         lng: parseFloat(locArray[1])
@@ -286,7 +286,7 @@ export default {
     background-image: linear-gradient(-137deg, rgba(#FCFFD6, .9) 0%, rgba(#E2FDFF, .7) 100%);
   }
 
-  @include desktop {
+  @include tablet {
     height: 100vh;
 
     &::before, &::after {

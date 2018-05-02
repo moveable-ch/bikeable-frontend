@@ -123,10 +123,10 @@ export default {
 @import '../styles/helpers';
 
 .v-profile {
-  padding-top: 3rem;
+  padding-top: 5rem;
   padding-bottom: 4rem;
 
-  @include desktop() {
+  @include tablet() {
     padding-top: 6rem;
   }
 

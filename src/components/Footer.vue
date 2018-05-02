@@ -137,7 +137,7 @@ export default {
     }
   }
 
-  @include desktop {
+  @include tablet {
     padding: 2rem 0 0 0;
     margin-top: 8rem;
 

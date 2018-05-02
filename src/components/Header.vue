@@ -2,14 +2,14 @@
   <header class="header" v-bind:class="{ 'is-scrolled': isScrolled }">
     <router-link to="/" class="header__logo"><span>bikeable</span></router-link>
     <button class="burger" v-on:click="navVisible = true"></button>
-    <router-link to="/profile" class="header__avatar" :style="{ backgroundImage: 'url(' + userAvatar + ')' }"><span>Profile</span></router-link>
+    <router-link v-if="isLoggedIn" to="/profile" class="header__avatar" :style="{ backgroundImage: 'url(' + userAvatar + ')' }"><span>Profile</span></router-link>
     <nav class="header__mainnav">
       <ul>
         <li><router-link to="/news" exact>News</router-link></li>
         <li><router-link to="/entries" exact>Spots</router-link></li>
         <li><router-link to="/map" exact>Map</router-link></li>
-        <li><language-switch></language-switch></li>
         <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
+        <li><language-switch></language-switch></li>
       </ul>
     </nav>
     <transition name="nav-fade">
@@ -141,7 +141,7 @@ export default {
   z-index: 3;
   transition: .4s all $easeInOutQuint;
 
-  @include desktop() {
+  @include tablet() {
     top: 1rem;
     position: fixed;
     height: 5rem;
@@ -170,7 +170,7 @@ export default {
       display: none;
     }
 
-    @include desktop() {
+    @include tablet() {
       width: 74px;
       height: 100px;
       position: absolute;
@@ -261,7 +261,7 @@ export default {
         a {
           color: #869098;
           text-decoration: none;
-          font-size: .8rem;
+          font-size: .9rem;
           line-height: 1.75;
           font-weight: 500;
 
@@ -275,7 +275,7 @@ export default {
       }
     }
 
-    @include desktop() {
+    @include tablet() {
       display: block;
     }
   }

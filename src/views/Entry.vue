@@ -2,48 +2,37 @@
 
 <template>
   <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed, 'is-fixed': currentEntry.fixed, 'pending': loadingData }">
+    <entry-media-view
+      :entry="currentEntry"
+      :hasVoted="hasVoted"
+      :isLoggedIn="isLoggedIn"
+      @vote="upvoteEntry()">
+    </entry-media-view>
     <div class="entry__container" v-if="!loadingData">
-      <div class="col">
-        <entry-media-view
-          :img="currentEntry.photo.large.url"
-          :coords="currentEntry.coords"
-          :entryUrl="entryUrl"
-          :title="currentEntry.title">
-        </entry-media-view>
+      <div class="entry__user">
+        <div v-if="currentEntry.user.avatar" class="entry__user__image" :style="'background-image:url(' + currentEntry.user.avatar.small + ')'"></div>
+        <div class="entry__user__content">
+          <span class="entry__user__name">{{ currentEntry.user.name }}</span><br>
+          <span class="entry__user__date">{{ entryDate }}</span>
+        </div>
       </div>
-      <div class="col">
-        <div class="entry__user">
-          <div v-if="currentEntry.user.avatar" class="entry__user__image" :style="'background-image:url(' + currentEntry.user.avatar.small + ')'"></div>
-          <div class="entry__user__content">
-            <span class="entry__user__name">{{ currentEntry.user.name }}</span><br>
-            <span class="entry__user__date">{{ entryDate }}</span>
-          </div>
-        </div>
-        <div class="lead">
-          <span v-if="currentEntry.fixed" class="lead__fixed">Fixed!</span>
-          <h1>{{ currentEntry.title }}</h1>
-          <span class="lead__location">{{ currentEntry.address }}</span>
-          <p class="lead__desc">{{ currentEntry.text }}</p>
-          <p v-if="currentEntry.fixed" class="lead__notice lead__notice--good">Dieser Spot wurde in der Zwischenzeit verbessert.</p>
-        </div>
-        <a href="#" class="vote" v-bind:class="{ 'is-active': hasVoted, disabled: !isLoggedIn }" @click.prevent="upvoteEntry">
-          <span class="vote__icon vote__icon--main"></span>
-          <span class="vote__icon vote__icon--white"></span>
-          <span class="vote__count">{{ currentEntry.votes }}</span>
-        </a>
+      <div class="lead">
+        <span v-if="currentEntry.fixed" class="lead__fixed">Fixed!</span>
+        <p class="lead__desc">{{ currentEntry.text }}</p>
+        <p v-if="currentEntry.fixed" class="lead__notice lead__notice--good">Dieser Spot wurde in der Zwischenzeit verbessert.</p>
+      </div>
 
-        <div class="notice" v-if="!isLoggedIn">Jetzt <router-link to="/register">registrieren</router-link> und mitdiskutieren!</div>
-        <div class="comments__form" v-if="isLoggedIn && userData">
-          <div class="comments__form__image" :style="'background-image:url(' + userAvatar + ')'"></div>
-          <form @submit.prevent="postComment">
-            <textarea placeholder="Kommentar" v-model="commentText" rows="2"></textarea>
-            <button type="submit" class="btn comments__form__button" v-bind:class="{ 'disabled': !commentText }">Senden</button>
-          </form>
-        </div>
+      <div class="notice" v-if="!isLoggedIn">Jetzt <router-link to="/register">registrieren</router-link> und mitdiskutieren!</div>
+      <div class="comments__form" v-if="isLoggedIn && userData">
+        <div class="comments__form__image" :style="'background-image:url(' + userAvatar + ')'"></div>
+        <form @submit.prevent="postComment">
+          <textarea placeholder="Kommentar" v-model="commentText" rows="2"></textarea>
+          <button type="submit" class="btn comments__form__button" v-bind:class="{ 'disabled': !commentText }">Senden</button>
+        </form>
+      </div>
 
-        <div class="comments" v-if="comments">
-          <comment-view v-for="comment in comments" :key="comment._id" :isChild="false" :comment="comment" :loadComments="loadComments" :entryId="entryId" :fetchData="fetchData" :avatar="userAvatar"></comment-view>
-        </div>
+      <div class="comments" v-if="comments">
+        <comment-view v-for="comment in comments" :key="comment._id" :isChild="false" :comment="comment" :loadComments="loadComments" :entryId="entryId" :fetchData="fetchData" :avatar="userAvatar"></comment-view>
       </div>
     </div>
   </div>
@@ -155,7 +144,6 @@ export default {
 
       spots.getSpotById(this.entryId)
         .then((data) => {
-          console.log(data);
           this.currentEntry = data;
           this.loadingData = false;
           this.$store.commit('LOAD_FINISH');
@@ -219,8 +207,12 @@ export default {
           authToken: token
         }
       ).then(
-        () => this.hasVoted = true,
-        () => this.hasVoted = false
+        () => {
+          this.hasVoted = true
+        },
+        () => {
+          this.hasVoted = false
+        }
       );
 
     },
@@ -266,36 +258,38 @@ export default {
   .entry {
     margin: 0;
     padding-bottom: 4rem;
+    padding-top: 5rem;
     font-family: $f-body;
     min-height: calc(100vh - 600px);
     position: relative;
-    background-color: $c-grey;
     margin-bottom: -1rem;
 
-    @include desktop {
-      padding-top: 6rem;
-      margin-bottom: -8rem;
-    }
-
-    &::before {
+    &::before, &::after {
       content: "";
-      display: none;
+      display: block;
       width: 100%;
-      height: 10rem;
+      height: 15rem;
       position: absolute;
       top: 0;
       left: 0;
-      background-image: linear-gradient(-180deg, $c-highlight 0%, #F7F7F7 100%);
-      opacity: .08;
+    }
+    &::before {
+      z-index: -1;
+      background-image: linear-gradient(0deg, #FFFFFF 2%, rgba(255,255,255,0.00) 74%);
+    }
+    &::after {
+      z-index: -2;
+      background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
     }
 
-    &.pending {
-      &::before {
-        display: none;
-      }
+    @include tablet {
+      padding-top: 8rem;
+      margin-bottom: -8rem;
     }
 
     &__user {
+      width: 50%;
+      min-width: 300px;
       margin-bottom: 1.5rem;
       font-size: .8rem;
       display: flex;
@@ -333,18 +327,12 @@ export default {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      max-width: 1500px;
+      max-width: 940px;
       margin: 0 auto;
-      // padding: 0 1rem;
+      padding: 0 1rem;
     }
 
     &.is-famed {
-      &::before {
-        background-image: linear-gradient(-180deg, $c-main 0%, #F7F7F7 100%);
-      }
-      .lead h1 {
-        color: $c-main;
-      }
       .vote__count {
         color: $c-main;
       }
@@ -381,7 +369,7 @@ export default {
         padding-top: 1rem;
       }
 
-      @include desktop() {
+      @include tablet() {
         width: 49%;
 
         &:first-child {
@@ -454,10 +442,6 @@ export default {
         font-weight: bold;
         margin-left: -5px;
         transform: rotate(-4deg);
-      }
-
-      @include desktop() {
-        // padding: 1.5rem;
       }
     }
 
@@ -561,7 +545,7 @@ export default {
           // height: 4rem;
         }
 
-        @include desktop {
+        @include tablet {
           margin-top: 4rem;
         }
       }

@@ -21,21 +21,9 @@
       </div>
     </div>
     <div class="container list__container">
-      <ul class="list__entries">
-        <li v-for="entry in listSpots" class="list-entry" v-if="listSpots" v-bind:class="{ famed: entry.famed }" v-bind:key="entry._id">
-          <router-link :to="'/entries/' + entry._id" class="list-entry__link">
-            <span class="list-entry__image" :style="{ backgroundImage: 'url(' + entry.photo.small.url + ')' }"></span>
-            <span class="list-entry__content">
-              <span class="list-entry__date">{{ formatDate(entry.createdAt) }} — {{ entry.user.name }}</span>
-              <h3>{{ entry.title }}</h3>
-              <span class="list-entry__location">{{ entry.address }}</span>
-              <span v-if="entry.humanizedDistance" class="list-entry__distance">{{ entry.humanizedDistance }} entfernt</span>
-              <span class="list-entry__meta list-entry__meta--votes">{{ entry.votes }}</span>
-              <span class="list-entry__meta list-entry__meta--comments">{{ entry.commentCount }}</span>
-            </span>
-          </router-link>
-        </li>
-      </ul>
+      <div class="list__entries">
+        <c-entry-preview v-for="entry in listSpots" :key="entry._id" :entry="entry"></c-entry-preview>
+      </div>
       <a class="showmore" href="#" v-if="entryDisplayCapped && listSpots" @click.prevent="displayEntryCount += 10">Mehr Spots anzeigen</a>
     </div>
   </div>
@@ -43,6 +31,7 @@
 
 <script>
 import spots from '../api/spots';
+import EntryPreview from '@/components/EntryPreview';
 
 export default {
   name: 'v-list',
@@ -50,6 +39,9 @@ export default {
     title: 'Spots — Bikeable'
   },
   props: [],
+  components: {
+    'c-entry-preview': EntryPreview
+  },
   computed: {
     allSpots() {
       return this.$store.getters.allSpots;
@@ -124,11 +116,6 @@ export default {
     },
     isCurrentSort(sort) {
       return this.entrySort == sort;
-    },
-    formatDate(date) {
-      if(!date) return '';
-      let d = new Date(date);
-      return d.toLocaleDateString('de-DE');
     }
   },
   mounted() {
@@ -150,17 +137,17 @@ export default {
   // background: #fafafa;
   margin-bottom: -1rem;
 
-  @include desktop {
+  @include tablet {
     padding: 0 0 4rem 0;
     margin-bottom: -8rem;
   }
 
   &__controls {
     background-image: linear-gradient(-127deg, #FCFFD6 0%, #E2FDFF 100%);
-    padding-top: 3rem;
+    padding-top: 5rem;
     position: relative;
 
-    @include desktop {
+    @include tablet {
       padding-top: 8rem;
     }
   }
@@ -169,7 +156,7 @@ export default {
     position: relative;
     padding: 0 .5rem;
 
-    @include desktop {
+    @include tablet {
       padding: 0 1rem;
     }
   }
@@ -200,7 +187,7 @@ export default {
     overflow: hidden;
     font-family: $f-head;
 
-    @include desktop() {
+    @include tablet() {
       height: auto;
     }
 
@@ -232,7 +219,7 @@ export default {
         transform: rotate(90deg);
       }
 
-      @include desktop() {
+      @include tablet() {
         font-size: .8rem;
 
         &::before {
@@ -289,225 +276,14 @@ export default {
     }
   }
 
-  ul.list__entries {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  .list__entries {
     margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 
-    @include desktop() {
+    @include tablet() {
       margin-top: 0;
-    }
-
-    .list-entry {
-      // margin-bottom: .5rem;
-      border-bottom: 1px solid $c-grey-dark;
-
-      &__distance {
-        display: block;
-        color: lighten($c-black, 40%);
-        font-size: .8rem;
-        font-weight: 400;
-      }
-      &__location {
-        display: block;
-        font-size: .8rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 100%;
-        margin-bottom: .2rem;
-        font-family: $f-body;
-        line-height: 1.3;
-        // color: #888;
-      }
-      &__date {
-        display: block;
-        font-size: .8rem;
-        margin-bottom: .4rem;
-      }
-      &__link {
-        display: block;
-        padding-left: 6rem;
-        width: 100%;
-        margin: 0 auto;
-        text-decoration: none;
-        color: #333;
-        background-color: #fff;
-        // border: 1px solid $c-grey-dark;
-        box-sizing: border-box;
-        position: relative;
-        // transition: .2s background-color;
-        // border-radius: 4px;
-        overflow: hidden;
-
-        &::after {
-          content: "";
-          display: none;
-          width: 100%;
-          height: 100%;
-          background-color: #fff;
-          background-image: linear-gradient(90deg, rgba($c-highlight, .2) 0%, rgba($c-highlight, .01) 100%);
-          position: absolute;
-          left: 0;
-          top: 0;
-        }
-
-        &:hover, &:focus {
-          border-color: #ccc;
-
-          h3 {
-            color: $c-highlight;
-            // text-decoration: underline;
-          }
-          .list-entry__image::after {
-            opacity: 0;
-          }
-          .list-entry__meta {
-            color: #333;
-
-            &::before {
-              opacity: 1;
-            }
-          }
-        }
-
-        @include desktop() {
-          padding-left: 10rem;
-        }
-      }
-      &__content {
-        display: block;
-        // overflow: hidden;
-        text-overflow: ellipsis;
-        padding: .75rem 1rem;
-        position: relative;
-        z-index: 2;
-
-        @include desktop {
-          padding: 1rem 1.5rem;
-        }
-      }
-      &__image {
-        position: absolute;
-        top: 10%;
-        left: 0;
-        display: block;
-        width: 6rem;
-        height: 80%;
-        background-size: cover;
-        background-position: center;
-
-        @include desktop() {
-          width: 10rem;
-          height: 80%;
-          top: 10%;
-        }
-      }
-      &__meta {
-        position: relative;
-        display: inline-block;
-        padding-left: 24px;
-        margin-right: 1rem;
-        margin-top: 1rem;
-        // color: #888;
-        font-family: $f-body;
-        font-size: .8rem;
-        font-weight: 600;
-        transition: .2s color;
-
-        &::before {
-          content: "";
-          display: block;
-          width: 18px;
-          height: 100%;
-          position: absolute;
-          top: 0;
-          left: 0;
-          background-size: 100%;
-          background-position: center;
-          background-repeat: no-repeat;
-        }
-        &--votes::before {
-          background-image: url('../assets/upvote-small-filled.png');
-          @include retina {
-            background-image: url('../assets/upvote-small-filled@2x.png');
-          }
-        }
-        &--comments {
-          padding-left: 26px;
-        }
-        &--comments::before {
-          background-image: url('../assets/comment-small-filled.png');
-          @include retina {
-            background-image: url('../assets/comment-small-filled@2x.png');
-          }
-        }
-      }
-      h3 {
-        font-family: $f-body;
-        text-transform: none;
-        font-size: .9rem;
-        font-weight: 400;
-        margin-bottom: .25rem;
-        margin-top: .25rem;
-        color: $c-black;
-        // transition: .2s color;
-        position: relative;
-        padding-left: 0;
-        line-height: 1.1;
-        padding-top: 6px;
-        padding-bottom: 10px;
-
-        @include desktop {
-          line-height: 32px;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
-          padding: 0;
-          padding-left: 45px;
-        }
-
-        &::before {
-          content: "";
-          display: block;
-          position: absolute;
-          top: 0;
-          left: -38px;
-          width: 32px;
-          height: 32px;
-          background-size: 100%;
-          background-repeat: no-repeat;
-          background-image: url('../assets/list-icon-shame.png');
-          @include retina {
-            background-image: url('../assets/list-icon-shame@2x.png');
-          }
-
-          @include desktop {
-            left: 0;
-            width: 32px;
-            height: 32px;
-          }
-        }
-      }
-
-      &.famed {
-        // border-color: $c-main;
-
-        .list-entry__link::after {
-          background-image: linear-gradient(90deg, rgba($c-main, .3) 0%, #fff 70%);
-        }
-        .list-entry__link:hover h3, .list-entry__link:focus h3 {
-          color: $c-main;
-        }
-        h3::before {
-          background-image: url('../assets/list-icon-fame.png');
-          @include retina {
-            background-image: url('../assets/list-icon-fame@2x.png');
-          }
-        }
-      }
-
     }
   }
   .showmore {
@@ -533,7 +309,7 @@ export default {
     margin: 0 0 1rem 0;
     margin-bottom: 2.5rem;
 
-    @include desktop() {
+    @include tablet() {
       padding-bottom: 0;
       margin-bottom: 2rem;
     }
@@ -560,7 +336,7 @@ export default {
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
 
-      @include desktop() {
+      @include tablet() {
         width: 7rem;
         font-size: .7rem;
       }
@@ -596,7 +372,7 @@ export default {
           @include retina {
             background-image: url('../assets/tab-shame@2x.png');
           }
-          @include desktop {
+          @include tablet {
             width: 27px;
             height: 27px;
             margin-left: -13px;
@@ -628,7 +404,7 @@ export default {
     right: 1rem;
     font-size: .8rem;
 
-    @include desktop() {
+    @include tablet() {
       bottom: 0;
       right: 1rem;
       top: auto;
@@ -661,7 +437,7 @@ export default {
         border-color: #333;
       }
 
-      @include desktop() {
+      @include tablet() {
         border-bottom: none;
       }
     }

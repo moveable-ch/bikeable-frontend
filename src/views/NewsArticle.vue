@@ -71,7 +71,7 @@ export default {
     margin-top: 0;
     margin-bottom: .5rem;
 
-    @include desktop() {
+    @include tablet() {
       text-align: center;
       font-size: 3.25rem;
       margin-top: 2rem;
@@ -83,7 +83,7 @@ export default {
     font-size: 1.25rem;
     color: #aaa;
 
-    @include desktop() {
+    @include tablet() {
       text-align: center;
     }
   }
@@ -93,7 +93,7 @@ export default {
     max-width: 750px !important;
     margin: 1rem auto;
 
-    @include desktop() {
+    @include tablet() {
       margin: 2rem auto;
     }
   }

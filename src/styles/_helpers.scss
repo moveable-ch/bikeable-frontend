@@ -4,10 +4,11 @@ $c-white: #fff;
 $c-yellow: #FFFCDB;
 $c-grey: #FAFAFA;
 $c-grey-dark: #E6E6E6;
+$c-grey-darkest: #869098;
 $c-black: #28343D;
 $c-blue: #E7EDF2;
 
-$f-body: 'Barlow', sans-serif;
+$f-body: 'Open Sans', sans-serif;
 $f-head: 'Rubik', sans-serif;
 
 $easeOutQuint: cubic-bezier(0.230, 1.000, 0.320, 1.000);
@@ -15,8 +16,11 @@ $easeInQuint: cubic-bezier(0.755, 0.050, 0.855, 0.060);
 $easeInOutQuint: cubic-bezier(0.860, 0.000, 0.070, 1.000);
 $easeOutBack: cubic-bezier(0.175, 0.885, 0.320, 1.275);
 
+@mixin tablet() {
+  @media screen and (min-width: 768px) { @content; }
+}
 @mixin desktop() {
-  @media screen and (min-width: 700px) { @content; }
+  @media screen and (min-width: 1024px) { @content; }
 }
 
 @mixin retina() {

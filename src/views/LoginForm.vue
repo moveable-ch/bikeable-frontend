@@ -44,7 +44,6 @@ export default {
   },
 
   mounted() {
-
   },
 
   methods: {
@@ -70,7 +69,7 @@ export default {
   padding: 0 0 2rem 0;
   min-height: calc(100vh - 600px);
 
-  @include desktop() {
+  @include tablet() {
     padding: 2rem 0;
   }
 

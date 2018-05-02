@@ -1,4 +1,5 @@
 <i18n>
+
 {
   "en": {
     "registernow": "Join now!",
@@ -249,14 +250,14 @@ export default {
   &__news {
     margin: 3rem 0;
 
-    @include desktop() {
+    @include tablet() {
       margin: 4rem 0;
     }
 
     &__container {
       margin-top: 2rem;
 
-      @include desktop() {
+      @include tablet() {
         margin-top: 3rem;
       }
     }
@@ -265,7 +266,7 @@ export default {
       display: flex;
       margin-top: 1rem;
 
-      @include desktop() {
+      @include tablet() {
         max-width: 850px;
       }
     }
@@ -309,7 +310,7 @@ export default {
         font-size: .9rem;
       }
 
-      @include desktop() {
+      @include tablet() {
         padding-left: 1.5rem;
         padding-top: 0;
       }
@@ -321,7 +322,7 @@ export default {
       flex-shrink: 0;
       // box-shadow: 2px 2px 0 0 $c-grey-dark;
 
-      @include desktop() {
+      @include tablet() {
         width: 250px;
         height: 250px;
       }
@@ -331,7 +332,7 @@ export default {
   &__spots {
     margin: 3rem 0;
 
-    @include desktop() {
+    @include tablet() {
       margin: 4rem 0 5rem 0;
     }
 
@@ -364,7 +365,7 @@ export default {
       // border-radius: 4px;
       overflow: hidden;
 
-      @include desktop() {
+      @include tablet() {
         width: calc(50% - .5rem);
         height: 15rem;
         margin-left: 0;
@@ -428,7 +429,7 @@ export default {
         transform: rotate(180deg);
         transition: .5s transform ease-in, .5s opacity;
 
-        @include desktop() {
+        @include tablet() {
           display: block;
         }
       }
@@ -464,7 +465,7 @@ export default {
       hyphens: auto;
       text-shadow: 2px 2px 0 rgba($c-black, .3);
 
-      @include desktop {
+      @include tablet {
         font-size: 1.75rem;
       }
     }
@@ -477,7 +478,7 @@ export default {
       color: inherit;
       line-height: 1.1;
 
-      @include desktop() {
+      @include tablet() {
         font-size: .75rem;
       }
     }
@@ -492,7 +493,7 @@ export default {
       color: inherit;
       margin-bottom: .2rem;
 
-      @include desktop() {
+      @include tablet() {
         font-size: .75rem;
       }
     }
@@ -503,7 +504,7 @@ export default {
     margin: 0 auto;
     background-image: linear-gradient(-220deg, #FCFFD6 0%, #E2FDFF 100%);
 
-    @include desktop {
+    @include tablet {
       margin: 1rem auto;
     }
 
@@ -533,7 +534,7 @@ export default {
     margin-top: -3rem;
     padding-top: 3rem;
 
-    @include desktop() {
+    @include tablet() {
       height: 650px;
       margin-top: -4rem;
       padding-top: 0;
@@ -546,7 +547,7 @@ export default {
     &__content {
       padding-top: 6rem;
 
-      @include desktop() {
+      @include tablet() {
         padding-top: 12rem;
       }
     }
@@ -649,7 +650,7 @@ export default {
         color: $c-main;
       }
 
-      @include desktop() {
+      @include tablet() {
         font-size: 3rem;
       }
     }
@@ -663,7 +664,7 @@ export default {
         color: #444;
       }
 
-      @include desktop() {
+      @include tablet() {
         font-size: 1.3rem;
       }
     }

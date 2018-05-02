@@ -165,7 +165,7 @@ export default {
     background-position: center;
     flex-shrink: 0;
 
-    @include desktop() {
+    @include tablet() {
       width: 9rem;
       height: 9rem;
     }
@@ -324,7 +324,7 @@ export default {
         background-color: #333;
       }
 
-      @include desktop() {
+      @include tablet() {
 
       }
     }

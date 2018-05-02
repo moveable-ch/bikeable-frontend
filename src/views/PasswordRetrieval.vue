@@ -70,7 +70,7 @@ export default {
     margin: 1rem auto;
   }
 
-  @include desktop() {
+  @include tablet() {
     padding: 3rem 0;
 
     .input-text {

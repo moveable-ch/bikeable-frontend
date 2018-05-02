@@ -117,7 +117,7 @@ export default {
       border-color: $c-main;
     }
 
-    @include desktop() {
+    @include tablet() {
       width: 32%;
       margin-right: 2%;
 
@@ -154,7 +154,7 @@ export default {
         display: none;
       }
 
-      @include desktop() {
+      @include tablet() {
         width: 33.3%;
       }
     }

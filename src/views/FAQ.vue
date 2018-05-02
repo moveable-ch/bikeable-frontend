@@ -78,7 +78,7 @@ export default {
   &__item {
     margin: 2rem 0;
 
-    @include desktop() {
+    @include tablet() {
       margin: 2rem 0;
     }
   }

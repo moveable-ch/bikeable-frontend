@@ -174,7 +174,7 @@ export default {
         // height: 4rem;
       }
 
-      @include desktop {
+      @include tablet {
         // margin-top: 2rem;
       }
     }

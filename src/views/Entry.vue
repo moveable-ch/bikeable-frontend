@@ -155,6 +155,7 @@ export default {
 
       spots.getSpotById(this.entryId)
         .then((data) => {
+          console.log(data);
           this.currentEntry = data;
           this.loadingData = false;
           this.$store.commit('LOAD_FINISH');

@@ -13,8 +13,8 @@
       </ul>
     </nav>
     <transition name="nav-fade">
-      <div class="header__menu" v-if="navVisible">
-        <div class="header__menu__inner">
+      <div class="header__menu" v-if="navVisible" @click="navVisible = false">
+        <div class="header__menu__inner" @click.stop>
           <button @click="navVisible = false" class="header__menu__close"></button>
           <nav class="header__menu__nav">
             <ul>
@@ -348,8 +348,8 @@ export default {
       width: 1.5rem;
       height: 1.5rem;
       position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
+      top: 1rem;
+      right: 1rem;
       background-color: transparent;
       border: none;
       cursor: pointer;
@@ -358,7 +358,7 @@ export default {
         content: "";
         display: block;
         position: absolute;
-        top: 1rem;
+        top: .75rem;
         left: 0;
         width: 100%;
         height: 3px;
@@ -373,6 +373,12 @@ export default {
       }
       &:focus {
         outline: none;
+      }
+
+      &:hover {
+        &::before, &::after {
+          background: $c-main;
+        }
       }
     }
   }

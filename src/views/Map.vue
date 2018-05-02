@@ -270,14 +270,6 @@ export default {
   height: 100vh;
   background-color: #fff;
 
-  @include desktop {
-    height: 100vh;
-
-    &::before, &::after {
-      height: 7rem;
-    }
-  }
-
   .embed & {
     height: 100vh;
     top: 0;
@@ -292,6 +284,14 @@ export default {
     left: 0;
     pointer-events: none;
     background-image: linear-gradient(-137deg, rgba(#FCFFD6, .9) 0%, rgba(#E2FDFF, .7) 100%);
+  }
+
+  @include desktop {
+    height: 100vh;
+
+    &::before, &::after {
+      height: 7rem;
+    }
   }
 }
 .gmaps {

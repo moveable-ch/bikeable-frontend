@@ -4,6 +4,7 @@
   <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed, 'is-fixed': currentEntry.fixed, 'pending': loadingData }">
     <entry-media-view
       :entry="currentEntry"
+      :userData="userData"
       :hasVoted="hasVoted"
       :isLoggedIn="isLoggedIn"
       @vote="upvoteEntry()">
@@ -108,6 +109,9 @@ export default {
     entryTitle() {
       if(!this.currentEntry.title) return 'what';
       return this.currentEntry.title;
+    },
+    entryIsFromUser() {
+      return this.currentEntry.user._id = this.$store.getters.userData._id;
     },
     userData() {
       return this.$store.getters.userData;

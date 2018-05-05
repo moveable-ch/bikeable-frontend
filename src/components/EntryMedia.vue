@@ -14,7 +14,9 @@
           </a>
           <span class="entry-media__votes__num">{{ entry.votes }}</span>
         </div>
-        <h1>{{ entry.title }}</h1>
+        <h1>
+          {{ entry.title }} <span v-if="isLoggedIn && entry.user._id == userData._id " class="entry-media__edit"><a :href="'/edit/' + entry._id">[Spot bearbeiten]</a></span>
+        </h1>
         <span class="entry-media__address">{{ entry.address }}</span>
       </div>
       <div class="carousel-cell entry-media__image">
@@ -36,7 +38,7 @@ import GoogleMapsLoader from 'google-maps';
 
 export default {
   name: 'c-entry-media',
-  props: ['entry', 'hasVoted', 'isLoggedIn'],
+  props: ['entry', 'userData', 'hasVoted', 'isLoggedIn'],
   components: {
   },
   data () {
@@ -168,6 +170,10 @@ export default {
   .gmaps {
     width: 25rem;
     height: 100%;
+  }
+  &__edit {
+    font-size: .8rem;
+    color: $c-grey-darkest;
   }
   &__address {
     font-size: .8rem;

@@ -15,7 +15,7 @@ const actions = {
     commit('LOAD_START');
 
     return new Promise((resolve, reject) => {
-      auth.login(
+      auth.fblogin(
         {
           accessToken: accessToken, 
           email: email, 

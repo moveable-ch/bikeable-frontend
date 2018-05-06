@@ -70,7 +70,7 @@ export default {
           // the user's ID, a valid access token, a signed
           // request, and the time the access token 
           // and signed request each expire
-          this.onFbLogin(response)
+          onFbLogin(response)
 
         } else if (response.status === 'not_authorized') {
           // the user must go through the login flow
@@ -114,7 +114,7 @@ export default {
           // the user's ID, a valid access token, a signed
           // request, and the time the access token 
           // and signed request each expire
-          this.onFbLogin(response)
+          onFbLogin(response)
 
         } else if (response.status === 'not_authorized') {
           // the user must go through the login flow

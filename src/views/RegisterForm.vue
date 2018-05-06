@@ -72,11 +72,29 @@ export default {
 @import '../styles/helpers';
 
 .register {
-  padding: 0 0 2rem 0;
+  padding: 4rem 0 2rem 0;
   min-height: calc(100vh - 600px);
 
+  &::before, &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 40rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  &::before {
+    z-index: -1;
+    background-image: linear-gradient(0deg, #FFFFFF 2%, rgba(255,255,255,0.00) 74%);
+  }
+  &::after {
+    z-index: -2;
+    background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
+  }
+
   @include tablet() {
-    padding: 2rem 0;
+    padding: 6rem 0;
   }
 
   h1 {

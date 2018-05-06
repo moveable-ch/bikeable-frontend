@@ -185,7 +185,7 @@ export default {
   }
 
   @include tablet() {
-    padding: 4rem 0;
+    padding: 6rem 0;
   }
 
   h1 {

@@ -1,6 +1,6 @@
 <template>
   <div class="entry-preview" v-bind:class="{ famed: entry.famed }">
-      <router-link :to="'/entries/' + entry._id" class="entry-preview__image" :style="{ backgroundImage: 'url(' + entry.photo.small.url + ')' }"></router-link>
+      <router-link :to="'/entries/' + entry._id" class="entry-preview__image" :style="{ backgroundImage: 'url(' + entry.photo.medium.url + ')' }"></router-link>
       <span class="entry-preview__content">
         <span class="entry-preview__location">{{ entry.address }}</span>
         <h3 class="entry-preview__headline"><router-link :to="'/entries/' + entry._id">{{ entry.title }}</router-link></h3>
@@ -50,10 +50,10 @@ export default {
   margin: 1rem 0;
 
   @include tablet {
-    width: calc(50% - .5rem);
+    width: calc(50% - 1rem);
   }
   @include desktop {
-    width: calc(33.3% - .5rem);
+    width: calc(33.3% - 1rem);
   }
 
   &__image {
@@ -64,9 +64,10 @@ export default {
     background-position: center;
     margin-bottom: .5rem;
     border-radius: 4px;
+    box-shadow: 0 5px 15px -5px rgba($c-black, .2);
   }
   &__location {
-    font-size: .8rem;
+    font-size: .7rem;
     color: $c-grey-darkest;
     white-space: nowrap;
     overflow: hidden;

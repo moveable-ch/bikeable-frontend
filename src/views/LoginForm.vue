@@ -18,12 +18,14 @@
         <router-link to="/forgottenpw" class="link-more">Passwort vergessen?</router-link>
         <router-link to="/register" class="link-more">Neuen Account erstellen</router-link>
       </form>
+      <form @submit.prevent="loginAtFacebook">
+        <button type="submit" id="facebook-button" class="btn">Login with facebook</button>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'v-login',
   data () {
@@ -31,7 +33,13 @@ export default {
       message: '',
 
       formEmail: '',
-      formPassword: ''
+      formPassword: '',
+      fbIsConnected: false,
+      fbName: '',
+      fbEmail: '',
+      fbUserId: '',
+      fbAccessToken: '',
+      FB: undefined
     }
   },
 
@@ -44,6 +52,46 @@ export default {
   },
 
   mounted() {
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '312310255868775',
+        xfbml      : true,
+        version    : 'v2.7'
+      });
+
+      this.FB = FB;
+
+      //This function should be here, inside window.fbAsyncInit
+      FB.getLoginStatus(function(response) {
+
+        if (response.status === 'connected') {
+          // the user is logged in and has authenticated your
+          // app, and response.authResponse supplies
+          // the user's ID, a valid access token, a signed
+          // request, and the time the access token 
+          // and signed request each expire
+          this.onFbLogin(response)
+
+        } else if (response.status === 'not_authorized') {
+          // the user must go through the login flow
+          // to authorize your app or renew authorization
+
+        } else {
+          // the user isn't logged in to Facebook.
+        }
+
+        console.log(response);
+     });
+
+   };
+
+    (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
   },
 
   methods: {
@@ -56,6 +104,53 @@ export default {
           this.$router.push('/');
         }, (data) => {
         });
+    },
+    loginAtFacebook() {
+
+      FB.login(function(response) {
+        if (response.status === 'connected') {
+          // the user is logged in and has authenticated your
+          // app, and response.authResponse supplies
+          // the user's ID, a valid access token, a signed
+          // request, and the time the access token 
+          // and signed request each expire
+          this.onFbLogin(response)
+
+        } else if (response.status === 'not_authorized') {
+          // the user must go through the login flow
+          // to authorize your app or renew authorization
+
+        } else {
+          // the user isn't logged in to Facebook.
+        }
+      });
+
+    },
+    fbLogin() {
+      this.$store.dispatch('fblogin', {
+          accessToken: fbAccessToken,
+          email: this.fbemail,
+          name: this.fbname
+        })
+      .then((data) => {
+          this.$router.push('/');
+        }, (data) => {
+        });
+    },
+    onFbLogin(response) {
+      this.fbUserId = response.authResponse.userID;
+      this.fbAccessToken = response.authResponse.accessToken;
+      this.fbIsConnected = true
+      this.FB.api('/me', 'GET', { fields: 'name, email' },
+        userInformation => {
+          this.fbemail = userInformation.email;
+          this.fbname = userInformation.name;
+          fblogin()
+        }
+      )
+    },
+    onFbLogout() {
+      this.fbIsConnected = false;
     }
   }
 }
@@ -80,6 +175,23 @@ export default {
   .btn {
     margin-bottom: 2rem;
   }
+
+  #facebook-button {
+
+    padding-left: 60px;
+
+    background: $c-black url('../assets/login-fb-logo.png') no-repeat left center;
+    background-size: contain;
+
+    &:disabled,
+    &[disabled] {
+      cursor: default;
+      background-color: lighten($c-black, 60%);
+      border-color: lighten($c-black, 60%);
+    }
+
+  }
+
 
   .link-more {
     font-size: .9rem;

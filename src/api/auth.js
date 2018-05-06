@@ -2,6 +2,26 @@ import axios from 'axios';
 var config = require('../../config');
 
 export default {
+
+  fblogin({ accessToken, email, name }) {
+    let url = process.env.BACKEND_URL + '/api/v1/facebooklogin';
+
+    return new Promise((resolve, reject) => {
+      axios.post(url, {
+        accessToken: accessToken,
+        email: email,
+        name: name
+      })
+      .then(response => {
+        resolve(response.data.data);
+      }, error => {
+        if(!error.request.response) return;
+        let msg = JSON.parse(error.request.response);
+        reject(msg.message);
+      });
+    });
+  },
+
   register({ email, username, password }) {
 
     let url = process.env.BACKEND_URL + '/api/v1/register';

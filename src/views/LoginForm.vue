@@ -52,6 +52,8 @@ export default {
   },
 
   mounted() {
+    var self = this;
+
     window.fbAsyncInit = function() {
       FB.init({
         appId      : '312310255868775',
@@ -59,9 +61,8 @@ export default {
         version    : 'v2.7'
       });
 
-      this.FB = FB;
+      self.FB = FB;
 
-      var loginForm = this;
       //This function should be here, inside window.fbAsyncInit
       FB.getLoginStatus(function(response) {
 
@@ -69,9 +70,9 @@ export default {
           // the user is logged in and has authenticated your
           // app, and response.authResponse supplies
           // the user's ID, a valid access token, a signed
-          // request, and the time the access token 
+          // request, and the time the access token
           // and signed request each expire
-          loginForm.onFbLogin(response)
+          self.onFbLogin(response)
 
         } else if (response.status === 'not_authorized') {
           // the user must go through the login flow
@@ -113,7 +114,7 @@ export default {
           // the user is logged in and has authenticated your
           // app, and response.authResponse supplies
           // the user's ID, a valid access token, a signed
-          // request, and the time the access token 
+          // request, and the time the access token
           // and signed request each expire
           loginForm.onFbLogin(response)
 
@@ -129,7 +130,7 @@ export default {
     },
     fbLogin() {
       this.$store.dispatch('fblogin', {
-          accessToken: fbAccessToken,
+          accessToken: this.fbAccessToken,
           email: this.fbemail,
           name: this.fbname
         })
@@ -146,7 +147,7 @@ export default {
         userInformation => {
           this.fbemail = userInformation.email;
           this.fbname = userInformation.name;
-          this.fblogin()
+          this.fbLogin()
         }
       )
     },

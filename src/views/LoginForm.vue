@@ -125,7 +125,7 @@ export default {
         } else {
           // the user isn't logged in to Facebook.
         }
-      });
+      }, {scope: 'email'});
 
     },
     fbLogin() {

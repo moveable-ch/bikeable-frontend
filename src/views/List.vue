@@ -22,7 +22,9 @@
     </div>
     <div class="container list__container">
       <div class="list__entries">
-        <c-entry-preview v-for="entry in listSpots" :key="entry._id" :entry="entry"></c-entry-preview>
+        <div class="list__entries__item" v-for="entry in listSpots" :key="entry._id">
+          <c-entry-preview :entry="entry"></c-entry-preview>
+        </div>
       </div>
       <a class="showmore" href="#" v-if="entryDisplayCapped && listSpots" @click.prevent="displayEntryCount += 10">Mehr Spots anzeigen</a>
     </div>
@@ -284,6 +286,17 @@ export default {
 
     @include tablet() {
       margin-top: 0;
+    }
+
+    &__item {
+      width: 100%;
+
+      @include tablet {
+        width: calc(50% - 1rem);
+      }
+      @include desktop {
+        width: calc(33.3% - 1.33rem);
+      }
     }
   }
   .showmore {

@@ -1,5 +1,5 @@
 <template>
-  <div class="entry-preview" v-bind:class="{ famed: entry.famed }">
+  <div v-if="entry.photo" class="entry-preview" v-bind:class="{ famed: entry.famed }">
       <router-link :to="'/entries/' + entry._id" class="entry-preview__image" :style="{ backgroundImage: 'url(' + entry.photo.medium.url + ')' }">
         <span class="entry-preview__thumb">
           <svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

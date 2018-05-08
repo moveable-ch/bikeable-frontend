@@ -43,14 +43,9 @@
       <div class="container">
         <h2>{{ cat.title}}</h2>
         <div class="home__spots__container">
-          <router-link :to="'/entries/' + spot._id" class="home__spots__item" v-for="spot in cat.spots" :key="spot._id" v-bind:class="{ famed: spot.famed }">
-            <span v-if="spot.photo" class="home__spots__image" :style="'background-image: url(' + spot.photo.medium.url + ')'"></span>
-            <span v-if="spot.title" class="home__spots__content">
-              <span class="meta">{{ cat.meta(spot) }}</span>
-              <h3>{{ spot.title }}</h3>
-              <span class="address">{{ spot.address }}</span>
-            </span>
-          </router-link>
+          <div class="home__spots__item" v-for="spot in cat.spots" :key="spot._id">
+            <c-entry-preview :entry="spot"></c-entry-preview>
+          </div>
         </div>
         <router-link to="/entries" class="home__spots__button">{{ $t('showall') }}</router-link>
       </div>
@@ -120,12 +115,17 @@
 import Prismic from 'prismic.io';
 import spots from '../api/spots';
 
+import EntryPreview from '@/components/EntryPreview';
+
 export default {
   name: 'v-home',
   metaInfo: {
     title: 'Bikeable'
   },
   props: [],
+  components: {
+    'c-entry-preview': EntryPreview
+  },
   computed: {
     entries() {
       return this.$store.getters.allSpots;
@@ -353,148 +353,10 @@ export default {
       }
     }
     &__item {
-      background-color: $c-grey;
-      display: block;
-      text-decoration: none;
       width: 100%;
-      height: 12rem;
-      margin-bottom: 1rem;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-      // border-radius: 4px;
-      overflow: hidden;
-
-      @include tablet() {
-        width: calc(50% - .5rem);
-        height: 15rem;
-        margin-left: 0;
-        margin-right: 0;
-      }
-
-      &:hover {
-        .home__spots__image::after {
-          opacity: .6;
-          transform: rotate(160deg);
-          transition: .5s transform $easeOutBack, .5s opacity;
-        }
-        .home__spots__image::before {
-          opacity: 1;
-        }
-      }
-      &.famed {
-        &:hover {
-          .home__spots__image::after {
-            opacity: .6;
-            transform: rotate(-15deg);
-          }
-        }
-        .meta {
-          background-color: $c-main;
-        }
-      }
-    }
-    &__content {
-      display: block;
-      width: calc(100% - 2rem);
-      z-index: 1;
-      color: #fff;
-      position: absolute;
-      bottom: 1rem;
-      left: 1rem;
-    }
-    &__image {
-      display: block;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-
-      &::after {
-        content: "";
-        display: none;
-        width: 150px;
-        height: 150px;
-        background-size: 100%;
-        position: absolute;
-        top: 2rem;
-        right: 2rem;
-        background-image: url('../assets/thumbs-up-white.svg');
-        background-repeat: no-repeat;
-        opacity: 0;
-        transform: rotate(180deg);
-        transition: .5s transform ease-in, .5s opacity;
-
-        @include tablet() {
-          display: block;
-        }
-      }
-      &::before {
-        content: "";
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        transition: .5s opacity;
-        opacity: .6;
-        background-image: linear-gradient(-160deg, rgba($c-highlight, .7) 0%, rgba(40,52,61,.9) 100%);
-      }
-
-      .famed & {
-        &::after {
-          transform: rotate(5deg);
-        }
-        &::before {
-          background-image: linear-gradient(-160deg, rgba($c-main, .7) 0%, rgba(40,52,61,.9) 100%);
-        }
-      }
-    }
-    h3 {
-      font-family: $f-head;
-      text-transform: uppercase;
-      font-size: 1.5rem;
-      color: inherit;
-      line-height: 1;
-      margin-bottom: .2rem;
-      hyphens: auto;
-      text-shadow: 2px 2px 0 rgba($c-black, .3);
-
+      
       @include tablet {
-        font-size: 1.75rem;
-      }
-    }
-    .address {
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-size: .9rem;
-      color: inherit;
-      line-height: 1.1;
-
-      @include tablet() {
-        font-size: .75rem;
-      }
-    }
-    .meta {
-      display: inline-block;
-      background-color: $c-highlight;
-      padding: 4px 8px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-size: .9rem;
-      color: inherit;
-      margin-bottom: .2rem;
-
-      @include tablet() {
-        font-size: .75rem;
+        width: calc(50% - 1.33rem);
       }
     }
   }

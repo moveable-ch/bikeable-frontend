@@ -279,9 +279,7 @@ export default {
 
     &__date {
       font-size: .8rem;
-      background-color: $c-grey-dark;
-      color: #888;
-      padding: 4px 8px;
+      color: $c-grey-darkest;
     }
 
     &__content {
@@ -290,15 +288,15 @@ export default {
 
       h3 {
         line-height: 1;
-        font-size: 1.75rem;
+        font-size: 1.5rem;
         margin-bottom: .75rem;
-        text-transform: uppercase;
         font-family: $f-head;
         margin-top: .4rem;
 
         a {
           color: $c-main;
           text-decoration: none;
+          hyphens: auto;
 
           &:hover {
             color: $c-black;
@@ -307,7 +305,7 @@ export default {
       }
 
       p {
-        font-size: .9rem;
+        font-size: 1rem;
       }
 
       @include tablet() {
@@ -336,8 +334,12 @@ export default {
       margin: 4rem 0 5rem 0;
     }
 
+    h2 {
+      margin-bottom: .5rem;
+    }
+
     &__container {
-      margin-top: 1rem;
+      margin-top: 0;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -388,18 +390,23 @@ export default {
   }
 
   &__intro {
-    background-image: linear-gradient(-220deg, #FCFFD6 0%, #E2FDFF 100%);
-    height: 350px;
+    background-image: linear-gradient(45deg, #F4FDB5 0%, #CAFBFF 100%);
+    height: 500px;
     margin: 0 auto;
     color: #444;
     position: relative;
     margin-top: -3rem;
+    margin-bottom: -7rem;
     padding-top: 3rem;
 
     @include tablet() {
-      height: 650px;
+      height: 900px;
       margin-top: -4rem;
+      margin-bottom: -15rem;
       padding-top: 0;
+    }
+    @include desktop() {
+      height: 1000px;
     }
 
     .container {
@@ -410,12 +417,12 @@ export default {
       padding-top: 6rem;
 
       @include tablet() {
-        padding-top: 12rem;
+        padding-top: 14rem;
       }
     }
     &__path {
       position: absolute;
-      right: 13rem;
+      right: 5rem;
       top: 0;
       width: 961px;
       height: 691px;
@@ -431,16 +438,16 @@ export default {
       }
 
       #bikepath {
-        stroke: $c-main;
-        stroke-width: 4;
+        stroke: #fff;
+        stroke-width: 6;
         stroke-dasharray: 10, 40;
         animation: bikedash 1s linear infinite;
       }
 
-      @media screen and (max-width: 1130px) {
+      @media screen and (max-width: 1023px) {
         right: 0rem;
       }
-      @media screen and (max-width: 700px) {
+      @media screen and (max-width: 767px) {
         top: -.5rem;
         right: 0;
         width: 36rem;
@@ -449,21 +456,23 @@ export default {
     }
     &__illu {
       position: absolute;
-      top: 11.3rem;
-      right: 13.8rem;
-      width: 17rem;
+      top: 12.4rem;
+      right: 5.9rem;
+      width: 19rem;
       transform-origin: 50% 93%;
       animation: paul .7s ease-out 0s infinite normal forwards;
       // transform: rotate(-10deg);
       pointer-events: none;
 
-      @media screen and (max-width: 1130px) {
-        right: .7rem;
+      @media screen and (max-width: 1023px) {
+        right: 1.8rem;
+        top: 16.4rem;
+        width: 16rem;
       }
-      @media screen and (max-width: 700px) {
+      @media screen and (max-width: 767px) {
         width: 10rem;
         z-index: 1;
-        top: 10rem;
+        top: 13rem;
         right: 2.8rem;
       }
 
@@ -474,46 +483,49 @@ export default {
     }
     &__cta {
       display: inline-block;
-      font-family: $f-head;
-      font-size: 1.25rem;
+      font-size: 1rem;
       text-decoration: none;
-      font-weight: 300;
+      font-weight: 700;
+      background-color: $c-main;
+      padding: .75rem 2rem;
       margin-left: 0;
-      letter-spacing: .03rem;
-      color: $c-highlight;
+      border-radius: 4px;
+      color: #fff;
       opacity: 0;
-      animation: headline 1s ease-out .6s 1 normal forwards;
-
-      @media screen and (max-width: 700px) {
-        position: absolute;
-        bottom: 2rem;
-        left: 0;
-      }
+      text-shadow: 0 1px 0 darken($c-main, 10%);
+      box-shadow: 0 2px 2px 0 rgba($c-main, .2);
+      transition: .2s background-color;
+      animation: headline 1s $easeOutQuint .6s 1 normal forwards;
 
       &:hover {
-        border-color: $c-black;
+        color: #fff;
+        background-color: darken($c-main, 5%);
       }
     }
     h1 {
       color: $c-black;
       margin: 0;
       font-weight: bold;
-      font-size: 2.5rem;
+      font-size: 2rem;
       line-height: 1.2;
-      margin-bottom: .25rem;
+      margin-bottom: 1rem;
       text-transform: none;
       text-align: left;
       text-decoration: none;
-      font-weight: 300;
+      font-weight: 500;
       opacity: 0;
-      animation: headline 1s ease-out .3s 1 normal forwards;
+      text-shadow: 0 2px 2px rgba($c-main, .5);
+      animation: headline 1s $easeOutQuint .3s 1 normal forwards;
 
       a {
         color: $c-main;
       }
 
-      @include tablet() {
+      @media (min-width: 550px) {
         font-size: 3rem;
+      }
+      @include tablet() {
+        font-size: 4rem;
       }
     }
     p {
@@ -559,11 +571,11 @@ export default {
 
 @keyframes headline {
   0% {
-    transform: translateY(30px);
+    transform: translateX(-20px);
     opacity: 0;
   }
   100% {
-    transform: translateY(0);
+    transform: translateX(0);
     opacity: 1;
   }
 }

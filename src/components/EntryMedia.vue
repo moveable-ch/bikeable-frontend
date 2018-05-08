@@ -172,11 +172,12 @@ export default {
     height: 100%;
   }
   &__edit {
-    font-size: .8rem;
+    display: block;
+    font-size: .9rem;
     color: $c-grey-darkest;
   }
   &__address {
-    font-size: .8rem;
+    font-size: .9rem;
     color: $c-grey-darkest;
   }
   &__votes {
@@ -285,7 +286,7 @@ export default {
 
   @include tablet {
     height: 30rem;
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
 
     &__titlecard {
       width: 25rem;

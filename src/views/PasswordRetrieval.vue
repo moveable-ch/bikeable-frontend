@@ -2,11 +2,11 @@
 
 <template>
   <div class="password-retrieval">
-    <div class="container">
+    <div class="container container--narrow">
       <h1>Passwort vergessen</h1>
       <form @submit.prevent="submitForm">
         <input class="input-text" type="email" placeholder="E-Mail" v-model="formEmail">
-        <button class="input-button btn" type="submit">OK</button>
+        <button class="input-button btn" type="submit">Senden</button>
         <div class="notice" v-if="message != ''">{{ message }}</div>
       </form>
     </div>
@@ -58,29 +58,37 @@ export default {
 @import '../styles/helpers';
 
 .password-retrieval {
-  padding: 2rem 0;
+  padding: 4rem 0 2rem 0;
   min-height: calc(100vh - 600px);
+
+  &::before, &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 40rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  &::before {
+    z-index: -1;
+    background-image: linear-gradient(0deg, #FFFFFF 2%, rgba(255,255,255,0.00) 74%);
+  }
+  &::after {
+    z-index: -2;
+    background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
+  }
 
   .input-text {
     width: 100%;
   }
   .input-button {
     display: block;
-    width: 10rem;
-    margin: 1rem auto;
+    margin: 1rem 0;
   }
 
   @include tablet() {
-    padding: 3rem 0;
-
-    .input-text {
-      // width: 100%;
-    }
-    .input-button {
-      margin: 2rem 0;
-      // display: inline-block;
-      // width: calc(20% - 2rem);
-    }
+    padding: 6rem 0;
   }
 }
 

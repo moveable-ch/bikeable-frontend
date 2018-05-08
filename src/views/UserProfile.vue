@@ -2,7 +2,7 @@
 
 <template>
   <div class="v-profile">
-    <div class="container">
+    <div class="container container--narrow">
       <h1>Profil</h1>
       <form @submit.prevent="submitForm">
         <label>

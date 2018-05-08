@@ -2,7 +2,7 @@
 
 <template>
   <div class="register">
-    <div class="container">
+    <div class="container container--narrow">
       <h1>Registrieren</h1>
       <form @submit.prevent="register">
         <label>

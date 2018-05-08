@@ -66,7 +66,7 @@ export default {
         });
     },
     handleScroll() {
-      if(window.scrollY > 100) {
+      if(window.scrollY > 40) {
         this.isScrolled = true;
       }else{
         this.isScrolled = false;

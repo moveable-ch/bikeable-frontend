@@ -22,18 +22,21 @@
         <p class="lead__desc">{{ currentEntry.text }}</p>
         <p v-if="currentEntry.fixed" class="lead__notice lead__notice--good">Dieser Spot wurde in der Zwischenzeit verbessert.</p>
       </div>
+    </div>
 
-      <div class="notice" v-if="!isLoggedIn">Jetzt <router-link to="/register">registrieren</router-link> und mitdiskutieren!</div>
-      <div class="comments__form" v-if="isLoggedIn && userData">
-        <div class="comments__form__image" :style="'background-image:url(' + userAvatar + ')'"></div>
-        <form @submit.prevent="postComment">
-          <textarea placeholder="Kommentar" v-model="commentText" rows="2"></textarea>
-          <button type="submit" class="btn comments__form__button" v-bind:class="{ 'disabled': !commentText }">Senden</button>
-        </form>
-      </div>
-
-      <div class="comments" v-if="comments">
-        <comment-view v-for="comment in comments" :key="comment._id" :isChild="false" :comment="comment" :loadComments="loadComments" :entryId="entryId" :fetchData="fetchData" :avatar="userAvatar"></comment-view>
+    <div class="comments">
+      <div class="comments__container">
+        <div class="notice" v-if="!isLoggedIn">Jetzt <router-link to="/register">registrieren</router-link> und mitdiskutieren!</div>
+        <div class="comments__form" v-if="isLoggedIn && userData">
+          <div class="comments__form__image" :style="'background-image:url(' + userAvatar + ')'"></div>
+          <form @submit.prevent="postComment">
+            <textarea placeholder="Kommentar" v-model="commentText" rows="2"></textarea><br>
+            <button type="submit" class="btn comments__form__button" v-bind:class="{ 'disabled': !commentText }">Senden</button>
+          </form>
+        </div>
+        <div class="comments__list" v-if="comments">
+          <comment-view v-for="comment in comments" :key="comment._id" :isChild="false" :comment="comment" :loadComments="loadComments" :entryId="entryId" :fetchData="fetchData" :avatar="userAvatar"></comment-view>
+        </div>
       </div>
     </div>
   </div>
@@ -272,7 +275,7 @@ export default {
       content: "";
       display: block;
       width: 100%;
-      height: 15rem;
+      height: 10rem;
       position: absolute;
       top: 0;
       left: 0;
@@ -289,18 +292,22 @@ export default {
     @include tablet {
       padding-top: 8rem;
       margin-bottom: -8rem;
+
+      &::before, &::after {
+        height: 20rem;
+      }
     }
 
     &__user {
       width: 50%;
       min-width: 300px;
       margin-bottom: 1.5rem;
-      font-size: .8rem;
+      font-size: .9rem;
       display: flex;
       align-items: center;
-      background-color: #fff;
-      padding: .25rem;
-      border: 1px solid $c-grey-dark;
+      background-color: rgba($c-blue, .2);
+      padding: .5rem;
+      border: 1px solid $c-blue;
       border-radius: 4px;
 
       &__image {
@@ -310,8 +317,8 @@ export default {
         background-size: cover;
         background-position: center;
         margin-right: .75rem;
-        border: 1px solid $c-grey-dark;
-        border-radius: 4px;
+        border: 2px solid $c-blue;
+        border-radius: 99%;
       }
       &__content {
 
@@ -328,9 +335,6 @@ export default {
     }
 
     &__container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
       max-width: 940px;
       margin: 0 auto;
       padding: 0 1rem;
@@ -416,6 +420,8 @@ export default {
       }
       &__desc {
         font-size: 1rem;
+        white-space: pre-wrap;
+        word-wrap: break-word;
       }
       &__meta {
         display: block;
@@ -511,51 +517,56 @@ export default {
     }
 
     .comments {
-      margin-top: 2rem;
+      border-top: 1px solid $c-blue;
+      margin-top: 4rem;
+      padding-top: 4rem;
 
+      &__container {
+        margin: 0 auto;
+        max-width: 940px;
+        padding: 0 1rem;
+      }
       &__form {
-        margin-top: 2rem;
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
         position: relative;
-        padding-left: 2.5rem;
+        padding-left: 3rem;
 
         &__image {
-          width: 2rem;
-          height: 2rem;
+          width: 2.5rem;
+          height: 2.5rem;
           position: absolute;
           top: 0;
           left: 0;
           background-color: #fff;
-          border: 1px solid $c-grey-dark;
+          border: 2px solid $c-blue;
           background-size: cover;
           background-position: center;
+          border-radius: 99%;
         }
 
         label {
           margin-bottom: .5rem;
         }
         &__button {
-          min-width: 6rem;
+          min-width: 5rem;
           height: 2rem;
           line-height: 2rem;
           margin: 0;
         }
 
         textarea {
-          padding: .5rem;
-          font-size: .8rem;
-          border-color: $c-grey-dark;
-          margin-bottom: .25rem;
-          // height: 4rem;
-        }
+          padding: .75rem;
+          font-size: .9rem;
+          border-color: $c-blue;
+          margin-bottom: .5rem;
 
-        @include tablet {
-          margin-top: 4rem;
+          &:focus {
+            border-color: $c-black;
+          }
         }
       }
     }
   }
-
 
 
 </style>

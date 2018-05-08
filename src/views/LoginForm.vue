@@ -2,7 +2,7 @@
 
 <template>
   <div class="login">
-    <div class="container">
+    <div class="container container--narrow">
       <h1>Login</h1>
       <form @submit.prevent="login">
         <label>
@@ -19,7 +19,7 @@
         <router-link to="/register" class="link-more">Neuen Account erstellen</router-link>
       </form>
       <form @submit.prevent="loginAtFacebook">
-        <button type="submit" id="facebook-button" class="btn">Login with facebook</button>
+        <button type="submit" class="btn btn--facebook">Login with Facebook</button>
       </form>
     </div>
   </div>
@@ -54,46 +54,7 @@ export default {
   mounted() {
     var self = this;
 
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '312310255868775',
-        xfbml      : true,
-        version    : 'v2.7'
-      });
-
-      self.FB = FB;
-
-      //This function should be here, inside window.fbAsyncInit
-      FB.getLoginStatus(function(response) {
-
-        if (response.status === 'connected') {
-          // the user is logged in and has authenticated your
-          // app, and response.authResponse supplies
-          // the user's ID, a valid access token, a signed
-          // request, and the time the access token
-          // and signed request each expire
-          self.onFbLogin(response)
-
-        } else if (response.status === 'not_authorized') {
-          // the user must go through the login flow
-          // to authorize your app or renew authorization
-
-        } else {
-          // the user isn't logged in to Facebook.
-        }
-
-        console.log(response);
-     });
-
-   };
-
-    (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+    this.initFbLogin();
   },
 
   methods: {
@@ -106,6 +67,48 @@ export default {
           this.$router.push('/');
         }, (data) => {
         });
+    },
+    initFbLogin() {
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '312310255868775',
+          xfbml      : true,
+          version    : 'v2.7'
+        });
+
+        self.FB = FB;
+
+        //This function should be here, inside window.fbAsyncInit
+        FB.getLoginStatus(function(response) {
+
+          if (response.status === 'connected') {
+            // the user is logged in and has authenticated your
+            // app, and response.authResponse supplies
+            // the user's ID, a valid access token, a signed
+            // request, and the time the access token
+            // and signed request each expire
+            self.onFbLogin(response)
+
+          } else if (response.status === 'not_authorized') {
+            // the user must go through the login flow
+            // to authorize your app or renew authorization
+
+          } else {
+            // the user isn't logged in to Facebook.
+          }
+
+          console.log(response);
+      });
+
+    };
+
+      (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
     },
     loginAtFacebook() {
       var loginForm = this;
@@ -196,12 +199,12 @@ export default {
     margin-bottom: 2rem;
   }
 
-  #facebook-button {
-
+  .btn--facebook {
     padding-left: 60px;
-
     background: $c-black url('../assets/login-fb-logo.png') no-repeat left center;
     background-size: contain;
+    color: #fff;
+    border: 2px solid $c-black;
 
     &:disabled,
     &[disabled] {

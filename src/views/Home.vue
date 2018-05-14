@@ -347,7 +347,7 @@ export default {
     }
     &__button {
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
 
       &::before {
         content: "→";
@@ -485,14 +485,13 @@ export default {
       display: inline-block;
       font-size: 1rem;
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 600;
       background-color: $c-main;
       padding: .75rem 2rem;
       margin-left: 0;
-      border-radius: 4px;
       color: #fff;
       opacity: 0;
-      text-shadow: 0 1px 0 darken($c-main, 10%);
+      text-shadow: 0 1px 0 darken($c-main, 5%);
       box-shadow: 0 2px 2px 0 rgba($c-main, .2);
       transition: .2s background-color;
       animation: headline 1s $easeOutQuint .6s 1 normal forwards;
@@ -505,14 +504,13 @@ export default {
     h1 {
       color: $c-black;
       margin: 0;
-      font-weight: bold;
-      font-size: 2rem;
+      font-weight: 700;
+      font-size: 1.75rem;
       line-height: 1.2;
       margin-bottom: 1rem;
       text-transform: none;
       text-align: left;
       text-decoration: none;
-      font-weight: 500;
       opacity: 0;
       text-shadow: 0 2px 2px rgba($c-main, .5);
       animation: headline 1s $easeOutQuint .3s 1 normal forwards;

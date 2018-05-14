@@ -59,7 +59,7 @@ export default {
   text-overflow: ellipsis;
   margin: 1rem 0;
   box-shadow: 0 2px 4px 0 rgba($c-black, .1);
-  border-radius: 6px;
+  // border-radius: 6px;
   background-color: #fafafa;
 
   &__image {
@@ -112,10 +112,11 @@ export default {
     text-overflow: ellipsis;
   }
   &__headline {
-    line-height: 1.2;
+    line-height: 1.1;
     margin-bottom: .5rem;
 
     a {
+      font-family: $f-body;
       font-size: 1rem;
       color: $c-black;
       font-weight: 600;

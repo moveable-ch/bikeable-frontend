@@ -152,7 +152,7 @@ export default {
       margin: 0;
       margin-bottom: .5rem;
       line-height: 1.2;
-      font-weight: 500;
+      font-weight: 700;
       hyphens: auto;
     }
   }

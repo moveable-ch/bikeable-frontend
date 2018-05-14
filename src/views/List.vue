@@ -305,12 +305,11 @@ export default {
     margin: 2rem auto 0 auto;
     background-color: #fff;
     color: $c-black;
-    border: 1px solid $c-grey-dark;
+    border: 2px solid $c-grey-darkest;
     max-width: 10rem;
     padding: .75rem 1rem;
     text-decoration: none;
-    font-size: .8rem;
-    border-radius: 4px;
+    font-size: 1rem;
     width: 100%;
 
     &:hover {

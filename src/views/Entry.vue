@@ -357,10 +357,6 @@ export default {
         color: $c-main;
       }
     }
-    &.is-fixed {
-      .lead h1 {
-      }
-    }
 
     .col {
       box-sizing: border-box;
@@ -402,7 +398,7 @@ export default {
         // color: $c-highlight;
         margin: 0 0 .5rem 0;
         text-transform: none;
-        font-weight: 400;
+        font-weight: 700;
         font-size: 1.25rem;
         text-align: left;
         text-shadow: none;

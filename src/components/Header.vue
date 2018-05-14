@@ -139,6 +139,7 @@ export default {
   color: $c-black;
   box-sizing: border-box;
   z-index: 3;
+  border-bottom: 1px solid transparent;
   transition: .4s all $easeInOutQuint;
 
   @include tablet() {
@@ -150,7 +151,8 @@ export default {
   &.is-scrolled {
     top: 0;
     height: 3rem;
-    background-color: rgba(#fff, .95);
+    background-color: #fff;
+    border-bottom: 1px solid $c-grey-dark;
   }
 
   &__logo {
@@ -161,7 +163,7 @@ export default {
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
-    transition: .4s transform $easeInOutQuint;
+    transition: .4s transform $easeInOutQuint, .4s top $easeInOutQuint;
     position: absolute;
     left: 1rem;
     top: 0;
@@ -179,7 +181,8 @@ export default {
       transform-origin: 0 0;
 
       .is-scrolled & {
-        transform: translateY(5%) scale(.5);
+        transform: scale(.4) translateY(-50%);
+        top: 50%;
       }
     }
   }
@@ -261,9 +264,9 @@ export default {
         a {
           color: #869098;
           text-decoration: none;
-          font-size: .9rem;
+          font-size: 1rem;
           line-height: 1.75;
-          font-weight: 500;
+          font-weight: 400;
 
           &.router-link-active {
             color: $c-black;
@@ -314,7 +317,7 @@ export default {
     &__nav {
       font-size: 2rem;
       font-family: $f-head;
-      font-weight: 300;
+      font-weight: 700;
       margin-bottom: 2rem;
 
       li {
@@ -330,9 +333,9 @@ export default {
       }
     }
     &__nav-secondary {
-      font-size: .8rem;
+      font-size: 1rem;
       font-family: $f-body;
-      font-weight: 300;
+      font-weight: 400;
       margin-bottom: 2rem;
 
       li {
@@ -411,9 +414,9 @@ export default {
     transform: translateX(0);
   }
 }
-.nav-fade-leave {
+// .nav-fade-leave {
   // background-color: rgba($c-black, .8);
-}
+// }
 .nav-fade-leave-to {
   &::before {
     opacity: 0;

@@ -59,6 +59,8 @@ export default {
     'c-footer': Footer
   },
   mounted() {
+    this.checkLocalLang();
+    
     if(this.isEmbed) {
       document.body.classList.add('embed');
     }
@@ -76,6 +78,18 @@ export default {
     }
 
     if(this.$router.currentRoute.name == 'map') this.showFooter = false;
+  },
+  methods: {
+    checkLocalLang() {
+      let l = localStorage.getItem('lang');
+      if(l) {
+        this.$store.dispatch('setLang', l)
+        .then((data) => {
+          }, (data) => {
+            this.$store.dispatch('handleError', 'Error');
+          });
+      }
+    }
   }
 }
 </script>

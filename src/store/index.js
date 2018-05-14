@@ -54,6 +54,7 @@ const actions = {
   },
 
   setLang(context, lang) {
+    localStorage.setItem('lang', lang);
     context.commit('SET_LANG', lang);
   }
 

@@ -76,6 +76,14 @@ export default {
 
 .about {
 
+
+  &__paypal {
+    text-align: center;
+
+    h3 {
+      margin: 1rem auto;
+    }
+  }
 }
 
 

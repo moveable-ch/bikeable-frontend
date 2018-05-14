@@ -106,6 +106,7 @@ export default {
       return this.$store.getters.userData;
     },
     userAvatar() {
+      if(!this.userData) return null;
       if(!this.userData.profile) return null;
       if(!this.userData.profile.avatar) return null;
       if(this.imageId) {

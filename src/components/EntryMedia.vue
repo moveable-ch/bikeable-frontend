@@ -14,10 +14,9 @@
           </a>
           <span class="entry-media__votes__num">{{ entry.votes }}</span>
         </div>
-        <h1>
-          {{ entry.title }} <span v-if="isLoggedIn && entry.user._id == userData._id " class="entry-media__edit"><a :href="'/edit/' + entry._id">[Spot bearbeiten]</a></span>
-        </h1>
+        <h1>{{ entry.title }}</h1>
         <span class="entry-media__address">{{ entry.address }}</span>
+        <a v-if="isLoggedIn && entry.user._id == userData._id" class="btn" :href="'/edit/' + entry._id">Edit Spot</a>
       </div>
       <div class="carousel-cell entry-media__image">
         <img :src="entry.photo.large.url">
@@ -170,11 +169,6 @@ export default {
   .gmaps {
     width: 25rem;
     height: 100%;
-  }
-  &__edit {
-    display: block;
-    font-size: .9rem;
-    color: $c-grey-darkest;
   }
   &__address {
     font-size: .9rem;

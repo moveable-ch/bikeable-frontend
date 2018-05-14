@@ -67,12 +67,14 @@ export default {
   h3 {
     margin: 0 auto;
     max-width: 650px;
-    margin-bottom: .5rem;
+    margin-bottom: .25rem;
     color: $c-black;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    font-family: $f-head;
+    font-weight: 700;
   }
   p {
-
+    margin-top: 0;
   }
 
   &__item {

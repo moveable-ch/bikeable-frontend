@@ -3,7 +3,7 @@
     <div class="sponsor-modal" @click="$emit('close')">
       <div class="sponsor-modal__inner" v-if="sponsoredEntry" @click.stop>
         <div class="sponsor-modal__content">
-          <img class="sponsor-modal__image" :src="sponsoredEntry.logo" alt="">
+          <img v-if="sponsoredEntry.logo" class="sponsor-modal__image" :src="sponsoredEntry.logo" alt="">
           <h3>{{ sponsoredEntry.name }}</h3>
           <p v-if="sponsoredEntry.text">{{ sponsoredEntry.text }}</p>
           <span class="address">{{ sponsoredEntry.address }}, {{ sponsoredEntry.stadt }}</span>
@@ -41,24 +41,24 @@ export default {
 
 .sponsor-modal {
   position: fixed;
-  top: 3rem;
+  top: 0;
   left: 0;
   width: 100%;
-  height: calc(100% - 3rem);
-  background-color: rgba(#333, .8);
+  height: 100%;
+  background-color: rgba(#333, .4);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  z-index: 4;
 
   &__notice {
     margin-top: 1rem;
     background-color: $c-grey;
     padding: .5rem;
-    border: 1px solid $c-black;
+    border: 1px solid $c-grey-dark;
     border-radius: 4px;
     font-size: .8rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
   }
 
   &__image {
@@ -79,6 +79,9 @@ export default {
     width: 90%;
     margin: 0 1rem;
     position: relative;
+    border-radius: 6px;
+    box-shadow: 0 6px 6px -4px rgba(#000, .3);
+    border: 1px solid $c-grey;
 
     h3 {
       color: $c-black;

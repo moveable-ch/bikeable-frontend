@@ -4,7 +4,7 @@
   "en": {
     "registernow": "Join now!",
     "addspot": "Add Spot!",
-    "showall": "Show all Spots",
+    "showall": "Show all spots",
     "more": "More"
   },
   "de": {
@@ -47,7 +47,7 @@
             <c-entry-preview :entry="spot"></c-entry-preview>
           </div>
         </div>
-        <router-link to="/entries" class="home__spots__button">{{ $t('showall') }}</router-link>
+        <router-link to="/entries" class="btn btn--centered">{{ $t('showall') }}</router-link>
       </div>
     </div>
 
@@ -69,11 +69,10 @@
     </div>
 
     <div class="home__newsletter">
-      <div class="container">
         <h2>Newsletter</h2>
         <p>Melde dich hier für unseren Newsletter an und erfahre regelmässig, was bei bikeable läuft.<br>Kein Spam imfall!</p>
         <!-- Begin MailChimp Signup Form -->
-        <div id="mc_embed_signup">
+        <div id="mc_embed_signup" class="home__newsletter__form">
           <form action="//bikeable.us15.list-manage.com/subscribe/post?u=5a9614abf208b7faae96233ff&amp;id=6d62b30edc" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
             <div id="mc_embed_signup_scroll">
               <div class="mc-field-group">
@@ -103,9 +102,7 @@
             </div>
           </form>
         </div>
-
         <!--End mc_embed_signup-->
-      </div>
     </div>
   </div>
 </template>
@@ -241,9 +238,18 @@ export default {
 .home {
 
   &__newsletter {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: $c-grey;
+    padding: 2rem;
 
-    p {
-      margin-bottom: 2rem;
+    &__form {
+      margin-top: 2rem;
+    }
+
+    @include tablet {
+      border: 2px solid $c-blue;
+      border-radius: 6px;
     }
   }
 
@@ -348,11 +354,6 @@ export default {
     &__button {
       text-decoration: none;
       font-weight: 600;
-
-      &::before {
-        content: "→";
-        margin-right: .5rem;
-      }
     }
     &__item {
       width: 100%;

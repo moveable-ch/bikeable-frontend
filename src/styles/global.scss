@@ -55,7 +55,7 @@ h1 {
 
   @include desktop() {
     font-size: 3rem;
-    margin: 2rem 0 2rem 0;
+    margin: 2rem 0 2.5rem 0;
   }
 }
 p + h1 {
@@ -67,13 +67,13 @@ h2 {
   margin-bottom: 2rem;
 
   @include desktop() {
-    font-size: 2.75rem;
+    font-size: 2.5rem;
   }
 }
 h3 {
   font-family: $f-body;
   text-transform: none;
-  color: $c-main;
+  // color: $c-main;
   font-size: 1.2rem;
   line-height: 1.4;
   margin-bottom: 1rem;
@@ -132,21 +132,26 @@ small {
   text-decoration: none;
   text-align: center;
   box-sizing: content-box;
-  margin-top: 2rem;
-  transition: .1s border-color;
+  margin-top: 1.5rem;
+  transition: .1s border-color, .1s color;
 
   &:hover {
     border-color: $c-main;
   }
-  &.disabled {
-    // background-color: $c-grey-dark;
-    // border-color: $c-grey-dark;
-    pointer-events: none;
-    color: #aaa;
-  }
   &:focus {
     outline: none;
     border-color: $c-main;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    color: #aaa;
+  }
+  &--centered {
+    display: block;
+    width: 10rem;
+    padding: 0;
+    margin: 1rem auto;
   }
 }
 
@@ -328,6 +333,13 @@ textarea {
 
     @include desktop() {
       margin: 4rem auto;
+    }
+    img {
+      display: block;
+      margin: 0 auto;
+      height: auto;
+      width: auto;
+      max-height: 600px;
     }
   }
 }

@@ -150,7 +150,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  z-index: 4;
 
   &__content {
     overflow: hidden;
@@ -225,11 +225,6 @@ export default {
     border-radius: 6px;
     box-shadow: 0 6px 6px -4px rgba(#000, .3);
     border: 1px solid $c-grey;
-
-    .is-famed & {
-      border-color: $c-main;
-      // box-shadow: 4px 4px 0 0 rgba($c-main, 1);
-    }
 
     .upvotes {
       display: none;

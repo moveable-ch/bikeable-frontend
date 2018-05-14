@@ -146,7 +146,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(#000, .6);
+  background-color: rgba(#000, .4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -222,9 +222,9 @@ export default {
     padding-bottom: 3.5rem;
     display: flex;
     align-items: center;
-    border-radius: 4px;
-    // box-shadow: 4px 4px 0 0 rgba($c-highlight, 1);
-    border: 2px solid $c-highlight;
+    border-radius: 6px;
+    box-shadow: 0 6px 6px -4px rgba(#000, .3);
+    border: 1px solid $c-grey;
 
     .is-famed & {
       border-color: $c-main;
@@ -253,11 +253,12 @@ export default {
     h3 {
       margin-bottom: 0;
       color: $c-black;
+      font-size: 1rem;
     }
     .address {
       font-size: .8rem;
       color: #888;
-      margin-top: .5rem;
+      margin-top: .25rem;
       display: block;
       width: 100%;
       white-space: nowrap;
@@ -324,31 +325,8 @@ export default {
         background-color: #333;
       }
 
-      @include tablet() {
-
-      }
     }
   }
 }
-
-// .modal-enter-active, .modal-leave-active {
-//   transition: .5s opacity;
-// }
-// .modal-enter, .modal-leave-to {
-//   opacity: 0;
-// }
-// .modal-leave-to {
-  // .entry-modal__inner {
-  //   transition: .3s transform $easeInQuint;
-  //   transform: scale(.8);
-  // }
-// }
-
-// .modal_inner-enter-active, .modal_inner-leave-active {
-//   transition: .4s transform $easeOutQuint;
-// }
-// .modal_inner-enter, .modal_inner-leave-to {
-//   transform: scale(.8);
-// }
 
 </style>

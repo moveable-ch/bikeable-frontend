@@ -58,9 +58,10 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 1rem 0;
-  box-shadow: 0 2px 4px 0 rgba($c-black, .1);
-  // border-radius: 6px;
-  background-color: #fafafa;
+  box-shadow: 0 2px 6px -2px rgba($c-black, .1);
+  border-radius: 2px;
+  background-color: #fff;
+  border: 1px solid $c-grey-dark;
 
   &__image {
     display: block;
@@ -83,7 +84,7 @@ export default {
     width: 3rem;
     height: 3rem;
     border-radius: 99%;
-    background-color: rgba($c-highlight, .9);
+    background-color: $c-highlight;
     transition: .4s transform $easeOutQuint;
 
     svg {
@@ -98,7 +99,7 @@ export default {
     }
   }
   &.famed .entry-preview__thumb {
-    background-color: rgba($c-main, .9);
+    background-color: $c-main;
     transform: rotate(150deg);
   }
   &__content {

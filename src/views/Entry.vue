@@ -445,7 +445,7 @@ export default {
         font-size: .8rem;
         padding: 5px 10px;
         color: #fff;
-        font-weight: bold;
+        font-weight: 600;
         margin-left: -5px;
         transform: rotate(-4deg);
       }

@@ -283,7 +283,7 @@ export default {
     top: 0;
     left: 0;
     pointer-events: none;
-    background-image: linear-gradient(-137deg, rgba(#FCFFD6, .9) 0%, rgba(#E2FDFF, .7) 100%);
+    background-image: linear-gradient(-137deg, rgba(#FCFFD6, .9) 0%, rgba(#E2FDFF, .9) 100%);
   }
 
   @include tablet {

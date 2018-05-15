@@ -4,7 +4,7 @@
   <div class="contentpage faq">
     <div class="container" v-if="doc">
       <h1>{{ doc.title }}</h1>
-      <div class="faq__item" v-for="question in doc.questions">
+      <div class="faq__item" v-for="question in doc.questions" v-bind:key="question.id">
         <h3>{{ question.title }}</h3>
         <div v-html="question.text"></div>
       </div>

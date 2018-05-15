@@ -41,6 +41,16 @@ export default {
       doc: null
     }
   },
+  watch: {
+    'prismicLang' (to, from) {
+      this.$store.commit('LOAD_START');
+
+      this.getData().then(data => {
+        this.$store.commit('LOAD_FINISH');
+        this.doc = data;
+      });
+    }
+  },
   mounted() {
     this.$store.commit('LOAD_START');
 
@@ -49,12 +59,18 @@ export default {
       this.doc = data;
     });
   },
+  computed: {
+    prismicLang() {
+      return this.$store.getters.prismicLang;
+    }
+  },
   methods: {
     getData() {
+      let prismicLang = this.prismicLang;
       return Prismic.api("https://bikeable.prismic.io/api").then(function(api) {
         return api.query(
           Prismic.Predicates.at('document.type', 'about'),
-          {}
+          { lang: prismicLang }
         );
       }).then(function(payload) {
         const y = {};

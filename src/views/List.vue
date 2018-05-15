@@ -1,21 +1,51 @@
 <!-- /entries -->
 
+<i18n>
+
+{
+  "en": {
+    "sortby": "Sort by",
+    "date": "Date",
+    "upvotes": "Upvotes",
+    "distance": "Distance",
+    "comments": "Comments",
+    "allspots": "All Spots"
+  },
+  "de": {
+    "sortby": "Sortieren nach",
+    "date": "Datum",
+    "upvotes": "Upvotes",
+    "distance": "Distanz",
+    "comments": "Kommentare",
+    "allspots": "Alle Spots"
+  },
+  "fr": {
+    "sortby": "Sort by",
+    "date": "Date",
+    "upvotes": "Upvotes",
+    "distance": "Distance",
+    "comments": "Commentaires",
+    "allspots": "Tous les spots"
+  }
+}
+</i18n>
+
 <template>
   <div class="list">
     <div class="list__controls">
       <div class="container">
         <div class="list__tabs">
-          <a href="#" class="list__tabs__item" @click.prevent="entryFilter = null" v-bind:class="{ active: isCurrentFilter(null) }">Alle Spots</a>
+          <a href="#" class="list__tabs__item" @click.prevent="entryFilter = null" v-bind:class="{ active: isCurrentFilter(null) }">{{ $t('allspots') }}</a>
           <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--bad" @click.prevent="entryFilter = 'shamed'" v-bind:class="{ active: isCurrentFilter('shamed') }"><span>Shame</span></a>
           <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--good" @click.prevent="entryFilter = 'famed'" v-bind:class="{ active: isCurrentFilter('famed') }"><span>Fame</span></a>
         </div>
         <div class="list__sort">
-          <span>Sortieren nach:</span>
+          <span>{{ $t('sortby') }}:</span>
           <select v-model="entrySort" @change="setSort">
-            <option value="date">Aktualität</option>
-            <option value="votes">Beliebtheit</option>
-            <option v-if="userCoords" value="distance">Nähe</option>
-            <option value="comments">Kommentare</option>
+            <option value="date">{{ $t('date') }}</option>
+            <option value="votes">{{ $t('upvotes') }}</option>
+            <option v-if="userCoords" value="distance">{{ $t('distance') }}</option>
+            <option value="comments">{{ $t('comments') }}</option>
           </select>
         </div>
       </div>

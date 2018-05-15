@@ -1,5 +1,20 @@
 <!-- /add -->
 
+<i18n>
+
+{
+  "en": {
+    "addspot": "Create Spot"
+  },
+  "de": {
+    "addspot": "Spot erstellen"
+  },
+  "fr": {
+    "addspot": "Créer un spot"
+  }
+}
+</i18n>
+
 <template>
   <div class="add">
     <map-modal-view
@@ -9,7 +24,7 @@
       :propCoords="entryCoords">
     </map-modal-view>
     <div class="container">
-      <h1>Spot hinzufügen</h1>
+      <h1>{{ $t('addspot') }}</h1>
       <form @submit.prevent="postEntry">
         <h3><span class="num">1</span>Foto</h3>
         <span class="label">Lade ein Bild von deinem Spot hoch</span>

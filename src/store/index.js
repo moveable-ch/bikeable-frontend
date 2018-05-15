@@ -10,7 +10,8 @@ import images from './modules/images'
 Vue.use(Vuex)
 
 const state = {
-  lang: 'en',
+  lang: 'de',
+  prismicLang: 'de-ch',
   pending: false,
   msg: '',
   sort: 'shame'
@@ -19,6 +20,9 @@ const state = {
 const mutations = {
   SET_LANG(state, lang) {
     state.lang = lang;
+  },
+  SET_PRISMIC_LANG(state, lang) {
+    state.prismicLang = lang;
   },
   SET_ENTRY_SORTING(state, sort) {
     state.sort = sort;
@@ -56,6 +60,20 @@ const actions = {
   setLang(context, lang) {
     localStorage.setItem('lang', lang);
     context.commit('SET_LANG', lang);
+
+    switch(lang) {
+      case 'de':
+        context.commit('SET_PRISMIC_LANG', 'de-ch');
+        break;
+      case 'en':
+        context.commit('SET_PRISMIC_LANG', 'en-gb');
+        break;
+      case 'fr':
+        context.commit('SET_PRISMIC_LANG', 'fr-ch');
+        break;
+      default:
+        context.commit('SET_PRISMIC_LANG', 'de-ch');
+    }
   }
 
 }
@@ -67,8 +85,11 @@ const getters = {
   msg: state => {
     return state.msg;
   },
-  lang : state => {
+  lang: state => {
     return state.lang;
+  },
+  prismicLang: state => {
+    return state.prismicLang;
   }
 }
 

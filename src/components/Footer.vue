@@ -24,7 +24,10 @@
     <div class="partner">
       <div class="container">
         <span>Unterstützt von:</span>
-        <a href="http://www.veloplus.ch"><img src="/static/img/veloplus-footer.png" alt="veloplus.ch"></a>
+        <div class="partner__logos">
+          <a target="_blank" href="https://www.veloplus.ch"><img src="/static/img/veloplus-footer.png" alt="veloplus.ch"></a>
+          <a target="_blank" href="https://www.pro-velo.ch"><img src="/static/img/provelo-footer.png" alt="provelo.ch"></a>
+        </div>
       </div>
     </div>
   </footer>
@@ -117,13 +120,18 @@ export default {
     margin-top: 1.5rem;
     color: #000;
 
+    &__logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     span {
       font-size: .8rem;
     }
     a {
       display: block;
       max-width: 150px;
-      margin: .5rem auto;
+      margin: .5rem 1rem;
 
       img {
         width: 100%;

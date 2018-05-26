@@ -3,28 +3,28 @@
 <template>
   <div class="v-profile">
     <div class="container container--narrow">
-      <h1>Einstellungen</h1>
+      <h1>{{ $t('profile.preferences') }}</h1>
       <form @submit.prevent="submitForm">
         <label>
-          <span>Username</span>
+          <span>{{ $t('profile.username') }}</span>
           <input type="text" v-model="formUsername">
         </label>
         <label>
-          <span>E-Mail</span>
+          <span>{{ $t('profile.email') }}</span>
           <input type="text" v-model="formEmail" disabled>
         </label>
-        <span class="label">Avatar</span>
+        <span class="label">{{ $t('profile.avatar') }}</span>
         <div class="v-profile__avatar" v-if="userAvatar">
           <img :src="userAvatar" @error="imageLoadError">
         </div>
         <div class="file-upload">
           <div class="file-upload__form">
-            <label for="add-file">Neuen Avatar hochladen</label>
+            <label for="add-file">{{ $t('profile.avatarupload') }}</label>
             <input id="add-file" @change.prevent="uploadImage" type="file">
           </div>
-          <span class="file-upload__pending" v-if="!imageId && imageChosen">Loading</span>
+          <span class="file-upload__pending" v-if="!imageId && imageChosen">{{ $t('profile.loading') }}</span>
         </div>
-        <button class="input-button btn v-profile__submit" type="submit">Speichern</button>
+        <button class="input-button btn v-profile__submit" type="submit">{{ $t('profile.save') }}</button>
         <div class="notice" v-if="message != ''">{{ message }}</div>
       </form>
     </div>

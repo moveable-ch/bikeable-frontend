@@ -3,21 +3,21 @@
 <template>
   <div class="register">
     <div class="container container--narrow">
-      <h1>Registrieren</h1>
+      <h1>{{ $t('register.register') }}</h1>
       <form @submit.prevent="register">
         <label>
-          <span>Username</span>
+          <span>{{ $t('register.username') }}</span>
           <input type="text" v-model="formUsername">
         </label>
         <label>
-          <span>E-Mail</span>
+          <span>{{ $t('register.email') }}</span>
           <input type="email" v-model="formEmail">
         </label>
         <label>
-          <span>Passwort</span>
+          <span>{{ $t('register.password') }}</span>
           <input type="password" v-model="formPassword">
         </label>
-        <button type="submit" class="btn">Senden</button>
+        <button type="submit" class="btn">{{ $t('register.send') }}</button>
         <div class="notice" v-if="message != ''">{{ message }}</div>
       </form>
     </div>
@@ -58,7 +58,7 @@ export default {
         })
       .then((data) => {
           this.$router.push('/');
-          this.$store.dispatch('handleError', 'Erfolgreich registriert, bitte Account bestätigen.');
+          this.$store.dispatch('handleError', $t('register.sucessfullregistered'));
         }, (data) => {
           // this.message = data.body.message;
         });

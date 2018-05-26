@@ -8,7 +8,7 @@
       <div v-html="doc.text"></div>
 
       <div class="about__paypal">
-        <h3>Unterstütze uns via PayPal:</h3>
+        <h3>{{ $t('home.paypal') }}</h3>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
         <input type="hidden" name="cmd" value="_s-xclick">
         <input type="hidden" name="hosted_button_id" value="QLV8ZWA3FCS3S">

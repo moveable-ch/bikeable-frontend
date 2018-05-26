@@ -15,12 +15,12 @@
         </label>
         <button type="submit" class="btn">Login</button>
         <div class="notice" v-if="message != ''">{{ message }}</div>
-        <router-link to="/forgottenpw" class="link-more">Passwort vergessen?</router-link>
-        <router-link to="/register" class="link-more">Neuen Account erstellen</router-link>
+        <router-link to="/forgottenpw" class="link-more">{{ $t('login.forgotpassword') }}</router-link>
+        <router-link to="/register" class="link-more">{{ $t('login.newaccount') }}</router-link>
       </form>
-      <form @submit.prevent="loginAtFacebook">
-        <button type="submit" class="btn btn--facebook">Login with Facebook</button>
-      </form>
+<!--       <form @submit.prevent="loginAtFacebook">
+        <button type="submit" class="btn btn--facebook">{{ $t('login.forgotpassword') }}Login with Facebook</button>
+      </form> -->
     </div>
   </div>
 </template>

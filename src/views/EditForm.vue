@@ -9,40 +9,40 @@
       :propCoords="entryCoords">
     </map-modal-view>
     <div class="container">
-      <h1>Spot bearbeiten</h1>
+      <h1>{{ $t('editform.editspot') }}</h1>
       <form @submit.prevent="postEntry">
-        <h3><span class="num">1</span>Foto</h3>
-        <span class="label">Lade ein Bild von deinem Spot hoch</span>
+        <h3><span class="num">1</span>{{ $t('addform.photo') }}</h3>
+        <span class="label">{{ $t('addfor.uploadimage') }}</span>
         <div class="file-upload">
           <div class="file-upload__form" v-if="!imageChosen">
-            <label for="add-file">Bild wählen</label>
+            <label for="add-file">{{ $t('addfor.chooseimage') }}</label>
             <input id="add-file" @change.prevent="uploadImage" type="file">
           </div>
-          <span class="file-upload__pending" v-if="!imageId && imageChosen">Loading</span>
+          <span class="file-upload__pending" v-if="!imageId && imageChosen">{{ $t('addform.loading') }}</span>
           <div class="file-upload__preview" v-if="imageId">
             <a href="#" class="file-upload__preview__close" @click.prevent="resetImage">×</a>
             <img v-bind:src="imagePreviewUrl" @error="imageLoadError">
           </div>
         </div>
-        <h3><span class="num">3</span>Adresse</h3>
+        <h3><span class="num">3</span>{{ $t('addform.adress') }}</h3>
         <label>
           <span>Wo befindet sich dein Spot?</span>
           <input placeholder="Adresse eingeben" type="text" v-model="entryAddress" v-bind:class="{ inactive: addressPending }" v-on:blur="checkAddress">
         </label>
         <div class="address-btns">
-          <a href="#" class="address-btn address-btn--userloc" v-bind:class="{ disabled: !userCoords }" @click.prevent="handleUserCoords">Aktuellen Standort einfügen</a>
-          <a href="#" class="address-btn address-btn--map" @click.prevent="showMapModal = true">Standort auf Karte wählen</a>
+          <a href="#" class="address-btn address-btn--userloc" v-bind:class="{ disabled: !userCoords }" @click.prevent="handleUserCoords">{{ $t('addform.entercurrentposition') }}</a>
+          <a href="#" class="address-btn address-btn--map" @click.prevent="showMapModal = true">{{ $t('addform.chooselocation') }}</a>
         </div>
-        <h3><span class="num">4</span>Beschreibung</h3>
+        <h3><span class="num">4</span>{{ $t('addform.description') }}</h3>
         <label>
           <span>Titel</span>
           <input type="text" v-model="entryTitle">
         </label>
         <label>
-          <span>Beschreibung</span>
+          <span>{{ $t('addform.description') }}</span>
           <textarea v-model="entryText" rows="5"></textarea>
         </label>
-        <button type="submit" class="add__btn btn" v-bind:class="{ disabled: !formReady }" :disabled="!formReady">Senden</button>
+        <button type="submit" class="add__btn btn" v-bind:class="{ disabled: !formReady }" :disabled="!formReady">{{ $t('addform.send') }}</button>
       </form>
     </div>
   </div>

@@ -3,10 +3,10 @@
 <template>
   <div class="password-retrieval">
     <div class="container container--narrow">
-      <h1>Passwort vergessen</h1>
+      <h1>{{ $t('password.forgot') }}</h1>
       <form @submit.prevent="submitForm">
         <input class="input-text" type="email" placeholder="E-Mail" v-model="formEmail">
-        <button class="input-button btn" type="submit">Senden</button>
+        <button class="input-button btn" type="submit">{{ $t('password.send') }}</button>
         <div class="notice" v-if="message != ''">{{ message }}</div>
       </form>
     </div>

@@ -20,18 +20,18 @@
       <div class="lead">
         <span v-if="currentEntry.fixed" class="lead__fixed">Fixed!</span>
         <p class="lead__desc">{{ currentEntry.text }}</p>
-        <p v-if="currentEntry.fixed" class="lead__notice lead__notice--good">Dieser Spot wurde in der Zwischenzeit verbessert.</p>
+        <p v-if="currentEntry.fixed" class="lead__notice lead__notice--good">{{ $t('entry.fixed') }}</p>
       </div>
     </div>
 
     <div class="comments">
       <div class="comments__container">
-        <div class="notice" v-if="!isLoggedIn">Jetzt <router-link to="/register">registrieren</router-link> und mitdiskutieren!</div>
+        <div class="notice" v-if="!isLoggedIn"><router-link to="/register">{{ $t('entry.register') }}</router-link></div>
         <div class="comments__form" v-if="isLoggedIn && userData">
           <div class="comments__form__image" :style="'background-image:url(' + userAvatar + ')'"></div>
           <form @submit.prevent="postComment">
             <textarea placeholder="Kommentar" v-model="commentText" rows="2"></textarea><br>
-            <button type="submit" class="btn comments__form__button" v-bind:class="{ 'disabled': !commentText }">Senden</button>
+            <button type="submit" class="btn comments__form__button" v-bind:class="{ 'disabled': !commentText }">{{ $t('entry.send') }}</button>
           </form>
         </div>
         <div class="comments__list" v-if="comments">

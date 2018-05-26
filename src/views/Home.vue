@@ -1,21 +1,3 @@
-<i18n>
-
-{
-  "en": {
-    "registernow": "Join now!",
-    "addspot": "Add Spot!",
-    "showall": "Show all spots",
-    "more": "More"
-  },
-  "de": {
-    "registernow": "Jetzt registrieren!",
-    "addspot": "Spot hinzufügen",
-    "showall": "Alle Spots anzeigen",
-    "more": "Mehr"
-  }
-}
-</i18n>
-
 <template>
   <div class="home">
     <div class="home__intro">
@@ -33,8 +15,8 @@
         <div class="home__intro__content">
           <h1>Let's Make Our<br>Cities Bikeable!</h1>
           <!--<p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>-->
-          <router-link v-if="!isLoggedIn" to="/register" class="home__intro__cta">{{ $t('registernow') }}</router-link>
-          <router-link v-if="isLoggedIn" to="/add" class="home__intro__cta">{{ $t('addspot') }}</router-link>
+          <router-link v-if="!isLoggedIn" to="/register" class="home__intro__cta">{{ $t('home.registernow') }}</router-link>
+          <router-link v-if="isLoggedIn" to="/add" class="home__intro__cta">{{ $t('home.addspot') }}</router-link>
         </div>
       </div>
     </div>
@@ -47,7 +29,7 @@
             <c-entry-preview :entry="spot"></c-entry-preview>
           </div>
         </div>
-        <router-link to="/entries" class="btn btn--centered">{{ $t('showall') }}</router-link>
+        <router-link to="/entries" class="btn btn--centered">{{ $t('home.showall') }}</router-link>
       </div>
     </div>
 
@@ -61,7 +43,7 @@
               <span class="home__news__date">{{ article.date }}</span>
               <h3><router-link :to="'/news/' + article.id">{{ article.title }}</router-link></h3>
               <p>{{ article.abstract }}</p>
-              <router-link class="home__news__more" :to="'/news/' + article.id">{{ $t('more') }}</router-link>
+              <router-link class="home__news__more" :to="'/news/' + article.id">{{ $t('home.more') }}</router-link>
             </div>
           </div>
         </div>
@@ -70,26 +52,26 @@
 
     <div class="home__newsletter">
         <h2>Newsletter</h2>
-        <p>Melde dich hier für unseren Newsletter an und erfahre regelmässig, was bei bikeable läuft.<br>Kein Spam imfall!</p>
+        <p>{{ $t('home.newsletter') }}<br>{{ $t('home.nospam') }}</p>
         <!-- Begin MailChimp Signup Form -->
         <div id="mc_embed_signup" class="home__newsletter__form">
           <form action="https://bikeable.us15.list-manage.com/subscribe/post?u=5a9614abf208b7faae96233ff&amp;id=1df02df80c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
             <div id="mc_embed_signup_scroll">
               <div class="mc-field-group">
                 <label>
-                  <span>Email Adresse</span>
+                  <span>{{ $t('home.emailadress') }}</span>
                   <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
                 </label>
               </div>
               <div class="mc-field-group">
                 <label>
-                  <span>Vorname</span>
+                  <span>{{ $t('home.surname') }}</span>
                   <input type="text" value="" name="FNAME" class="" id="mce-FNAME">
                 </label>
               </div>
               <div class="mc-field-group">
                 <label>
-                  <span>Nachname</span>
+                  <span>{{ $t('home.familyname') }}</span>
                   <input type="text" value="" name="LNAME" class="" id="mce-LNAME">
                 </label>
               </div>

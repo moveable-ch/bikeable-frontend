@@ -1,5 +1,5 @@
 <!-- /entries -->
-
+<!-- 
 <i18n>
 
 {
@@ -28,24 +28,24 @@
     "allspots": "Tous les spots"
   }
 }
-</i18n>
+</i18n> -->
 
 <template>
   <div class="list">
     <div class="list__controls">
       <div class="container">
         <div class="list__tabs">
-          <a href="#" class="list__tabs__item" @click.prevent="entryFilter = null" v-bind:class="{ active: isCurrentFilter(null) }">{{ $t('allspots') }}</a>
+          <a href="#" class="list__tabs__item" @click.prevent="entryFilter = null" v-bind:class="{ active: isCurrentFilter(null) }">{{ $t('list.allspots') }}</a>
           <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--bad" @click.prevent="entryFilter = 'shamed'" v-bind:class="{ active: isCurrentFilter('shamed') }"><span>Shame</span></a>
           <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--good" @click.prevent="entryFilter = 'famed'" v-bind:class="{ active: isCurrentFilter('famed') }"><span>Fame</span></a>
         </div>
         <div class="list__sort">
-          <span>{{ $t('sortby') }}:</span>
+          <span>{{ $t('list.sortby') }}:</span>
           <select v-model="entrySort" @change="setSort">
-            <option value="date">{{ $t('date') }}</option>
-            <option value="votes">{{ $t('upvotes') }}</option>
-            <option v-if="userCoords" value="distance">{{ $t('distance') }}</option>
-            <option value="comments">{{ $t('comments') }}</option>
+            <option value="date">{{ $t('list.date') }}</option>
+            <option value="votes">{{ $t('list.upvotes') }}</option>
+            <option v-if="userCoords" value="distance">{{ $t('list.distance') }}</option>
+            <option value="comments">{{ $t('list.comments') }}</option>
           </select>
         </div>
       </div>
@@ -56,7 +56,7 @@
           <c-entry-preview :entry="entry"></c-entry-preview>
         </div>
       </div>
-      <a class="showmore" href="#" v-if="entryDisplayCapped && listSpots" @click.prevent="displayEntryCount += 10">Mehr Spots anzeigen</a>
+      <a class="showmore" href="#" v-if="entryDisplayCapped && listSpots" @click.prevent="displayEntryCount += 10">{{ $t('list.morespots') }}</a>
     </div>
   </div>
 </template>

@@ -12,8 +12,14 @@ Vue.use(VueHead);
 Vue.use(SocialSharing);
 Vue.use(VueI18n);
 
+var lang = navigator.language;
+
+if(["de", "en", "fr"].indexOf(lang) > -1) {
+	lang = "en";
+};
+
 const i18n = new VueI18n({
-  locale: 'de', // set locale
+  locale: lang, // set locale
   messages: {
 	  "de": {
 	  	 "home": {

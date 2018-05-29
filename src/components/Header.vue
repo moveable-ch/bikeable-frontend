@@ -1,5 +1,5 @@
 <template>
-  <header class="header" v-bind:class="{ 'is-scrolled': isScrolled }">
+  <header class="header" v-bind:class="{ 'is-scrolled': isScrolled, 'is-logged-in': isLoggedIn }">
     <router-link to="/" class="header__logo"><span>bikeable</span></router-link>
     <button class="burger" v-on:click="navVisible = true"></button>
     <router-link v-if="isLoggedIn" to="/profile" class="header__avatar" :style="{ backgroundImage: 'url(' + userAvatar + ')' }"><span>Profile</span></router-link>
@@ -21,17 +21,24 @@
               <li><router-link to="/" exact>Home</router-link></li>
               <li><router-link to="/map" exact>Map</router-link></li>
               <li><router-link to="/entries" exact>Spots</router-link></li>
-              <li><router-link to="/add" exact>Spot erfassen</router-link></li>
+              <li v-if="isLoggedIn"><router-link to="/add" exact>Spot erfassen</router-link></li>
             </ul>
           </nav>
           <nav class="header__menu__nav-secondary">
             <ul>
-              <li><router-link to="/profile" exact>Settings</router-link></li>
-              <li><a href="#" @click.prevent="logout">Logout</a></li>
+              <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
+              <li v-if="!isLoggedIn"><router-link to="/register">Register</router-link></li>
+              <li v-if="isLoggedIn"><router-link to="/profile" exact>Settings</router-link></li>
+              <li v-if="isLoggedIn"><a href="#" @click.prevent="logout">Logout</a></li>
+            </ul>
+            <ul>
               <li><router-link to="/faq" exact>FAQ</router-link></li>
               <li><router-link to="/news" exact>News</router-link></li>
               <li><router-link to="/about" exact>About Bikeable</router-link></li>
               <li><router-link to="/partner" exact>Partner</router-link></li>
+            </ul>
+            <ul>
+              <li><language-switch></language-switch></li>
             </ul>
           </nav>
         </div>
@@ -158,8 +165,8 @@ export default {
 
   &__logo {
     display: block;
-    width: 30px;
-    height: 3rem;
+    width: 34px;
+    height: 50px;
     background-image: url('../assets/bikeable-logo-gr.svg');
     background-size: 100%;
     background-repeat: no-repeat;
@@ -173,16 +180,20 @@ export default {
       display: none;
     }
 
+    .is-scrolled & {
+      transform: translateY(-50%) scale(.8);
+      top: 50%;
+    }
+
     @include tablet() {
       width: 74px;
       height: 100px;
       position: absolute;
       left: 2rem;
-      top: 0;
       transform-origin: 0 0;
 
       .is-scrolled & {
-        transform: scale(.4) translateY(-50%);
+        transform: translateY(-50%) scale(.4);
         top: 50%;
       }
     }
@@ -194,11 +205,15 @@ export default {
     height: 24px;
     position: absolute;
     top: 50%;
-    right: 2rem;
+    right: 1rem;
     background-color: transparent;
     border: none;
     cursor: pointer;
     transform: translateY(-50%);
+
+    @include tablet {
+      right: 2rem;
+    }
 
     &::before {
       content: "";
@@ -256,10 +271,14 @@ export default {
   &__mainnav {
     display: none;
     position: absolute;
-    right: 9rem;
+    right: 5rem;
     top: 50%;
     font-family: $f-body;
     transform: translateY(-50%);
+
+    .is-logged-in & {
+      right: 9rem;
+    }
 
     ul {
       list-style-type: none;
@@ -324,6 +343,7 @@ export default {
       min-width: 260px;
       background-color: #fff;
       padding: 3rem;
+      // overflow-y: scroll;
     }
     &__nav {
       font-size: 2rem;
@@ -349,6 +369,9 @@ export default {
       font-weight: 400;
       margin-bottom: 2rem;
 
+      > ul {
+        margin-bottom: 2rem;
+      }
       li {
         margin-bottom: .5rem;
 

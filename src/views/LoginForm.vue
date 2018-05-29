@@ -54,7 +54,7 @@ export default {
   mounted() {
     var self = this;
 
-    this.initFbLogin();
+    // this.initFbLogin();
   },
 
   methods: {

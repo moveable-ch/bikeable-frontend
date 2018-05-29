@@ -11,6 +11,18 @@ Vue.use(Vuex)
 
 const state = {
   lang: 'de',
+  languages: [
+    {
+      code: 'de',
+      name: 'Deutsch'
+    }, {
+      code: 'fr',
+      name: 'Francais'
+    }, {
+      code: 'en',
+      name: 'English'
+    }
+  ],
   prismicLang: 'de-ch',
   pending: false,
   msg: '',
@@ -90,6 +102,9 @@ const getters = {
   },
   prismicLang: state => {
     return state.prismicLang;
+  },
+  languages: state => {
+    return state.languages;
   }
 }
 

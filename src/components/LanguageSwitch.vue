@@ -18,26 +18,15 @@ export default {
   props: [],
   data () {
     return {
-      languages: [
-        {
-          code: 'de',
-          name: 'Deutsch'
-        },
-        {
-          code: 'fr',
-          name: 'Francais'
-        },
-        {
-          code: 'en',
-          name: 'English'
-        }
-      ],
       switcherVisible: false
     }
   },
   computed: {
     currentLang() {
       return this.$store.getters.lang;
+    },
+    languages() {
+      return this.$store.getters.languages;
     }
   },
   watch: {

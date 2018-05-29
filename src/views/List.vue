@@ -1,34 +1,4 @@
 <!-- /entries -->
-<!-- 
-<i18n>
-
-{
-  "en": {
-    "sortby": "Sort by",
-    "date": "Date",
-    "upvotes": "Upvotes",
-    "distance": "Distance",
-    "comments": "Comments",
-    "allspots": "All Spots"
-  },
-  "de": {
-    "sortby": "Sortieren nach",
-    "date": "Datum",
-    "upvotes": "Upvotes",
-    "distance": "Distanz",
-    "comments": "Kommentare",
-    "allspots": "Alle Spots"
-  },
-  "fr": {
-    "sortby": "Sort by",
-    "date": "Date",
-    "upvotes": "Upvotes",
-    "distance": "Distance",
-    "comments": "Commentaires",
-    "allspots": "Tous les spots"
-  }
-}
-</i18n> -->
 
 <template>
   <div class="list">

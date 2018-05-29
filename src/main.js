@@ -15,7 +15,7 @@ Vue.use(VueI18n);
 var lang = navigator.language;
 
 if(["de", "en", "fr"].indexOf(lang) > -1) {
-	lang = "en";
+	lang = "de";
 };
 
 const i18n = new VueI18n({

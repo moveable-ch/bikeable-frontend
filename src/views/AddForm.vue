@@ -106,7 +106,6 @@ export default {
       return this.$store.getters.userCoords;
     },
     formReady() {
-      console.log(this.entryFamed);
       return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.imageId != null && this.entryFamed != null);
     },
     imagePreviewUrl() {

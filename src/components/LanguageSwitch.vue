@@ -4,7 +4,7 @@
     <transition name="switcher-anim">
       <div class="langswitch__switcher" v-if="switcherVisible">
         <ul>
-          <li v-for="lang in languages"><a href="#" @click="setLang(lang.code)">{{ lang.name }}</a></li>
+          <li v-for="lang in languages" v-bind:key="lang.code"><a href="#" @click.prevent="setLang(lang.code)">{{ lang.name }}</a></li>
         </ul>
       </div>
     </transition>

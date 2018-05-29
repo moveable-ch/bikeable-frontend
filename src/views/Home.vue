@@ -6,7 +6,7 @@
           <img src="/static/img/paul.png" alt="Bikeapaul">
         </div>
         <div class="home__intro__content">
-          <h1>Let's Make Our<br>Cities Bikeable!</h1>
+          <h1>Let's make our<br>cities <span>bikeable</span>!</h1>
           <p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>
           <router-link v-if="!isLoggedIn" to="/register" class="home__intro__cta">{{ $t('home.registernow') }}</router-link>
           <router-link v-if="isLoggedIn" to="/add" class="home__intro__cta">{{ $t('home.addspot') }}</router-link>
@@ -385,7 +385,7 @@ export default {
       width: 100%;
       height: 200px;
       background: #fff;
-      transform: skewY(-2deg);
+      transform: skewY(-4deg);
       transform-origin: 0% 100%;
     }
 
@@ -434,9 +434,9 @@ export default {
         top: 12rem;
       }
       @include desktop {
-        width: 17rem;
+        width: 18rem;
         right: 3rem;
-        top: 15rem;
+        top: 14rem;
       }
     }
     &__cta {
@@ -444,19 +444,21 @@ export default {
       font-size: 1rem;
       text-decoration: none;
       font-weight: 400;
-      background-color: $c-main;
-      padding: .75rem 2rem;
+      background-color: rgba(#fff, .2);
+      padding: 0 2rem;
       margin-left: 0;
       margin-top: 2rem;
-      color: #fff;
+      color: $c-black;
+      border: 2px solid rgba($c-black, .2);
       opacity: 0;
-      border-radius: 3px;
-      transition: .2s background-color;
+      line-height: 2.5rem;
+      border-radius: 1.25rem;
+      transition: .1s border-color, .1s background-color;
       animation: headline 1s $easeOutQuint .9s 1 normal forwards;
 
       &:hover {
-        color: #fff;
-        background-color: darken($c-main, 5%);
+        border-color: $c-main;
+        background-color: rgba(#fff, .5);
       }
     }
     h1 {
@@ -470,18 +472,24 @@ export default {
       text-align: left;
       text-decoration: none;
       opacity: 0;
-      text-shadow: 0 2px 2px rgba($c-main, .5);
       animation: headline 1s $easeOutQuint .3s 1 normal forwards;
 
       a {
         color: $c-main;
+      }
+      span {
+        text-shadow: 2px 2px 2px rgba($c-main, .4);
+
+        @include tablet {
+          text-shadow: 2px 2px 4px rgba($c-main, .5);
+        }
       }
 
       @include tablet() {
         font-size: 3rem;
       }
       @include desktop() {
-        font-size: 4rem;
+        font-size: 3.5rem;
       }
     }
     p {

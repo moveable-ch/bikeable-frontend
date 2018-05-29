@@ -207,13 +207,20 @@ export default {
       top: 0;
       left: 0;
       width: 100%;
-      height: 3px;
-      border-radius: 10px;
+      height: 4px;
+      border-radius: 2px;
       background-color: $c-black;
-      box-shadow: 0 11px 0 0 $c-black, 0 22px 0 0 $c-black;
+      box-shadow: 0 9px 0 0 $c-black, 0 18px 0 0 $c-black;
+      transition: .5s background-color, .5s box-shadow;
     }
     &:focus {
       outline: none;
+    }
+    &:hover {
+      &::before {
+        background-color: $c-main;
+        box-shadow: 0 9px 0 0 $c-main, 0 18px 0 0 $c-main;
+      }
     }
   }
 
@@ -229,7 +236,7 @@ export default {
     transform: translateY(-50%);
     background-color: #fff;
     background-size: cover;
-    transition: .4s transform $easeInOutQuint;
+    transition: .4s transform $easeInOutQuint, .5s border-color;
 
     span {
       display: none;
@@ -240,6 +247,9 @@ export default {
     }
     .is-scrolled & {
       transform: translateY(-50%) scale(.7);
+    }
+    &:hover {
+      border-color: $c-main;
     }
   }
 
@@ -352,8 +362,8 @@ export default {
       width: 1.5rem;
       height: 1.5rem;
       position: absolute;
-      top: 1rem;
-      right: 1rem;
+      top: 2rem;
+      right: 2rem;
       background-color: transparent;
       border: none;
       cursor: pointer;
@@ -365,9 +375,10 @@ export default {
         top: .75rem;
         left: 0;
         width: 100%;
-        height: 3px;
-        border-radius: 3px;
+        height: 4px;
+        border-radius: 2px;
         background-color: $c-black;
+        transition: .5s background-color;
       }
       &::before {
         transform: rotate(45deg);

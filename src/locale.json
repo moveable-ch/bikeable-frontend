@@ -1,0 +1,156 @@
+{
+    "de": {
+        "home": {
+            "registernow": "Jetzt registrieren!",
+            "addspot": "Spot hinzufügen",
+            "showall": "Alle Spots anzeigen",
+            "more": "Mehr",
+            "newsletter": "Melde dich hier für unseren Newsletter an und erfahre regelmässig, was bei bikeable läuft.",
+            "nospam": "Kein Spam imfall!",
+            "emailadress": "Email-Adresse",
+            "surname": "Vorname",
+            "familyname": "Nachname"
+        },
+        "about": {
+            "paypal": "Unterstütze uns via PayPal"
+        },
+        "addform": {
+            "addspot": "Spot erstellen",
+            "photo": "Foto",
+            "uploadimage": "Lade ein Bild von deinem Spot hoch",
+            "chooseimage": "Bild wählen",
+            "loading": "Loading",
+            "adress": "Adresse",
+            "spotwhere": "Wo befindet sich dein Spot?",
+            "entercurrentposition": "Aktuellen Standort einfügen",
+            "chooselocation": "Standort auf Karte wählen",
+            "description": "Beschreibung",
+            "send": "Senden"
+        },
+        "editform": {
+            "editspot": "Spot bearbeiten"
+        },
+        "entry": {
+            "fixed": "Dieser Spot wurde in der Zwischenzeit verbessert.",
+            "register": "Jetzt registrieren und mitdiskutieren!",
+            "send": "Senden"
+        },
+        "list": {
+            "sortby": "Sortieren nach",
+            "date": "Datum",
+            "upvotes": "Upvotes",
+            "distance": "Distanz",
+            "comments": "Kommentare",
+            "allspots": "Alle Spots",
+            "morespots": "Mehr Spots anzeigen"
+        },
+        "login": {
+            "forgotpassword": "Passwort vergessen?",
+            "newaccount": "Neuen Account erstellen"
+        },
+        "notfound": {
+            "pagenotfound": "Die Seite wurde nicht gefunden"
+        },
+        "partner": {
+            "partner": "Partner"
+        },
+        "password": {
+            "forgot": "Passwort vergessen",
+            "send": "Senden"
+        },
+        "register": {
+            "register": "Registrieren",
+            "username": "Username",
+            "email": "E-Mail",
+            "password": "Passwort",
+            "send": "Senden",
+            "succesfullregistered": "Erfolgreich registriert, bitte Account bestätigen."
+        },
+        "profile": {
+            "preferences": "Einstellungen",
+            "username": "Username",
+            "email": "E-Mail",
+            "avatar": "Avatar",
+            "avatarupload": "Neuen Avatar hochladen",
+            "loading": "Loading",
+            "save": "Speichern"
+        }
+    },
+    "en": {
+        "home": {
+            "registernow": "Join now!",
+            "addspot": "Add spot",
+            "showall": "Show all spots",
+            "more": "More",
+            "newsletter": "Subscribe to our newsletter and stay up to date on all things Bikeable!",
+            "nospam": "No spam, promise!",
+            "emailadress": "Email address",
+            "surname": "First name",
+            "familyname": "Last name"
+        },
+        "about": {
+            "paypal": "Support us with PayPal"
+        },
+        "addform": {
+            "addspot": "Add Spot",
+            "photo": "Picture",
+            "uploadimage": "Upload a picture of your spot",
+            "chooseimage": "Choose Picture",
+            "loading": "Loading",
+            "adress": "Address",
+            "spotwhere": "Where is your spot located?",
+            "entercurrentposition": "Insert current location",
+            "chooselocation": "Choose location on map",
+            "description": "Description",
+            "send": "Send"
+        },
+        "editform": {
+            "editspot": "Edit spot"
+        },
+        "entry": {
+            "fixed": "This spot has been improved in the meantime.",
+            "register": "Register now and join the discussion!",
+            "send": "Send"
+        },
+        "list": {
+            "sortby": "Sort by",
+            "date": "Date",
+            "upvotes": "Upvotes",
+            "distance": "Distance",
+            "comments": "Comments",
+            "allspots": "All Spots",
+            "morespots": "Show more spots"
+        },
+        "login": {
+            "forgotpassword": "Forgot your password?",
+            "newaccount": "Create new account"
+        },
+        "notfound": {
+            "pagenotfound": "This page could not be found"
+        },
+        "partner": {
+            "partner": "Partners"
+        },
+        "password": {
+            "forgot": "Forgot Password",
+            "send": "Send"
+        },
+        "register": {
+            "register": "Register",
+            "username": "Username",
+            "email": "E-Mail",
+            "password": "Password",
+            "send": "Send",
+            "succesfullregistered": "Registration successful. Please confirm your account."
+        },
+        "profile": {
+            "preferences": "Settings",
+            "username": "Username",
+            "email": "E-Mail",
+            "avatar": "Avatar",
+            "avatarupload": "Upload new avatar",
+            "loading": "Loading",
+            "save": "Save"
+        }
+    }
+}

@@ -2,19 +2,12 @@
   <div class="home">
     <div class="home__intro">
       <div class="container">
-        <div class="home__intro__path">
-          <svg width="961px" height="689px" viewBox="0 0 961 689" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <g id="Artboard" transform="translate(-75.000000, 0.000000)" stroke="#FE0094" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-dasharray="10,20">
-              <path d="M893,688 C943,648 976,622 992,610 C1016,592 1040,521 1033,486 C1026,451 969,370 841,390 C713,410 687,475 548,540 C409,605 165,567 105,452 C45,337 81,209 194,153 C307,97 484,135 544,166 C604,197 675,222 723,183 C771,144 752,118 753,109 C754,100 735,80 716,68 C697,56 635,40 634,0 C633.333333,-26.6666667 647.666667,-39.3333333 677,-38" id="bikepath"></path>
-            </g>
-          </svg>
-        </div>
         <div class="home__intro__illu">
           <img src="/static/img/paul.png" alt="Bikeapaul">
         </div>
         <div class="home__intro__content">
           <h1>Let's Make Our<br>Cities Bikeable!</h1>
-          <!--<p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>-->
+          <p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>
           <router-link v-if="!isLoggedIn" to="/register" class="home__intro__cta">{{ $t('home.registernow') }}</router-link>
           <router-link v-if="isLoggedIn" to="/add" class="home__intro__cta">{{ $t('home.addspot') }}</router-link>
         </div>
@@ -374,26 +367,44 @@ export default {
 
   &__intro {
     background-image: linear-gradient(45deg, #F4FDB5 0%, #CAFBFF 100%);
-    height: 500px;
+    height: 400px;
     margin: 0 auto;
     color: #444;
     position: relative;
     margin-top: -3rem;
-    margin-bottom: -7rem;
+    margin-bottom: -5rem;
     padding-top: 3rem;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: -200px;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      background: #fff;
+      transform: skewY(-2deg);
+      transform-origin: 0% 100%;
+    }
 
     @include tablet() {
-      height: 900px;
+      height: 700px;
       margin-top: -4rem;
-      margin-bottom: -15rem;
+      margin-bottom: -6rem;
       padding-top: 0;
     }
     @include desktop() {
-      height: 1000px;
+      height: 750px;
     }
 
     .container {
-      position: static;
+      max-width: 25rem;
+
+      @include tablet {
+        max-width: 1200px;
+      }
     }
 
     &__content {
@@ -403,81 +414,45 @@ export default {
         padding-top: 14rem;
       }
     }
-    &__path {
-      position: absolute;
-      right: 5rem;
-      top: 0;
-      width: 961px;
-      height: 691px;
-      pointer-events: none;
-      // padding-bottom: 58%;
-
-      svg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
-
-      #bikepath {
-        stroke: #fff;
-        stroke-width: 6;
-        stroke-dasharray: 10, 40;
-        animation: bikedash 1s linear infinite;
-      }
-
-      @media screen and (max-width: 1023px) {
-        right: 0rem;
-      }
-      @media screen and (max-width: 767px) {
-        top: -.5rem;
-        right: 0;
-        width: 36rem;
-        height: 24rem;
-      }
-    }
     &__illu {
       position: absolute;
-      top: 12.4rem;
-      right: 5.9rem;
-      width: 19rem;
+      top: 5rem;
+      right: -3rem;
+      width: 8rem;
       transform-origin: 50% 93%;
-      animation: paul .7s ease-out 0s infinite normal forwards;
-      // transform: rotate(-10deg);
+      // animation: paul .4s linear 0s infinite normal forwards;
       pointer-events: none;
-
-      @media screen and (max-width: 1023px) {
-        right: 1.8rem;
-        top: 16.4rem;
-        width: 16rem;
-      }
-      @media screen and (max-width: 767px) {
-        width: 10rem;
-        z-index: 1;
-        top: 13rem;
-        right: 2.8rem;
-      }
 
       img {
         width: 100%;
         height: auto;
+      }
+
+      @include tablet {
+        width: 14rem;
+        right: 1rem;
+        top: 12rem;
+      }
+      @include desktop {
+        width: 17rem;
+        right: 3rem;
+        top: 15rem;
       }
     }
     &__cta {
       display: inline-block;
       font-size: 1rem;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 400;
       background-color: $c-main;
       padding: .75rem 2rem;
       margin-left: 0;
+      margin-top: 2rem;
       color: #fff;
       opacity: 0;
-      text-shadow: 0 1px 0 darken($c-main, 5%);
-      box-shadow: 0 2px 2px 0 rgba($c-main, .2);
+      border-radius: 3px;
       transition: .2s background-color;
-      animation: headline 1s $easeOutQuint .6s 1 normal forwards;
+      animation: headline 1s $easeOutQuint .9s 1 normal forwards;
 
       &:hover {
         color: #fff;
@@ -489,8 +464,8 @@ export default {
       margin: 0;
       font-weight: 700;
       font-size: 1.75rem;
-      line-height: 1.2;
-      margin-bottom: 1rem;
+      line-height: 1;
+      margin-bottom: .5rem;
       text-transform: none;
       text-align: left;
       text-decoration: none;
@@ -502,25 +477,33 @@ export default {
         color: $c-main;
       }
 
-      @media (min-width: 550px) {
+      @include tablet() {
         font-size: 3rem;
       }
-      @include tablet() {
+      @include desktop() {
         font-size: 4rem;
       }
     }
     p {
-      font-size: 1.1rem;
-      line-height: 1.7;
-      color: $c-main;
-      max-width: 600px;
+      font-size: .8rem;
+      line-height: 1.6;
+      color: $c-black;
+      padding-right: 5rem;
+      width: 14rem;
+      opacity: 0;
+      animation: headline 1s $easeOutQuint .6s 1 normal forwards;
 
       a {
         color: #444;
       }
 
-      @include tablet() {
-        font-size: 1.3rem;
+      @include tablet {
+        padding-right: 15rem;
+        font-size: 1rem;
+        width: auto;
+      }
+      @include desktop {
+        padding-right: 24rem;
       }
     }
   }
@@ -528,25 +511,16 @@ export default {
 
 @keyframes paul {
   0% {
-    transform: rotate(0deg);
+    transform: rotate(0) translateY(0) ;
   }
   25% {
-    transform: rotate(.5deg);
+    transform: rotate(.4deg) translateY(3px);
   }
   75% {
-    transform: rotate(-.5deg);
+    transform: rotate(-.4deg) translateY(-3px);
   }
   100% {
-    transform: rotate(0deg);
-  }
-}
-
-@keyframes bikedash {
-  from {
-    stroke-dashoffset: 0;
-  }
-  to {
-    stroke-dashoffset: 50;
+    transform: rotate(0) translateY(0) ;
   }
 }
 

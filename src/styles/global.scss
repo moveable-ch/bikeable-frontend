@@ -110,6 +110,10 @@ p {
   &--narrow {
     max-width: 600px;
   }
+
+  @include tablet {
+    padding: 0 2rem;
+  }
 }
 
 small {

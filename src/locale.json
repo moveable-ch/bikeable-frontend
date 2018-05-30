@@ -1,6 +1,7 @@
 {
     "de": {
         "home": {
+            "lead": "Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.",
             "registernow": "Jetzt registrieren!",
             "addspot": "Spot hinzufügen",
             "showall": "Alle Spots anzeigen",
@@ -78,6 +79,7 @@
     },
     "en": {
         "home": {
+            "lead": "Bikeable is ...",
             "registernow": "Join now!",
             "addspot": "Add spot",
             "showall": "Show all spots",

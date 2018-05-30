@@ -7,7 +7,7 @@
         </div>
         <div class="home__intro__content">
           <h1>Let's make our<br>cities <span>bikeable</span>!</h1>
-          <p>Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.</p>
+          <p>{{ $t('home.lead') }}</p>
           <router-link v-if="!isLoggedIn" to="/register" class="home__intro__cta">{{ $t('home.registernow') }}</router-link>
           <router-link v-if="isLoggedIn" to="/add" class="home__intro__cta">{{ $t('home.addspot') }}</router-link>
         </div>

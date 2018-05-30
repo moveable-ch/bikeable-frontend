@@ -21,21 +21,21 @@
               <li><router-link to="/" exact>Home</router-link></li>
               <li><router-link to="/map" exact>Map</router-link></li>
               <li><router-link to="/entries" exact>Spots</router-link></li>
-              <li v-if="isLoggedIn"><router-link to="/add" exact>Spot erfassen</router-link></li>
+              <li v-if="isLoggedIn"><router-link to="/add" exact>{{ $t('home.addspot') }}</router-link></li>
             </ul>
           </nav>
           <nav class="header__menu__nav-secondary">
             <ul>
               <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
-              <li v-if="!isLoggedIn"><router-link to="/register">Register</router-link></li>
-              <li v-if="isLoggedIn"><router-link to="/profile" exact>Settings</router-link></li>
+              <li v-if="!isLoggedIn"><router-link to="/register">{{ $t('register.register') }}</router-link></li>
+              <li v-if="isLoggedIn"><router-link to="/profile" exact>{{ $t('profile.preferences') }}</router-link></li>
               <li v-if="isLoggedIn"><a href="#" @click.prevent="logout">Logout</a></li>
             </ul>
             <ul>
               <li><router-link to="/faq" exact>FAQ</router-link></li>
               <li><router-link to="/news" exact>News</router-link></li>
               <li><router-link to="/about" exact>About Bikeable</router-link></li>
-              <li><router-link to="/partner" exact>Partner</router-link></li>
+              <li><router-link to="/partner" exact>{{ $t('partner.partner') }}</router-link></li>
             </ul>
             <ul>
               <li><language-switch></language-switch></li>

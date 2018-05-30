@@ -178,6 +178,7 @@ export default {
 
       return new Promise((resolve, reject) => {
         axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+coords+'&key=AIzaSyDSPhuEAL3Hv0zmbnhGQlTu9ax0uLXmuOE').then(response => {
+          console.log(response);
           if(response.data.results[0].formatted_address != '') {
             let address = response.data.results[0].formatted_address;
             resolve(address);

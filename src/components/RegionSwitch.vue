@@ -1,9 +1,9 @@
 <template>
   <div class="regionswitch">
-  <select v-model="currentRegion">
-    <option value="">Alle Regionen</option>
-    <option v-for="region in regions" v-bind:value="region._id" v-bind:key="region._id">{{ region.name }}</option>
-  </select> 
+    <select v-model="currentRegion">
+      <option value="">Alle Regionen</option>
+      <option v-for="region in regions" v-bind:value="region._id" v-bind:key="region._id">{{ region.name }}</option>
+    </select> 
   </div>
 </template>
 
@@ -77,87 +77,51 @@ export default {
 @import '../styles/helpers';
 
 .regionswitch {
-  display: inline-block;
+  padding-left: 25px;
   position: relative;
 
-  &__current {
-    text-transform: uppercase;
-    position: relative;
-    padding-right: 15px;
-
-    &::after {
-      content: "";
-      display: block;
-      width: 0; 
-      height: 0; 
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 5px solid #869098;
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    &:hover::after {
-      border-top: 5px solid $c-black;
-    }
-  }
-
-  &__switcher {
+  &::before {
+    content: "";
+    display: block;
+    padding: 3px;
     position: absolute;
-    top: calc(100% + 10px);
-    left: 50%;
-    background-color: #fff;
-    width: 100px;
-    padding: 1rem 1.5rem;
-    border-radius: 4px;
-    box-shadow: 0 4px 30px -5px rgba(#000, .1);
-    transform: translateX(-50%);
-
-    &::before {
-      content: "";
-      display: block;
-      width: 0; 
-      height: 0; 
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-bottom: 5px solid white;
-      position: absolute;
-      top: -5px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    ul {
-      li {
-        display: block;
-        line-height: 1;
-        text-align: center;
-        margin: .5rem 0;
-
-        a {
-          line-height: 1;
-        }
-      }
-    }
+    top: 8px;
+    left: 5px;
+    border: solid $c-black;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    transform-origin: 50% 50%;
   }
-}
+  
+  select {
+    font-family: $f-body;
+    color: $c-black;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    width: auto;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    line-height: 1.5;
+    cursor: pointer;
 
-.switcher-anim-enter-active, .switcher-anim-leave-active {
-  transition: opacity .4s $easeOutQuint, transform .4s $easeOutQuint;
-}
-.switcher-anim-enter {
-  opacity: 0;
-  transform: translateX(-50%) translateY(10px);
-}
-.switcher-anim-enter-to {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
+    &::-ms-expand {
+      display: none;
+    }
 
-.switcher-anim-leave-to {
-  opacity: 0;
-  transform: translateX(-50%) translateY(10px);
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+  }
 }
 
 </style>

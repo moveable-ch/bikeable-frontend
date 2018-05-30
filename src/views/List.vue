@@ -2,24 +2,34 @@
 
 <template>
   <div class="list">
-    <div class="list__controls">
-      <div class="container">
-        <div class="list__tabs">
+    <div class="list__head">
+      <div class="list__regions">
+        <div class="container">
           <region-switch></region-switch>
+        </div>
+      </div>
+      <div class="list__controls">
+        <div class="container">
+          <div class="list__sort">
+            <span>{{ $t('list.sortby') }}:</span>
+            <select v-model="entrySort" @change="setSort">
+              <option value="date">{{ $t('list.date') }}</option>
+              <option value="votes">{{ $t('list.upvotes') }}</option>
+              <option v-if="userCoords" value="distance">{{ $t('list.distance') }}</option>
+              <option value="comments">{{ $t('list.comments') }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!--<div class="container">
+        <div class="list__tabs">
           <a href="#" class="list__tabs__item" @click.prevent="entryFilter = null" v-bind:class="{ active: isCurrentFilter(null) }">{{ $t('list.allspots') }}</a>
           <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--bad" @click.prevent="entryFilter = 'shamed'" v-bind:class="{ active: isCurrentFilter('shamed') }"><span>Shame</span></a>
           <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--good" @click.prevent="entryFilter = 'famed'" v-bind:class="{ active: isCurrentFilter('famed') }"><span>Fame</span></a>
         </div>
-        <div class="list__sort">
-          <span>{{ $t('list.sortby') }}:</span>
-          <select v-model="entrySort" @change="setSort">
-            <option value="date">{{ $t('list.date') }}</option>
-            <option value="votes">{{ $t('list.upvotes') }}</option>
-            <option v-if="userCoords" value="distance">{{ $t('list.distance') }}</option>
-            <option value="comments">{{ $t('list.comments') }}</option>
-          </select>
-        </div>
-      </div>
+        
+
+      </div>-->
     </div>
     <div class="container list__container">
       <p v-if="listSpots.length < 1">Leider wurden keine Spots gefunden.</p>
@@ -155,23 +165,27 @@ export default {
     margin-bottom: -8rem;
   }
 
-  &__controls {
+  &__head {
     background-image: linear-gradient(-127deg, #FCFFD6 0%, #E2FDFF 100%);
     padding-top: 5rem;
     position: relative;
+    margin-bottom: 2rem;
 
     @include tablet {
       padding-top: 8rem;
     }
   }
+  &__regions {
+    background-color: rgba($c-black, .05);
+    padding: .75rem 0;
+  }
+  &__controls {
+    background-color: rgba($c-black, .1);
+    padding: .75rem 0;
+  }
 
   &__container {
     position: relative;
-    padding: 0 .5rem;
-
-    @include tablet {
-      padding: 0 1rem;
-    }
   }
   .addlink {
     display: block;
@@ -192,100 +206,6 @@ export default {
 
     &:hover {
       background-color: #333;
-    }
-  }
-  .filter-item {
-    margin-bottom: 5px;
-    height: 1.5rem;
-    overflow: hidden;
-    font-family: $f-head;
-
-    @include tablet() {
-      height: auto;
-    }
-
-    &.visible {
-      height: auto;
-
-      h3::before {
-        transform: rotate(-90deg);
-      }
-    }
-
-    h3 {
-      font-weight: 400;
-      color: #333;
-      margin: 0;
-      font-size: 1rem;
-      line-height: 1.5rem;
-      margin-bottom: .25rem;
-      color: #888;
-      padding-left: 1rem;
-      position: relative;
-
-      &::before {
-        content: ">";
-        position: absolute;
-        top: 0;
-        line-height: 1.5rem;
-        right: 1rem;
-        transform: rotate(90deg);
-      }
-
-      @include tablet() {
-        font-size: .8rem;
-
-        &::before {
-          display: none;
-        }
-      }
-    }
-    &__list {
-      margin-bottom: 1.5rem;
-
-      li {
-
-        a {
-          background-color: #fff;
-          display: block;
-          text-decoration: none;
-          color: #666;
-          line-height: 2rem;
-          padding: 0 1rem;
-          margin-bottom: 5px;
-          border: 2px solid #fff;
-          position: relative;
-          // border-radius: 4px;
-          transition: .2s color, .2s border-color;
-
-          &:hover, &.active {
-            border-color: $c-black;
-            color: $c-black;
-          }
-          &.disabled {
-            opacity: .4;
-            pointer-events: none;
-          }
-        }
-      }
-    }
-    &--sort {
-      .filter-item__list li a {
-        &.active::before {
-          content: "⇥";
-          color: inherit;
-          display: block;
-          position: absolute;
-          right: .5rem;
-          top: 0;
-          line-height: 2rem;
-          transform: rotate(90deg);
-          transition: .4s transform $easeOutQuint;
-        }
-        &.active.asc::before {
-          transform: rotate(-90deg);
-        }
-      }
     }
   }
 
@@ -405,9 +325,9 @@ export default {
   }
 
   &__sort {
-    position: absolute;
-    top: 2rem;
-    right: 1rem;
+    // position: absolute;
+    // top: 2rem;
+    // right: 1rem;
     font-size: .8rem;
 
     @include tablet() {
@@ -430,7 +350,7 @@ export default {
       background: transparent;
       background-image: none;
       -webkit-appearance: none;
-      line-height: 2rem;
+      line-height: 1;
       margin-left: .5rem;
 
       &::-ms-expand {

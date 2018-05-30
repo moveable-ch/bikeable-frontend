@@ -7,7 +7,9 @@
       <div class="msg" v-if="msg"><span>{{ msg }}</span></div>
     </transition>
     <c-header v-if="!isEmbed"></c-header>
-    <router-view></router-view>
+    <transition name="route-fade" mode="out-in">
+      <router-view></router-view>
+    </transition>
     <c-footer v-if="showFooter"></c-footer>
   </div>
 </template>
@@ -119,6 +121,13 @@ export default {
   transition: opacity .2s;
 }
 .fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.route-fade-enter-active, .route-fade-leave-active {
+  transition: opacity .3s;
+}
+.route-fade-enter, .route-fade-leave-to {
   opacity: 0;
 }
 

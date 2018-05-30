@@ -1,13 +1,9 @@
 <template>
   <div class="regionswitch">
-    <a href="#" class="regionswitch__current" @click.prevent="switcherVisible = !switcherVisible">{{ currentRegion.name }}</a>
-    <transition name="switcher-anim">
-      <div class="regionswitch__switcher" v-if="switcherVisible">
-        <ul>
-          <li v-for="region in regions"><a href="#" @click="setRegion(region)">{{ region.name }}</a></li>
-        </ul>
-      </div>
-    </transition>
+  <select v-model="currentRegion">
+    <option value="">Alle Regionen</option>
+    <option v-for="region in regions" v-bind:value="region._id">{{ region.name }}</option>
+  </select> 
   </div>
 </template>
 
@@ -19,34 +15,35 @@ export default {
   props: [],
   data () {
     return {
+      currentRegion: "",
       regions: [],
-      currentRegion: {
-        "_id": "ub4HbeAnsZDCTiHQ7",
-        "name": "Stadt Zürich"},
       switcherVisible: false
     }
   },
   computed: {
-    // selectedRegion() {
-    //   return this.$store.getters.selectedRegion;
-    // }
+    selectedRegion() {
+      return this.$store.getters.selectedRegion;
+    }
   },
   watch: {
+    currentRegion(to, from) {
+      this.setRegion(to);
+    },
+    selectedRegion(to, from) {
+      this.currentRegion = this.selectedRegion;
+    }
   },
   mounted() {
     this.loadRegions();
+    // this.currentRegion = this.selectedRegion;
   },
   methods: {
 
-  loadRegions() {
-      console.log("LOAD_START");
-
+    loadRegions() {
       this.$store.commit('LOAD_START');
 
       regions.getRegions()
         .then((result) => {
-          console.log("result");
-          console.log(result);
           this.$store.commit('LOAD_FINISH');
           this.regions = result;
           if(this.currentRegion == null) {
@@ -56,19 +53,18 @@ export default {
         (error) => {
           this.$store.commit('LOAD_FINISH');
           this.$store.dispatch('handleError', 'Fehler');
-      });
-    }
-  },
-  setRegion(region) {
-    this.currentRegion = region;
-    this.switcherVisible = false;
+        });
+    },
+    setRegion(region) {
+      this.switcherVisible = false;
 
-    this.$store.dispatch('setRegion', region)
-    .then((data) => {
-      this.region
-      }, (data) => {
-        this.$store.dispatch('handleError', 'Error');
-      });
+      this.$store.dispatch('setSelectedRegion', region)
+      .then((data) => {
+        this.region
+        }, (data) => {
+          this.$store.dispatch('handleError', 'Error');
+        });
+    }
   }
 }
 </script>

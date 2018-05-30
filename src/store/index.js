@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import map from './modules/map'
 import spots from './modules/spots'
+import regions from './modules/regions'
 import auth from './modules/auth'
 import users from './modules/users'
 import images from './modules/images'
@@ -116,6 +117,7 @@ export default new Vuex.Store({
   modules: {
     auth,
     spots,
+    regions,
     map,
     users,
     images

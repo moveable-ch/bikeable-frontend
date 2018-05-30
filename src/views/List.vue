@@ -5,6 +5,7 @@
     <div class="list__controls">
       <div class="container">
         <div class="list__tabs">
+          <region-switch></region-switch>
           <a href="#" class="list__tabs__item" @click.prevent="entryFilter = null" v-bind:class="{ active: isCurrentFilter(null) }">{{ $t('list.allspots') }}</a>
           <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--bad" @click.prevent="entryFilter = 'shamed'" v-bind:class="{ active: isCurrentFilter('shamed') }"><span>Shame</span></a>
           <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--good" @click.prevent="entryFilter = 'famed'" v-bind:class="{ active: isCurrentFilter('famed') }"><span>Fame</span></a>
@@ -34,6 +35,7 @@
 <script>
 import spots from '../api/spots';
 import EntryPreview from '@/components/EntryPreview';
+import RegionSwitch from '@/components/RegionSwitch';
 
 export default {
   name: 'v-list',
@@ -42,7 +44,9 @@ export default {
   },
   props: [],
   components: {
-    'c-entry-preview': EntryPreview
+    'c-entry-preview': EntryPreview,
+    'region-switch': RegionSwitch
+
   },
   computed: {
     allSpots() {
@@ -59,6 +63,9 @@ export default {
     },
     entryDisplayCapped() {
       return (this.displayEntryCount < this.allSpots.length);
+    },
+    selectedRegion() {
+      return this.$store.getters.selectedRegion;
     }
   },
   data() {
@@ -82,6 +89,9 @@ export default {
     },
     'displayEntryCount': function(to, from) {
       this.getSpots();
+    },
+    'selectedRegion' : function(to, from) {
+      this.getSpots();
     }
   },
   methods: {
@@ -97,7 +107,8 @@ export default {
           location: coords,
           limit: this.displayEntryCount,
           filter: this.entryFilter,
-          sort: this.entrySort
+          sort: this.entrySort,
+          region: this.selectedRegion
         })
         .then((entries) => {
           this.$store.commit('LOAD_FINISH');
@@ -107,6 +118,7 @@ export default {
           this.$store.commit('LOAD_FINISH');
           this.$store.dispatch('handleError', 'Fehler');
         });
+
     },
     setSort() {
       this.$store.commit('SET_LIST_SORT', this.entrySort);

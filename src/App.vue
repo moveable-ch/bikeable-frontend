@@ -60,6 +60,7 @@ export default {
   },
   mounted() {
     this.checkLocalLang();
+    this.checkLocalRegion();
     
     if(this.isEmbed) {
       document.body.classList.add('embed');
@@ -84,6 +85,17 @@ export default {
       let l = localStorage.getItem('lang');
       if(l) {
         this.$store.dispatch('setLang', l)
+        .then((data) => {
+          }, (data) => {
+            this.$store.dispatch('handleError', 'Error');
+          });
+      }
+    },
+    checkLocalRegion() {
+      let l = localStorage.getItem('selectedRegion');
+      console.log(l);
+      if(l) {
+        this.$store.dispatch('setSelectedRegion', l)
         .then((data) => {
           }, (data) => {
             this.$store.dispatch('handleError', 'Error');

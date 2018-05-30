@@ -3,13 +3,14 @@ var config = require('../../config');
 
 
 export default {
-  getAllSpots( { limit, filter, sort, order, location } ) {
+  getAllSpots( { limit, filter, sort, order, location, region } ) {
     let url =  process.env.BACKEND_URL + '/api/v1/entries';
 
     let sortParam = sort ? sort : 'votes';
     let orderParam = order ? order : 'descending';
     let filterParam = filter ? filter : null;
     let limitParam = limit ? limit : null;
+    let regionParam = region != "" ? region : null;
 
     let params = new URLSearchParams();
     if(location) {
@@ -20,6 +21,7 @@ export default {
     params.append('sort', sortParam);
     if(limit) params.append('limit', limitParam);
     if(filterParam) params.append('filter', filterParam);
+    if(region) params.append('region', regionParam);
 
     // console.log(params.toString());
 

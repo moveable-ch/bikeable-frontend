@@ -1,7 +1,7 @@
 import regions from '../../api/regions';
 
 const state = {
-  selectedRegion: 'region1',
+  selectedRegion: "",
   regions: [],
   pending: false
 }
@@ -12,7 +12,7 @@ const mutations = {
   },
   SET_SELECTEDREGION(state, selectedRegion){
     state.selectedRegion = selectedRegion;
-  }
+  },
   LOAD_START(state) {
     state.pending = true;
   },
@@ -24,7 +24,7 @@ const mutations = {
 
 const getters = {
   regions: state => state.regions,
-  selectedRegion: state => stage.selectedRegion
+  selectedRegion: state => state.selectedRegion
 }
 
 const actions = {
@@ -43,8 +43,8 @@ const actions = {
       });
   },
 
-
   setSelectedRegion(context, selectedRegion) {
+    console.log("HELLO", selectedRegion);
     localStorage.setItem('selectedRegion', selectedRegion);
     context.commit('SET_SELECTEDREGION', selectedRegion);
   },

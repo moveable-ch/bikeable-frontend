@@ -1,6 +1,7 @@
 <template>
   <div v-if="entry.photo" class="entry-preview" v-bind:class="{ famed: entry.famed }">
-    <router-link :to="'/entries/' + entry._id" class="entry-preview__image" :style="{ backgroundImage: 'url(' + entry.photo.medium.url + ')' }">
+    <router-link v-bind:class="{ loading: imageLoading }" :to="'/entries/' + entry._id" class="entry-preview__image" :style="{ backgroundImage: 'url(' + entry.photo.medium.url + ')' }">
+      <img :src="entry.photo.medium.url" @load="imageLoaded">
       <span class="entry-preview__thumb">
         <svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -28,6 +29,7 @@ export default {
   props: ['entry'],
   data () {
     return {
+      imageLoading: true
     }
   },
   computed: {
@@ -41,6 +43,9 @@ export default {
       if(!date) return '';
       let d = new Date(date);
       return d.toLocaleDateString('de-DE');
+    },
+    imageLoaded() {
+      this.imageLoading = false;
     }
   }
 }
@@ -69,10 +74,19 @@ export default {
     background-position: center;
     background-color: $c-blue;
     position: relative;
-    transition: .2s opacity;
+    opacity: 1;
+    transition: 1s opacity;
 
     &:hover {
-      opacity: .8;
+      // opacity: .8;
+    }
+    &.loading {
+      opacity: 0;
+    }
+    img {
+      width: 0;
+      height: 0;
+      visibility: hidden;
     }
   }
   &__thumb {

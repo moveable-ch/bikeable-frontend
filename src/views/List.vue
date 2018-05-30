@@ -26,7 +26,7 @@
           <c-entry-preview :entry="entry"></c-entry-preview>
         </div>
       </div>
-      <a class="showmore" href="#" v-if="entryDisplayCapped && listSpots" @click.prevent="displayEntryCount += 10">{{ $t('list.morespots') }}</a>
+      <a class="btn btn--centered" href="#" v-if="entryDisplayCapped && listSpots" @click.prevent="displayEntryCount += 12">{{ $t('list.morespots') }}</a>
     </div>
   </div>
 </template>
@@ -58,7 +58,6 @@ export default {
       return this.$store.getters.listSort;
     },
     entryDisplayCapped() {
-      // return true;
       return (this.displayEntryCount < this.allSpots.length);
     }
   },
@@ -68,7 +67,7 @@ export default {
       entryFilter: null,
       entrySort: 'date',
       entrySortDesc: true,
-      displayEntryCount: 15
+      displayEntryCount: 24
     }
   },
   watch: {
@@ -297,23 +296,6 @@ export default {
       @include desktop {
         width: calc(33.3% - 1.33rem);
       }
-    }
-  }
-  .showmore {
-    display: block;
-    text-align: center;
-    margin: 2rem auto 0 auto;
-    background-color: #fff;
-    color: $c-black;
-    border: 2px solid $c-grey-darkest;
-    max-width: 10rem;
-    padding: .75rem 1rem;
-    text-decoration: none;
-    font-size: 1rem;
-    width: 100%;
-
-    &:hover {
-      border-color: $c-black;
     }
   }
 

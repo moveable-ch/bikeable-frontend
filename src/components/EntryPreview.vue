@@ -14,8 +14,7 @@
     <div class="entry-preview__content">
       <span class="entry-preview__location">{{ entry.address }}</span>
       <h3 class="entry-preview__headline"><router-link :to="'/entries/' + entry._id">{{ entry.title }}</router-link></h3>
-      <!--<span class="entry-preview__date">{{ formatDate(entry.createdAt) }} — {{ entry.user.name }}</span>-->
-      <!--<span v-if="entry.humanizedDistance" class="entry-preview__distance">{{ entry.humanizedDistance }} entfernt</span>-->
+      <span v-if="entry.humanizedDistance" class="entry-preview__distance">{{ entry.humanizedDistance }} entfernt</span>
       <span class="entry-preview__meta entry-preview__meta--votes">{{ entry.votes }}</span>
       <span class="entry-preview__meta entry-preview__meta--comments">{{ entry.commentCount }}</span>
     </div>
@@ -111,9 +110,17 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  &__distance {
+    display: block;
+    font-size: .7rem;
+    color: $c-grey-darkest;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   &__headline {
     line-height: 1.1;
-    margin-bottom: .5rem;
+    margin-bottom: .25rem;
 
     a {
       font-family: $f-body;
@@ -127,6 +134,7 @@ export default {
     display: inline-block;
     padding-left: 24px;
     margin-right: 1rem;
+    margin-top: .5rem;
     font-family: $f-body;
     font-size: .8rem;
     font-weight: 600;

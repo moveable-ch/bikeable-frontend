@@ -11,6 +11,9 @@ html {
   // @include desktop {
   //   font-size: 20px;
   // }
+  @media screen and (min-width: 1500px) {
+    font-size: 20px;
+  }
 }
 
 body {
@@ -101,14 +104,14 @@ p {
 
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 66.6rem;
   margin: 0 auto;
   padding: 0 1rem;
   box-sizing: border-box;
   position: relative;
 
   &--narrow {
-    max-width: 600px;
+    max-width: 33.3rem;
   }
 
   @include tablet {

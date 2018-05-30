@@ -396,14 +396,14 @@ export default {
       padding-top: 0;
     }
     @include desktop() {
-      height: 750px;
+      height: 42rem;
     }
 
     .container {
       max-width: 25rem;
 
       @include tablet {
-        max-width: 1200px;
+        max-width: 66.6rem;
       }
     }
 

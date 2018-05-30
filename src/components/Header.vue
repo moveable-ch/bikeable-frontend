@@ -193,7 +193,7 @@ export default {
       transform-origin: 0 0;
 
       .is-scrolled & {
-        transform: translateY(-50%) scale(.4);
+        transform: scale(.4) translateY(-50%);
         top: 50%;
       }
     }

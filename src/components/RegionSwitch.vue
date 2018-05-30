@@ -77,6 +77,8 @@ export default {
 @import '../styles/helpers';
 
 .regionswitch {
+  max-width: 100%;
+  overflow: hidden;
   padding-left: 25px;
   position: relative;
 

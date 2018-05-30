@@ -430,7 +430,7 @@ export default {
     &__illu {
       position: absolute;
       top: 5rem;
-      right: -3rem;
+      right: -2rem;
       width: 8rem;
       transform-origin: 50% 93%;
       // animation: paul .4s linear 0s infinite normal forwards;
@@ -480,7 +480,7 @@ export default {
       font-weight: 700;
       font-size: 1.75rem;
       line-height: 1;
-      margin-bottom: .5rem;
+      margin-bottom: 1rem;
       text-transform: none;
       text-align: left;
       text-decoration: none;
@@ -491,10 +491,25 @@ export default {
         color: $c-main;
       }
       span {
-        text-shadow: 2px 2px 2px rgba($c-main, .4);
+        position: relative;
+
+        &::after {
+          content: "";
+          display: block;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 3px;
+          background: $c-main;
+        }
+        // text-shadow: 2px 2px 2px rgba($c-main, .4);
 
         @include tablet {
-          text-shadow: 2px 2px 4px rgba($c-main, .5);
+          &::after {
+            height: 5px;
+            bottom: 5px;
+          }
         }
       }
 

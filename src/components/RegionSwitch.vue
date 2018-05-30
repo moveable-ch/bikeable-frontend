@@ -2,7 +2,7 @@
   <div class="regionswitch">
   <select v-model="currentRegion">
     <option value="">Alle Regionen</option>
-    <option v-for="region in regions" v-bind:value="region._id">{{ region.name }}</option>
+    <option v-for="region in regions" v-bind:value="region._id" v-bind:key="region._id">{{ region.name }}</option>
   </select> 
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   props: [],
   data () {
     return {
-      currentRegion: "",
+      currentRegion: '',
       regions: [],
       switcherVisible: false
     }

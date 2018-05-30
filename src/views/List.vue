@@ -135,7 +135,7 @@ export default {
     this.entrySort = this.$store.getters.listSort;
     this.entryFilter = this.$store.getters.listFilter;
 
-    this.getSpots();
+    // this.getSpots();
     this.$store.dispatch('getAllSpots');
   }
 }

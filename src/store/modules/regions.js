@@ -1,7 +1,7 @@
 import regions from '../../api/regions';
 
 const state = {
-  selectedRegion: "",
+  selectedRegion: '',
   regions: [],
   pending: false
 }
@@ -44,7 +44,6 @@ const actions = {
   },
 
   setSelectedRegion(context, selectedRegion) {
-    console.log("HELLO", selectedRegion);
     localStorage.setItem('selectedRegion', selectedRegion);
     context.commit('SET_SELECTEDREGION', selectedRegion);
   },

@@ -92,10 +92,9 @@ export default {
       }
     },
     checkLocalRegion() {
-      let l = localStorage.getItem('selectedRegion');
-      console.log(l);
-      if(l) {
-        this.$store.dispatch('setSelectedRegion', l)
+      let r = localStorage.getItem('selectedRegion');
+      if(r) {
+        this.$store.dispatch('setSelectedRegion', r)
         .then((data) => {
           }, (data) => {
             this.$store.dispatch('handleError', 'Error');

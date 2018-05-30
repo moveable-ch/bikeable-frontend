@@ -48,6 +48,11 @@
           </ul>
         </div>
       </div>
+      <div class="entry__social">
+        <a class="entry__social__button entry__social__button--fb" target="_blank" :href="'https://www.facebook.com/sharer/sharer.php?u=' + entryUrl"></a>
+        <a class="entry__social__button entry__social__button--twitter" target="_blank" :href="'https://twitter.com/home?status=' + entryUrl"></a>
+        <a class="entry__social__button entry__social__button--mail" :href="'mailto:?subject=' + currentEntry.title + '&body=' + entryUrl"></a>
+      </div>
     </div>
 
     <div class="comments">
@@ -184,7 +189,6 @@ export default {
           this.loadingData = false;
           this.$store.commit('LOAD_FINISH');
           this.$emit('updateHead');
-          console.log(data);
         },
         (error) => {
           this.$store.commit('LOAD_FINISH');
@@ -332,11 +336,45 @@ export default {
       }
     }
 
+    &__social {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+
+      &__button {
+        display: block;
+        width: 40px;
+        height: 40px;
+        background-color: rgba($c-blue, .2);
+        background-size: 100%;
+        background-position: center;
+        margin-left: 5px;
+        border: 1px solid $c-blue;
+        border-radius: 99%;
+        transition: .1s border-color;
+
+        &--fb {
+          background-image: url('../assets/share-fb.png');
+        }
+        &--twitter {
+          background-image: url('../assets/share-twitter.png');
+        }
+        &--mail {
+          background-image: url('../assets/share-mail.png');
+        }
+
+        &:hover {
+          border-color: $c-black;
+        }
+
+      }
+    }
+
     &__meta {
       background-color: rgba($c-blue, .2);
       border: 1px solid $c-blue;
       border-radius: 4px;
-      margin-top: 2rem;
+      margin-top: 3rem;
 
       &__user {
         display: flex;
@@ -409,6 +447,7 @@ export default {
       }
       &__desc {
         font-size: 1rem;
+        line-height: 1.5;
         white-space: pre-wrap;
         word-wrap: break-word;
       }
@@ -418,24 +457,24 @@ export default {
         border-bottom: 1px solid #444;
       }
       &__notice {
-        // font-size: .8rem;
         margin: 2rem 0;
         padding: 1rem .5rem;
         line-height: 1.2;
         background-color: $c-grey;
         text-align: center;
+        max-width: none;
+        font-weight: 600;
 
         &--good {
           color: $c-main;
-          border: 1px solid $c-main;
+          background-color: rgba($c-main, .1);
           border-radius: 4px;
-          box-shadow: 0 2px 0 0 rgba($c-main, .15);
         }
       }
       &__fixed {
         display: inline-block;
         background-color: $c-main;
-        font-size: .8rem;
+        font-size: .9rem;
         padding: 5px 10px;
         color: #fff;
         font-weight: 600;

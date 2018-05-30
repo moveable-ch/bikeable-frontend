@@ -283,7 +283,7 @@ export default {
     top: 0;
     left: 0;
     pointer-events: none;
-    background-image: linear-gradient(-137deg, rgba(#FCFFD6, .9) 0%, rgba(#E2FDFF, .9) 100%);
+    background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
   }
 
   @include tablet {
@@ -296,10 +296,14 @@ export default {
 }
 .gmaps {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 5rem);
+
+  @include tablet {
+    height: calc(100% - 7rem);
+  }
 }
 
 .spot-nav {

@@ -35,7 +35,10 @@ export default {
   },
   mounted() {
     this.loadRegions();
-    // this.currentRegion = this.selectedRegion;
+    
+    if(this.selectedRegion != '') {
+      this.currentRegion = this.selectedRegion;
+    }
   },
   methods: {
 

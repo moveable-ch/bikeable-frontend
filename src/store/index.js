@@ -25,7 +25,7 @@ const state = {
     }
   ],
   prismicLang: 'de-ch',
-  pending: false,
+  pendingCount: 0,
   msg: '',
   sort: 'shame'
 }
@@ -48,10 +48,10 @@ const mutations = {
     }.bind(this), 2000);
   },
   LOAD_START(state) {
-    state.pending = true;
+    state.pendingCount += 1;
   },
   LOAD_FINISH(state) {
-    state.pending = false;
+    state.pendingCount -= 1;
   }
 }
 
@@ -92,8 +92,8 @@ const actions = {
 }
 
 const getters = {
-  pending: state => {
-    return state.pending;
+  pendingCount: state => {
+    return state.pendingCount;
   },
   msg: state => {
     return state.msg;

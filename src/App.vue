@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition name="fade">
-      <div class="loader" v-if="pending" ></div>
+      <div class="loader" v-if="pendingCount > 0" ></div>
     </transition>
     <transition name="slide-down">
       <div class="msg" v-if="msg"><span>{{ msg }}</span></div>
@@ -47,8 +47,8 @@ export default {
     msg() {
       return this.$store.getters.msg;
     },
-    pending() {
-      return this.$store.getters.pending;
+    pendingCount() {
+      return this.$store.getters.pendingCount;
     },
     isEmbed() {
       return this.$route.query.embed;

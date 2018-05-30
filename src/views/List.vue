@@ -22,6 +22,7 @@
       </div>
     </div>
     <div class="container list__container">
+      <p v-if="listSpots.length < 1">Leider wurden keine Spots gefunden.</p>
       <div class="list__entries">
         <div class="list__entries__item" v-for="entry in listSpots" :key="entry._id">
           <c-entry-preview :entry="entry"></c-entry-preview>
@@ -46,7 +47,6 @@ export default {
   components: {
     'c-entry-preview': EntryPreview,
     'region-switch': RegionSwitch
-
   },
   computed: {
     allSpots() {
@@ -62,7 +62,7 @@ export default {
       return this.$store.getters.listSort;
     },
     entryDisplayCapped() {
-      return (this.displayEntryCount < this.allSpots.length);
+      return (this.displayEntryCount < this.listSpots.length);
     },
     selectedRegion() {
       return this.$store.getters.selectedRegion;
@@ -135,8 +135,8 @@ export default {
     this.entrySort = this.$store.getters.listSort;
     this.entryFilter = this.$store.getters.listFilter;
 
-    // this.getSpots();
-    this.$store.dispatch('getAllSpots');
+    this.getSpots();
+    // this.$store.dispatch('getAllSpots');
   }
 }
 </script>

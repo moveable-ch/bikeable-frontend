@@ -17,6 +17,7 @@
     <div class="home__spots" v-for="cat in spotCategories" v-bind:key="cat.id">
       <div class="container">
         <h2>{{ cat.title}}</h2>
+        <region-switch></region-switch>
         <div class="home__spots__container">
           <div class="home__spots__item" v-for="spot in cat.spots" :key="spot._id">
             <c-entry-preview :entry="spot"></c-entry-preview>
@@ -88,6 +89,7 @@ import Prismic from 'prismic.io';
 import spots from '../api/spots';
 
 import EntryPreview from '@/components/EntryPreview';
+import RegionSwitch from '@/components/RegionSwitch';
 
 export default {
   name: 'v-home',
@@ -96,7 +98,8 @@ export default {
   },
   props: [],
   components: {
-    'c-entry-preview': EntryPreview
+    'c-entry-preview': EntryPreview,
+    'region-switch': RegionSwitch
   },
   computed: {
     entries() {
@@ -107,6 +110,9 @@ export default {
     },
     userCoords() {
       return this.$store.state.userCoords;
+    },
+    selectedRegion() {
+      return this.$store.getters.selectedRegion;
     }
   },
   data() {
@@ -137,6 +143,9 @@ export default {
     }
   },
   watch: {
+    'selectedRegion' : function(to, from) {
+      this.loadSpots();
+    }
   },
   methods: {
 
@@ -155,7 +164,8 @@ export default {
       this.spotCategories.forEach((cat) => {
         spots.getAllSpots({
             limit: 4,
-            sort: cat.sort
+            sort: cat.sort,
+            region: this.selectedRegion
           })
           .then((entries) => {
             this.$store.commit('LOAD_FINISH');
@@ -334,8 +344,11 @@ export default {
       width: 100%;
       
       @include tablet {
-        width: calc(50% - 1.33rem);
+        width: calc(50% - 1rem);
       }
+      // @include desktop {
+      //   width: calc(33.3% - 1.33rem);
+      // }
     }
   }
 

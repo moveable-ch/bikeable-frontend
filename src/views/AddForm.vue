@@ -131,9 +131,10 @@ export default {
 
       this.addressPending = true;
 
-      this.getAddress(coords.lat + ',' + coords.lng)
+      this.getAddressDetails(coords.lat + ',' + coords.lng)
         .then((address) => {
-          this.entryAddress = address;
+          this.entryAddressDetails = address.details;
+          this.entryAddress = address.string;
           this.entryCoords = coords;
           this.addressPending = false;
         }, (data) => {
@@ -142,7 +143,6 @@ export default {
         });
 
     },
-
     handleParamCoords() {
 
       if(!this.$route.params.coords) return;
@@ -150,9 +150,10 @@ export default {
       let pCoords = this.$route.params.coords;
       this.addressPending = true;
 
-      this.getAddress(pCoords.lat + ',' + pCoords.lng)
-        .then((address) => {
-          this.entryAddress = address;
+      this.getAddressDetails(pCoords.lat + ',' + pCoords.lng)
+        .then((addressDetails) => {
+          this.entryAddressDetails = address.details;
+          this.entryAddress = address.string;
           this.entryCoords = pCoords;
           this.addressPending = false;
         }, (data) => {
@@ -164,9 +165,10 @@ export default {
     handleUserCoords() {
       this.addressPending = true;
 
-      this.getAddress(this.userCoords.lat + ',' + this.userCoords.lng)
+      this.getAddressDetails(this.userCoords.lat + ',' + this.userCoords.lng)
         .then((address) => {
-          this.entryAddress = address;
+          this.entryAddressDetails = address.details;
+          this.entryAddress = address.string;
           this.entryCoords = this.userCoords;
           this.addressPending = false;
         }, (data) => {
@@ -174,14 +176,59 @@ export default {
           this.addressPending = false;
         });
     },
-    getAddress(coords) {
+    geocodeResultToAdress(response) {
+
+      var address = {};
+      var streetnumber = "";
+
+      response.data.results[0].address_components.forEach( (result) => {
+
+        if (result.types.indexOf("countryCode") != -1) {
+          address.countryCode = result.short_name;
+        }
+        
+        if (result.types.indexOf("country") != -1) {
+          address.country = result.long_name;
+        }
+
+        if (result.types.indexOf("route") != -1) {
+          address.street = result.short_name;
+        }
+
+        if (result.types.indexOf("street_number") != -1) {
+          streetnumber = result.long_name;
+        }
+
+        if (result.types.indexOf("postal_code") != -1) {
+          address.plz = result.long_name;
+        }
+
+        if (result.types.indexOf("locality") != -1) {
+          address.city = result.long_name;
+        }
+      });
+
+      if (address.street) {
+        address.street = address.street + " " + streetnumber;
+      }
+
+      return address;
+
+    },
+    getAddressDetails(coords) {
 
       return new Promise((resolve, reject) => {
+
         axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+coords+'&key=AIzaSyDSPhuEAL3Hv0zmbnhGQlTu9ax0uLXmuOE').then(response => {
-          console.log(response);
-          if(response.data.results[0].formatted_address != '') {
-            let address = response.data.results[0].formatted_address;
+
+          if (response.data.results[0]) {
+
+            var address = {};
+            address.details = this.geocodeResultToAdress(response);
+            address.string = response.data.results[0].formatted_address;
+
             resolve(address);
+
           }else{
             reject(response);
           }
@@ -200,7 +247,11 @@ export default {
 
       axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.entryAddress + '&key=AIzaSyDSPhuEAL3Hv0zmbnhGQlTu9ax0uLXmuOE')
       .then(response => {
+
+        console.log(response);
+
         if(response.data.results[0]) {
+          var addressDetails = this.geocodeResultToAdress(response);
           this.entryAddress = response.data.results[0].formatted_address;
           this.entryCoords = response.data.results[0].geometry.location;
         } else {
@@ -208,11 +259,11 @@ export default {
         }
         this.addressPending = false;
       }, response => {
-        console.log(response);
         this.clearAddress();
       });
     },
     clearAddress() {
+      this.addressDetails = null;
       this.entryAddress = '';
       this.entryCoords = null;
       this.addressPending = false;
@@ -247,6 +298,8 @@ export default {
           text: this.entryText,
           imageId: this.imageId,
           address: this.entryAddress,
+          addressDetails: this.entryAddressDetails,
+
           coords: this.entryCoords,
           famed: this.entryFamed == "famed"
         })

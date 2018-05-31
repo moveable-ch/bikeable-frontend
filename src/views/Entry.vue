@@ -5,7 +5,7 @@
     <map-modal v-if="showMapModal" @close="showMapModal = false" :coords="currentEntry.coords"></map-modal>
     <div class="entry__header">
       <h1>{{ currentEntry.title }}</h1>
-      <div v-if="currentEntry.votes" class="entry__votes" v-bind:class="{ 'is-active': hasVoted, disabled: !isLoggedIn, 'famed': currentEntry.famed }">
+      <div class="entry__votes" v-bind:class="{ 'is-active': hasVoted, disabled: !isLoggedIn, 'famed': currentEntry.famed }">
         <a  @click.prevent="upvoteEntry" class="entry__votes__button" href="#" title="Upvote">
           <svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

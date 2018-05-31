@@ -43,10 +43,11 @@ export default {
       return Prismic.api("https://bikeable.prismic.io/api").then((api) => {
         return api.query(
           Prismic.Predicates.at('document.type', 'news'),
-          {}
+          { orderings: '[document.first_publication_date desc]' }
         );
       }).then(function(payload) {
         const y = [];
+        console.log(payload);
         y.questions = payload.results.map((x) => {
           const z = {};
           z.id = x.id;

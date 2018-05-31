@@ -611,8 +611,13 @@ export default {
 
     .comments {
       border-top: 1px solid $c-blue;
-      margin-top: 4rem;
-      padding-top: 4rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+
+      @include tablet {
+        margin-top: 4rem;
+        padding-top: 4rem;
+      }
 
       &__container {
         margin: 0 auto;

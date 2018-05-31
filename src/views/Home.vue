@@ -182,7 +182,7 @@ export default {
       return Prismic.api("https://bikeable.prismic.io/api").then(function(api) {
         return api.query(
           Prismic.Predicates.at('document.type', 'news'),
-          {}
+          { orderings: '[document.first_publication_date desc]' }
         );
       }).then(function(payload) {
         const y = [];
@@ -226,7 +226,7 @@ export default {
     max-width: 600px;
     margin: 2rem auto;
     background: $c-grey;
-    padding: 2rem;
+    padding: 2rem 1rem;
 
     &__form {
       margin-top: 2rem;
@@ -235,6 +235,7 @@ export default {
     @include tablet {
       border: 2px solid $c-blue;
       border-radius: 6px;
+      padding: 2rem;
     }
   }
 
@@ -262,6 +263,25 @@ export default {
       }
     }
 
+    &__imagewrap {
+      display: none;
+      box-shadow: 0 5px 15px -5px rgba($c-black, .2);
+      border-radius: 4px;
+      overflow: hidden;
+      width: 250px;
+      height: 250px;
+      flex-shrink: 0;
+      margin-right: 1rem;
+
+      @include tablet() {
+        display: block;
+      }
+    }
+    &__image {
+      display: block;
+      width: 100%;
+    }
+
     &__more {
       display: inline-block;
       font-size: .9rem;
@@ -274,7 +294,6 @@ export default {
     }
 
     &__content {
-      padding-left: 1rem;
       padding-top: 0;
 
       h3 {
@@ -302,18 +321,6 @@ export default {
       @include tablet() {
         padding-left: 1.5rem;
         padding-top: 0;
-      }
-    }
-
-    &__image {
-      width: 80px;
-      height: 80px;
-      flex-shrink: 0;
-      // box-shadow: 2px 2px 0 0 $c-grey-dark;
-
-      @include tablet() {
-        width: 250px;
-        height: 250px;
       }
     }
   }

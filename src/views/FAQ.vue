@@ -30,14 +30,30 @@ export default {
       this.$store.commit('LOAD_FINISH');
     });
   },
+  computed: {
+    prismicLang() {
+      return this.$store.getters.prismicLang;
+    }
+  },
   methods: {
     getData() {
-      return Prismic.api("https://bikeable.prismic.io/api").then(function(api) {
+      return Prismic.api("https://bikeable.prismic.io/api").then((api) => {
         return api.query(
           Prismic.Predicates.at('document.type', 'faq'),
-          {}
+          { lang: this.prismicLang }
         );
-      }).then(function(payload) {
+      }).then((payload) => {
+        if(!payload.results[0]) {
+          const y = {};
+          y.title = "—";
+          y.questions = [
+            {
+              title: '',
+              text: ''
+            }
+          ]
+          return y;
+        }
         const y = {};
         y.title = payload.results[0].getText('faq.title');
         y.questions = payload.results[0].getGroup('faq.questions').toArray().map((x) => {

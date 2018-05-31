@@ -66,13 +66,15 @@ export default {
   },
   methods: {
     getData() {
-      let prismicLang = this.prismicLang;
-      return Prismic.api("https://bikeable.prismic.io/api").then(function(api) {
+      return Prismic.api("https://bikeable.prismic.io/api").then((api) => {
         return api.query(
           Prismic.Predicates.at('document.type', 'about'),
-          { lang: prismicLang }
+          { lang: this.prismicLang }
         );
-      }).then(function(payload) {
+      }).then((payload) => {
+        if(!payload.results[0]) {
+          return {};
+        }
         const y = {};
         y.title = payload.results[0].getText('about.title');
         y.lead = payload.results[0].getText('about.lead');

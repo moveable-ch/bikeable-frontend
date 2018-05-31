@@ -32,12 +32,24 @@ export default {
       this.doc = data;
     });
   },
+  computed: {
+    prismicLang() {
+      return this.$store.getters.prismicLang;
+    }
+  },
+  watch: {
+    'prismicLang' (to, from) {
+      this.$router.push('/news');
+    }
+  },
   methods: {
     getData() {
       return Prismic.api("https://bikeable.prismic.io/api").then((api) => {
         return api.query(
           Prismic.Predicates.at('document.id', this.newsId),
-          {}
+          {
+            lang: this.prismicLang
+          }
         );
       }).then(function(payload) {
         const y = {};

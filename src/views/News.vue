@@ -38,16 +38,33 @@ export default {
       this.news = data;
     });
   },
+  computed: {
+    prismicLang() {
+      return this.$store.getters.prismicLang;
+    }
+  },
+  watch: {
+    'prismicLang' (to, from) {
+      this.$store.commit('LOAD_START');
+
+      this.getData().then(data => {
+        this.$store.commit('LOAD_FINISH');
+        this.news = data;
+      });
+    }
+  },
   methods: {
     getData() {
       return Prismic.api("https://bikeable.prismic.io/api").then((api) => {
         return api.query(
           Prismic.Predicates.at('document.type', 'news'),
-          { orderings: '[document.first_publication_date desc]' }
+          {
+            orderings: '[document.first_publication_date desc]',
+            lang: this.prismicLang
+          }
         );
       }).then(function(payload) {
         const y = [];
-        console.log(payload);
         y.questions = payload.results.map((x) => {
           const z = {};
           z.id = x.id;

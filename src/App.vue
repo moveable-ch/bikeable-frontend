@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-if="appReady">
     <transition name="fade">
       <div class="loader" v-if="pendingCount > 0" ></div>
     </transition>
@@ -25,6 +25,7 @@ export default {
   },
   data () {
     return {
+      appReady: false,
       transitionName: 'fade',
       showFooter: true
     }
@@ -81,6 +82,8 @@ export default {
     }
 
     if(this.$router.currentRoute.name == 'map') this.showFooter = false;
+
+    this.appReady = true;
   },
   methods: {
     checkLocalLang() {

@@ -46,7 +46,7 @@ const actions = {
   setSelectedRegion(context, selectedRegion) {
     localStorage.setItem('selectedRegion', selectedRegion);
     context.commit('SET_SELECTEDREGION', selectedRegion);
-  },
+  }
 }
 
 export default {

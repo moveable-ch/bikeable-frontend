@@ -44,6 +44,9 @@ export default {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
     },
+    mapCenter() {
+      return this.$store.getters.mapCenter;
+    },
     isEmbed() {
       return this.$route.query.embed;
     },
@@ -85,6 +88,11 @@ export default {
   },
 
   beforeDestroy() {
+    let center = {
+      lat: this.map.getCenter().lat(),
+      lng: this.map.getCenter().lng()
+    }
+    this.$store.dispatch('setMapCenter', center);
   },
 
   watch: {
@@ -106,7 +114,7 @@ export default {
       GoogleMapsLoader.KEY = 'AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI';
       GoogleMapsLoader.LANGUAGE = 'de';
 
-      GoogleMapsLoader.load(function(google) {
+      GoogleMapsLoader.load((google) => {
         this.google = google;
 
         let center = {lat: 47.377235, lng: 8.5314407};
@@ -114,6 +122,9 @@ export default {
 
         if(this.queryLocation) {
           center = this.queryLocation;
+        }
+        if(this.mapCenter) {
+          center = this.mapCenter;
         }
 
         let zoom = 15;
@@ -137,7 +148,7 @@ export default {
         this.renderSponsors();
         this.locateUser();
 
-      }.bind(this));
+      });
 
     },
 

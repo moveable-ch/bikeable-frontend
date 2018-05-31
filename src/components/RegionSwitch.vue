@@ -30,7 +30,6 @@ export default {
       this.setRegion(to);
     },
     selectedRegion(to, from) {
-      console.log('region change');
       this.currentRegion = this.selectedRegion;
     }
   },

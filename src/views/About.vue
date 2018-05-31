@@ -72,9 +72,7 @@ export default {
           { lang: this.prismicLang }
         );
       }).then((payload) => {
-        if(!payload.results[0]) {
-          return {};
-        }
+        if(!payload.results[0]) return {};
         const y = {};
         y.title = payload.results[0].getText('about.title');
         y.lead = payload.results[0].getText('about.lead');

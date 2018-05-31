@@ -27,8 +27,6 @@
           <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--bad" @click.prevent="entryFilter = 'shamed'" v-bind:class="{ active: isCurrentFilter('shamed') }"><span>Shame</span></a>
           <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--good" @click.prevent="entryFilter = 'famed'" v-bind:class="{ active: isCurrentFilter('famed') }"><span>Fame</span></a>
         </div>
-        
-
       </div>-->
     </div>
     <div class="container list__container">
@@ -72,7 +70,7 @@ export default {
       return this.$store.getters.listSort;
     },
     entryDisplayCapped() {
-      return (this.displayEntryCount < this.listSpots.length);
+      return (this.displayEntryCount == this.listSpots.length);
     },
     selectedRegion() {
       return this.$store.getters.selectedRegion;

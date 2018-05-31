@@ -5,6 +5,7 @@
     <div class="list__head">
       <div class="list__regions">
         <div class="container">
+          <router-link class="list__head__add" to="/add">{{ $t('home.addspot') }}</router-link>
           <region-switch></region-switch>
         </div>
       </div>
@@ -172,10 +173,56 @@ export default {
     @include tablet {
       padding-top: 8rem;
     }
+
+    &__add {
+      display: block;
+      margin-bottom: .5rem;
+      margin-top: -.75rem;
+      margin-left: -1rem;
+      width: calc(100% + 2rem);
+      background-color: rgba($c-main, .6);
+      color: #fff;
+      position: relative;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      padding: 0 1rem 0 1rem;
+      transition: .1s background-color, .1s border-color;
+      text-align: center;
+      box-sizing: border-box;
+
+      &::before {
+        content: "✚";
+        margin-right: .5rem;
+      }
+      &:hover {
+        border-color: $c-main;
+        background-color: rgba(#fff, .5);
+        color: $c-main;
+      }
+
+      @include tablet {
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+        transform: translateY(-50%);
+        right: 2rem;
+        background-color: transparent;
+        border-radius: 1rem;
+        color: $c-main;
+        border: 2px solid rgba($c-main, .3);
+        margin-top: 0;
+        height: 1.75rem;
+        line-height: 1.75rem;  
+        width: auto;
+        z-index: 1;
+        box-sizing: content-box;
+      }
+    }
   }
   &__regions {
     background-color: rgba($c-black, .05);
     padding: .75rem 0;
+    position: relative;
   }
   &__controls {
     background-color: rgba($c-black, .1);
@@ -184,27 +231,6 @@ export default {
 
   &__container {
     position: relative;
-  }
-  .addlink {
-    display: block;
-    height: 3rem;
-    line-height: 3rem;
-    text-align: center;
-    text-decoration: none;
-    font-size: 1rem;
-    width: 100%;
-    max-width: 400px;
-    background-color: $c-main;
-    color: #fff;
-    font-weight: 400;
-    margin: 0 auto;
-    margin-bottom: 1.5rem;
-    font-family: $f-head;
-    font-weight: bold;
-
-    &:hover {
-      background-color: #333;
-    }
   }
 
   .list__entries {

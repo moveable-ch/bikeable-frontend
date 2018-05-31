@@ -154,6 +154,7 @@ export default {
       return this.$store.getters.userData;
     },
     userAvatar() {
+      if(!this.userData) return '';
       if(!this.userData.profile) return '';
       return this.userData.profile.avatar.small;
     }
@@ -497,7 +498,7 @@ export default {
       }
       @include tablet {
         padding: 0 2rem;
-        
+
         h1 {
           font-size: 2.5rem;
         }

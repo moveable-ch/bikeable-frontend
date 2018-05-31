@@ -116,6 +116,9 @@ export default {
   watch: {
     '$route': function() {
       this.navVisible = false;
+    },
+    isLoggedIn() {
+      this.navVisible = false;
     }
   }
 }

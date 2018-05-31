@@ -41,6 +41,9 @@ export default {
       if(this.isEmbed) {
         document.body.classList.add('embed');
       }
+    },
+    currentLang (to, from) {
+      this.$i18n.locale = to;
     }
   },
   computed: {
@@ -55,6 +58,9 @@ export default {
     },
     isEmbed() {
       return this.$route.query.embed;
+    },
+    currentLang() {
+      return this.$store.getters.lang;
     }
   },
   components: {
@@ -64,7 +70,7 @@ export default {
   mounted() {
     this.checkLocalLang();
     this.checkLocalRegion();
-    
+
     if(this.isEmbed) {
       document.body.classList.add('embed');
     }
@@ -88,6 +94,12 @@ export default {
   methods: {
     checkLocalLang() {
       let l = localStorage.getItem('lang');
+
+      if(!l) {
+        l = navigator.language;
+        if(["de", "en", "fr"].indexOf(l) < -1) l = null;
+      }
+
       if(l) {
         this.$store.dispatch('setLang', l)
         .then((data) => {

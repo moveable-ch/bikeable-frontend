@@ -78,13 +78,6 @@ export default {
       }else{
         this.isScrolled = false;
       }
-    },
-    setLang(lang) {
-      this.$store.dispatch('setLang', lang)
-      .then((data) => {
-        }, (data) => {
-          this.$store.dispatch('handleError', 'Error');
-        });
     }
   },
 
@@ -106,9 +99,6 @@ export default {
     isHome() {
       return (this.$route.path == '/');
     },
-    currentLang() {
-      return this.$store.getters.lang;
-    },
     userData() {
       return this.$store.getters.userData;
     },
@@ -126,9 +116,6 @@ export default {
   watch: {
     '$route': function() {
       this.navVisible = false;
-    },
-    currentLang (to, from) {
-      this.$i18n.locale = to;
     }
   }
 }

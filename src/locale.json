@@ -39,6 +39,8 @@
       "send": "Senden"
     },
     "list": {
+      "allregions": "Alle Regionen",
+      "nospots": "Leider wurden keine Spots gefunden.",
       "sortby": "Sortieren nach",
       "date": "Datum",
       "upvotes": "Upvotes",
@@ -119,6 +121,8 @@
       "send": "Send"
     },
     "list": {
+      "allregions": "All Regions",
+      "nospots": "No spots found.",
       "sortby": "Sort by",
       "date": "Date",
       "upvotes": "Upvotes",
@@ -163,8 +167,8 @@
     "home": {
       "lead": "Bikeable.ch est une plateforme internet qui montre des spots dangereux, ennuyeux mais aussi bien résolus pour les cyclistes.",
       "registernow": "S'inscrire",
-      "addspot": "Signaler un lieu",
-      "showall": "Afficher tous les lieux",
+      "addspot": "Signaler un spot",
+      "showall": "Afficher tous les spots",
       "more": "Plus",
       "newsletter": "Inscris-toi à notre newsletter afin de te tenir informé des actualités de bikeable.ch.",
       "nospam": "Pas de spam, promis!",
@@ -178,34 +182,36 @@
     "addform": {
       "title": "Titre",
       "fameorshame": "Fame ou Shame",
-      "addspot": "Signaler un lieu",
+      "addspot": "Signaler un spot",
       "photo": "Photo",
-      "uploadimage": "Télécharge une photo pour signaler ton lieu",
+      "uploadimage": "Télécharge une photo pour signaler ton spot",
       "chooseimage": "Sélectionne un photo",
       "loading": "Téléchargement",
       "adress": "Adresse",
-      "spotwhere": "Où est-ce que se trouve ton lieu à signaler?",
+      "spotwhere": "Où est-ce que se trouve ton spot?",
       "entercurrentposition": "Utiliser ma position actuelle",
-      "chooselocation": "Localisation du lieu sur la carte",
+      "chooselocation": "Localisation du spot sur la carte",
       "description": "Description",
       "send": "Envoyer"
     },
     "editform": {
-      "editspot": "Modifier le lieu"
+      "editspot": "Modifier le spot"
     },
     "entry": {
-      "fixed": "Ce lieu signalé a été amélioré entre-temps",
+      "fixed": "Ce spot a été amélioré entre-temps",
       "register": "Inscris-toi maintenant et prends part à la discussion!",
       "send": "Envoyer"
     },
     "list": {
+      "allregions": "Toutes les régions",
+      "nospots": "Aucune spot trouvée",
       "sortby": "Trier par",
-      "date": "Ddate",
+      "date": "Date",
       "upvotes": "Votes",
       "distance": "Distance",
       "comments": "Commentaires",
-      "allspots": "Tous les lieux signalés",
-      "morespots": "Afficher plus de lieux signalés"
+      "allspots": "Tous les spots",
+      "morespots": "Afficher plus de spots"
     },
     "login": {
       "forgotpassword": "Mot de passe oublié",

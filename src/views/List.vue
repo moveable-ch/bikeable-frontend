@@ -31,7 +31,7 @@
       </div>-->
     </div>
     <div class="container list__container">
-      <p v-if="listSpots.length < 1">Leider wurden keine Spots gefunden.</p>
+      <p v-if="listSpots.length < 1">{{ $t('list.nospots') }}</p>
       <div class="list__entries">
         <div class="list__entries__item" v-for="entry in listSpots" :key="entry._id">
           <c-entry-preview :entry="entry"></c-entry-preview>
@@ -212,7 +212,7 @@ export default {
         border: 2px solid rgba($c-main, .3);
         margin-top: 0;
         height: 1.75rem;
-        line-height: 1.75rem;  
+        line-height: 1.75rem;
         width: auto;
         z-index: 1;
         box-sizing: content-box;

@@ -1,9 +1,9 @@
 <template>
   <div class="regionswitch">
     <select v-model="currentRegion">
-      <option value="">Alle Regionen</option>
+      <option value="">{{ $t('list.allregions') }}</option>
       <option v-for="region in regions" v-bind:value="region._id" v-bind:key="region._id">{{ region.name }}</option>
-    </select> 
+    </select>
   </div>
 </template>
 
@@ -35,7 +35,7 @@ export default {
   },
   mounted() {
     this.loadRegions();
-    
+
     if(this.selectedRegion != '') {
       this.currentRegion = this.selectedRegion;
     }
@@ -94,7 +94,7 @@ export default {
     transform: rotate(45deg);
     transform-origin: 50% 50%;
   }
-  
+
   select {
     font-family: $f-body;
     color: $c-black;

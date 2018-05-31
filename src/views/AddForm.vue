@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="fameorshame">
-          <h3><span class="num">2</span>Fame or Shame?</h3>
+          <h3><span class="num">2</span>{{ $t('addform.fameorshame') }}</h3>
           <div class="checkboxes">
             <input id="fame" type="radio" name="fameorshame" value="famed" v-model="entryFamed">
             <label for="fame" class="fameradio-label radio-label">
@@ -63,7 +63,7 @@
         </div>
         <h3><span class="num">4</span>{{ $t('addform.description') }}</h3>
         <label>
-          <span>Titel</span>
+          <span>{{ $t('addform.title') }}</span>
           <input type="text" v-model="entryTitle">
         </label>
         <label>

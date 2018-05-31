@@ -3,7 +3,7 @@
 <template>
   <div class="contentpage partner">
     <div class="container">
-      <h1>Partner</h1>
+      <h1>{{ $t('partner.partner') }}</h1>
       <div class="partners" v-if="partners">
         <a target="_blank" v-for="partner in partners" :href="partner.website.url()" class="partner__item">
           <span class="partner__item__logo" :style="'background-image:url(' + partner.logo + ')'"></span>

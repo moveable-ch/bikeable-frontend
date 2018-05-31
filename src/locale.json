@@ -72,6 +72,7 @@
       "succesfullregistered": "Erfolgreich registriert, bitte Account bestätigen."
     },
     "profile": {
+      "success": "Einstellungen gespeichert",
       "preferences": "Einstellungen",
       "username": "Username",
       "email": "E-Mail",
@@ -154,6 +155,7 @@
       "succesfullregistered": "Registration successful. Please confirm your account."
     },
     "profile": {
+      "success": "Settings saved",
       "preferences": "Settings",
       "username": "Username",
       "email": "E-Mail",
@@ -236,6 +238,7 @@
       "succesfullregistered": "Enregistrement effectué, vérifie ton e-mail."
     },
     "profile": {
+      "success": "Succès",
       "preferences": "Paramètres",
       "username": "Nom d'utilisateur",
       "email": "E-mail",

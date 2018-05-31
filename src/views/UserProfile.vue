@@ -86,7 +86,7 @@ export default {
         })
       .then((data) => {
         this.$store.dispatch('getUserData');
-        this.$store.dispatch('handleError', 'Profil gespeichert');
+        this.$store.dispatch('handleError', this.$t('profile.success'));
       });
     },
     uploadImage(e) {
@@ -170,11 +170,12 @@ export default {
   }
   .file-upload .file-upload__form {
     label {
-      font-size: .75rem;
+      font-size: .8rem;
       height: 2rem;
       line-height: 2rem;
-      width: 11rem;
+      width: 16rem;
       border: 2px solid $c-main;
+      border-radius: 4px;
       background-color: transparent;
     }
   }
@@ -189,7 +190,7 @@ export default {
       color: #666;
       border: 1px solid #666;
       // border-radius: 4px;
-      width: 14rem;
+      width: 18rem;
       text-align: center;
       font-weight: 500;
       height: 3rem;

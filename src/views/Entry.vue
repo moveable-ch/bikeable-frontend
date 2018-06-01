@@ -314,7 +314,7 @@ export default {
       content: "";
       display: block;
       width: 100%;
-      height: 10rem;
+      height: 25rem;
       position: absolute;
       top: 0;
       left: 0;
@@ -505,7 +505,6 @@ export default {
       }
     }
     &__votes {
-      margin-bottom: 1rem;
       width: 100%;
       display: flex;
       align-items: center;
@@ -518,7 +517,7 @@ export default {
         height: 3.3rem;
         border: 2px solid $c-highlight;
         border-radius: 99%;
-        transition: .3s $easeOutQuint transform;
+        transition: .3s $easeOutQuint transform, .2s background-color;
         background-color: #fff;
 
         svg {

@@ -38,7 +38,7 @@ export default {
 
 .entry-media {
   margin-bottom: 2rem;
-  margin-top: -2rem;
+  margin-top: -.5rem;
   position: relative;
   display: block;
   width: 100%;

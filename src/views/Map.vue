@@ -77,7 +77,8 @@ export default {
       clickedCoords: null,
       showModal: false,
       showSponsorModal: false,
-      markerOffset: {x:0,y:0}
+      markerOffset: {x:0,y:0},
+      markers: []
     }
   },
 
@@ -144,8 +145,14 @@ export default {
           styles: mapstyle
         });
 
+
+        google.maps.event.addListener(this.map, 'zoom_changed', () => {
+          this.setMarkerIcons();
+        });
+
         this.renderMarkers();
         this.renderSponsors();
+        this.setMarkerIcons();
         this.locateUser();
 
       });
@@ -211,6 +218,36 @@ export default {
 
     },
 
+    setMarkerIcons() {
+
+      this.markers.forEach((marker) => {
+        let icon = {};
+        if(this.map.zoom > 14) {
+          let imgurl = 'static/img/marker-bad.png';
+
+          if(marker.famed) imgurl = 'static/img/marker-good.png';
+          if(marker.fixed) imgurl = 'static/img/marker-fixed.png';
+
+          icon = {
+            url: imgurl,
+            scaledSize: new google.maps.Size(22, 30)
+          }
+        }else{
+          let imgurl = 'static/img/marker-bad_s.png';
+
+          if(marker.famed) imgurl = 'static/img/marker-good_s.png';
+          if(marker.fixed) imgurl = 'static/img/marker-fixed_s.png';
+
+          icon = {
+            url: imgurl,
+            scaledSize: new google.maps.Size(10, 10)
+          }
+        }
+        marker.instance.setIcon(icon);
+      });
+
+    },
+
     renderMarkers() {
 
       if(!this.entries || !this.google) return;
@@ -231,6 +268,12 @@ export default {
           position: entry.coords,
           map: this.map,
           icon: icon
+        });
+
+        this.markers.push({
+          instance: marker,
+          famed: entry.famed,
+          fixed: entry.fixed
         });
 
         marker.addListener('click', function(e) {

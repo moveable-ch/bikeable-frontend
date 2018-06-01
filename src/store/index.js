@@ -18,7 +18,7 @@ const state = {
       name: 'Deutsch'
     }, {
       code: 'fr',
-      name: 'Francais'
+      name: 'Français'
     }, {
       code: 'en',
       name: 'English'

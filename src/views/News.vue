@@ -11,7 +11,7 @@
             <h3><router-link :to="'/news/' + article.id">{{ article.title }}</router-link></h3>
             <span class="date">{{ article.date }}</span>
             <p>{{ article.abstract }}</p>
-            <router-link class="newsarchive__more" :to="'/news/' + article.id">Mehr</router-link>
+            <router-link class="newsarchive__more" :to="'/news/' + article.id">{{ $t('home.more') }}</router-link>
           </div>
         </div>
       </div>

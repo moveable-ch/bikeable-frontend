@@ -16,14 +16,14 @@
           <ul>
             <li><router-link to="/news">News</router-link></li>
             <li><router-link to="/faq" exact>FAQ</router-link></li>
-            <li><router-link to="/partner" exact>Partner</router-link></li>
+            <li><router-link to="/partner" exact>{{ $t('partner.partner') }}</router-link></li>
           </ul>
         </div>
       </div>
     </div>
     <div class="partner">
       <div class="container">
-        <span>Unterstützt von:</span>
+        <span>{{ $t('footer.supported') }}</span>
         <div class="partner__logos">
           <a target="_blank" href="https://www.veloplus.ch"><img src="/static/img/veloplus-footer.png" alt="veloplus.ch"></a>
           <a target="_blank" href="https://www.pro-velo.ch"><img src="/static/img/provelo-footer.png" alt="provelo.ch"></a>

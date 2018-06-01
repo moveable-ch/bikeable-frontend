@@ -15,7 +15,7 @@
     <div class="entry-preview__content">
       <span class="entry-preview__location">{{ entry.address }}</span>
       <h3 class="entry-preview__headline"><router-link :to="'/entries/' + entry._id">{{ entry.title }}</router-link></h3>
-      <span v-if="entry.humanizedDistance" class="entry-preview__distance">{{ entry.humanizedDistance }} entfernt</span>
+      <span v-if="entry.humanizedDistance" class="entry-preview__distance">{{ entry.humanizedDistance }} {{ $t('entry.awayfrom') }}</span>
       <span class="entry-preview__meta entry-preview__meta--votes">{{ entry.votes }}</span>
       <span class="entry-preview__meta entry-preview__meta--comments">{{ entry.commentCount }}</span>
     </div>

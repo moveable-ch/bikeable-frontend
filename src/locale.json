@@ -34,6 +34,7 @@
       "editspot": "Spot bearbeiten"
     },
     "entry": {
+      "awayfrom": "entfernt",
       "fixed": "Dieser Spot wurde in der Zwischenzeit verbessert.",
       "register": "Jetzt registrieren und mitdiskutieren!",
       "send": "Senden"
@@ -80,6 +81,9 @@
       "avatarupload": "Neuen Avatar hochladen",
       "loading": "Loading",
       "save": "Speichern"
+    },
+    "footer": {
+      "supported": "Unterstützt von"
     }
   },
   "en": {
@@ -117,6 +121,7 @@
       "editspot": "Edit spot"
     },
     "entry": {
+      "awayfrom": "away from me",
       "fixed": "This spot has been improved in the meantime.",
       "register": "Register now and join the discussion!",
       "send": "Send"
@@ -163,6 +168,9 @@
       "avatarupload": "Upload new avatar",
       "loading": "Loading",
       "save": "Save"
+    },
+    "footer": {
+      "supported": "Supported by"
     }
   },
   "fr": {
@@ -200,6 +208,7 @@
       "editspot": "Modifier le spot"
     },
     "entry": {
+      "awayfrom": "de moi",
       "fixed": "Ce spot a été amélioré entre-temps",
       "register": "Inscris-toi maintenant et prends part à la discussion!",
       "send": "Envoyer"
@@ -246,6 +255,9 @@
       "avatarupload": "Télécharger nouvelle image de profil",
       "loading": "Télécharger",
       "save": "Enregistrer"
+    },
+    "footer": {
+      "supported": "Soutenu par"
     }
   }
 

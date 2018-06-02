@@ -374,6 +374,7 @@ export default {
       background: transparent;
       background-image: none;
       -webkit-appearance: none;
+      -moz-appearance: none;
       line-height: 1;
       margin-left: .5rem;
 

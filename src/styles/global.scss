@@ -140,6 +140,7 @@ small {
   text-align: center;
   box-sizing: content-box;
   margin-top: 1.5rem;
+  -webkit-appearance: none;
   transition: .1s border-color, .1s color;
 
   &:hover {

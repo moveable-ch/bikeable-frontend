@@ -186,7 +186,7 @@ export default {
         if (result.types.indexOf("countryCode") != -1) {
           address.countryCode = result.short_name;
         }
-        
+
         if (result.types.indexOf("country") != -1) {
           address.country = result.long_name;
         }
@@ -317,6 +317,7 @@ export default {
 
 .add {
   margin: 0;
+  margin-top: 0;
   padding-top: 5rem;
 
   @include tablet {

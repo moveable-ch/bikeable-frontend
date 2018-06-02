@@ -96,8 +96,8 @@ export default {
       let l = localStorage.getItem('lang');
 
       if(!l) {
-        l = navigator.language;
-        if(["de", "en", "fr"].indexOf(l) < -1) l = null;
+        const userLang = navigator.language.substr(0,2);
+        if(["de", "en", "fr"].indexOf(l) >= -1) l = userLang;
       }
 
       if(l) {

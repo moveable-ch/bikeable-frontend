@@ -142,7 +142,12 @@ export default {
           disableDefaultUI: false,
           clickableIcons: false,
           gestureHandling: 'greedy',
-          styles: mapstyle
+          styles: mapstyle,
+          fullscreenControl: false,
+          streetViewControl: false,
+          zoomControlOptions: {
+            position: google.maps.ControlPosition.RIGHT_TOP
+          }
         });
 
 

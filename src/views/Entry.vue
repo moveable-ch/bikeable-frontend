@@ -61,7 +61,7 @@
         <div class="comments__form" v-if="isLoggedIn && userData">
           <div class="comments__form__image" :style="'background-image:url(' + userAvatar + ')'"></div>
           <form @submit.prevent="postComment">
-            <textarea placeholder="Kommentar" v-model="commentText" rows="2"></textarea><br>
+            <textarea :placeholder="$t('comment.comment')" v-model="commentText" rows="2"></textarea><br>
             <button type="submit" class="btn comments__form__button" v-bind:class="{ 'disabled': !commentText }">{{ $t('entry.send') }}</button>
           </form>
         </div>

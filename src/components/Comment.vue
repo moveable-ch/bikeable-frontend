@@ -11,14 +11,14 @@
       <a @click.prevent="upvoteComment" href="#" class="comment__button comment__button--vote" v-bind:class="{ disabled: !isLoggedIn }">
         <span class="count">{{ comment.votesCount }}</span>
       </a>
-      <a @click.prevent="showForm = !showForm" href="#" class="comment__button comment__button--reply">Antworten</a>
+      <a @click.prevent="showForm = !showForm" href="#" class="comment__button comment__button--reply">{{ $t('comment.reply') }}</a>
     </div>
 
     <div class="comment__reply" v-if="showForm">
       <div class="comment__reply__image" :style="'background-image:url(' + avatar + ')'"></div>
       <form @submit.prevent="postReply">
-        <textarea placeholder="Kommentar" v-model="replyText" rows="2"></textarea>
-        <button type="submit" class="btn comment__reply__button" v-bind:class="{ 'disabled': !replyText }">Senden</button>
+        <textarea :placeholder="$t('comment.comment')" v-model="replyText" rows="2"></textarea>
+        <button type="submit" class="btn comment__reply__button" v-bind:class="{ 'disabled': !replyText }">{{ $t('comment.send') }}</button>
       </form>
     </div>
 

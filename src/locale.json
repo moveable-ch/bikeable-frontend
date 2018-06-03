@@ -16,6 +16,7 @@
       "paypal": "Unterstütze uns via PayPal"
     },
     "addform": {
+      "enteraddress": "Adresse eingeben",
       "title": "Titel",
       "fameorshame": "Fame or Shame",
       "addspot": "Spot erstellen",
@@ -38,6 +39,11 @@
       "fixed": "Dieser Spot wurde in der Zwischenzeit verbessert.",
       "register": "Jetzt registrieren und mitdiskutieren!",
       "send": "Senden"
+    },
+    "comment": {
+      "send": "Senden",
+      "reply": "Antworten",
+      "comment": "Kommentar"
     },
     "list": {
       "allregions": "Alle Regionen",
@@ -103,6 +109,7 @@
       "paypal": "Support us with PayPal"
     },
     "addform": {
+      "enteraddress": "Enter Address",
       "title": "Title",
       "fameorshame": "Fame or Shame",
       "addspot": "Add Spot",
@@ -125,6 +132,11 @@
       "fixed": "This spot has been improved in the meantime.",
       "register": "Register now and join the discussion!",
       "send": "Send"
+    },
+    "comment": {
+      "send": "Send",
+      "reply": "Reply",
+      "comment": "Comment"
     },
     "list": {
       "allregions": "All Regions",
@@ -190,6 +202,7 @@
       "paypal": "Soutiens-nous par PayPal!"
     },
     "addform": {
+      "enteraddress": "Entrez l'adresse",
       "title": "Titre",
       "fameorshame": "Fame ou Shame",
       "addspot": "Signaler un spot",
@@ -212,6 +225,11 @@
       "fixed": "Ce spot a été amélioré entre-temps",
       "register": "Inscris-toi maintenant et prends part à la discussion!",
       "send": "Envoyer"
+    },
+    "comment": {
+      "send": "Envoyer",
+      "reply": "Répondre",
+      "comment": "Commentaire"
     },
     "list": {
       "allregions": "Toutes les régions",

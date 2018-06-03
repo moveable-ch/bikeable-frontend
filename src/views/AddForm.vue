@@ -40,7 +40,7 @@
         <h3><span class="num">3</span>{{ $t('addform.adress') }}</h3>
         <label>
           <span>{{ $t('addform.spotwhere') }}</span>
-          <input placeholder="Adresse eingeben" type="text" v-model="entryAddress" v-bind:class="{ inactive: addressPending }" v-on:blur="checkAddress">
+          <input :placeholder="$t('addform.enteraddress')" type="text" v-model="entryAddress" v-bind:class="{ inactive: addressPending }" v-on:blur="checkAddress">
         </label>
         <div class="address-btns">
           <a href="#" class="address-btn address-btn--userloc" v-bind:class="{ disabled: !userCoords }" @click.prevent="handleUserCoords">{{ $t('addform.entercurrentposition') }}</a>

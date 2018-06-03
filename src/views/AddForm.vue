@@ -1,20 +1,5 @@
 <!-- /add -->
 
-<!-- <i18n>
-
-{
-  "en": {
-    "addspot": "Create Spot"
-  },
-  "de": {
-    "addspot": "Spot erstellen"
-  },
-  "fr": {
-    "addspot": "Créer un spot"
-  }
-}
-</i18n> -->
-
 <template>
   <div class="add">
     <map-modal-view
@@ -342,26 +327,24 @@ export default {
     background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
   }
 
-  h1 {
-    // margin-top: 3rem;
-    // margin-bottom: 4rem;
-  }
   h3 {
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 1.5rem;
     margin-top: 2rem;
 
     .num {
+      font-family: $f-body;
       display: inline-block;
       width: 2rem;
       height: 2rem;
       line-height: 2rem;
-      font-weight: bold;
-      background-color: #fafafa;
-      border: 1px solid #eee;
+      font-size: 1rem;
+      font-weight: 600;
+      background-color: $c-black;
+      color: #fff;
       text-align: center;
-      margin-right: 1rem;
+      margin-right: .75rem;
       border-radius: 99%;
     }
 
@@ -391,9 +374,9 @@ export default {
 
     label {
       display: block;
-      color: #666;
-      border: 1px solid #666;
-      // border-radius: 4px;
+      color: $c-black;
+      border: 2px solid rgba($c-black, .5);
+      border-radius: 2px;
       width: 14rem;
       text-align: center;
       font-weight: 500;
@@ -474,13 +457,27 @@ export default {
   }
 
   input+label {
-    opacity: .4;
+    opacity: .6;
     transform: scale(.9);
   }
 
   input:checked+label {
     opacity: 1.0;
     transform: scale(1.1);
+
+    span {
+      color: $c-black;
+    }
+
+    &::before {
+      transform: rotate(-10deg);
+    }
+
+    &.shameradio-label {
+      &::before {
+        transform: rotate(190deg);
+      }
+    }
   }
 
   input:hover+label {
@@ -489,16 +486,28 @@ export default {
 
   label {
     cursor: pointer;
-    transition: opacity .4s $easeOutQuint, transform .4s $easeOutQuint;
-    opacity: .2;
+    transition: opacity .4s $easeOutQuint, transform .4s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+    opacity: .4;
     position: relative;
     display: block;
     font-size: .8rem;
-    margin: 1rem 0 1rem 0;
-    width: 5.4rem;
-    height: 7rem;
-    background-size: 5.4rem 5.4rem;
-    background-repeat: no-repeat;
+    margin: 0 1rem 1rem 0;
+    padding-bottom: 2rem;
+
+    &::before {
+      content: "";
+      display: block;
+      width: 6rem;
+      height: 6rem;
+      background-color: $c-main;
+      background-image: url('../assets/thumbs-up-white.svg');
+      background-repeat: no-repeat;
+      background-size: 60%;
+      background-position: center;
+      border-radius: 99%;
+      // transform: rotate(-10deg);
+      transition: .3s transform cubic-bezier(0.175, 0.885, 0.320, 1.275);
+    }
 
     span {
       position: absolute;
@@ -508,14 +517,12 @@ export default {
     }
 
   }
-}
-
-.fameradio-label {
-  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxMzBweCIgaGVpZ2h0PSIxMzBweCIgdmlld0JveD0iMCAwIDEzMCAxMzAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+ICAgIDxkZWZzPjwvZGVmcz4gICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+ICAgICAgICA8ZyBpZD0ic21pbGUtZ29vZCI+ICAgICAgICAgICAgPGNpcmNsZSBpZD0iT3ZhbCIgZmlsbD0iIzMzQkRDQSIgY3g9IjY1IiBjeT0iNjUiIHI9IjY1Ij48L2NpcmNsZT4gICAgICAgICAgICA8ZyBpZD0iR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM1LjAwMDAwMCwgMzMuMDAwMDAwKSIgZmlsbD0iI0ZGRkZGRiI+ICAgICAgICAgICAgICAgIDxjaXJjbGUgaWQ9Ik92YWwtMiIgY3g9IjQiIGN5PSI0IiByPSI0Ij48L2NpcmNsZT4gICAgICAgICAgICAgICAgPGNpcmNsZSBpZD0iT3ZhbC0yLUNvcHkiIGN4PSIzNyIgY3k9IjQiIHI9IjQiPjwvY2lyY2xlPiAgICAgICAgICAgIDwvZz4gICAgICAgICAgICA8cGF0aCBkPSJNMzUuNzUsNTggQzM1Ljc1LDY4LjI1MTgzNjYgNDQuODQ3MjM5LDc2LjUgNTYsNzYuNSBDNjcuMTUyNzYxLDc2LjUgNzYuMjUsNjguMjUxODM2NiA3Ni4yNSw1OCBDNzYuMjUsNTcuMTcxNTcyOSA3NS41Nzg0MjcxLDU2LjUgNzQuNzUsNTYuNSBDNzMuOTIxNTcyOSw1Ni41IDczLjI1LDU3LjE3MTU3MjkgNzMuMjUsNTggQzczLjI1LDY2LjUyNTg0NDkgNjUuNTU3OTE3Miw3My41IDU2LDczLjUgQzQ2LjQ0MjA4MjgsNzMuNSAzOC43NSw2Ni41MjU4NDQ5IDM4Ljc1LDU4IEMzOC43NSw1Ny4xNzE1NzI5IDM4LjA3ODQyNzEsNTYuNSAzNy4yNSw1Ni41IEMzNi40MjE1NzI5LDU2LjUgMzUuNzUsNTcuMTcxNTcyOSAzNS43NSw1OCBaIiBpZD0iT3ZhbC0zIiBmaWxsPSIjRkZGRkZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iPjwvcGF0aD4gICAgICAgIDwvZz4gICAgPC9nPjwvc3ZnPg==);
-}
-
-.shameradio-label {
-  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxMzBweCIgaGVpZ2h0PSIxMzBweCIgdmlld0JveD0iMCAwIDEzMCAxMzAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+ICAgICAgICA8dGl0bGU+c21pbGUtYmFkPC90aXRsZT4gICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+ICAgIDxkZWZzPjwvZGVmcz4gICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+ICAgICAgICA8ZyBpZD0ic21pbGUtYmFkIj4gICAgICAgICAgICA8Y2lyY2xlIGlkPSJPdmFsIiBmaWxsPSIjRjkyNDkzIiBjeD0iNjUiIGN5PSI2NSIgcj0iNjUiPjwvY2lyY2xlPiAgICAgICAgICAgIDxnIGlkPSJHcm91cCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTUuMDAwMDAwLCA1My4wMDAwMDApIiBmaWxsPSIjRkZGRkZGIj4gICAgICAgICAgICAgICAgPGNpcmNsZSBpZD0iT3ZhbC0yIiBjeD0iNCIgY3k9IjQiIHI9IjQiPjwvY2lyY2xlPiAgICAgICAgICAgICAgICA8Y2lyY2xlIGlkPSJPdmFsLTItQ29weSIgY3g9IjM3IiBjeT0iNCIgcj0iNCI+PC9jaXJjbGU+ICAgICAgICAgICAgPC9nPiAgICAgICAgICAgIDxwYXRoIGQ9Ik05Ni4zOTUyNjEzLDk0LjY0NTI5NDIgQzk2LjIxNjM0MjEsODQuMzk1MDE5IDg2Ljk3NjUzODMsNzYuMzA2ODgwNSA3NS44MjU0NzU5LDc2LjUwMTUyMyBDNjQuNjc0NDEzNiw3Ni42OTYxNjU2IDU1LjcyMjUxMDQsODUuMTAxODQxNCA1NS45MDE0Mjk2LDk1LjM1MjExNjYgQzU1LjkxNTg4NzcsOTYuMTgwNDE3NiA1Ni41OTkwNzg4LDk2Ljg0MDE2NzYgNTcuNDI3Mzc5OCw5Ni44MjU3MDk2IEM1OC4yNTU2ODA3LDk2LjgxMTI1MTUgNTguOTE1NDMwOCw5Ni4xMjgwNjA0IDU4LjkwMDk3MjcsOTUuMjk5NzU5NCBDNTguNzUyMTc2Miw4Ni43NzUyMTMxIDY2LjMyMTM3MTcsNzkuNjY3ODc0OCA3NS44Nzc4MzMyLDc5LjUwMTA2NjEgQzg1LjQzNDI5NDYsNzkuMzM0MjU3NSA5My4yNDY5MjE3LDg2LjE3MzEwNSA5My4zOTU3MTgyLDk0LjY5NzY1MTQgQzkzLjQxMDE3NjIsOTUuNTI1OTUyMyA5NC4wOTMzNjc0LDk2LjE4NTcwMjQgOTQuOTIxNjY4Myw5Ni4xNzEyNDQzIEM5NS43NDk5NjkzLDk2LjE1Njc4NjMgOTYuNDA5NzE5Myw5NS40NzM1OTUxIDk2LjM5NTI2MTMsOTQuNjQ1Mjk0MiBaIiBpZD0iT3ZhbC0zIiBmaWxsPSIjRkZGRkZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iPjwvcGF0aD4gICAgICAgIDwvZz4gICAgPC9nPjwvc3ZnPg==);
+  .shameradio-label {
+    &::before {
+      background-color: $c-highlight;
+      transform: rotate(180deg);
+    }
+  }
 }
 
 
@@ -580,12 +587,12 @@ export default {
 
   &--userloc {
     &::before {
-      background-image: url('../assets/locatebutton.png');
+      background-image: url('../assets/locatebutton@2x.png');
     }
   }
   &--map {
     &::before {
-      background-image: url('../assets/mapbutton.png');
+      background-image: url('../assets/mapbutton@2x.png');
     }
   }
 }

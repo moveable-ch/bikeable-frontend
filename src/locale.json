@@ -1,0 +1,264 @@
+{
+  "de": {
+    "home": {
+      "lead": "Bikeable.ch zeigt die gefährlichsten Spots für Velofahrer auf und hilft bei der Lösungsfindung.",
+      "registernow": "Jetzt registrieren!",
+      "addspot": "Spot hinzufügen",
+      "showall": "Alle Spots anzeigen",
+      "more": "Mehr",
+      "newsletter": "Melde dich hier für unseren Newsletter an und erfahre regelmässig, was bei bikeable läuft.",
+      "nospam": "Kein Spam imfall!",
+      "emailadress": "Email-Adresse",
+      "surname": "Vorname",
+      "familyname": "Nachname"
+    },
+    "about": {
+      "paypal": "Unterstütze uns via PayPal"
+    },
+    "addform": {
+      "title": "Titel",
+      "fameorshame": "Fame or Shame",
+      "addspot": "Spot erstellen",
+      "photo": "Foto",
+      "uploadimage": "Lade ein Bild von deinem Spot hoch",
+      "chooseimage": "Bild wählen",
+      "loading": "Loading",
+      "adress": "Adresse",
+      "spotwhere": "Wo befindet sich dein Spot?",
+      "entercurrentposition": "Aktuellen Standort einfügen",
+      "chooselocation": "Standort auf Karte wählen",
+      "description": "Beschreibung",
+      "send": "Senden"
+    },
+    "editform": {
+      "editspot": "Spot bearbeiten"
+    },
+    "entry": {
+      "awayfrom": "entfernt",
+      "fixed": "Dieser Spot wurde in der Zwischenzeit verbessert.",
+      "register": "Jetzt registrieren und mitdiskutieren!",
+      "send": "Senden"
+    },
+    "list": {
+      "allregions": "Alle Regionen",
+      "nospots": "Leider wurden keine Spots gefunden.",
+      "sortby": "Sortieren nach",
+      "date": "Datum",
+      "upvotes": "Upvotes",
+      "distance": "Distanz",
+      "comments": "Kommentare",
+      "allspots": "Alle Spots",
+      "morespots": "Mehr Spots anzeigen"
+    },
+    "login": {
+      "forgotpassword": "Passwort vergessen?",
+      "newaccount": "Neuen Account erstellen"
+    },
+    "notfound": {
+      "pagenotfound": "Die Seite wurde nicht gefunden"
+    },
+    "partner": {
+      "partner": "Partner"
+    },
+    "password": {
+      "forgot": "Passwort vergessen",
+      "send": "Senden"
+    },
+    "register": {
+      "register": "Registrieren",
+      "username": "Username",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "send": "Senden",
+      "succesfullregistered": "Erfolgreich registriert, bitte Account bestätigen."
+    },
+    "profile": {
+      "success": "Einstellungen gespeichert",
+      "preferences": "Einstellungen",
+      "username": "Username",
+      "email": "E-Mail",
+      "avatar": "Avatar",
+      "avatarupload": "Neuen Avatar hochladen",
+      "loading": "Loading",
+      "save": "Speichern"
+    },
+    "footer": {
+      "supported": "Unterstützt von"
+    }
+  },
+  "en": {
+    "home": {
+      "lead": "Bikeable is ...",
+      "registernow": "Join now!",
+      "addspot": "Add spot",
+      "showall": "Show all spots",
+      "more": "More",
+      "newsletter": "Subscribe to our newsletter and stay up to date on all things Bikeable!",
+      "nospam": "No spam, promise!",
+      "emailadress": "Email address",
+      "surname": "First name",
+      "familyname": "Last name"
+    },
+    "about": {
+      "paypal": "Support us with PayPal"
+    },
+    "addform": {
+      "title": "Title",
+      "fameorshame": "Fame or Shame",
+      "addspot": "Add Spot",
+      "photo": "Picture",
+      "uploadimage": "Upload a picture of your spot",
+      "chooseimage": "Choose Picture",
+      "loading": "Loading",
+      "adress": "Address",
+      "spotwhere": "Where is your spot located?",
+      "entercurrentposition": "Insert current location",
+      "chooselocation": "Choose location on map",
+      "description": "Description",
+      "send": "Send"
+    },
+    "editform": {
+      "editspot": "Edit spot"
+    },
+    "entry": {
+      "awayfrom": "away from me",
+      "fixed": "This spot has been improved in the meantime.",
+      "register": "Register now and join the discussion!",
+      "send": "Send"
+    },
+    "list": {
+      "allregions": "All Regions",
+      "nospots": "No spots found.",
+      "sortby": "Sort by",
+      "date": "Date",
+      "upvotes": "Upvotes",
+      "distance": "Distance",
+      "comments": "Comments",
+      "allspots": "All Spots",
+      "morespots": "Show more spots"
+    },
+    "login": {
+      "forgotpassword": "Forgot your password?",
+      "newaccount": "Create new account"
+    },
+    "notfound": {
+      "pagenotfound": "This page could not be found"
+    },
+    "partner": {
+      "partner": "Partners"
+    },
+    "password": {
+      "forgot": "Forgot Password",
+      "send": "Send"
+    },
+    "register": {
+      "register": "Register",
+      "username": "Username",
+      "email": "E-Mail",
+      "password": "Password",
+      "send": "Send",
+      "succesfullregistered": "Registration successful. Please confirm your account."
+    },
+    "profile": {
+      "success": "Settings saved",
+      "preferences": "Settings",
+      "username": "Username",
+      "email": "E-Mail",
+      "avatar": "Avatar",
+      "avatarupload": "Upload new avatar",
+      "loading": "Loading",
+      "save": "Save"
+    },
+    "footer": {
+      "supported": "Supported by"
+    }
+  },
+  "fr": {
+    "home": {
+      "lead": "Bikeable.ch est une plateforme internet qui montre des spots dangereux, ennuyeux mais aussi bien résolus pour les cyclistes.",
+      "registernow": "S'inscrire",
+      "addspot": "Signaler un spot",
+      "showall": "Afficher tous les spots",
+      "more": "Plus",
+      "newsletter": "Inscris-toi à notre newsletter afin de te tenir informé des actualités de bikeable.ch.",
+      "nospam": "Pas de spam, promis!",
+      "emailadress": "Adresse e-mail",
+      "surname": "Prénom",
+      "familyname": "Nom de famille"
+    },
+    "about": {
+      "paypal": "Soutiens-nous par PayPal!"
+    },
+    "addform": {
+      "title": "Titre",
+      "fameorshame": "Fame ou Shame",
+      "addspot": "Signaler un spot",
+      "photo": "Photo",
+      "uploadimage": "Télécharge une photo pour signaler ton spot",
+      "chooseimage": "Sélectionne un photo",
+      "loading": "Téléchargement",
+      "adress": "Adresse",
+      "spotwhere": "Où est-ce que se trouve ton spot?",
+      "entercurrentposition": "Utiliser ma position actuelle",
+      "chooselocation": "Localisation du spot sur la carte",
+      "description": "Description",
+      "send": "Envoyer"
+    },
+    "editform": {
+      "editspot": "Modifier le spot"
+    },
+    "entry": {
+      "awayfrom": "d'ici",
+      "fixed": "Ce spot a été amélioré entre-temps",
+      "register": "Inscris-toi maintenant et prends part à la discussion!",
+      "send": "Envoyer"
+    },
+    "list": {
+      "allregions": "Toutes les régions",
+      "nospots": "Aucune spot trouvée",
+      "sortby": "Trier par",
+      "date": "Date",
+      "upvotes": "Votes",
+      "distance": "Distance",
+      "comments": "Commentaires",
+      "allspots": "Tous les spots",
+      "morespots": "Afficher plus de spots"
+    },
+    "login": {
+      "forgotpassword": "Mot de passe oublié",
+      "newaccount": "Créer un nouveau compte"
+    },
+    "notfound": {
+      "pagenotfound": "Cette page est introuvable"
+    },
+    "partner": {
+      "partner": "Partenaires"
+    },
+    "password": {
+      "forgot": "Mot de passe oublié",
+      "send": "Envoyer"
+    },
+    "register": {
+      "register": "S'inscrire",
+      "username": "Nom d'utilisateur",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "send": "Envoyer",
+      "succesfullregistered": "Enregistrement effectué, vérifie ton e-mail."
+    },
+    "profile": {
+      "success": "Succès",
+      "preferences": "Paramètres",
+      "username": "Nom d'utilisateur",
+      "email": "E-mail",
+      "avatar": "Image de profil ",
+      "avatarupload": "Télécharger nouvelle image de profil",
+      "loading": "Télécharger",
+      "save": "Enregistrer"
+    },
+    "footer": {
+      "supported": "Soutenu par"
+    }
+  }
+
+}

@@ -10,6 +10,36 @@ const getters = {
 
 const actions = {
 
+  fblogin({ commit, dispatch }, { accessToken, email, name }) {
+
+    commit('LOAD_START');
+
+    return new Promise((resolve, reject) => {
+      auth.fblogin(
+        {
+          accessToken: accessToken, 
+          email: email, 
+          name: name
+        }
+      )
+      .then((data) => {
+        commit('LOGIN');
+        commit('LOAD_FINISH');
+        localStorage.setItem('token', data.authToken);
+        localStorage.setItem('userId', data.userId);
+
+        dispatch('getUserData');
+        resolve(data);
+      },
+      (error) => {
+        commit('LOAD_FINISH');
+        dispatch('handleError', error);
+        reject(error);
+      });
+    });
+
+  },
+
   register({ commit, dispatch }, { email, username, password }) {
 
     commit('LOAD_START');

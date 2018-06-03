@@ -3,7 +3,7 @@
 <template>
   <div class="contentpage partner">
     <div class="container">
-      <h1>Partner</h1>
+      <h1>{{ $t('partner.partner') }}</h1>
       <div class="partners" v-if="partners">
         <a target="_blank" v-for="partner in partners" :href="partner.website.url()" class="partner__item">
           <span class="partner__item__logo" :style="'background-image:url(' + partner.logo + ')'"></span>
@@ -117,7 +117,7 @@ export default {
       border-color: $c-main;
     }
 
-    @include desktop() {
+    @include tablet() {
       width: 32%;
       margin-right: 2%;
 
@@ -132,7 +132,8 @@ export default {
     display: flex;
     flex-wrap: wrap;
     font-family: $f-body;
-    font-weight: bold;
+    font-weight: 300;
+    max-width: none;
 
     li {
       padding: 0 1rem;
@@ -153,7 +154,7 @@ export default {
         display: none;
       }
 
-      @include desktop() {
+      @include tablet() {
         width: 33.3%;
       }
     }

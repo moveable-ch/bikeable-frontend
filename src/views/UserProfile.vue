@@ -2,29 +2,29 @@
 
 <template>
   <div class="v-profile">
-    <div class="container">
-      <h1>Profil</h1>
+    <div class="container container--narrow">
+      <h1>{{ $t('profile.preferences') }}</h1>
       <form @submit.prevent="submitForm">
         <label>
-          <span>Username</span>
+          <span>{{ $t('profile.username') }}</span>
           <input type="text" v-model="formUsername">
         </label>
         <label>
-          <span>E-Mail</span>
+          <span>{{ $t('profile.email') }}</span>
           <input type="text" v-model="formEmail" disabled>
         </label>
-        <span class="label">Avatar</span>
+        <span class="label">{{ $t('profile.avatar') }}</span>
         <div class="v-profile__avatar" v-if="userAvatar">
           <img :src="userAvatar" @error="imageLoadError">
         </div>
         <div class="file-upload">
           <div class="file-upload__form">
-            <label for="add-file">Neuen Avatar hochladen</label>
+            <label for="add-file">{{ $t('profile.avatarupload') }}</label>
             <input id="add-file" @change.prevent="uploadImage" type="file">
           </div>
-          <span class="file-upload__pending" v-if="!imageId && imageChosen">Loading</span>
+          <span class="file-upload__pending" v-if="!imageId && imageChosen">{{ $t('profile.loading') }}</span>
         </div>
-        <button class="input-button btn v-profile__submit" type="submit">Speichern</button>
+        <button class="input-button btn v-profile__submit" type="submit">{{ $t('profile.save') }}</button>
         <div class="notice" v-if="message != ''">{{ message }}</div>
       </form>
     </div>
@@ -57,7 +57,7 @@ export default {
       return this.userData.profile.avatar.small;
     },
     imagePreviewUrl() {
-      return 'https://backend.bikeable.ch/api/v1/photos/' + this.imageId + '?size=small';
+      return process.env.BACKEND_URL + '/api/v1/photos/' + this.imageId + '?size=small';
     }
   },
 
@@ -86,7 +86,7 @@ export default {
         })
       .then((data) => {
         this.$store.dispatch('getUserData');
-        this.$store.dispatch('handleError', 'Profil gespeichert');
+        this.$store.dispatch('handleError', this.$t('profile.success'));
       });
     },
     uploadImage(e) {
@@ -123,11 +123,29 @@ export default {
 @import '../styles/helpers';
 
 .v-profile {
-  padding-top: 0;
+  padding-top: 5rem;
   padding-bottom: 4rem;
 
-  @include desktop() {
-    padding-top: 2rem;
+  @include tablet() {
+    padding-top: 6rem;
+  }
+
+  &::before, &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 30rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  &::before {
+    z-index: -1;
+    background-image: linear-gradient(0deg, #FFFFFF 2%, rgba(255,255,255,0.00) 74%);
+  }
+  &::after {
+    z-index: -2;
+    background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
   }
 
   &__submit {
@@ -152,11 +170,12 @@ export default {
   }
   .file-upload .file-upload__form {
     label {
-      font-size: .75rem;
+      font-size: .8rem;
       height: 2rem;
       line-height: 2rem;
-      width: 11rem;
+      width: 16rem;
       border: 2px solid $c-main;
+      border-radius: 4px;
       background-color: transparent;
     }
   }
@@ -171,7 +190,7 @@ export default {
       color: #666;
       border: 1px solid #666;
       // border-radius: 4px;
-      width: 14rem;
+      width: 18rem;
       text-align: center;
       font-weight: 500;
       height: 3rem;

@@ -146,11 +146,11 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(#000, .6);
+  background-color: rgba(#000, .4);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  z-index: 4;
 
   &__content {
     overflow: hidden;
@@ -165,7 +165,7 @@ export default {
     background-position: center;
     flex-shrink: 0;
 
-    @include desktop() {
+    @include tablet() {
       width: 9rem;
       height: 9rem;
     }
@@ -222,14 +222,9 @@ export default {
     padding-bottom: 3.5rem;
     display: flex;
     align-items: center;
-    border-radius: 4px;
-    // box-shadow: 4px 4px 0 0 rgba($c-highlight, 1);
-    border: 2px solid $c-highlight;
-
-    .is-famed & {
-      border-color: $c-main;
-      // box-shadow: 4px 4px 0 0 rgba($c-main, 1);
-    }
+    border-radius: 6px;
+    box-shadow: 0 6px 6px -4px rgba(#000, .3);
+    border: 1px solid $c-grey;
 
     .upvotes {
       display: none;
@@ -253,11 +248,12 @@ export default {
     h3 {
       margin-bottom: 0;
       color: $c-black;
+      font-size: 1rem;
     }
     .address {
       font-size: .8rem;
       color: #888;
-      margin-top: .5rem;
+      margin-top: .25rem;
       display: block;
       width: 100%;
       white-space: nowrap;
@@ -324,31 +320,8 @@ export default {
         background-color: #333;
       }
 
-      @include desktop() {
-
-      }
     }
   }
 }
-
-// .modal-enter-active, .modal-leave-active {
-//   transition: .5s opacity;
-// }
-// .modal-enter, .modal-leave-to {
-//   opacity: 0;
-// }
-// .modal-leave-to {
-  // .entry-modal__inner {
-  //   transition: .3s transform $easeInQuint;
-  //   transform: scale(.8);
-  // }
-// }
-
-// .modal_inner-enter-active, .modal_inner-leave-active {
-//   transition: .4s transform $easeOutQuint;
-// }
-// .modal_inner-enter, .modal_inner-leave-to {
-//   transform: scale(.8);
-// }
 
 </style>

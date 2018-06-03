@@ -6,12 +6,12 @@
       <h1>News</h1>
       <div class="newsarchive__container">
         <div class="newsarchive__item" v-for="article in news">
-          <router-link :to="'/news/' + article.id"><img class="newsarchive__image" :src="article.image"></router-link>
+          <router-link class="newsarchive__imagebox" :to="'/news/' + article.id"><img class="newsarchive__image" :src="article.image"></router-link>
           <div class="newsarchive__content">
             <h3><router-link :to="'/news/' + article.id">{{ article.title }}</router-link></h3>
             <span class="date">{{ article.date }}</span>
             <p>{{ article.abstract }}</p>
-            <router-link class="newsarchive__more" :to="'/news/' + article.id">Mehr</router-link>
+            <router-link class="newsarchive__more" :to="'/news/' + article.id">{{ $t('home.more') }}</router-link>
           </div>
         </div>
       </div>
@@ -38,12 +38,30 @@ export default {
       this.news = data;
     });
   },
+  computed: {
+    prismicLang() {
+      return this.$store.getters.prismicLang;
+    }
+  },
+  watch: {
+    'prismicLang' (to, from) {
+      this.$store.commit('LOAD_START');
+
+      this.getData().then(data => {
+        this.$store.commit('LOAD_FINISH');
+        this.news = data;
+      });
+    }
+  },
   methods: {
     getData() {
       return Prismic.api("https://bikeable.prismic.io/api").then((api) => {
         return api.query(
           Prismic.Predicates.at('document.type', 'news'),
-          {}
+          {
+            orderings: '[document.first_publication_date desc]',
+            lang: this.prismicLang
+          }
         );
       }).then(function(payload) {
         const y = [];
@@ -78,9 +96,9 @@ export default {
 
   &__item {
     display: flex;
-    margin-top: 1rem;
+    margin: 2rem 0;
 
-    @include desktop() {
+    @include tablet() {
       max-width: 850px;
     }
   }
@@ -115,21 +133,30 @@ export default {
       color: #aaa;
     }
 
-    @include desktop() {
+    @include tablet() {
       padding-left: 1.5rem;
       padding-top: .5rem;
     }
   }
 
-  &__image {
+  &__imagebox {
+    display: block;
+    border-radius: 4px;
+    overflow: hidden;
     width: 80px;
     height: 80px;
-    flex-shrink: 0;
+    box-shadow: 0 5px 15px -5px rgba($c-black, .2);
 
-    @include desktop() {
+    @include tablet() {
       width: 200px;
       height: 200px;
     }
+  }
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100% !important;
+    flex-shrink: 0;
   }
 }
 

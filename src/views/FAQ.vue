@@ -4,7 +4,7 @@
   <div class="contentpage faq">
     <div class="container" v-if="doc">
       <h1>{{ doc.title }}</h1>
-      <div class="faq__item" v-for="question in doc.questions">
+      <div class="faq__item" v-for="question in doc.questions" v-bind:key="question.id">
         <h3>{{ question.title }}</h3>
         <div v-html="question.text"></div>
       </div>
@@ -30,14 +30,30 @@ export default {
       this.$store.commit('LOAD_FINISH');
     });
   },
+  computed: {
+    prismicLang() {
+      return this.$store.getters.prismicLang;
+    }
+  },
   methods: {
     getData() {
-      return Prismic.api("https://bikeable.prismic.io/api").then(function(api) {
+      return Prismic.api("https://bikeable.prismic.io/api").then((api) => {
         return api.query(
           Prismic.Predicates.at('document.type', 'faq'),
-          {}
+          { lang: this.prismicLang }
         );
-      }).then(function(payload) {
+      }).then((payload) => {
+        if(!payload.results[0]) {
+          const y = {};
+          y.title = "—";
+          y.questions = [
+            {
+              title: '',
+              text: ''
+            }
+          ]
+          return y;
+        }
         const y = {};
         y.title = payload.results[0].getText('faq.title');
         y.questions = payload.results[0].getGroup('faq.questions').toArray().map((x) => {
@@ -65,18 +81,22 @@ export default {
 
 .faq {
   h3 {
-    margin-bottom: .5rem;
+    margin: 0 auto;
+    max-width: 650px;
+    margin-bottom: .25rem;
     color: $c-black;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    font-family: $f-head;
+    font-weight: 700;
   }
   p {
-
+    margin-top: 0;
   }
 
   &__item {
     margin: 2rem 0;
 
-    @include desktop() {
+    @include tablet() {
       margin: 2rem 0;
     }
   }

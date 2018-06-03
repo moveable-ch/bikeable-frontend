@@ -79,7 +79,7 @@ export default {
 
       this.$store.commit('LOAD_START');
 
-      axios.post('https://backend.bikeable.ch/api/v1/comments',
+      axios.post(process.env.BACKEND_URL + '/api/v1/comments',
         {
           'entryId': this.entryId,
           'parentId': this.comment._id,
@@ -106,7 +106,7 @@ export default {
       let token = localStorage.getItem('token');
 
       this.$store.commit('LOAD_START');
-      axios.post('https://backend.bikeable.ch/api/v1/comments/' + this.comment._id + '/vote', {},
+      axios.post(process.env.BACKEND_URL + '/api/v1/comments/' + this.comment._id + '/vote', {},
         {
           headers: {
             'X-User-Id': userId,
@@ -134,30 +134,44 @@ export default {
 
   .comment {
     margin-bottom: 1rem;
-    font-size: .8rem;
+    font-size: .9rem;
     position: relative;
-    padding-left: 2.5rem;
+    padding-left: 2rem;
+
+    @include tablet {
+      padding-left: 3rem;
+    }
 
     &.child {
       margin-top: .5rem;
-      margin-bottom: .5rem;
+      margin-bottom: 1.5rem;
     }
 
     &__reply {
-      margin-top: 1rem;
+      margin-top: 1.5rem;
       margin-bottom: 2rem;
       position: relative;
-      padding-left: 2.5rem;
+      padding-left: 2rem;
 
       &__image {
-        width: 2rem;
-        height: 2rem;
+        width: 1.5rem;
+        height: 1.5rem;
         position: absolute;
         top: 0;
         left: 0;
         background-color: #fff;
         background-size: cover;
-        border: 1px solid $c-grey-dark;
+        border: 2px solid $c-blue;
+        border-radius: 99%;
+      }
+
+      @include tablet {
+        padding-left: 3rem;
+
+        &__image {
+          width: 2.5rem;
+          height: 2.5rem;
+        }
       }
 
       label {
@@ -171,17 +185,18 @@ export default {
         display: block;
         padding: .5rem;
         font-size: .8rem;
+        border-color: $c-blue;
         // height: 4rem;
       }
 
-      @include desktop {
+      @include tablet {
         // margin-top: 2rem;
       }
     }
 
     &__avatar {
-      width: 2rem;
-      height: 2rem;
+      width: 1.5rem;
+      height: 1.5rem;
       background-color: #fff;
       background-size: cover;
       background-position: center;
@@ -189,16 +204,25 @@ export default {
       position: absolute;
       top: 0;
       left: 0;
-      border: 1px solid $c-grey-dark;
+      border: 2px solid $c-blue;
+      border-radius: 4px;
+      border-radius: 99%;
+
+      @include tablet {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
     }
 
     &__body {
-      background-color: $c-grey;
+      background-color: #fff;
+      border: 1px solid $c-blue;
       border-radius: 4px;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       margin-bottom: 0px;
       padding: 1rem;
+      overflow: hidden;
     }
     &__buttons {
       display: flex;
@@ -211,12 +235,13 @@ export default {
       line-height: 2rem;
       text-align: center;
       color: #666;
-      border: 1px solid $c-grey-dark;
-      background-color: $c-grey;
+      border: 1px solid $c-blue;
+      border-top: none;
+      background-color: rgba($c-blue, .4);
       width: 100%;
 
       &:hover {
-        background-color: $c-grey-dark;
+        background-color: rgba($c-blue, .8);
       }
 
       &--reply {
@@ -224,6 +249,7 @@ export default {
       }
       &--vote {
         border-bottom-left-radius: 4px;
+        border-right: none;
 
         .count {
           font-weight: 400;
@@ -267,7 +293,7 @@ export default {
         position: absolute;
         top: 0;
         right: 0;
-        color: #888;
+        color: $c-grey-darkest;
       }
     }
     p {

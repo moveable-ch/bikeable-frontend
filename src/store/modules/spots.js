@@ -55,6 +55,32 @@ const actions = {
           reject(error);
         });
     });
+  },
+
+  editSpot({ commit, dispatch }, data) {
+    commit('LOAD_START');
+
+    let userId = localStorage.getItem('userId');
+    let token = localStorage.getItem('token');
+
+    return new Promise((resolve, reject) => {
+      spots.editSpot({
+          data: data.data,
+          spotId: data.spotId,
+          userId: userId,
+          authToken: token
+        })
+        .then((data) => {
+          commit('LOAD_FINISH');
+          dispatch('getAllSpots');
+          resolve(data);
+        },
+        (error) => {
+          commit('LOAD_FINISH');
+          dispatch('handleError', error);
+          reject(error);
+        });
+    });
   }
 }
 

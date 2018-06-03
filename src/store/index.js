@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import map from './modules/map'
 import spots from './modules/spots'
+import regions from './modules/regions'
 import auth from './modules/auth'
 import users from './modules/users'
 import images from './modules/images'
@@ -10,12 +11,32 @@ import images from './modules/images'
 Vue.use(Vuex)
 
 const state = {
-  pending: false,
+  lang: 'de',
+  languages: [
+    {
+      code: 'de',
+      name: 'Deutsch'
+    }, {
+      code: 'fr',
+      name: 'Français'
+    }, {
+      code: 'en',
+      name: 'English'
+    }
+  ],
+  prismicLang: 'de-ch',
+  pendingCount: 0,
   msg: '',
   sort: 'shame'
 }
 
 const mutations = {
+  SET_LANG(state, lang) {
+    state.lang = lang;
+  },
+  SET_PRISMIC_LANG(state, lang) {
+    state.prismicLang = lang;
+  },
   SET_ENTRY_SORTING(state, sort) {
     state.sort = sort;
   },
@@ -27,10 +48,10 @@ const mutations = {
     }.bind(this), 2000);
   },
   LOAD_START(state) {
-    state.pending = true;
+    state.pendingCount += 1;
   },
   LOAD_FINISH(state) {
-    state.pending = false;
+    state.pendingCount -= 1;
   }
 }
 
@@ -47,15 +68,44 @@ const actions = {
 
   handleError(context, msg) {
     context.commit('SET_MESSAGE', msg);
+  },
+
+  setLang(context, lang) {
+    localStorage.setItem('lang', lang);
+    context.commit('SET_LANG', lang);
+
+    switch(lang) {
+      case 'de':
+        context.commit('SET_PRISMIC_LANG', 'de-ch');
+        break;
+      case 'en':
+        context.commit('SET_PRISMIC_LANG', 'en-gb');
+        break;
+      case 'fr':
+        context.commit('SET_PRISMIC_LANG', 'fr-ch');
+        break;
+      default:
+        context.commit('SET_PRISMIC_LANG', 'de-ch');
+    }
   }
+
 }
 
 const getters = {
-  pending: state => {
-    return state.pending;
+  pendingCount: state => {
+    return state.pendingCount;
   },
   msg: state => {
     return state.msg;
+  },
+  lang: state => {
+    return state.lang;
+  },
+  prismicLang: state => {
+    return state.prismicLang;
+  },
+  languages: state => {
+    return state.languages;
   }
 }
 
@@ -67,6 +117,7 @@ export default new Vuex.Store({
   modules: {
     auth,
     spots,
+    regions,
     map,
     users,
     images

@@ -5,7 +5,7 @@
     <div class="container">
       <img src="https://media.giphy.com/media/StWnlQipuBrz2/giphy.gif">
       <h1>404</h1>
-      <p>Die Seite wurde nicht gefunden</p>
+      <p>{{ $t('notfound.pagenotfound')}}</p>
     </div>
   </div>
 </template>
@@ -35,7 +35,7 @@ export default {
   text-align: center;
   margin-top: 0;
 
-  @include desktop() {
+  @include tablet() {
     margin-top: -2rem;
   }
 

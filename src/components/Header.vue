@@ -1,47 +1,70 @@
 <template>
-  <header class="header" v-bind:class="{ 'is-expanded': isExpanded, 'is-home': isHome, 'is-scrolled': isScrolled }">
-    <div class="container">
-      <router-link to="/" class="header__logo"><span>bikeable</span></router-link>
-      <button class="burger" v-on:click="toggleNav"></button>
-      <nav>
-        <ul>
-          <li><router-link to="/" exact>Home</router-link></li>
-          <li><router-link to="/news" exact>News</router-link></li>
-          <li><router-link to="/entries" exact>Spots</router-link></li>
-          <li><router-link to="/map" exact>Map</router-link></li>
-        </ul>
-      </nav>
-      <nav class="nav-right">
-        <ul>
-          <li v-if="isLoggedIn" class="username" @click.prevent="metaNavExpanded = !metaNavExpanded">{{ userData.username }}</li>
-          <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
-          <!--<li v-if="!isLoggedIn"><router-link to="/register">Registrieren</router-link></li>-->
-        </ul>
-      </nav>
-      <div class="header__metanav" v-bind:class="{ 'is-expanded': metaNavExpanded }">
-        <ul>
-          <li v-if="isLoggedIn"><router-link to="/profile">Profil</router-link></li>
-          <li v-if="isLoggedIn"><a href="#" @click.prevent="logout">Logout</a></li>
-        </ul>
+  <header class="header" v-bind:class="{ 'is-scrolled': isScrolled, 'is-logged-in': isLoggedIn }">
+    <router-link to="/" class="header__logo"><span>bikeable</span></router-link>
+    <button class="burger" v-on:click="navVisible = true"></button>
+    <router-link v-if="isLoggedIn" to="/profile" class="header__avatar" :style="{ backgroundImage: 'url(' + userAvatar + ')' }"><span>Profile</span></router-link>
+    <nav class="header__mainnav">
+      <ul>
+        <li><router-link to="/news" exact>News</router-link></li>
+        <li><router-link to="/entries" exact>Spots</router-link></li>
+        <li><router-link to="/map" exact>Map</router-link></li>
+        <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
+        <li><language-switch></language-switch></li>
+      </ul>
+    </nav>
+    <transition name="nav-fade">
+      <div class="header__menu" v-if="navVisible" @click="navVisible = false">
+        <div class="header__menu__inner" @click.stop>
+          <button @click="navVisible = false" class="header__menu__close"></button>
+          <nav class="header__menu__nav">
+            <ul>
+              <li><router-link to="/" exact>Home</router-link></li>
+              <li><router-link to="/map" exact>Map</router-link></li>
+              <li><router-link to="/entries" exact>Spots</router-link></li>
+              <li v-if="isLoggedIn"><router-link to="/add" exact>{{ $t('home.addspot') }}</router-link></li>
+            </ul>
+          </nav>
+          <nav class="header__menu__nav-secondary">
+            <ul>
+              <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
+              <li v-if="!isLoggedIn"><router-link to="/register">{{ $t('register.register') }}</router-link></li>
+              <li v-if="isLoggedIn"><router-link to="/profile" exact>{{ $t('profile.preferences') }}</router-link></li>
+              <li v-if="isLoggedIn"><a href="#" @click.prevent="logout">Logout</a></li>
+            </ul>
+            <ul>
+              <li><router-link to="/faq" exact>FAQ</router-link></li>
+              <li><router-link to="/news" exact>News</router-link></li>
+              <li><router-link to="/about" exact>About Bikeable</router-link></li>
+              <li><router-link to="/partner" exact>{{ $t('partner.partner') }}</router-link></li>
+            </ul>
+            <ul>
+              <li><language-switch></language-switch></li>
+            </ul>
+          </nav>
+        </div>
       </div>
-    </div>
+    </transition>
   </header>
 </template>
 
 <script>
+import LanguageSwitch from '@/components/LanguageSwitch';
+
 export default {
   name: 'c-header',
   data () {
     return {
-      isExpanded: false,
       isScrolled: false,
-      metaNavExpanded: false
+      navVisible: false
     }
+  },
+  components: {
+    'language-switch': LanguageSwitch
   },
 
   methods: {
     toggleNav() {
-      this.isExpanded = !this.isExpanded;
+      this.navVisible = !this.navVisible;
     },
     logout() {
       this.$store.dispatch('logout')
@@ -50,9 +73,7 @@ export default {
         });
     },
     handleScroll() {
-      // if(!this.isHome) return;
-
-      if(window.scrollY > 100) {
+      if(window.scrollY > 40) {
         this.isScrolled = true;
       }else{
         this.isScrolled = false;
@@ -76,14 +97,28 @@ export default {
       return this.$store.getters.userData;
     },
     isHome() {
-      return (this.$route.path == '/' && !this.isLoggedIn);
-    }
+      return (this.$route.path == '/');
+    },
+    userData() {
+      return this.$store.getters.userData;
+    },
+    userAvatar() {
+      if(!this.userData) return null;
+      if(!this.userData.profile) return null;
+      if(!this.userData.profile.avatar) return null;
+      if(this.imageId) {
+        return this.imagePreviewUrl;
+      }
+      return this.userData.profile.avatar.small;
+    },
   },
 
   watch: {
     '$route': function() {
-      this.isExpanded = false;
-      this.metaNavExpanded = false;
+      this.navVisible = false;
+    },
+    isLoggedIn() {
+      this.navVisible = false;
     }
   }
 }
@@ -95,272 +130,324 @@ export default {
 
 .header {
   position: fixed;
-  top: 0;
+  top: 1rem;
   left: 0;
   width: 100%;
   height: 3rem;
-  background: $c-black;
-  color: #fff;
+  color: $c-black;
   box-sizing: border-box;
   z-index: 3;
-  overflow: hidden;
-  transition: .4s height $easeOutQuint, .3s box-shadow, .4s padding-top $easeOutQuint, .3s background-color;
+  border-bottom: 1px solid transparent;
+  transition: .4s all $easeInOutQuint;
 
-  &.is-expanded {
-    height: 300px;
-    box-shadow: 0 5px 5px rgba(#000, .1);
-    background-color: $c-black !important;
-    color: #fff !important;
-  }
-  &.is-home {
-    color: $c-black;
-    background-color: transparent;
-
-    &.is-scrolled {
-      background-color: rgba($c-black, .98);
-      color: #fff;
-    }
-
-  }
-  &.is-scrolled {
-
-  }
-
-  .container {
-    position: relative;
-  }
-
-  @include desktop() {
-    top: 0;
+  @include tablet() {
+    top: 1rem;
     position: fixed;
     height: 5rem;
-    max-height: 5rem;
-    padding-top: 2.5rem;
-    box-shadow: none !important;
-    overflow: visible;
-
-    &.is-scrolled {
-      height: 3rem;
-      padding-top: .6rem;
-    }
   }
 
-  &__metanav {
-
-
-    ul {
-      li {
-        display: block;
-
-        a {
-          font-family: $f-body;
-          color: inherit;
-          text-decoration: none;
-          font-size: 1rem;
-          line-height: 1.75;
-
-          &:hover {
-            // border-bottom: 1px solid $c-main;
-            color: $c-main;
-          }
-        }
-      }
-    }
-
-    @include desktop() {
-      position: absolute;
-      right: 1rem;
-      top: 1.5rem;
-      width: 5rem;
-      background-color: $c-black;
-      text-align: right;
-      padding: .5rem;
-      padding-right: 30px;
-      display: none;
-      border-bottom-left-radius: 4px;
-      border-bottom-right-radius: 4px;
-      box-shadow: 0 2px 0 0 rgba($c-black, .2);
-
-      &.is-expanded {
-        display: block;
-      }
-
-      ul li a {
-        font-size: 1rem;
-      }
-    }
+  &.is-scrolled {
+    top: 0;
+    height: 3rem;
+    background-color: #fff;
+    border-bottom: 1px solid $c-grey-dark;
   }
 
   &__logo {
     display: block;
-    width: 30px;
-    height: 3rem;
+    width: 34px;
+    height: 50px;
     background-image: url('../assets/bikeable-logo-gr.svg');
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
-    transition: .4s transform $easeOutQuint;
+    transition: .4s transform $easeInOutQuint, .4s top $easeInOutQuint;
+    position: absolute;
+    left: 1rem;
+    top: 0;
 
     span {
       display: none;
     }
 
-    @include desktop() {
-      width: 63px;
-      height: 87px;
+    .is-scrolled & {
+      transform: translateY(-50%) scale(.8);
+      top: 50%;
+    }
+
+    @include tablet() {
+      width: 74px;
+      height: 100px;
       position: absolute;
-      left: 50%;
-      top: -1.5rem;
-      margin-left: -31px;
+      left: 2rem;
+      transform-origin: 0 0;
 
       .is-scrolled & {
-        transform: translateY(10px) scale(.7);
+        transform: scale(.4) translateY(-50%);
+        top: 50%;
       }
     }
   }
 
   .burger {
     display: block;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.75rem;
+    height: 24px;
     position: absolute;
-    top: .5rem;
+    top: 50%;
     right: 1rem;
     background-color: transparent;
     border: none;
+    cursor: pointer;
+    transform: translateY(-50%);
+
+    @include tablet {
+      right: 2rem;
+    }
 
     &::before {
       content: "";
       display: block;
       position: absolute;
-      top: 1rem;
+      top: 0;
       left: 0;
       width: 100%;
-      height: 3px;
-      background-color: $c-main;
-      box-shadow: 0 7px 0 0 $c-main, 0 -7px 0 0 $c-main;
+      height: 4px;
+      border-radius: 2px;
+      background-color: $c-black;
+      box-shadow: 0 9px 0 0 $c-black, 0 18px 0 0 $c-black;
+      transition: .5s background-color, .5s box-shadow;
     }
     &:focus {
       outline: none;
     }
+    &:hover {
+      &::before {
+        background-color: $c-main;
+        box-shadow: 0 9px 0 0 $c-main, 0 18px 0 0 $c-main;
+      }
+    }
   }
 
-  nav {
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-    padding-left: 0;
+  &__avatar {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 100%;
+    border: 2px solid $c-black;
+    transform: translateY(-50%);
+    background-color: #fff;
+    background-size: cover;
+    transition: .4s transform $easeInOutQuint, .5s border-color;
+
+    span {
+      display: none;
+    }
+
+    &.router-link-active {
+      border-color: $c-main;
+    }
+    .is-scrolled & {
+      transform: translateY(-50%) scale(.7);
+    }
+    &:hover {
+      border-color: $c-main;
+    }
+  }
+
+  &__mainnav {
+    display: none;
+    position: absolute;
+    right: 5rem;
+    top: 50%;
     font-family: $f-body;
+    transform: translateY(-50%);
+
+    .is-logged-in & {
+      right: 9rem;
+    }
 
     ul {
       list-style-type: none;
       padding: 0;
       margin: 0;
 
-      a {
-        color: inherit;
-        text-decoration: none;
-        font-size: 1rem;
+      li {
+        display: inline;
+        margin-right: .8rem;
         line-height: 1.75;
-        font-weight: 400;
-        // text-transform: uppercase;
+        font-size: .9rem;
 
-        &.router-link-active {
-          color: $c-main;
-          // border-bottom: 2px solid $c-main;
-          // font-weight: 700;
-          // text-decoration: underline;
-        }
-        &:hover {
-          color: $c-main;
-          // border-bottom: 2px solid #444;
-          // border-bottom: 1px solid $c-main;
-          // color: $c-main;
-        }
-      }
-    }
-    .username {
-      font-family: $f-body;
-      font-size: 1rem;
-      border-top: 1px solid lighten($c-black, 10%);
-      padding-top: .5rem;
-
-      @include desktop() {
-        border-top: none;
-        cursor: pointer;
-        font-size: 1rem;
-        line-height: 1.75;
-        position: relative;
-        padding-right: 30px;
-
-        &:hover {
-          color: #ccc;
-        }
-
-        &::after {
-          display: block;
-          position: absolute;
-          right: 0;
-          bottom: 3px;
-          content: "";
-          width: 20px;
-          height: 20px;
-          background-image: url('../assets/username-dropdown.png');
-          background-size: 100%;
-          margin-left: .5rem;
-
-          @include retina {
-            background-image: url('../assets/username-dropdown@2x.png');
-          }
-        }
-      }
-    }
-
-    &.nav-right {
-      margin-bottom: .5rem;
-    }
-
-    @include desktop() {
-      display: inline-block;
-      margin-bottom: 0;
-      margin-left: 0;
-      margin-top: 0;
-      padding-left: 0;
-
-      ul {
-
-        li {
-          display: inline;
-          margin-right: 1rem;
+        a {
+          color: #869098;
+          text-decoration: none;
+          font-size: 1rem;
           line-height: 1.75;
-          font-size: .9rem;
+          font-weight: 400;
 
-          a {
-            // letter-spacing: .03rem;
+          &.router-link-active {
+            color: $c-black;
+          }
+          &:hover {
+            color: $c-black;
           }
         }
       }
+    }
 
-      &.nav-right {
-        position: absolute;
-        top: 0;
-        right: 1rem;
-        margin-top: 0;
-        margin-bottom: 0;
+    @include tablet() {
+      display: block;
+    }
+  }
 
-        ul {
-          li {
-            margin-right: 0;
-            margin-left: 1rem;
+  &__menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+
+    &::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: .8;
+      background: rgba($c-black, 1);
+    }
+
+    &__inner {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 50%;
+      max-width: 450px;
+      min-width: 260px;
+      background-color: #fff;
+      padding: 3rem;
+      // overflow-y: scroll;
+    }
+    &__nav {
+      font-size: 2rem;
+      font-family: $f-head;
+      font-weight: 700;
+      margin-bottom: 2rem;
+
+      li {
+        margin-bottom: 1rem;
+
+        a {
+          color: $c-black;
+
+          &.router-link-active {
+            color: $c-main;
           }
+        }
+      }
+    }
+    &__nav-secondary {
+      font-size: 1rem;
+      font-family: $f-body;
+      font-weight: 400;
+      margin-bottom: 2rem;
+
+      > ul {
+        margin-bottom: 2rem;
+      }
+      li {
+        margin-bottom: .5rem;
+
+        a {
+          color: $c-black;
+        }
+      }
+    }
+    &__close {
+      display: block;
+      width: 1.5rem;
+      height: 1.5rem;
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+
+      &::before, &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: .75rem;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        border-radius: 2px;
+        background-color: $c-black;
+        transition: .5s background-color;
+      }
+      &::before {
+        transform: rotate(45deg);
+      }
+      &::after {
+        transform: rotate(-45deg);
+      }
+      &:focus {
+        outline: none;
+      }
+
+      &:hover {
+        &::before, &::after {
+          background: $c-main;
         }
       }
     }
   }
 
-  @include desktop() {
-    .burger {
-      display: none;
-    }
+}
+
+.nav-fade-enter-active, .nav-fade-leave-active {
+  transition: opacity .8s;
+
+  &::before {
+    transition: opacity .8s $easeOutQuint;
+  }
+  .header__menu__inner {
+    transition: transform .8s $easeOutQuint;
+  }
+}
+.nav-fade-enter {
+  &::before {
+    opacity: 0;
+  }
+  .header__menu__inner {
+    transform: translateX(100%);
+  }
+}
+.nav-fade-enter-to {
+  &::before {
+    opacity: .8;
+  }
+  .header__menu__inner {
+    transform: translateX(0);
+  }
+}
+// .nav-fade-leave {
+  // background-color: rgba($c-black, .8);
+// }
+.nav-fade-leave-to {
+  &::before {
+    opacity: 0;
+  }
+  .header__menu__inner {
+    transform: translateX(100%);
   }
 }
 

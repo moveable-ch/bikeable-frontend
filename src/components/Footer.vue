@@ -16,15 +16,18 @@
           <ul>
             <li><router-link to="/news">News</router-link></li>
             <li><router-link to="/faq" exact>FAQ</router-link></li>
-            <li><router-link to="/partner" exact>Partner</router-link></li>
+            <li><router-link to="/partner" exact>{{ $t('partner.partner') }}</router-link></li>
           </ul>
         </div>
       </div>
     </div>
     <div class="partner">
       <div class="container">
-        <span>Unterstützt von:</span>
-        <a href="http://www.veloplus.ch"><img src="/static/img/veloplus-footer.png" alt="veloplus.ch"></a>
+        <span>{{ $t('footer.supported') }}</span>
+        <div class="partner__logos">
+          <a target="_blank" href="https://www.veloplus.ch"><img src="/static/img/veloplus-footer.png" alt="veloplus.ch"></a>
+          <a target="_blank" href="https://www.pro-velo.ch"><img src="/static/img/provelo-footer.png" alt="provelo.ch"></a>
+        </div>
       </div>
     </div>
   </footer>
@@ -61,6 +64,8 @@ export default {
   width: 100%;
   color: #000;
   text-align: center;
+  border-bottom: 1px solid $c-grey-dark;
+  border-top: 1px solid $c-grey-dark;
 
   strong {
     font-weight: 700;
@@ -110,18 +115,23 @@ export default {
   }
 
   .partner {
-    background-color: $c-grey-dark;
+    background-color: $c-blue;
     padding: 1.5rem 0;
     margin-top: 1.5rem;
     color: #000;
 
+    &__logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     span {
       font-size: .8rem;
     }
     a {
       display: block;
       max-width: 150px;
-      margin: .5rem auto;
+      margin: .5rem 1rem;
 
       img {
         width: 100%;
@@ -135,7 +145,7 @@ export default {
     }
   }
 
-  @include desktop {
+  @include tablet {
     padding: 2rem 0 0 0;
     margin-top: 8rem;
 

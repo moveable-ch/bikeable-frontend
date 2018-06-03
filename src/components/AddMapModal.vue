@@ -1,10 +1,10 @@
 <template>
   <transition name="modal">
-    <div class="map-modal" @click="$emit('close')">
-      <div class="map-modal__inner" @click.stop>
+    <div class="add-map-modal" @click="$emit('close')">
+      <div class="add-map-modal__inner" @click.stop>
         <button class="btn-close" @click="$emit('close')">✕</button>
         <div class="gmaps" id="gmaps" ref="gmaps"></div>
-        <div class="map-modal__content">
+        <div class="add-map-modal__content">
           <p>Ziehe den Pin auf den gewünschten Standort</p>
           <a class="btn" href="#" @click.prevent="setLocation">OK</a>
         </div>
@@ -18,7 +18,7 @@ import mapstyle from '@/assets/gmaps.json';
 import GoogleMapsLoader from 'google-maps';
 
 export default {
-  name: 'map-modal-view',
+  name: 'add-map-modal-view',
   props: ['propCoords'],
   data () {
     return {
@@ -121,7 +121,7 @@ export default {
 
 @import '../styles/helpers';
 
-.map-modal {
+.add-map-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -135,10 +135,10 @@ export default {
   padding-top: 4rem;
   box-sizing: border-box;
 
-  @include desktop() {
+  @include tablet() {
     // padding-top: 9rem;
     padding-top: 0;
-    z-index: 2;
+    z-index: 4;
   }
 
   &__inner {
@@ -149,7 +149,7 @@ export default {
     margin: 0 1rem;
     position: relative;
 
-    @include desktop() {
+    @include tablet() {
       width: 80%;
       height: 80%;
     }
@@ -211,14 +211,14 @@ export default {
 // .modal-enter-active, .modal-leave-active {
 //   transition: 1s opacity;
 
-//   .map-modal__inner {
+//   .add-map-modal__inner {
 //     transition: 1s transform $easeOutQuint;
 //   }
 // }
 // .modal-enter, .modal-leave-to {
 //   opacity: 0;
 
-//   .map-modal__inner {
+//   .add-map-modal__inner {
 //     transform: translateY(100%);
 //     transition: .6s transform $easeInQuint;
 //   }

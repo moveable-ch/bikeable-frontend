@@ -2,42 +2,50 @@
 
 <template>
   <div class="list">
+    <div class="list__head">
+      <div class="list__regions">
+        <div class="container">
+          <router-link class="list__head__add" to="/add">{{ $t('home.addspot') }}</router-link>
+          <region-switch></region-switch>
+        </div>
+      </div>
+      <div class="list__controls">
+        <div class="container">
+          <div class="list__sort">
+            <span>{{ $t('list.sortby') }}:</span>
+            <select v-model="entrySort" @change="setSort">
+              <option value="date">{{ $t('list.date') }}</option>
+              <option value="votes">{{ $t('list.upvotes') }}</option>
+              <option v-if="userCoords" value="distance">{{ $t('list.distance') }}</option>
+              <option value="comments">{{ $t('list.comments') }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!--<div class="container">
+        <div class="list__tabs">
+          <a href="#" class="list__tabs__item" @click.prevent="entryFilter = null" v-bind:class="{ active: isCurrentFilter(null) }">{{ $t('list.allspots') }}</a>
+          <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--bad" @click.prevent="entryFilter = 'shamed'" v-bind:class="{ active: isCurrentFilter('shamed') }"><span>Shame</span></a>
+          <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--good" @click.prevent="entryFilter = 'famed'" v-bind:class="{ active: isCurrentFilter('famed') }"><span>Fame</span></a>
+        </div>
+      </div>-->
+    </div>
     <div class="container list__container">
-      <div class="list__sort">
-        <select v-model="entrySort" @change="setSort">
-          <option value="date">Datum</option>
-          <option value="votes">Upvotes</option>
-          <option v-if="userCoords" value="distance">Distanz</option>
-          <option value="comments">Kommentare</option>
-        </select>
+      <p v-if="listSpots.length < 1">{{ $t('list.nospots') }}</p>
+      <div class="list__entries">
+        <div class="list__entries__item" v-for="entry in listSpots" :key="entry._id">
+          <c-entry-preview :entry="entry"></c-entry-preview>
+        </div>
       </div>
-      <div class="list__tabs">
-        <a href="#" class="list__tabs__item" @click.prevent="entryFilter = null" v-bind:class="{ active: isCurrentFilter(null) }">Alle Spots</a>
-        <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--bad" @click.prevent="entryFilter = 'shamed'" v-bind:class="{ active: isCurrentFilter('shamed') }"><span>Shame</span></a>
-        <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--good" @click.prevent="entryFilter = 'famed'" v-bind:class="{ active: isCurrentFilter('famed') }"><span>Fame</span></a>
-      </div>
-      <ul class="list__entries">
-        <li v-for="entry in listSpots" class="list-entry" v-if="listSpots" v-bind:class="{ famed: entry.famed }" v-bind:key="entry._id">
-          <router-link :to="'/entries/' + entry._id" class="list-entry__link">
-            <span class="list-entry__image" :style="{ backgroundImage: 'url(' + entry.photo.small.url + ')' }"></span>
-            <span class="list-entry__content">
-              <h3>{{ entry.title }}</h3>
-              <span class="list-entry__date">{{ entry.user.name }}, {{ formatDate(entry.createdAt) }}</span>
-              <span class="list-entry__location">{{ entry.address }}</span>
-              <span v-if="entry.humanizedDistance" class="list-entry__distance">{{ entry.humanizedDistance }} entfernt</span>
-              <span class="list-entry__meta list-entry__meta--votes">{{ entry.votes }}</span>
-              <span class="list-entry__meta list-entry__meta--comments">{{ entry.commentCount }}</span>
-            </span>
-          </router-link>
-        </li>
-      </ul>
-      <a class="showmore" href="#" v-if="entryDisplayCapped && listSpots" @click.prevent="displayEntryCount += 10">Mehr Spots anzeigen</a>
+      <a class="btn btn--centered" href="#" v-if="entryDisplayCapped && listSpots" @click.prevent="displayEntryCount += 12">{{ $t('list.morespots') }}</a>
     </div>
   </div>
 </template>
 
 <script>
 import spots from '../api/spots';
+import EntryPreview from '@/components/EntryPreview';
+import RegionSwitch from '@/components/RegionSwitch';
 
 export default {
   name: 'v-list',
@@ -45,6 +53,10 @@ export default {
     title: 'Spots — Bikeable'
   },
   props: [],
+  components: {
+    'c-entry-preview': EntryPreview,
+    'region-switch': RegionSwitch
+  },
   computed: {
     allSpots() {
       return this.$store.getters.allSpots;
@@ -59,8 +71,10 @@ export default {
       return this.$store.getters.listSort;
     },
     entryDisplayCapped() {
-      // return true;
-      return (this.displayEntryCount < this.allSpots.length);
+      return (this.displayEntryCount == this.listSpots.length);
+    },
+    selectedRegion() {
+      return this.$store.getters.selectedRegion;
     }
   },
   data() {
@@ -69,7 +83,7 @@ export default {
       entryFilter: null,
       entrySort: 'date',
       entrySortDesc: true,
-      displayEntryCount: 15
+      displayEntryCount: 24
     }
   },
   watch: {
@@ -83,6 +97,9 @@ export default {
       this.getSpots();
     },
     'displayEntryCount': function(to, from) {
+      this.getSpots();
+    },
+    'selectedRegion' : function(to, from) {
       this.getSpots();
     }
   },
@@ -99,7 +116,8 @@ export default {
           location: coords,
           limit: this.displayEntryCount,
           filter: this.entryFilter,
-          sort: this.entrySort
+          sort: this.entrySort,
+          region: this.selectedRegion
         })
         .then((entries) => {
           this.$store.commit('LOAD_FINISH');
@@ -109,6 +127,7 @@ export default {
           this.$store.commit('LOAD_FINISH');
           this.$store.dispatch('handleError', 'Fehler');
         });
+
     },
     setSort() {
       this.$store.commit('SET_LIST_SORT', this.entrySort);
@@ -119,11 +138,6 @@ export default {
     },
     isCurrentSort(sort) {
       return this.entrySort == sort;
-    },
-    formatDate(date) {
-      if(!date) return '';
-      let d = new Date(date);
-      return d.toLocaleDateString('de-DE');
     }
   },
   mounted() {
@@ -131,7 +145,7 @@ export default {
     this.entryFilter = this.$store.getters.listFilter;
 
     this.getSpots();
-    this.$store.dispatch('getAllSpots');
+    // this.$store.dispatch('getAllSpots');
   }
 }
 </script>
@@ -141,358 +155,111 @@ export default {
 @import '../styles/helpers';
 
 .list {
-  padding: 1rem 0 4rem 0;
+  padding: 0 0 4rem 0;
+  // background: #fafafa;
+  margin-bottom: -1rem;
 
-  @include desktop {
-    padding: 2rem 1rem;
+  @include tablet {
+    padding: 0 0 4rem 0;
+    margin-bottom: -8rem;
+  }
+
+  &__head {
+    background-image: linear-gradient(-127deg, #FCFFD6 0%, #E2FDFF 100%);
+    padding-top: 5rem;
+    position: relative;
+    margin-bottom: 2rem;
+
+    @include tablet {
+      padding-top: 8rem;
+    }
+
+    &__add {
+      display: block;
+      margin-bottom: .5rem;
+      margin-top: -.75rem;
+      margin-left: -1rem;
+      width: calc(100% + 2rem);
+      background-color: rgba($c-main, .6);
+      color: #fff;
+      position: relative;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      padding: 0 1rem 0 1rem;
+      transition: .1s background-color, .1s border-color;
+      text-align: center;
+      box-sizing: border-box;
+
+      &::before {
+        content: "✚";
+        margin-right: .5rem;
+      }
+      &:hover {
+        border-color: $c-main;
+        background-color: rgba(#fff, .5);
+        color: $c-main;
+      }
+
+      @include tablet {
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+        transform: translateY(-50%);
+        right: 2rem;
+        background-color: transparent;
+        border-radius: 1rem;
+        color: $c-main;
+        border: 2px solid rgba($c-main, .3);
+        margin-top: 0;
+        height: 1.75rem;
+        line-height: 1.75rem;
+        width: auto;
+        z-index: 1;
+        box-sizing: content-box;
+      }
+    }
+  }
+  &__regions {
+    background-color: rgba($c-black, .05);
+    padding: .75rem 0;
+    position: relative;
+  }
+  &__controls {
+    background-color: rgba($c-black, .1);
+    padding: .75rem 0;
   }
 
   &__container {
     position: relative;
   }
-  .addlink {
-    display: block;
-    height: 3rem;
-    line-height: 3rem;
-    text-align: center;
-    text-decoration: none;
-    font-size: 1rem;
-    width: 100%;
-    max-width: 400px;
-    background-color: $c-main;
-    color: #fff;
-    font-weight: 500;
-    margin: 0 auto;
-    margin-bottom: 1.5rem;
-    font-family: $f-head;
-    font-weight: bold;
 
-    &:hover {
-      background-color: #333;
-    }
-  }
-  .filter-item {
-    margin-bottom: 5px;
-    height: 1.5rem;
-    overflow: hidden;
-    font-family: $f-head;
-
-    @include desktop() {
-      height: auto;
-    }
-
-    &.visible {
-      height: auto;
-
-      h3::before {
-        transform: rotate(-90deg);
-      }
-    }
-
-    h3 {
-      font-weight: 400;
-      color: #333;
-      margin: 0;
-      font-size: 1rem;
-      line-height: 1.5rem;
-      margin-bottom: .25rem;
-      color: #888;
-      padding-left: 1rem;
-      position: relative;
-
-      &::before {
-        content: ">";
-        position: absolute;
-        top: 0;
-        line-height: 1.5rem;
-        right: 1rem;
-        transform: rotate(90deg);
-      }
-
-      @include desktop() {
-        font-size: .8rem;
-
-        &::before {
-          display: none;
-        }
-      }
-    }
-    &__list {
-      margin-bottom: 1.5rem;
-
-      li {
-
-        a {
-          background-color: #f8f8f8;
-          display: block;
-          text-decoration: none;
-          color: #666;
-          line-height: 2rem;
-          padding: 0 1rem;
-          margin-bottom: 5px;
-          border: 2px solid #fff;
-          position: relative;
-          // border-radius: 4px;
-          transition: .2s color, .2s border-color;
-
-          &:hover, &.active {
-            border-color: $c-black;
-            color: $c-black;
-          }
-          &.disabled {
-            opacity: .4;
-            pointer-events: none;
-          }
-        }
-      }
-    }
-    &--sort {
-      .filter-item__list li a {
-        &.active::before {
-          content: "⇥";
-          color: inherit;
-          display: block;
-          position: absolute;
-          right: .5rem;
-          top: 0;
-          line-height: 2rem;
-          transform: rotate(90deg);
-          transition: .4s transform $easeOutQuint;
-        }
-        &.active.asc::before {
-          transform: rotate(-90deg);
-        }
-      }
-    }
-  }
-
-  ul.list__entries {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  .list__entries {
     margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 
-    @include desktop() {
+    @include tablet() {
       margin-top: 0;
     }
 
-    .list-entry {
-      margin-bottom: 1rem;
-      // border: 2px solid lighten($c-highlight, 35%);
-      // padding: 2px;
+    &__item {
+      width: 100%;
 
-      &__distance {
-        display: block;
-        color: $c-black;
-        font-size: .7rem;
-        font-weight: 400;
+      @include tablet {
+        width: calc(50% - 1rem);
       }
-      &__location {
-        display: block;
-        font-size: .75rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 100%;
-        margin-bottom: .2rem;
-        font-family: $f-body;
-        color: #888;
+      @include desktop {
+        width: calc(33.3% - 1.33rem);
       }
-      &__date {
-        display: block;
-        font-size: .7rem;
-        color: #888;
-        margin-bottom: .4rem;
-      }
-      &__link {
-        display: flex;
-        align-items: top;
-        width: 100%;
-        margin: 0 auto;
-        text-decoration: none;
-        color: #333;
-        // background-color: #fafafa;
-        // padding: .5rem;
-        box-sizing: border-box;
-        // border-left: 4px solid $c-highlight;
-        position: relative;
-        transition: .2s background-color;
-
-        &::after {
-          content: "";
-          display: none;
-          width: 100%;
-          height: 100%;
-          background-color: #fff;
-          background-image: linear-gradient(90deg, rgba($c-highlight, .2) 0%, rgba($c-highlight, .01) 100%);
-          position: absolute;
-          left: 0;
-          top: 0;
-        }
-
-        &:hover, &:focus {
-          background-color: #fafafa;
-
-          h3 {
-            color: $c-highlight;
-            // text-decoration: underline;
-          }
-          .list-entry__image::after {
-            opacity: 0;
-          }
-          .list-entry__meta {
-            color: #333;
-
-            &::before {
-              opacity: 1;
-            }
-          }
-        }
-
-        @include desktop() {
-          // padding: 1rem;
-        }
-      }
-      &__content {
-        flex-shrink: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        z-index: 1;
-      }
-      &__image {
-        flex-shrink: 0;
-        display: block;
-        width: 5rem;
-        height: 6rem;
-        background-size: cover;
-        background-position: center;
-        margin: 0 1rem 0 0;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        box-sizing: border-box;
-        box-shadow: 4px 4px 0 0 $c-highlight;
-
-        &::after {
-          content: "";
-          display: none;
-          width: 100%;
-          height: 100%;
-          position: absolute;
-          top: 0;
-          left: 0;
-          background-color: $c-highlight;
-          opacity: .2;
-          mix-blend-mode: color;
-          transition: .2s opacity;
-          // transition: .1s opacity;
-        }
-
-        @include desktop() {
-          width: 10rem;
-          height: 7rem;
-          margin: 0 1rem 0 0;
-        }
-      }
-      &__meta {
-        position: relative;
-        display: inline-block;
-        padding-left: 24px;
-        margin-right: 1rem;
-        margin-top: .7rem;
-        color: #888;
-        font-family: $f-body;
-        transition: .2s color;
-
-        &::before {
-          content: "";
-          display: block;
-          width: 18px;
-          height: 100%;
-          position: absolute;
-          top: 0;
-          left: 0;
-          background-size: 100%;
-          background-position: center;
-          background-repeat: no-repeat;
-          opacity: .5;
-          transition: .2s opacity;
-        }
-        &--votes::before {
-          background-image: url('../assets/upvote-small-filled.png');
-          @include retina {
-            background-image: url('../assets/upvote-small-filled@2x.png');
-          }
-        }
-        &--comments {
-          padding-left: 26px;
-        }
-        &--comments::before {
-          background-image: url('../assets/comment-small-filled.png');
-          @include retina {
-            background-image: url('../assets/comment-small-filled@2x.png');
-          }
-        }
-      }
-      h3 {
-        font-family: $f-body;
-        text-transform: none;
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: .2rem;
-        color: $c-black;
-        transition: .2s color;
-        line-height: 1.1;
-        margin-top: .5rem;
-
-        @include desktop() {
-          font-size: 1.1rem;
-        }
-      }
-
-      &.famed {
-        border-color: $c-main;
-
-        .list-entry__link::after {
-          background-image: linear-gradient(90deg, rgba($c-main, .3) 0%, #fff 70%);
-        }
-        .list-entry__link:hover h3, .list-entry__link:focus h3 {
-          color: $c-main;
-        }
-        .list-entry__link {
-          border-color: $c-main;
-        }
-        .list-entry__image {
-          box-shadow: 4px 4px 0 0 $c-main;
-        }
-      }
-
-    }
-  }
-  .showmore {
-    display: block;
-    text-align: center;
-    margin: 4rem auto 0 auto;
-    border: 2px solid $c-main;
-    max-width: 10rem;
-    padding: 1rem;
-    text-decoration: none;
-    font-size: .8rem;
-    color: $c-black;
-    width: 100%;
-
-    &:hover {
-      color: $c-main;
     }
   }
 
   &__tabs {
-    margin: 1rem 0 1rem 0;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 3.5rem;
-    padding-left: .5rem;
+    margin: 0 0 1rem 0;
+    margin-bottom: 2.5rem;
 
-    @include desktop() {
+    @include tablet() {
       padding-bottom: 0;
       margin-bottom: 2rem;
     }
@@ -500,28 +267,35 @@ export default {
     &__item {
       display: inline-block;
       text-decoration: none;
-      padding: 0 1rem;
+      padding: 0 .5rem;
       width: 32%;
-      font-size: .75rem;
+      font-size: .7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .02rem;
+      white-space: nowrap;
       text-align: center;
       height: 2rem;
       line-height: 2rem;
-      border: 1px solid #ddd;
-      color: #888;
       position: relative;
-      bottom: -1px;
+      bottom: 0;
       background-color: #fafafa;
       box-sizing: border-box;
+      color: lighten($c-black, 60%);
+      margin-right: -2px;
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
 
-      @include desktop() {
+      @include tablet() {
         width: 7rem;
+        font-size: .7rem;
+      }
+
+      &:hover::before {
+        opacity: 1;
       }
 
       &.active {
-        border-color: $c-black;
-        border-bottom-color: #fff;
         background-color: #fff;
         color: $c-black;
       }
@@ -534,68 +308,75 @@ export default {
         &::before {
           content: "";
           display: block;
-          width: 2.5rem;
-          height: 2.5rem;
+          width: 20px;
+          height: 20px;
           background-size: 100%;
           position: absolute;
-          top: -.25rem;
+          top: 50%;
           left: 50%;
-          margin-left: -1.25rem;
-          background-image: url('../assets/thumbs-down.png');
-          opacity: .6;
-          transform: scale(.8);
-          transition: .2s transform $easeOutQuint, .2s opacity;
+          margin-left: -10px;
+          margin-top: -10px;
+          background-image: url('../assets/tab-shame.png');
+          opacity: .4;
+
+          @include retina {
+            background-image: url('../assets/tab-shame@2x.png');
+          }
+          @include tablet {
+            width: 27px;
+            height: 27px;
+            margin-left: -13px;
+            margin-top: -13px;
+          }
         }
 
         &.active {
 
           &::before {
             opacity: 1;
-            transform: scale(1);
           }
         }
       }
       &--good {
         &::before {
-          background-image: url('../assets/thumbs-up.png');
+          background-image: url('../assets/tab-fame.png');
+          @include retina {
+            background-image: url('../assets/tab-fame@2x.png');
+          }
         }
       }
     }
   }
 
   &__sort {
-    position: absolute;
-    top: 2.5rem;
-    right: 1rem;
+    // position: absolute;
+    // top: 2rem;
+    // right: 1rem;
+    font-size: .8rem;
 
-    @include desktop() {
-      top: 0;
-    }
-
-    &::after {
-      content: "↙";
-      position: absolute;
-      left: 0rem;
-      top: .5rem;
-      color: #888;
-      pointer-events: none;
-      transform: rotate(-45deg);
+    @include tablet() {
+      bottom: 0;
+      right: 1rem;
+      top: auto;
     }
 
     select {
       font-family: $f-body;
-      color: #888;
+      color: $c-black;
       padding: 0;
-      font-size: .9rem;
-      width: 100%;
+      font-size: .8rem;
+      font-weight: 600;
+      width: auto;
       border: none;
+      text-decoration: underline;
       border-radius: 0;
       box-shadow: none;
       background: transparent;
       background-image: none;
       -webkit-appearance: none;
-      padding-left: 1.5rem;
-      line-height: 2rem;
+      -moz-appearance: none;
+      line-height: 1;
+      margin-left: .5rem;
 
       &::-ms-expand {
         display: none;
@@ -607,7 +388,7 @@ export default {
         border-color: #333;
       }
 
-      @include desktop() {
+      @include tablet() {
         border-bottom: none;
       }
     }

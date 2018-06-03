@@ -3,10 +3,12 @@
 <template>
   <div class="contentpage about">
     <div class="container" v-if="doc">
+      <h1>{{ doc.title }}</h1>
+      <p class="lead" v-html="doc.lead"></p>
       <div v-html="doc.text"></div>
 
       <div class="about__paypal">
-        <h3>Unterstütze uns via PayPal:</h3>
+        <h3>{{ $t('about.paypal') }}</h3>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
         <input type="hidden" name="cmd" value="_s-xclick">
         <input type="hidden" name="hosted_button_id" value="QLV8ZWA3FCS3S">
@@ -39,6 +41,16 @@ export default {
       doc: null
     }
   },
+  watch: {
+    'prismicLang' (to, from) {
+      this.$store.commit('LOAD_START');
+
+      this.getData().then(data => {
+        this.$store.commit('LOAD_FINISH');
+        this.doc = data;
+      });
+    }
+  },
   mounted() {
     this.$store.commit('LOAD_START');
 
@@ -47,16 +59,23 @@ export default {
       this.doc = data;
     });
   },
+  computed: {
+    prismicLang() {
+      return this.$store.getters.prismicLang;
+    }
+  },
   methods: {
     getData() {
-      return Prismic.api("https://bikeable.prismic.io/api").then(function(api) {
+      return Prismic.api("https://bikeable.prismic.io/api").then((api) => {
         return api.query(
           Prismic.Predicates.at('document.type', 'about'),
-          {}
+          { lang: this.prismicLang }
         );
-      }).then(function(payload) {
+      }).then((payload) => {
+        if(!payload.results[0]) return {};
         const y = {};
         y.title = payload.results[0].getText('about.title');
+        y.lead = payload.results[0].getText('about.lead');
         y.text = payload.results[0].getStructuredText('about.text').asHtml();
         return y;
       }, function(err) {
@@ -73,6 +92,14 @@ export default {
 
 .about {
 
+
+  &__paypal {
+    text-align: center;
+
+    h3 {
+      margin: 1rem auto;
+    }
+  }
 }
 
 

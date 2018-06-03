@@ -44,6 +44,9 @@ export default {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
     },
+    mapCenter() {
+      return this.$store.getters.mapCenter;
+    },
     isEmbed() {
       return this.$route.query.embed;
     },
@@ -52,7 +55,7 @@ export default {
 
       let locArray = this.$route.query.center.split(',');
       if(locArray.length != 2) return false;
-      
+
       let parsedLoc = {
         lat: parseFloat(locArray[0]),
         lng: parseFloat(locArray[1])
@@ -74,7 +77,8 @@ export default {
       clickedCoords: null,
       showModal: false,
       showSponsorModal: false,
-      markerOffset: {x:0,y:0}
+      markerOffset: {x:0,y:0},
+      markers: []
     }
   },
 
@@ -85,6 +89,11 @@ export default {
   },
 
   beforeDestroy() {
+    let center = {
+      lat: this.map.getCenter().lat(),
+      lng: this.map.getCenter().lng()
+    }
+    this.$store.dispatch('setMapCenter', center);
   },
 
   watch: {
@@ -106,7 +115,7 @@ export default {
       GoogleMapsLoader.KEY = 'AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI';
       GoogleMapsLoader.LANGUAGE = 'de';
 
-      GoogleMapsLoader.load(function(google) {
+      GoogleMapsLoader.load((google) => {
         this.google = google;
 
         let center = {lat: 47.377235, lng: 8.5314407};
@@ -114,6 +123,9 @@ export default {
 
         if(this.queryLocation) {
           center = this.queryLocation;
+        }
+        if(this.mapCenter) {
+          center = this.mapCenter;
         }
 
         let zoom = 15;
@@ -133,11 +145,17 @@ export default {
           styles: mapstyle
         });
 
+
+        google.maps.event.addListener(this.map, 'zoom_changed', () => {
+          this.setMarkerIcons();
+        });
+
         this.renderMarkers();
         this.renderSponsors();
+        this.setMarkerIcons();
         this.locateUser();
 
-      }.bind(this));
+      });
 
     },
 
@@ -200,6 +218,36 @@ export default {
 
     },
 
+    setMarkerIcons() {
+
+      this.markers.forEach((marker) => {
+        let icon = {};
+        if(this.map.zoom > 14) {
+          let imgurl = 'static/img/marker-bad.png';
+
+          if(marker.famed) imgurl = 'static/img/marker-good.png';
+          if(marker.fixed) imgurl = 'static/img/marker-fixed.png';
+
+          icon = {
+            url: imgurl,
+            scaledSize: new google.maps.Size(22, 30)
+          }
+        }else{
+          let imgurl = 'static/img/marker-bad_s.png';
+
+          if(marker.famed) imgurl = 'static/img/marker-good_s.png';
+          if(marker.fixed) imgurl = 'static/img/marker-fixed_s.png';
+
+          icon = {
+            url: imgurl,
+            scaledSize: new google.maps.Size(10, 10)
+          }
+        }
+        marker.instance.setIcon(icon);
+      });
+
+    },
+
     renderMarkers() {
 
       if(!this.entries || !this.google) return;
@@ -220,6 +268,12 @@ export default {
           position: entry.coords,
           map: this.map,
           icon: icon
+        });
+
+        this.markers.push({
+          instance: marker,
+          famed: entry.famed,
+          fixed: entry.fixed
         });
 
         marker.addListener('click', function(e) {
@@ -267,24 +321,43 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(100vh - 3rem);
+  height: 100vh;
   background-color: #fff;
-
-  @include desktop {
-    height: calc(100vh - 5rem);
-  }
 
   .embed & {
     height: 100vh;
     top: 0;
   }
+  &::before, &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
+  }
+
+  @include tablet {
+    height: 100vh;
+
+    &::before, &::after {
+      height: 7rem;
+    }
+  }
 }
 .gmaps {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 5rem);
+
+  @include tablet {
+    height: calc(100% - 7rem);
+  }
 }
 
 .spot-nav {

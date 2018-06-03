@@ -1,8 +1,9 @@
 import axios from 'axios';
+var config = require('../../config');
 
 export default {
   getUserData({ userId, authToken }) {
-    let url = 'https://backend.bikeable.ch/api/v1/users/current';
+    let url = process.env.BACKEND_URL + '/api/v1/users/current';
 
     return new Promise((resolve, reject) => {
       axios.get(url, {
@@ -20,7 +21,7 @@ export default {
   },
 
   updateUser({ userId, authToken }, data) {
-    let url = 'https://backend.bikeable.ch/api/v1/users';
+    let url = process.env.BACKEND_URL + '/api/v1/users';
 
     return new Promise((resolve, reject) => {
       axios.put(url, data,

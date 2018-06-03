@@ -1,13 +1,13 @@
 <template>
-  <div id="app">
+  <div id="app" v-if="appReady">
     <transition name="fade">
-      <div class="loader" v-if="pending" ></div>
+      <div class="loader" v-if="pendingCount > 0" ></div>
     </transition>
     <transition name="slide-down">
       <div class="msg" v-if="msg"><span>{{ msg }}</span></div>
     </transition>
     <c-header v-if="!isEmbed"></c-header>
-    <transition :name="transitionName" mode="out-in">
+    <transition name="route-fade" mode="out-in">
       <router-view></router-view>
     </transition>
     <c-footer v-if="showFooter"></c-footer>
@@ -25,6 +25,7 @@ export default {
   },
   data () {
     return {
+      appReady: false,
       transitionName: 'fade',
       showFooter: true
     }
@@ -40,6 +41,9 @@ export default {
       if(this.isEmbed) {
         document.body.classList.add('embed');
       }
+    },
+    currentLang (to, from) {
+      this.$i18n.locale = to;
     }
   },
   computed: {
@@ -49,11 +53,14 @@ export default {
     msg() {
       return this.$store.getters.msg;
     },
-    pending() {
-      return this.$store.getters.pending;
+    pendingCount() {
+      return this.$store.getters.pendingCount;
     },
     isEmbed() {
       return this.$route.query.embed;
+    },
+    currentLang() {
+      return this.$store.getters.lang;
     }
   },
   components: {
@@ -61,6 +68,9 @@ export default {
     'c-footer': Footer
   },
   mounted() {
+    this.checkLocalLang();
+    this.checkLocalRegion();
+
     if(this.isEmbed) {
       document.body.classList.add('embed');
     }
@@ -78,6 +88,36 @@ export default {
     }
 
     if(this.$router.currentRoute.name == 'map') this.showFooter = false;
+
+    this.appReady = true;
+  },
+  methods: {
+    checkLocalLang() {
+      let l = localStorage.getItem('lang');
+
+      if(!l) {
+        const userLang = navigator.language.substr(0,2);
+        if(["de", "en", "fr"].indexOf(l) >= -1) l = userLang;
+      }
+
+      if(l) {
+        this.$store.dispatch('setLang', l)
+        .then((data) => {
+          }, (data) => {
+            this.$store.dispatch('handleError', 'Error');
+          });
+      }
+    },
+    checkLocalRegion() {
+      let r = localStorage.getItem('selectedRegion');
+      if(r) {
+        this.$store.dispatch('setSelectedRegion', r)
+        .then((data) => {
+          }, (data) => {
+            this.$store.dispatch('handleError', 'Error');
+          });
+      }
+    }
   }
 }
 </script>
@@ -96,6 +136,13 @@ export default {
   transition: opacity .2s;
 }
 .fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.route-fade-enter-active, .route-fade-leave-active {
+  transition: opacity .3s;
+}
+.route-fade-enter, .route-fade-leave-to {
   opacity: 0;
 }
 

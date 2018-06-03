@@ -42,7 +42,7 @@
         <div class="entry__meta__location">
           <a @click.prevent="showMapModal = true" href="#">{{ currentEntry.address }}</a>
         </div>
-        <div class="entry__meta__regions">
+        <div class="entry__meta__regions" v-if="currentEntry.regions.length > 0">
           <ul>
             <li v-for="region in currentEntry.regions" v-bind:key="region._id">{{ region.name }}</li>
           </ul>

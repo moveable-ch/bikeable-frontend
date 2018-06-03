@@ -282,7 +282,7 @@ export default {
 @import '../styles/helpers';
 
 .add {
-  margin: 2rem 0;
+  // margin: 2rem 0;
 
   h1 {
     // margin-top: 3rem;

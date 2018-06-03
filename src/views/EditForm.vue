@@ -281,7 +281,7 @@ export default {
 
 @import '../styles/helpers';
 
-.add {
+.edit {
   // margin: 2rem 0;
 
   h1 {

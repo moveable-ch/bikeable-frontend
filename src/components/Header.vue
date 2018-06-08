@@ -7,6 +7,7 @@
       <ul>
         <li><router-link to="/news" exact>News</router-link></li>
         <li><router-link to="/entries" exact>Spots</router-link></li>
+        <li v-if="isLoggedIn"><router-link to="/myentries" exact>My Spots</router-link></li>
         <li><router-link to="/map" exact>Map</router-link></li>
         <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
         <li><language-switch></language-switch></li>

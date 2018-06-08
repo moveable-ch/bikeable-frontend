@@ -4,12 +4,12 @@ import Router from 'vue-router'
 import Home from '@/views/Home'
 import Map from '@/views/Map'
 import List from '@/views/List'
+import MyList from '@/views/MyList'
 import About from '@/views/About'
 import FAQ from '@/views/FAQ'
 import Partner from '@/views/Partner'
 import Entry from '@/views/Entry'
 import AddForm from '@/views/AddForm'
-import EditForm from '@/views/EditForm'
 import LoginForm from '@/views/LoginForm'
 import RegisterForm from '@/views/RegisterForm'
 import PasswordRetrieval from '@/views/PasswordRetrieval'
@@ -65,7 +65,7 @@ export default new Router({
         {
       path: '/edit/:id',
       name: 'edit',
-      component: EditForm
+      component: AddForm
     },
     {
       path: '/register',

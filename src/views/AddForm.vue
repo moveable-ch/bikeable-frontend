@@ -9,7 +9,7 @@
       :propCoords="entryCoords">
     </map-modal-view>
     <div class="container">
-      <h1>{{ $t('addform.addspot') }}</h1>
+      <h1>{{ $t('addform.addspot') }} </h1>
       <form @submit.prevent="postEntry">
         <h3><span class="num">1</span>{{ $t('addform.photo') }}</h3>
         <span class="label">{{ $t('addform.uploadimage') }}</span>
@@ -64,6 +64,7 @@
 <script>
 import axios from 'axios';
 import AddMapModal from '@/components/AddMapModal';
+import spots from '../api/spots'
 
 export default {
   name: 'v-add-form',
@@ -73,6 +74,21 @@ export default {
   },
   data () {
     return {
+
+      entryId: 0,
+      loadingData: true,
+      currentEntry: {
+        title: ' ',
+        user: {
+          name: ''
+        },
+        photo: {
+          large: '',
+          medium: ''
+        },
+        famed: false
+      },
+
       showMapModal: false,
       addressPending: false,
 
@@ -94,18 +110,60 @@ export default {
       return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.imageId != null && this.entryFamed != null);
     },
     imagePreviewUrl() {
-      return process.env.BACKEND_URL + '/api/v1/photos/' + this.imageId + '?size=small';
+
+      if(this.imageId) {
+        return process.env.BACKEND_URL + '/api/v1/photos/' + this.imageId + '?size=small';
+      } else {
+        return this.currentEntry.photo.small.url;
+      }
     }
   },
 
   watch: {
+    'currentEntry': function() {
+      this.fillForm();
+    },  
   },
 
   mounted() {
     this.handleParamCoords();
+
+    if (this.$route.params.id) {
+      this.loadEntry()
+    }
   },
 
   methods: {
+    loadEntry() {
+      this.entryId = this.$route.params.id;
+      this.$store.commit('LOAD_START');
+
+      spots.getSpotById(this.entryId)
+        .then((data) => {
+          this.currentEntry = data;
+          this.loadingData = false;
+          this.$store.commit('LOAD_FINISH');
+          this.$emit('updateHead');
+        },
+        (error) => {
+          this.$store.commit('LOAD_FINISH');
+          this.$router.push('/edit/'+this.$route.params.id);
+          this.$store.dispatch('handleError', 'Spot nicht gefunden');
+        });
+    },
+
+    fillForm() {
+
+      this.entryAddress = this.currentEntry.address,
+      this.entryAddressDetails = this.currentEntry.addressDetails,
+      this.entryCoords = this.currentEntry.coords,
+      this.entryTitle = this.currentEntry.title,
+      this.entryText = this.currentEntry.text,
+      this.entryFamed = this.currentEntry.famed ? "famed" : "shamed",
+      this.imageChosen = true
+
+    },
+
     imageLoadError() {
       console.log('image load error');
     },
@@ -232,8 +290,6 @@ export default {
 
       axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.entryAddress + '&key=AIzaSyDSPhuEAL3Hv0zmbnhGQlTu9ax0uLXmuOE')
       .then(response => {
-
-        console.log(response);
 
         if(response.data.results[0]) {
           var addressDetails = this.geocodeResultToAdress(response);

@@ -58,6 +58,11 @@ export default new Router({
       component: Entry
     },
     {
+      path: '/myentries',
+      name: 'mylist',
+      component: MyList
+    },
+    {
       path: '/add',
       name: 'add',
       component: AddForm

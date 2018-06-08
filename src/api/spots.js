@@ -39,7 +39,46 @@ export default {
         });
     });
   },
+  getMySpots( { limit, filter, sort, order, location } ) {
 
+    let userId = localStorage.getItem('userId');
+    let authToken = localStorage.getItem('token');
+
+    let url = process.env.BACKEND_URL + '/api/v1/myentries';
+
+    let sortParam = sort ? sort : 'votes';
+    let orderParam = order ? order : 'descending';
+    let filterParam = filter ? filter : null;
+    let limitParam = limit ? limit : null;
+
+    let params = new URLSearchParams();
+    if(location) {
+      params.append('lat', location.lat);
+      params.append('lng', location.lng);
+    }
+
+    params.append('sort', sortParam);
+    if(limit) params.append('limit', limitParam);
+    if(filterParam) params.append('filter', filterParam);
+
+    return new Promise((resolve, reject) => {
+      axios.get(url, 
+        { params: params,
+        headers: {
+          'X-User-Id': userId,
+          'X-Auth-Token': authToken
+        }
+        })
+        .then(response => {
+          resolve(response.data.data);
+        }, error => {
+          console.log(error.request);
+          if(!error.request.response) reject('');
+          let msg = JSON.parse(error.request.response);
+          reject(msg.message);
+        });
+    });
+  },
   getSpotById(spotId) {
     let url = process.env.BACKEND_URL + '/api/v1/entries/' + spotId;
 

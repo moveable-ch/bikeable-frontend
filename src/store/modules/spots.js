@@ -8,6 +8,7 @@ const state = {
 
 const getters = {
   allSpots: state => state.allSpots,
+  mySpots: state => state.mySpots,
   listSort: state => state.listSort,
   listFilter: state => state.listFilter
 }
@@ -31,7 +32,6 @@ const actions = {
         dispatch('handleError', error);
       });
   },
-
   addSpot({ commit, dispatch }, data) {
     commit('LOAD_START');
 

@@ -149,7 +149,14 @@ export default {
             position: google.maps.ControlPosition.RIGHT_TOP
           }
         });
+        this.map.data.setStyle({
+          fillColor: 'transparent',
+          strokeWeight: 5,
+          strokeOpacity: 0.3,
+          strokeColor: "#14bdcc"
+        });
 
+        this.map.data.loadGeoJson('/static/json/regions.json');
 
         google.maps.event.addListener(this.map, 'zoom_changed', () => {
           this.setMarkerIcons();

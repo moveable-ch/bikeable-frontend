@@ -112,12 +112,7 @@ export default {
       return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.imageId != null && this.entryFamed != null);
     },
     imagePreviewUrl() {
-
-      if(this.currentEntry.photo.small.url) {
-        return this.currentEntry.photo.small.url;
-      } else {
         return process.env.BACKEND_URL + '/api/v1/photos/' + this.imageId + '?size=small';
-      }
     }
   },
 

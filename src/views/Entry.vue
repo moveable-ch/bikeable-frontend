@@ -26,6 +26,7 @@
       @vote="upvoteEntry()">
     </entry-media-view>
     <div class="entry__container" v-if="!loadingData">
+      <span v-if="isLoggedIn && entryIsFromUser" class="entry__edit btn btn--centered"><a :href="'/edit/' + currentEntry._id">Spot bearbeiten</a></span>
       <div class="lead">
         <span v-if="currentEntry.fixed" class="lead__fixed">Fixed!</span>
         <p class="lead__desc">{{ currentEntry.text }}</p>
@@ -148,7 +149,7 @@ export default {
       return this.currentEntry.title;
     },
     entryIsFromUser() {
-      return this.currentEntry.user._id = this.$store.getters.userData._id;
+      return this.currentEntry.user._id === this.userData._id;
     },
     userData() {
       return this.$store.getters.userData;
@@ -504,6 +505,9 @@ export default {
           font-size: 2.5rem;
         }
       }
+    }
+    &__edit {
+
     }
     &__votes {
       width: 100%;

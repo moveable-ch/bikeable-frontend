@@ -44,7 +44,7 @@ export default {
     let userId = localStorage.getItem('userId');
     let authToken = localStorage.getItem('token');
 
-    let url = process.env.BACKEND_URL + '/api/v1/myentries';
+    let url = process.env.BACKEND_URL + '/api/v1/entries';
 
     let sortParam = sort ? sort : 'votes';
     let orderParam = order ? order : 'descending';
@@ -52,22 +52,16 @@ export default {
     let limitParam = limit ? limit : null;
 
     let params = new URLSearchParams();
-    if(location) {
-      params.append('lat', location.lat);
-      params.append('lng', location.lng);
-    }
+
 
     params.append('sort', sortParam);
+    params.append('user', userId);
     if(limit) params.append('limit', limitParam);
     if(filterParam) params.append('filter', filterParam);
 
     return new Promise((resolve, reject) => {
       axios.get(url, 
-        { params: params,
-        headers: {
-          'X-User-Id': userId,
-          'X-Auth-Token': authToken
-        }
+        { params: params
         })
         .then(response => {
           resolve(response.data.data);

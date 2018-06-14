@@ -15,7 +15,6 @@
             <select v-model="entrySort" @change="setSort">
               <option value="date">{{ $t('list.date') }}</option>
               <option value="votes">{{ $t('list.upvotes') }}</option>
-              <option v-if="userCoords" value="distance">{{ $t('list.distance') }}</option>
               <option value="comments">{{ $t('list.comments') }}</option>
             </select>
           </div>
@@ -54,9 +53,6 @@ export default {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
     },
-    userCoords() {
-      return this.$store.getters.userCoords;
-    },
     listSort() {
       return this.$store.getters.listSort;
     },
@@ -79,9 +75,6 @@ export default {
       this.displayEntryCount = 15;
 
       this.$store.commit('SET_LIST_FILTER', this.entryFilter);
-    },
-    'userCoords': function(to, from) {
-      this.getSpots();
     },
     'displayEntryCount': function(to, from) {
       this.getSpots();

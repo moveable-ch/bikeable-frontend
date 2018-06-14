@@ -16,7 +16,7 @@
             </div>
           </div>
           <button class="btn-close" @click="$emit('close')">✕</button>
-          <button class="btn-show" @click="showEntry">Spot anzeigen</button>
+          <button class="btn-show" @click="showEntry">{{ $t('list.showspot') }}</button>
         </div>
       </transition>
     </div>

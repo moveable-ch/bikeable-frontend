@@ -10,7 +10,7 @@
           <input type="email" v-model="formEmail">
         </label>
         <label>
-          <span>Passwort</span>
+          <span>{{ $t('register.password') }}</span>
           <input type="password" v-model="formPassword">
         </label>
         <button type="submit" class="btn">Login</button>

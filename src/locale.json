@@ -54,7 +54,8 @@
       "distance": "Distanz",
       "comments": "Kommentare",
       "allspots": "Alle Spots",
-      "morespots": "Mehr Spots anzeigen"
+      "morespots": "Mehr Spots anzeigen",
+      "showspot": "Spot anzeigen"
     },
     "login": {
       "forgotpassword": "Passwort vergessen?",
@@ -147,7 +148,8 @@
       "distance": "Distance",
       "comments": "Comments",
       "allspots": "All Spots",
-      "morespots": "Show more spots"
+      "morespots": "Show more spots",
+      "showspot": "Show spot"
     },
     "login": {
       "forgotpassword": "Forgot your password?",
@@ -240,7 +242,8 @@
       "distance": "Distance",
       "comments": "Commentaires",
       "allspots": "Tous les spots",
-      "morespots": "Afficher plus de spots"
+      "morespots": "Afficher plus de spots",
+      "showspot": "Afficher le spot"
     },
     "login": {
       "forgotpassword": "Mot de passe oublié",

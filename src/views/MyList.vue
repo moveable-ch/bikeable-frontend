@@ -1,16 +1,16 @@
 <!-- /entries/my -->
 
 <template>
-  <div class="list">
-    <div class="list__head">
-      <div>
+  <div class="mylist">
+    <div class="mylist__head">
+      <!--<div>
         <div class="container">
-          <router-link class="list__head__add" to="/add">{{ $t('home.addspot') }}</router-link>
+          <router-link class="mylist__head__add" to="/add">{{ $t('home.addspot') }}</router-link>
         </div>
-      </div>
-      <div class="list__controls">
+      </div>-->
+      <div class="mylist__controls">
         <div class="container">
-          <div class="list__sort">
+          <div class="mylist__sort">
             <span>{{ $t('list.sortby') }}:</span>
             <select v-model="entrySort" @change="setSort">
               <option value="date">{{ $t('list.date') }}</option>
@@ -21,10 +21,10 @@
         </div>
       </div>
     </div>
-    <div class="container list__container">
+    <div class="container mylist__container">
       <p v-if="listSpots.length < 1">{{ $t('list.nospots') }}</p>
-      <div class="list__entries">
-        <div class="list__entries__item" v-for="entry in listSpots" :key="entry._id">
+      <div class="mylist__entries">
+        <div class="mylist__entries__item" v-for="entry in listSpots" :key="entry._id">
           <c-entry-preview :entry="entry"></c-entry-preview>
         </div>
       </div>
@@ -38,7 +38,7 @@ import spots from '../api/spots';
 import EntryPreview from '@/components/EntryPreview';
 
 export default {
-  name: 'v-list',
+  name: 'v-mylist',
   metaInfo: {
     title: 'Spots — Bikeable'
   },
@@ -123,7 +123,7 @@ export default {
 
 @import '../styles/helpers';
 
-.list {
+.mylist {
   padding: 0 0 4rem 0;
   // background: #fafafa;
   margin-bottom: -1rem;
@@ -197,7 +197,7 @@ export default {
     position: relative;
   }
 
-  .list__entries {
+  .mylist__entries {
     margin-top: 1rem;
     display: flex;
     flex-wrap: wrap;
@@ -219,103 +219,7 @@ export default {
     }
   }
 
-  &__tabs {
-    margin: 0 0 1rem 0;
-    margin-bottom: 2.5rem;
-
-    @include tablet() {
-      padding-bottom: 0;
-      margin-bottom: 2rem;
-    }
-
-    &__item {
-      display: inline-block;
-      text-decoration: none;
-      padding: 0 .5rem;
-      width: 32%;
-      font-size: .7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .02rem;
-      white-space: nowrap;
-      text-align: center;
-      height: 2rem;
-      line-height: 2rem;
-      position: relative;
-      bottom: 0;
-      background-color: #fafafa;
-      box-sizing: border-box;
-      color: lighten($c-black, 60%);
-      margin-right: -2px;
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
-
-      @include tablet() {
-        width: 7rem;
-        font-size: .7rem;
-      }
-
-      &:hover::before {
-        opacity: 1;
-      }
-
-      &.active {
-        background-color: #fff;
-        color: $c-black;
-      }
-
-      &--icon {
-        span {
-          visibility: hidden;
-        }
-
-        &::before {
-          content: "";
-          display: block;
-          width: 20px;
-          height: 20px;
-          background-size: 100%;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          margin-left: -10px;
-          margin-top: -10px;
-          background-image: url('../assets/tab-shame.png');
-          opacity: .4;
-
-          @include retina {
-            background-image: url('../assets/tab-shame@2x.png');
-          }
-          @include tablet {
-            width: 27px;
-            height: 27px;
-            margin-left: -13px;
-            margin-top: -13px;
-          }
-        }
-
-        &.active {
-
-          &::before {
-            opacity: 1;
-          }
-        }
-      }
-      &--good {
-        &::before {
-          background-image: url('../assets/tab-fame.png');
-          @include retina {
-            background-image: url('../assets/tab-fame@2x.png');
-          }
-        }
-      }
-    }
-  }
-
   &__sort {
-    // position: absolute;
-    // top: 2rem;
-    // right: 1rem;
     font-size: .8rem;
 
     @include tablet() {
@@ -357,16 +261,6 @@ export default {
       }
     }
   }
-}
-
-
-.list-complete-enter, .list-complete-leave-to
-/* .list-complete-leave-active for <2.1.8 */ {
-  opacity: 0;
-  // transform: translateX(30px);
-}
-.list-complete-leave-active {
-  position: absolute;
 }
 
 </style>

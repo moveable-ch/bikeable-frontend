@@ -473,21 +473,21 @@ export default {
       font-size: 1rem;
       text-decoration: none;
       font-weight: 400;
-      background-color: rgba(#fff, .2);
+      background-color: #fff;
       padding: 0 2rem;
       margin-left: 0;
       margin-top: 2rem;
       color: $c-black;
-      border: 2px solid rgba($c-black, .2);
+      border: 2px solid #fff;
+      box-shadow: 0 10px 25px -5px rgba($c-black, .2);
       opacity: 0;
       line-height: 2.5rem;
-      border-radius: 1.25rem;
-      transition: .1s border-color, .1s background-color;
+      border-radius: 4px;
+      transition: .3s border-color;
       animation: headline 1s $easeOutQuint .9s 1 normal forwards;
 
       &:hover {
-        border-color: $c-main;
-        background-color: rgba(#fff, .5);
+        border-color: rgba($c-main, .5);
       }
     }
     h1 {

@@ -75,7 +75,7 @@ export default {
   data () {
     return {
 
-      entryId: 0,
+      entryId: null,
       loadingData: true,
       currentEntry: {
         title: ' ',
@@ -334,19 +334,36 @@ export default {
     postEntry(e) {
       if(!this.formReady) return;
 
-      this.$store.dispatch('addSpot', {
-          title: this.entryTitle,
-          text: this.entryText,
-          imageId: this.imageId,
-          address: this.entryAddress,
-          addressDetails: this.entryAddressDetails,
+      if(this.entryId) {
 
-          coords: this.entryCoords,
-          famed: this.entryFamed == "famed"
-        })
-      .then((data) => {
-          this.$router.push('/entries/' + data._id);
-        });
+        this.$store.dispatch('editSpot', {data: {
+            title: this.entryTitle,
+            text: this.entryText,
+            imageId: this.imageId,
+            address: this.entryAddress,
+            coords: this.entryCoords,
+            famed: this.entryFamed == "famed"
+          }, spotId: this.entryId})
+        .then((data) => {
+            this.$router.push('/entries/' + data._id);
+          });
+        
+      } else {
+
+        this.$store.dispatch('addSpot', {
+            title: this.entryTitle,
+            text: this.entryText,
+            imageId: this.imageId,
+            address: this.entryAddress,
+            addressDetails: this.entryAddressDetails,
+
+            coords: this.entryCoords,
+            famed: this.entryFamed == "famed"
+          })
+        .then((data) => {
+            this.$router.push('/entries/' + data._id);
+          });
+      }
     }
   }
 }

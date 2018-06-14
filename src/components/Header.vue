@@ -39,7 +39,7 @@
               <li><router-link to="/partner" exact>{{ $t('partner.partner') }}</router-link></li>
             </ul>
             <ul>
-              <li><language-switch></language-switch></li>
+              <li><language-switch flipped="true"></language-switch></li>
             </ul>
           </nav>
         </div>
@@ -333,8 +333,13 @@ export default {
       max-width: 450px;
       min-width: 260px;
       background-color: #fff;
-      padding: 3rem;
+      padding: 2rem;
+      box-sizing: border-box;
       // overflow-y: scroll;
+
+      @include tablet {
+        padding: 3rem;
+      }
     }
     &__nav {
       font-size: 2rem;

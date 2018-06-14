@@ -1,5 +1,5 @@
 <template>
-  <div class="langswitch">
+  <div class="langswitch" v-bind:class="{ flipped: flipped }">
     <a href="#" class="langswitch__current" @click.prevent="switcherVisible = !switcherVisible">{{ currentLang }}</a>
     <transition name="switcher-anim">
       <div class="langswitch__switcher" v-if="switcherVisible">
@@ -15,7 +15,7 @@
 
 export default {
   name: 'language-switch',
-  props: [],
+  props: ['flipped'],
   data () {
     return {
       switcherVisible: false
@@ -63,8 +63,8 @@ export default {
     &::after {
       content: "";
       display: block;
-      width: 0; 
-      height: 0; 
+      width: 0;
+      height: 0;
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
       border-top: 5px solid #869098;
@@ -89,11 +89,23 @@ export default {
     box-shadow: 0 4px 30px -5px rgba(#000, .1);
     transform: translateX(-50%);
 
+    .flipped & {
+      top: auto;
+      bottom: calc(100% + 10px);
+
+      &::before {
+        border-bottom: 5px solid transparent;
+        border-top: 5px solid white;
+        top: auto;
+        bottom: -10px;
+      }
+    }
+
     &::before {
       content: "";
       display: block;
-      width: 0; 
-      height: 0; 
+      width: 0;
+      height: 0;
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
       border-bottom: 5px solid white;

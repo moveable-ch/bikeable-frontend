@@ -48,11 +48,16 @@ export default {
     width: auto;
     height: 100%;
     position: relative;
+    display: flex;
+    align-items: center;
+    background-color: rgba($c-blue, .5);
 
     img {
       display: block;
       width: auto;
-      height: 100%;
+      height: auto;
+      max-height: 100%;
+      max-width: 100%;
       margin: 0 auto;
     }
   }

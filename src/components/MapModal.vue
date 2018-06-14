@@ -51,7 +51,7 @@ export default {
           styles: mapstyle,
           scrollwheel: false,
           zoomControlOptions: {
-            position: google.maps.ControlPosition.RIGHT_TOP,
+            position: google.maps.ControlPosition.LEFT_TOP,
           },
           fullscreenControl: false
         });
@@ -122,7 +122,7 @@ export default {
       border: none;
       position: absolute;
       top: 1rem;
-      right: 3rem;
+      right: 1rem;
       background-color: #fff;
       width: 3rem;
       height: 3rem;

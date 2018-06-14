@@ -422,6 +422,7 @@ export default {
       &__location {
         border-bottom: 1px solid $c-blue;
         padding: 1rem;
+        line-height: 1.3;
 
         &__button {
           color: $c-black;
@@ -525,9 +526,6 @@ export default {
           font-size: 2.5rem;
         }
       }
-    }
-    &__edit {
-
     }
     &__votes {
       width: 100%;

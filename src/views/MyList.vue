@@ -91,13 +91,7 @@ export default {
     getSpots() {
       this.$store.commit('LOAD_START');
 
-      // let coords = null;
-      // if(this.entrySort == 'distance') {
-        let coords = this.userCoords ? this.userCoords : null;
-      // }
-
-        spots.getAllSpots({
-          location: coords,
+        spots.getMySpots({
           limit: this.displayEntryCount,
           filter: this.entryFilter,
           sort: this.entrySort

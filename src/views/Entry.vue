@@ -41,7 +41,7 @@
           </div>
         </div>
         <div class="entry__meta__location">
-          <a @click.prevent="showMapModal = true" href="#">{{ currentEntry.address }}</a>
+          <a class="entry__meta__location__button" @click.prevent="showMapModal = true" href="#">{{ currentEntry.address }}</a>
         </div>
         <div class="entry__meta__regions" v-if="currentEntry.regions.length > 0">
           <ul>
@@ -423,9 +423,29 @@ export default {
         border-bottom: 1px solid $c-blue;
         padding: 1rem;
 
-        a {
+        &__button {
           color: $c-black;
           text-decoration: underline;
+          padding-left: 1.75rem;
+          position: relative;
+          display: block;
+
+          &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-top: -.75rem;
+            background-image: url('../assets/entry-map.png');
+            background-size: 100%;
+          }
+
+          &:hover {
+            text-decoration: none;
+          }
         }
       }
     }

@@ -9,7 +9,9 @@
       :propCoords="entryCoords">
     </map-modal-view>
     <div class="container">
-      <h1>{{ $t('addform.addspot') }} </h1>
+      <h1 v-if="!this.entryId">{{ $t('addform.addspot') }}</h1>
+      <h1 v-if="this.entryId">{{ $t('editform.editspot') }} </h1>
+
       <form @submit.prevent="postEntry">
         <h3><span class="num">1</span>{{ $t('addform.photo') }}</h3>
         <span class="label">{{ $t('addform.uploadimage') }}</span>
@@ -111,10 +113,10 @@ export default {
     },
     imagePreviewUrl() {
 
-      if(this.imageId) {
-        return process.env.BACKEND_URL + '/api/v1/photos/' + this.imageId + '?size=small';
-      } else {
+      if(this.currentEntry.photo.small.url) {
         return this.currentEntry.photo.small.url;
+      } else {
+        return process.env.BACKEND_URL + '/api/v1/photos/' + this.imageId + '?size=small';
       }
     }
   },
@@ -141,6 +143,7 @@ export default {
       spots.getSpotById(this.entryId)
         .then((data) => {
           this.currentEntry = data;
+          this.imageId = data.photo._id;
           this.loadingData = false;
           this.$store.commit('LOAD_FINISH');
           this.$emit('updateHead');

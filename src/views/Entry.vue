@@ -261,12 +261,13 @@ export default {
 
     upvoteEntry() {
       if(!this.isLoggedIn) return;
+      if(this.hasVoted == true) return;
 
       let userId = localStorage.getItem('userId');
       let token = localStorage.getItem('token');
 
       this.$store.commit('LOAD_START');
-      this.hasVoted = true;
+      // this.hasVoted = true;
 
       spots.upvoteSpot(
         {
@@ -568,6 +569,7 @@ export default {
       &.is-active {
 
         .entry__votes__button {
+          pointer-events: none;
           background-color: $c-highlight;
 
           svg path {

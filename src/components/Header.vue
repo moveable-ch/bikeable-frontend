@@ -22,6 +22,7 @@
               <li><router-link to="/" exact>Home</router-link></li>
               <li><router-link to="/map" exact>Map</router-link></li>
               <li><router-link to="/entries" exact>Spots</router-link></li>
+              <li v-if="isLoggedIn"><router-link to="/myentries" exact>My Spots</router-link></li>
               <li v-if="isLoggedIn"><router-link to="/add" exact>{{ $t('home.addspot') }}</router-link></li>
             </ul>
           </nav>

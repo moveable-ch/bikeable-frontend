@@ -225,7 +225,8 @@ export default {
       overflow: hidden;
 
       p {
-        // white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
       }
     }
     &__buttons {

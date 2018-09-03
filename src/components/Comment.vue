@@ -223,6 +223,10 @@ export default {
       margin-bottom: 0px;
       padding: 1rem;
       overflow: hidden;
+
+      p {
+        white-space: pre;
+      }
     }
     &__buttons {
       display: flex;

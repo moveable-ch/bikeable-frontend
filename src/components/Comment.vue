@@ -5,7 +5,7 @@
       <div class="comment__meta">
         <span class="username">{{ comment.user.name }}</span><span class="date">{{ dateCreated }}</span>
       </div>
-      <p>{{ comment.text }}</p>
+      <p v-html="linkifiedComment"></p>
     </div>
     <div class="comment__buttons" v-if="!isChild && isLoggedIn">
       <a @click.prevent="upvoteComment" href="#" class="comment__button comment__button--vote" v-bind:class="{ disabled: !isLoggedIn }">
@@ -30,6 +30,8 @@
 
 <script>
 import axios from 'axios';
+// import linkify from 'linkifyjs';
+import linkifyHtml from 'linkifyjs/html';
 
 export default {
   name: 'c-comment',
@@ -59,6 +61,15 @@ export default {
     },
     responses() {
       return this.comment.responses;
+    },
+    linkifiedComment() {
+      let regex = /<(?:.|\n)*?>/gm;
+      let text = this.comment.text.replace(regex, '');
+      text = linkifyHtml(text, {
+        defaultProtocol: 'https',
+        target: '_blank'
+      });
+      return text;
     }
   },
 
@@ -227,6 +238,10 @@ export default {
       p {
         white-space: pre-wrap;
         word-wrap: break-word;
+      }
+      a {
+        color: $c-black;
+        text-decoration: underline;
       }
     }
     &__buttons {

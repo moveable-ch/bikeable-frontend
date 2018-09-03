@@ -225,7 +225,7 @@ export default {
       overflow: hidden;
 
       p {
-        white-space: pre;
+        // white-space: pre;
       }
     }
     &__buttons {

@@ -5,7 +5,7 @@
     <div class="list__head">
       <div class="list__regions">
         <div class="container">
-          <router-link class="list__head__add" to="/add">{{ $t('home.addspot') }}</router-link>
+          <router-link class="list__head__add" to="/add"><span class="material-icons">add</span>{{ $t('home.addspot') }}</router-link>
           <region-switch></region-switch>
         </div>
       </div>
@@ -185,37 +185,57 @@ export default {
       position: relative;
       height: 2.5rem;
       line-height: 2.5rem;
-      padding: 0 1rem 0 1rem;
-      transition: .1s background-color, .1s border-color;
+      padding: 0 1rem;
+      // transition: .1s background-color, .1s border-color;
       text-align: center;
       box-sizing: border-box;
 
-      &::before {
-        content: "✚";
-        margin-right: .5rem;
-      }
       &:hover {
         border-color: $c-main;
         background-color: rgba(#fff, .5);
         color: $c-main;
       }
 
+      .material-icons {
+        line-height: 2.5rem;
+        font-size: 1.25rem;
+        margin-right: .25rem;
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        bottom: 2px;
+      }
+
       @include tablet {
         position: absolute;
         top: 50%;
-        right: 1rem;
         transform: translateY(-50%);
         right: 2rem;
         background-color: transparent;
-        border-radius: 1rem;
+        border-radius: 4px;
         color: $c-main;
-        border: 2px solid rgba($c-main, .3);
+        border: 1px solid $c-main;
         margin-top: 0;
         height: 1.75rem;
         line-height: 1.75rem;
         width: auto;
         z-index: 1;
         box-sizing: content-box;
+        padding-left: 2.5rem;
+
+        .material-icons {
+          display: block;
+          height: 1.75rem;
+          width: 1.75rem;
+          line-height: 1.75rem;
+          position: absolute;
+          top: 0;
+          left: 0;
+          border-right: 1px solid $c-main;
+          font-size: 1.25rem;
+          background-color: $c-main;
+          color: white;
+        }
       }
     }
   }

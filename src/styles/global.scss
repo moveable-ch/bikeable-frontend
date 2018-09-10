@@ -1,6 +1,9 @@
 @import 'reset';
 @import 'helpers';
 @import 'flickity';
+$material-icons-font-path: '../../node_modules/material-icons/iconfont/';
+$material-icons-font-size: 20px !default;
+@import 'node_modules/material-icons/iconfont/material-icons.scss';
 
 html {
   font-size: 16px;

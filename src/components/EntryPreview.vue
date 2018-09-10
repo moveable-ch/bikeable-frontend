@@ -13,11 +13,12 @@
       </span>
     </router-link>
     <div class="entry-preview__content">
-      <span class="entry-preview__location">{{ entry.address }}</span>
+      <span class="entry-preview__user">{{ formatDate(entry.createdAt) }} / {{ entry.user.name }}</span>
       <h3 class="entry-preview__headline"><router-link :to="'/entries/' + entry._id">{{ entry.title }}</router-link></h3>
+      <span class="entry-preview__location">{{ entry.address }}</span>
       <span v-if="entry.humanizedDistance" class="entry-preview__distance">{{ entry.humanizedDistance }} {{ $t('entry.awayfrom') }}</span>
       <span class="entry-preview__meta entry-preview__meta--votes">{{ entry.votes }}</span>
-      <span class="entry-preview__meta entry-preview__meta--comments">{{ entry.commentCount }}</span>
+      <span class="entry-preview__meta entry-preview__meta--comments"><span class="material-icons">comment</span>{{ entry.commentCount }}</span>
     </div>
   </div>
 </template>
@@ -78,7 +79,6 @@ export default {
     transition: 1s opacity;
 
     &:hover {
-      // opacity: .8;
     }
     &.loading {
       opacity: 0;
@@ -118,11 +118,17 @@ export default {
     padding: 1rem;
   }
   &__location {
+    display: block;
     font-size: .7rem;
     color: $c-grey-darkest;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: .25rem;
+  }
+  &__user {
+    font-size: .7rem;
+    color: $c-grey-darkest;
   }
   &__distance {
     display: block;

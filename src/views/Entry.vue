@@ -48,6 +48,11 @@
             <li v-for="region in currentEntry.regions" v-bind:key="region._id">{{ region.name }}</li>
           </ul>
         </div>
+        <div class="entry__meta__tools">
+          <a v-if="isLoggedIn && entryIsFromUser" :href="'/edit/' + currentEntry._id" class="entry__meta__tools__button"><span class="material-icons">edit</span>{{ $t('entry.editspot') }}</a>
+          <a href="#" class="entry__meta__tools__button"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
+          <a href="#" class="entry__meta__tools__button"><span class="material-icons">add_a_photo</span>{{ $t('entry.uploadphoto') }}</a>
+        </div>
       </div>
       <div class="entry__social">
         <a class="entry__social__button entry__social__button--fb" target="_blank" :href="'https://www.facebook.com/sharer/sharer.php?u=' + entryUrl"></a>
@@ -411,6 +416,7 @@ export default {
       }
       &__regions {
         padding: 1rem;
+        border-bottom: 1px solid $c-blue;
 
         li {
           display: inline-block;
@@ -446,6 +452,50 @@ export default {
 
           &:hover {
             text-decoration: none;
+          }
+        }
+      }
+      &__tools {
+        padding: .5rem;
+
+        &__button {
+          display: block;
+          border: 1px solid $c-blue;
+          color: $c-black;
+          border-radius: 4px;
+          padding: 0 1rem;
+          padding-left: 2.75rem;
+          position: relative;
+          margin: .5rem;
+          line-height: 2rem;
+          height: 2rem;
+          overflow: hidden;
+
+          &:hover {
+            // background-color: $c-blue;
+            border-color: $c-grey-darkest;
+
+            .material-icons {
+              color: $c-black;
+            }
+          }
+          @include tablet {
+            width: auto;
+            display: inline-block;
+          }
+          .material-icons {
+            color: $c-black;
+            display: block;
+            font-size: 1rem;
+            background-color: $c-blue;
+            position: absolute;
+            height: 2rem;
+            width: 2rem;
+            left: 0;
+            top: 0;
+            text-align: center;
+            line-height: 2rem;
+            transition: .1s color;
           }
         }
       }

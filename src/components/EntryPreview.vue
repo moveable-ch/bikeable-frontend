@@ -38,7 +38,6 @@ export default {
   watch: {
   },
   mounted() {
-    console.log(this.entry);
   },
   methods: {
     formatDate(date) {

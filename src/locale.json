@@ -38,7 +38,10 @@
       "awayfrom": "entfernt",
       "fixed": "Dieser Spot wurde in der Zwischenzeit verbessert.",
       "register": "Jetzt registrieren und mitdiskutieren!",
-      "send": "Senden"
+      "send": "Senden",
+      "markasfixed": "Als behoben markieren",
+      "editspot": "Spot bearbeiten",
+      "uploadphoto": "Foto hochladen"
     },
     "comment": {
       "send": "Senden",
@@ -132,7 +135,10 @@
       "awayfrom": "away from me",
       "fixed": "This spot has been improved in the meantime.",
       "register": "Register now and join the discussion!",
-      "send": "Send"
+      "send": "Send",
+      "markasfixed": "Mark as Fixed",
+      "editspot": "Edit Spot",
+      "uploadphoto": "Upload Photo"
     },
     "comment": {
       "send": "Send",
@@ -226,7 +232,10 @@
       "awayfrom": "d'ici",
       "fixed": "Ce spot a été amélioré entre-temps",
       "register": "Inscris-toi maintenant et prends part à la discussion!",
-      "send": "Envoyer"
+      "send": "Envoyer",
+      "markasfixed": "Marquer comme fixé",
+      "editspot": "Modifier le spot",
+      "uploadphoto": "Télécharger une photo"
     },
     "comment": {
       "send": "Envoyer",

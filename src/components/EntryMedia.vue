@@ -1,7 +1,8 @@
 <template>
   <div class="entry-media">
     <div class="entry-media__image">
-      <img :src="entry.photo.large.url">
+      <img v-if="entry.photo" :src="entry.photo.large.url">
+      <img v-if="entry.gallery && entry.gallery[0]" :src="entry.gallery[0].photo.large.url">
     </div>
   </div>
 </template>

@@ -144,6 +144,33 @@ export default {
     });
   },
 
+  proposeFixedSpot({ spotId, userId, authToken }) {
+
+    let url = process.env.BACKEND_URL + '/api/v1/entries/' + spotId + '/proposefixed';
+
+    return new Promise((resolve, reject) => {
+      axios.post(url, {},
+        {
+          headers: {
+            'X-User-Id': userId,
+            'X-Auth-Token': authToken
+          }
+        })
+        .then(
+          (response) => {
+            resolve(response.data);
+          }
+        )
+        .catch(
+          (error) => {
+            if(!error.request.response) reject('');
+            let msg = JSON.parse(error.request.response);
+            reject(msg.message);
+          }
+        );
+    });
+  },
+
   addSpot({ data, userId, authToken}) {
 
     let url = process.env.BACKEND_URL + '/api/v1/entries'

@@ -3,10 +3,11 @@
 <template>
   <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed, 'is-fixed': currentEntry.fixed, 'pending': loadingData }">
     <map-modal v-if="showMapModal" @close="showMapModal = false" :coords="currentEntry.coords"></map-modal>
+    <add-photo-modal v-if="showPhotoModal" @close="showPhotoModal = false" :entryId="entryId"></add-photo-modal>
     <div class="entry__header">
       <h1>{{ currentEntry.title }}</h1>
       <div class="entry__votes" v-bind:class="{ 'is-active': hasVoted, disabled: !isLoggedIn, 'famed': currentEntry.famed }">
-        <a  @click.prevent="upvoteEntry" class="entry__votes__button" href="#" title="Upvote">
+        <a @click.prevent="upvoteEntry" class="entry__votes__button" href="#" title="Upvote">
           <svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
               <g id="Artboard-Copy-4" transform="translate(-55.000000, -184.000000)" fill="#FE0094" fill-rule="nonzero">
@@ -26,7 +27,6 @@
       @vote="upvoteEntry()">
     </entry-media-view>
     <div class="entry__container" v-if="!loadingData">
-      <span v-if="isLoggedIn && entryIsFromUser" class="entry__edit btn btn--centered"><a :href="'/edit/' + currentEntry._id">Spot bearbeiten</a></span>
       <div class="lead">
         <span v-if="currentEntry.fixed" class="lead__fixed">Fixed!</span>
         <p class="lead__desc">{{ currentEntry.text }}</p>
@@ -50,8 +50,8 @@
         </div>
         <div class="entry__meta__tools">
           <a v-if="isLoggedIn && entryIsFromUser" :href="'/edit/' + currentEntry._id" class="entry__meta__tools__button"><span class="material-icons">edit</span>{{ $t('entry.editspot') }}</a>
-          <a href="#" class="entry__meta__tools__button"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
-          <a href="#" class="entry__meta__tools__button"><span class="material-icons">add_a_photo</span>{{ $t('entry.uploadphoto') }}</a>
+          <a v-if="!currentEntry.fixed" @click.prevent="proposeFixedSpot" href="#" class="entry__meta__tools__button"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
+          <a @click.prevent="showPhotoModal = true" href="#" class="entry__meta__tools__button"><span class="material-icons">add_a_photo</span>{{ $t('entry.uploadphoto') }}</a>
         </div>
       </div>
       <div class="entry__social">
@@ -83,6 +83,7 @@
 import Comment from '@/components/Comment'
 import EntryMedia from '@/components/EntryMedia'
 import MapModal from '@/components/MapModal'
+import AddPhotoModal from '@/components/AddPhotoModal'
 
 import spots from '../api/spots'
 import comments from '../api/comments'
@@ -96,11 +97,14 @@ export default {
       }
     },
     meta: function () {
+
+      var photo = this.currentEntry.photo ? this.currentEntry.photo : this.currentEntry.gallery[0].photo;
+
       return [
         { property: 'og:title', content: this.currentEntry.title + ' – Bikeable', id: 'og-title' },
-        { property: 'og:image', content: this.currentEntry.photo.medium.url, id: 'og-image' },
-        { property: 'og:image:width', content: this.currentEntry.photo.medium.width, id: 'og-image-width' },
-        { property: 'og:image:height', content: this.currentEntry.photo.medium.height, id: 'og-image-height' },
+        { property: 'og:image', content: photo.medium.url, id: 'og-image' },
+        { property: 'og:image:width', content: photo.medium.width, id: 'og-image-width' },
+        { property: 'og:image:height', content: photo.medium.height, id: 'og-image-height' },
         { property: 'og:url', content: this.entryUrl, id: 'og-url' },
         { property: 'og:desc', content: this.currentEntry.text, id: 'og-desc' }
       ]
@@ -110,7 +114,8 @@ export default {
   components: {
     'comment-view': Comment,
     'entry-media-view': EntryMedia,
-    'map-modal': MapModal
+    'map-modal': MapModal,
+    'add-photo-modal': AddPhotoModal
   },
   data () {
     return {
@@ -126,11 +131,13 @@ export default {
           large: '',
           medium: ''
         },
-        famed: false
+        famed: false,
+        gallery: []
       },
       comments: {},
       commentText: '',
-      showMapModal: false
+      showMapModal: false,
+      showPhotoModal: false
     }
   },
 
@@ -289,6 +296,31 @@ export default {
           }else{
             this.hasVoted = false;
           }
+          this.loadEntry();
+        },
+        (error) => {
+          this.$store.commit('SET_MESSAGE', error);
+          this.$store.commit('LOAD_FINISH');
+        });
+    },
+
+    proposeFixedSpot() {
+      if(!this.isLoggedIn) return;
+
+      let userId = localStorage.getItem('userId');
+      let token = localStorage.getItem('token');
+
+      this.$store.commit('LOAD_START');
+      // this.hasVoted = true;
+
+      spots.proposeFixedSpot(
+        {
+          spotId: this.entryId,
+          userId: userId,
+          authToken: token
+        })
+        .then((data) => {
+          this.$store.commit('LOAD_FINISH');
           this.loadEntry();
         },
         (error) => {

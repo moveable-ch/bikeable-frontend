@@ -158,8 +158,8 @@ export default {
       this.entryTitle = this.currentEntry.title,
       this.entryText = this.currentEntry.text,
       this.entryFamed = this.currentEntry.famed ? "famed" : "shamed",
-      this.imageChosen = true
-
+      this.gallery = this.currentEntry.gallery;
+      this.uploading = false
     },
 
     imageLoadError() {
@@ -325,9 +325,20 @@ export default {
           });
       };
     },
-    resetImage() {
-      this.imageChosen = false;
-      this.imageId = null;
+    addImageToGallery(imageId) {
+
+      let userId = localStorage.getItem('userId');
+
+      this.gallery.push({ "imageId": imageId,
+          "createdAt": new Date(),
+          "showsFix": false,
+          "userId": userId })
+    },
+    resetImage(imageId) {
+
+      this.gallery = this.gallery.filter(image => {
+        return image.imageId != imageId
+      });
     },
     postEntry(e) {
       if(!this.formReady) return;
@@ -339,6 +350,7 @@ export default {
             text: this.entryText,
             imageId: this.imageId,
             address: this.entryAddress,
+            addressDetails: this.addressDetails,
             coords: this.entryCoords,
             famed: this.entryFamed == "famed"
           }, spotId: this.entryId})

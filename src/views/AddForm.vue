@@ -15,16 +15,22 @@
       <form @submit.prevent="postEntry">
         <h3><span class="num">1</span>{{ $t('addform.photo') }}</h3>
         <span class="label">{{ $t('addform.uploadimage') }}</span>
+
         <div class="file-upload">
-          <div class="file-upload__form" v-if="!imageChosen">
+
+          <div class="file-upload__form" v-if="!uploading">
             <label for="add-file">{{ $t('addform.chooseimage')}}</label>
             <input id="add-file" @change.prevent="uploadImage" type="file">
           </div>
-          <span class="file-upload__pending" v-if="!imageId && imageChosen">{{ $t('addform.loading') }}</span>
-          <div class="file-upload__preview" v-if="imageId">
-            <a href="#" class="file-upload__preview__close" @click.prevent="resetImage">×</a>
-            <img v-bind:src="imagePreviewUrl" @error="imageLoadError">
+         
+          <span class="file-upload__pending" v-if="uploading">{{ $t('addform.loading') }}</span>
+
+          <div class="file-upload__preview" v-for="image in gallery">
+            <a href="#" class="file-upload__preview__close" @click.prevent="resetImage(image.imageId)">×</a>
+            <img v-bind:src="imagePreviewUrl(image.imageId)" @error="imageLoadError">
           </div>
+
+
         </div>
         <div class="fameorshame">
           <h3><span class="num">2</span>{{ $t('addform.fameorshame') }}</h3>
@@ -99,8 +105,8 @@ export default {
       entryTitle: '',
       entryText: '',
       entryFamed: null,
-      imageId: null,
-      imageChosen: false
+      gallery: [],
+      uploading: false
     }
   },
 
@@ -109,10 +115,7 @@ export default {
       return this.$store.getters.userCoords;
     },
     formReady() {
-      return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.imageId != null && this.entryFamed != null);
-    },
-    imagePreviewUrl() {
-        return process.env.BACKEND_URL + '/api/v1/photos/' + this.imageId + '?size=small';
+      return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.gallery.length > 0 && this.entryFamed != null);
     }
   },
 
@@ -131,6 +134,9 @@ export default {
   },
 
   methods: {
+    imagePreviewUrl(imageId) {
+        return process.env.BACKEND_URL + '/api/v1/photos/' + imageId + '?size=small';
+    },
     loadEntry() {
       this.entryId = this.$route.params.id;
       this.$store.commit('LOAD_START');
@@ -138,7 +144,6 @@ export default {
       spots.getSpotById(this.entryId)
         .then((data) => {
           this.currentEntry = data;
-          this.imageId = data.photo._id;
           this.loadingData = false;
           this.$store.commit('LOAD_FINISH');
           this.$emit('updateHead');
@@ -308,7 +313,7 @@ export default {
       this.addressPending = false;
     },
     uploadImage(e) {
-      this.imageChosen = true;
+      this.uploading = true;
 
       let imageFile = e.currentTarget;
       let file = imageFile.files[0];
@@ -319,9 +324,11 @@ export default {
           data: reader.result
         })
         .then((data) => {
-            this.imageId = data.imageId;
+            this.uploading = false;
+            this.addImageToGallery(data.imageId);
           }, (data) => {
             this.$store.dispatch('handleError', 'Error');
+            this.uploading = false;
           });
       };
     },
@@ -348,7 +355,7 @@ export default {
         this.$store.dispatch('editSpot', {data: {
             title: this.entryTitle,
             text: this.entryText,
-            imageId: this.imageId,
+            gallery: this.gallery,
             address: this.entryAddress,
             addressDetails: this.addressDetails,
             coords: this.entryCoords,
@@ -363,7 +370,7 @@ export default {
         this.$store.dispatch('addSpot', {
             title: this.entryTitle,
             text: this.entryText,
-            imageId: this.imageId,
+            gallery: this.gallery,
             address: this.entryAddress,
             addressDetails: this.entryAddressDetails,
 

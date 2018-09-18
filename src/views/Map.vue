@@ -33,7 +33,7 @@ export default {
 
   computed: {
     entries() {
-      return this.$store.getters.allSpots;
+      return this.$store.getters.lightSpots;
     },
     sponsors() {
       return this.$store.getters.sponsoredEntries
@@ -84,7 +84,7 @@ export default {
 
   mounted() {
     this.$store.dispatch('getSponsoredEntries');
-    this.$store.dispatch('getAllSpots');
+    this.$store.dispatch('getLightSpots');
     this.initMap();
   },
 

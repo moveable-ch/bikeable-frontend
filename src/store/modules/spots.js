@@ -2,12 +2,14 @@ import spots from '../../api/spots';
 
 const state = {
   allSpots: [],
+  lightSpots: [],
   listSort: 'date',
   listFilter: null
 }
 
 const getters = {
   allSpots: state => state.allSpots,
+  lightSpots: state => state.lightSpots,
   mySpots: state => state.mySpots,
   listSort: state => state.listSort,
   listFilter: state => state.listFilter
@@ -26,6 +28,20 @@ const actions = {
       .then((entries) => {
         commit('LOAD_FINISH');
         commit('SET_SPOTS', entries);
+      },
+      (error) => {
+        commit('LOAD_FINISH');
+        dispatch('handleError', error);
+      });
+  },
+  getLightSpots({ commit, dispatch, getters }) {
+
+    commit('LOAD_START');
+
+    spots.getLightSpots({})
+      .then((entries) => {
+        commit('LOAD_FINISH');
+        commit('SET_LIGHT_SPOTS', entries);
       },
       (error) => {
         commit('LOAD_FINISH');
@@ -87,6 +103,9 @@ const actions = {
 const mutations = {
   SET_SPOTS(state, entries) {
     state.allSpots = entries;
+  },
+  SET_LIGHT_SPOTS(state, entries) {
+    state.lightSpots = entries;
   },
   SET_LIST_SORT(state, sort) {
     state.listSort = sort;

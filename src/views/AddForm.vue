@@ -22,12 +22,14 @@
             <label for="add-file">{{ $t('addform.chooseimage')}}</label>
             <input id="add-file" @change.prevent="uploadImage" type="file">
           </div>
-         
+
           <span class="file-upload__pending" v-if="uploading">{{ $t('addform.loading') }}</span>
 
-          <div class="file-upload__preview" v-for="image in gallery">
-            <a href="#" class="file-upload__preview__close" @click.prevent="resetImage(image.imageId)">×</a>
-            <img v-bind:src="imagePreviewUrl(image.imageId)" @error="imageLoadError">
+          <div class="file-upload__images">
+            <div class="file-upload__preview" v-for="image in gallery" v-bind:key="image.id">
+              <a href="#" class="file-upload__preview__close" @click.prevent="resetImage(image.imageId)">×</a>
+              <img v-bind:src="imagePreviewUrl(image.imageId)" @error="imageLoadError">
+            </div>
           </div>
 
 
@@ -122,7 +124,7 @@ export default {
   watch: {
     'currentEntry': function() {
       this.fillForm();
-    },  
+    },
   },
 
   mounted() {
@@ -339,7 +341,7 @@ export default {
       this.gallery.push({ "imageId": imageId,
           "createdAt": new Date(),
           "showsFix": false,
-          "userId": userId })
+          "userId": userId });
     },
     resetImage(imageId) {
 
@@ -364,7 +366,7 @@ export default {
         .then((data) => {
             this.$router.push('/entries/' + data._id);
           });
-        
+
       } else {
 
         this.$store.dispatch('addSpot', {
@@ -465,8 +467,8 @@ export default {
     label {
       display: block;
       color: $c-black;
-      border: 2px solid rgba($c-black, .5);
-      border-radius: 2px;
+      border: 2px solid $c-black;
+      border-radius: 0;
       width: 14rem;
       text-align: center;
       font-weight: 500;
@@ -494,34 +496,50 @@ export default {
 
   &__pending {
     display: block;
-    color: #aaa;
-    width: 14rem;
-    text-align: center;
-    line-height: 3rem;
-    height: 3rem;
-    margin-top: 1rem;
-    background-color: #fafafa;
-    // border-radius: 4px;
+    margin: 1rem 0;
+  }
+
+  &__images {
+    display: flex;
+    flex-wrap: wrap;
+
+    @include tablet {
+      flex-wrap: none;
+    }
   }
 
   &__preview {
-    width: 15rem;
-    height: 10rem;
-    background-color: #fafafa;
+    width: 13rem;
+    height: 8rem;
+    background-color: $c-blue;
     padding: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    margin-right: 5px;
+    margin-bottom: 5px;
 
     &__close {
-      color: #333;
+      font-family: Arial, 'sans-serif';
+      color: $c-black;
       text-decoration: none;
       position: absolute;
-      top: 0;
-      right: -1.5rem;
+      top: 50%;
+      right: 50%;
+      width: 50px;
+      height: 50px;
+      margin-right: -25px;
+      margin-top: -25px;
+      border-radius: 99%;
+      background-color: rgba(#fff, .4);
+      text-align: center;
       font-size: 2rem;
-      color: #aaa;
+      line-height: 50px;
+
+      &:hover {
+        background-color: rgba(#fff, .6);
+      }
     }
     img {
       max-width: 100%;

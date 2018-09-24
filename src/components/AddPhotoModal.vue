@@ -3,7 +3,7 @@
     <div class="add-photo-modal">
       <div class="add-photo-modal__inner">
 
-        <form @submit.prevent="uploadImage">
+        <form @submit.prevent="postImage">
           <h3><span class="num">1</span>{{ $t('addform.photo') }}</h3>
           <span class="label">{{ $t('addform.uploadimage') }}</span>
 
@@ -19,7 +19,7 @@
 
           <div class="file-upload__preview" v-if="imageId">
             <a href="#" class="file-upload__preview__close" @click.prevent="resetImage(imageId)">×</a>
-            <img v-bind:src="imagePreviewUrl(imageId)" @error="imageLoadError">
+            <img v-bind:src="imagePreviewUrl(imageId)">
           </div>
 
           <button type="submit" class="btn comments__form__button" v-bind:class="{ 'disabled': !imageId }">{{ $t('entry.send') }}</button>
@@ -71,7 +71,6 @@ export default {
         .then((data) => {
             this.uploading = false;
             this.imageId = data.imageId;
-            this.$emit('close');
           }, (data) => {
             this.$store.dispatch('handleError', 'Error');
             this.uploading = false;
@@ -81,6 +80,22 @@ export default {
     resetImage() {
       this.imageId = null;
     },
+    postImage(e) {
+      if(!this.imageId) return;
+
+      if(this.entryId) {
+
+        this.$store.dispatch('addPhoto',
+          {data: {imageId: this.imageId,
+           showsFix: true
+         }, spotId: this.entryId} )
+        .then((data) => {
+            this.$emit('close');
+            // TODO: Reload spot-Gallery!
+          });
+
+      }
+    }
   }
 }
 </script>

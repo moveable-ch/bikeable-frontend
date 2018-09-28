@@ -359,7 +359,7 @@ export default {
             text: this.entryText,
             gallery: this.gallery,
             address: this.entryAddress,
-            addressDetails: this.addressDetails,
+            addressDetails: this.entryAddressDetails,
             coords: this.entryCoords,
             famed: this.entryFamed == "famed"
           }, spotId: this.entryId})
@@ -375,7 +375,6 @@ export default {
             gallery: this.gallery,
             address: this.entryAddress,
             addressDetails: this.entryAddressDetails,
-
             coords: this.entryCoords,
             famed: this.entryFamed == "famed"
           })

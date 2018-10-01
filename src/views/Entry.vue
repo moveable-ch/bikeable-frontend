@@ -50,8 +50,8 @@
         </div>
         <div class="entry__meta__tools">
           <a v-if="isLoggedIn && entryIsFromUser" :href="'/edit/' + currentEntry._id" class="entry__meta__tools__button"><span class="material-icons">edit</span>{{ $t('entry.editspot') }}</a>
-          <a v-if="!currentEntry.fixed && !currentEntry.famed" @click.prevent="proposeFixedSpot" href="#" class="entry__meta__tools__button" v-bind:class="{ 'has-proposed': hasProposedFixed }"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
-          <a @click.prevent="showPhotoModal = true" href="#" class="entry__meta__tools__button"><span class="material-icons">add_a_photo</span>{{ $t('entry.uploadphoto') }}</a>
+          <a v-if="isLoggedIn && !entryIsFromUser && !currentEntry.fixed && !currentEntry.famed" @click.prevent="proposeFixedSpot" href="#" class="entry__meta__tools__button" v-bind:class="{ 'has-proposed': alreadyProposedSpotAsFixed }"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
+          <!--<a @click.prevent="showPhotoModal = true" href="#" class="entry__meta__tools__button"><span class="material-icons">add_a_photo</span>{{ $t('entry.uploadphoto') }}</a>-->
         </div>
       </div>
       <div class="entry__social">
@@ -137,8 +137,7 @@ export default {
       comments: {},
       commentText: '',
       showMapModal: false,
-      showPhotoModal: false,
-      hasProposedFixed: false
+      showPhotoModal: false
     }
   },
 
@@ -171,6 +170,16 @@ export default {
       if(!this.userData) return '';
       if(!this.userData.profile) return '';
       return this.userData.profile.avatar.small;
+    },
+    alreadyProposedSpotAsFixed() {
+
+      for (var i = 0; i < this.currentEntry.fixProposals; i++) {
+        if(this.currentEntry.fixProposals[i].userId === this.userData._id){
+          return true;
+        }
+      }
+
+      return false;
     }
   },
 
@@ -204,24 +213,12 @@ export default {
           this.loadingData = false;
           this.$store.commit('LOAD_FINISH');
           this.$emit('updateHead');
-          this.checkFixProposals();
         },
         (error) => {
           this.$store.commit('LOAD_FINISH');
           this.$router.push('/entries');
           this.$store.dispatch('handleError', 'Spot nicht gefunden');
         });
-    },
-
-    checkFixProposals() {
-      if(!this.currentEntry.fixProposals) return;
-
-      let proposals = this.currentEntry.fixProposals;
-      proposals.forEach((p) => {
-        if(p.userId == localStorage.getItem('userId')) {
-          this.hasProposedFixed = true;
-        }
-      });
     },
 
     loadComments() {

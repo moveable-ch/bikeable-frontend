@@ -101,7 +101,7 @@ export default {
 
       showMapModal: false,
       addressPending: false,
-
+      entryAddressDetails: null,
       entryAddress: '',
       entryCoords: null,
       entryTitle: '',
@@ -297,9 +297,10 @@ export default {
       .then(response => {
 
         if(response.data.results[0]) {
-          var addressDetails = this.geocodeResultToAdress(response);
+          this.entryAddressDetails = this.geocodeResultToAdress(response);
           this.entryAddress = response.data.results[0].formatted_address;
           this.entryCoords = response.data.results[0].geometry.location;
+          this.entryAddressDetails
         } else {
           this.clearAddress();
         }
@@ -359,7 +360,7 @@ export default {
             text: this.entryText,
             gallery: this.gallery,
             address: this.entryAddress,
-            addressDetails: this.addressDetails,
+            addressDetails: this.entryAddressDetails,
             coords: this.entryCoords,
             famed: this.entryFamed == "famed"
           }, spotId: this.entryId})
@@ -375,7 +376,6 @@ export default {
             gallery: this.gallery,
             address: this.entryAddress,
             addressDetails: this.entryAddressDetails,
-
             coords: this.entryCoords,
             famed: this.entryFamed == "famed"
           })

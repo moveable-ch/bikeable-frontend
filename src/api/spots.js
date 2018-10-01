@@ -186,6 +186,8 @@ export default {
     });
   },
 
+
+
   addSpot({ data, userId, authToken}) {
 
     let url = process.env.BACKEND_URL + '/api/v1/entries'
@@ -234,6 +236,34 @@ export default {
         .catch(
           (error) => {
             console.log(error);
+            if(!error.request.response) reject('');
+            let msg = JSON.parse(error.request.response);
+            reject(msg.message);
+          }
+        );
+    });
+
+  },
+
+  addPhoto({ data, spotId, userId, authToken}) {
+
+    let url = process.env.BACKEND_URL + '/api/v1/entries/'+ spotId + '/addphoto'
+
+    return new Promise((resolve, reject) => {
+      axios.post(url, data,
+        {
+          headers: {
+            'X-User-Id': userId,
+            'X-Auth-Token': authToken
+          }
+        })
+        .then(
+          (response) => {
+            resolve(response.data.data);
+          }
+        )
+        .catch(
+          (error) => {
             if(!error.request.response) reject('');
             let msg = JSON.parse(error.request.response);
             reject(msg.message);

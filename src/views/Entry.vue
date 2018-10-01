@@ -50,7 +50,7 @@
         </div>
         <div class="entry__meta__tools">
           <a v-if="isLoggedIn && entryIsFromUser" :href="'/edit/' + currentEntry._id" class="entry__meta__tools__button"><span class="material-icons">edit</span>{{ $t('entry.editspot') }}</a>
-          <a v-if="!currentEntry.fixed" @click.prevent="proposeFixedSpot" href="#" class="entry__meta__tools__button"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
+          <a v-if="!currentEntry.fixed" @click.prevent="proposeFixedSpot" href="#" class="entry__meta__tools__button" v-bind:class="{ 'has-proposed': hasProposedFixed }"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
           <a @click.prevent="showPhotoModal = true" href="#" class="entry__meta__tools__button"><span class="material-icons">add_a_photo</span>{{ $t('entry.uploadphoto') }}</a>
         </div>
       </div>
@@ -137,7 +137,8 @@ export default {
       comments: {},
       commentText: '',
       showMapModal: false,
-      showPhotoModal: false
+      showPhotoModal: false,
+      hasProposedFixed: false
     }
   },
 
@@ -203,12 +204,24 @@ export default {
           this.loadingData = false;
           this.$store.commit('LOAD_FINISH');
           this.$emit('updateHead');
+          this.checkFixProposals();
         },
         (error) => {
           this.$store.commit('LOAD_FINISH');
           this.$router.push('/entries');
           this.$store.dispatch('handleError', 'Spot nicht gefunden');
         });
+    },
+
+    checkFixProposals() {
+      if(!this.currentEntry.fixProposals) return;
+
+      let proposals = this.currentEntry.fixProposals;
+      proposals.forEach((p) => {
+        if(p.userId == localStorage.getItem('userId')) {
+          this.hasProposedFixed = true;
+        }
+      });
     },
 
     loadComments() {
@@ -502,6 +515,17 @@ export default {
           line-height: 2rem;
           height: 2rem;
           overflow: hidden;
+
+          &.has-proposed {
+            border-color: #77bb77;
+            background-color: rgba(#77bb77, .1);
+            pointer-events: none;
+            opacity: .6;
+
+            .material-icons {
+              background-color: rgba(#77bb77, .3);
+            }
+          }
 
           &:hover {
             // background-color: $c-blue;

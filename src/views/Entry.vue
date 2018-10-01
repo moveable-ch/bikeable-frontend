@@ -50,7 +50,7 @@
         </div>
         <div class="entry__meta__tools">
           <a v-if="isLoggedIn && entryIsFromUser" :href="'/edit/' + currentEntry._id" class="entry__meta__tools__button"><span class="material-icons">edit</span>{{ $t('entry.editspot') }}</a>
-          <a v-if="!currentEntry.fixed" @click.prevent="proposeFixedSpot" href="#" class="entry__meta__tools__button"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
+          <a v-if="!alreadyProposedSpotAsFixed && isLoggedIn && !entryIsFromUser && !currentEntry.fixed && !currentEntry.famed" @click.prevent="proposeFixedSpot" href="#" class="entry__meta__tools__button"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
 <!--           <a @click.prevent="showPhotoModal = true" href="#" class="entry__meta__tools__button"><span class="material-icons">add_a_photo</span>{{ $t('entry.uploadphoto') }}</a> -->
         </div>
       </div>
@@ -170,6 +170,16 @@ export default {
       if(!this.userData) return '';
       if(!this.userData.profile) return '';
       return this.userData.profile.avatar.small;
+    },
+    alreadyProposedSpotAsFixed() {
+
+      for (var i = 0; i < this.currentEntry.fixProposals; i++) {
+        if(this.currentEntry.fixProposals[i].userId === this.userData._id){
+          return true;
+        }
+      }
+
+      return false;
     }
   },
 

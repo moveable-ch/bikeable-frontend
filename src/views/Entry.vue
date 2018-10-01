@@ -1,7 +1,7 @@
 <!-- /entries/{id} -->
 
 <template>
-  <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed, 'is-fixed': currentEntry.fixed, 'pending': loadingData }">
+  <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed, 'is-fixed': currentEntry.gotFixed, 'pending': loadingData }">
     <map-modal v-if="showMapModal" @close="showMapModal = false" :coords="currentEntry.coords"></map-modal>
     <add-photo-modal v-if="showPhotoModal" @close="showPhotoModal = false" :entryId="entryId"></add-photo-modal>
     <div class="entry__header">
@@ -28,9 +28,9 @@
     </entry-media-view>
     <div class="entry__container" v-if="!loadingData">
       <div class="lead">
-        <span v-if="currentEntry.fixed" class="lead__fixed">Fixed!</span>
+        <span v-if="currentEntry.gotFixed" class="lead__fixed">Fixed!</span>
         <p class="lead__desc">{{ currentEntry.text }}</p>
-        <p v-if="currentEntry.fixed" class="lead__notice lead__notice--good">{{ $t('entry.fixed') }}</p>
+        <p v-if="currentEntry.gotFixed" class="lead__notice lead__notice--good">{{ $t('entry.fixed') }}</p>
       </div>
       <div class="entry__meta">
         <div class="entry__meta__user">
@@ -50,7 +50,7 @@
         </div>
         <div class="entry__meta__tools">
           <a v-if="isLoggedIn && entryIsFromUser" :href="'/edit/' + currentEntry._id" class="entry__meta__tools__button"><span class="material-icons">edit</span>{{ $t('entry.editspot') }}</a>
-          <a v-if="isLoggedIn && !entryIsFromUser && !currentEntry.fixed && !currentEntry.famed" @click.prevent="proposeFixedSpot" href="#" class="entry__meta__tools__button" v-bind:class="{ 'has-proposed': alreadyProposedSpotAsFixed }"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
+          <a v-if="isLoggedIn && !entryIsFromUser && !currentEntry.gotFixed && !currentEntry.famed" @click.prevent="proposeFixedSpot" href="#" class="entry__meta__tools__button" v-bind:class="{ 'has-proposed': alreadyProposedSpotAsFixed }"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
           <!--<a @click.prevent="showPhotoModal = true" href="#" class="entry__meta__tools__button"><span class="material-icons">add_a_photo</span>{{ $t('entry.uploadphoto') }}</a>-->
         </div>
       </div>

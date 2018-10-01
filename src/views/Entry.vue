@@ -50,7 +50,7 @@
         </div>
         <div class="entry__meta__tools">
           <a v-if="isLoggedIn && entryIsFromUser" :href="'/edit/' + currentEntry._id" class="entry__meta__tools__button"><span class="material-icons">edit</span>{{ $t('entry.editspot') }}</a>
-          <a v-if="!currentEntry.fixed" @click.prevent="proposeFixedSpot" href="#" class="entry__meta__tools__button" v-bind:class="{ 'has-proposed': hasProposedFixed }"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
+          <a v-if="!currentEntry.fixed && !currentEntry.famed" @click.prevent="proposeFixedSpot" href="#" class="entry__meta__tools__button" v-bind:class="{ 'has-proposed': hasProposedFixed }"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
           <a @click.prevent="showPhotoModal = true" href="#" class="entry__meta__tools__button"><span class="material-icons">add_a_photo</span>{{ $t('entry.uploadphoto') }}</a>
         </div>
       </div>

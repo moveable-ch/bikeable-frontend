@@ -44,7 +44,6 @@ export default {
 
   methods: {
     initCarousel() {
-      console.log('init carousel', this.entry.gallery.length);
       if(this.entry.gallery.length == 0) return;
       if(this.flkty) this.flkty.destroy();
       this.$nextTick(function() {

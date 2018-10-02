@@ -51,7 +51,7 @@
         <div class="entry__meta__tools">
           <a v-if="isLoggedIn && entryIsFromUser" :href="'/edit/' + currentEntry._id" class="entry__meta__tools__button"><span class="material-icons">edit</span>{{ $t('entry.editspot') }}</a>
           <a v-if="isLoggedIn && !entryIsFromUser && !currentEntry.gotFixed && !currentEntry.famed" @click.prevent="proposeFixedSpot" href="#" class="entry__meta__tools__button" v-bind:class="{ 'has-proposed': alreadyProposedSpotAsFixed }"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
-          <a @click.prevent="showPhotoModal = true" href="#" class="entry__meta__tools__button"><span class="material-icons">add_a_photo</span>{{ $t('entry.uploadphoto') }}</a>
+          <a @click.prevent="showPhotoModal = true" v-if="isLoggedIn" href="#" class="entry__meta__tools__button"><span class="material-icons">add_a_photo</span>{{ $t('entry.uploadphoto') }}</a>
         </div>
       </div>
       <div class="entry__social">
@@ -137,7 +137,7 @@ export default {
       comments: {},
       commentText: '',
       showMapModal: false,
-      showPhotoModal: true
+      showPhotoModal: false
     }
   },
 

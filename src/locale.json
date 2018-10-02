@@ -21,7 +21,7 @@
       "fameorshame": "Fame or Shame",
       "addspot": "Spot erstellen",
       "photo": "Foto",
-      "uploadimage": "Lade ein Bild von deinem Spot hoch",
+      "uploadimage": "Lade Bilder von deinem Spot hoch",
       "chooseimage": "Bild wählen",
       "loading": "Loading",
       "adress": "Adresse",
@@ -38,7 +38,13 @@
       "awayfrom": "entfernt",
       "fixed": "Dieser Spot wurde in der Zwischenzeit verbessert.",
       "register": "Jetzt registrieren und mitdiskutieren!",
-      "send": "Senden"
+      "send": "Senden",
+      "markasfixed": "Als behoben markieren",
+      "editspot": "Spot bearbeiten",
+      "uploadphoto": "Foto hochladen",
+      "addphototitle": "Foto hochladen",
+      "addphotodesc": "Hast du ein zusätzliches Foto zu diesem Spot? Lade es hier hoch!",
+      "addphotofix": "Mein Foto bestätigt dass dieser Spot verbessert wurde"
     },
     "comment": {
       "send": "Senden",
@@ -132,7 +138,13 @@
       "awayfrom": "away from me",
       "fixed": "This spot has been improved in the meantime.",
       "register": "Register now and join the discussion!",
-      "send": "Send"
+      "send": "Send",
+      "markasfixed": "Mark as Fixed",
+      "editspot": "Edit Spot",
+      "uploadphoto": "Upload Photo",
+      "addphototitle": "Upload Photo",
+      "addphotodesc": "Do you have an additional image of this spot? Upload it here!",
+      "addphotofix": "My photo confirms that this spot has been fixed"
     },
     "comment": {
       "send": "Send",
@@ -226,7 +238,13 @@
       "awayfrom": "d'ici",
       "fixed": "Ce spot a été amélioré entre-temps",
       "register": "Inscris-toi maintenant et prends part à la discussion!",
-      "send": "Envoyer"
+      "send": "Envoyer",
+      "markasfixed": "Marquer comme fixé",
+      "editspot": "Modifier le spot",
+      "uploadphoto": "Télécharger une photo",
+      "addphototitle": "Télécharger une photo",
+      "addphotodesc": "Avez-vous une photo supplémentaire?",
+      "addphotofix": "Ma photo confirme que cet spot a été corrigé"
     },
     "comment": {
       "send": "Envoyer",

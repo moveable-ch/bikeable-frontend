@@ -39,6 +39,21 @@ export default {
         });
     });
   },
+  getLightSpots( { limit, filter, sort, order, location } ) {
+    let url = process.env.BACKEND_URL + '/api/v1/lightentries';
+
+    return new Promise((resolve, reject) => {
+      axios.get(url, {})
+        .then(response => {
+          resolve(response.data.data);
+        }, error => {
+          console.log(error.request);
+          if (!error.request.response) reject('');
+          let msg = JSON.parse(error.request.response);
+          reject(msg.message);
+        });
+    });
+  },
   getMySpots( { limit, filter, sort, order, location } ) {
 
     let userId = localStorage.getItem('userId');
@@ -60,7 +75,7 @@ export default {
     if(filterParam) params.append('filter', filterParam);
 
     return new Promise((resolve, reject) => {
-      axios.get(url, 
+      axios.get(url,
         { params: params
         })
         .then(response => {
@@ -144,6 +159,35 @@ export default {
     });
   },
 
+  proposeFixedSpot({ spotId, userId, authToken }) {
+
+    let url = process.env.BACKEND_URL + '/api/v1/entries/' + spotId + '/proposefixed';
+
+    return new Promise((resolve, reject) => {
+      axios.post(url, {},
+        {
+          headers: {
+            'X-User-Id': userId,
+            'X-Auth-Token': authToken
+          }
+        })
+        .then(
+          (response) => {
+            resolve(response.data);
+          }
+        )
+        .catch(
+          (error) => {
+            if(!error.request.response) reject('');
+            let msg = JSON.parse(error.request.response);
+            reject(msg.message);
+          }
+        );
+    });
+  },
+
+
+
   addSpot({ data, userId, authToken}) {
 
     let url = process.env.BACKEND_URL + '/api/v1/entries'
@@ -192,6 +236,34 @@ export default {
         .catch(
           (error) => {
             console.log(error);
+            if(!error.request.response) reject('');
+            let msg = JSON.parse(error.request.response);
+            reject(msg.message);
+          }
+        );
+    });
+
+  },
+
+  addPhoto({ data, spotId, userId, authToken}) {
+
+    let url = process.env.BACKEND_URL + '/api/v1/entries/'+ spotId + '/addphoto'
+
+    return new Promise((resolve, reject) => {
+      axios.post(url, data,
+        {
+          headers: {
+            'X-User-Id': userId,
+            'X-Auth-Token': authToken
+          }
+        })
+        .then(
+          (response) => {
+            resolve(response.data.data);
+          }
+        )
+        .catch(
+          (error) => {
             if(!error.request.response) reject('');
             let msg = JSON.parse(error.request.response);
             reject(msg.message);

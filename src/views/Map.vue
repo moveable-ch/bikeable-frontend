@@ -33,7 +33,7 @@ export default {
 
   computed: {
     entries() {
-      return this.$store.getters.allSpots;
+      return this.$store.getters.lightSpots;
     },
     sponsors() {
       return this.$store.getters.sponsoredEntries
@@ -84,7 +84,7 @@ export default {
 
   mounted() {
     this.$store.dispatch('getSponsoredEntries');
-    this.$store.dispatch('getAllSpots');
+    this.$store.dispatch('getLightSpots');
     this.initMap();
   },
 
@@ -269,7 +269,7 @@ export default {
         let imgurl = 'static/img/marker-bad.png';
 
         if(entry.famed) imgurl = 'static/img/marker-good.png';
-        if(entry.fixed) imgurl = 'static/img/marker-fixed.png';
+        if(entry.gotFixed) imgurl = 'static/img/marker-fixed.png';
 
         let icon = {
           url: imgurl,
@@ -285,7 +285,7 @@ export default {
         this.markers.push({
           instance: marker,
           famed: entry.famed,
-          fixed: entry.fixed
+          fixed: entry.gotFixed
         });
 
         marker.addListener('click', function(e) {

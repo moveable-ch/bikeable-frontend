@@ -15,16 +15,24 @@
       <form @submit.prevent="postEntry">
         <h3><span class="num">1</span>{{ $t('addform.photo') }}</h3>
         <span class="label">{{ $t('addform.uploadimage') }}</span>
+
         <div class="file-upload">
-          <div class="file-upload__form" v-if="!imageChosen">
+
+          <div class="file-upload__form" v-if="!uploading">
             <label for="add-file">{{ $t('addform.chooseimage')}}</label>
             <input id="add-file" @change.prevent="uploadImage" type="file">
           </div>
-          <span class="file-upload__pending" v-if="!imageId && imageChosen">{{ $t('addform.loading') }}</span>
-          <div class="file-upload__preview" v-if="imageId">
-            <a href="#" class="file-upload__preview__close" @click.prevent="resetImage">×</a>
-            <img v-bind:src="imagePreviewUrl" @error="imageLoadError">
+
+          <span class="file-upload__pending" v-if="uploading">{{ $t('addform.loading') }}</span>
+
+          <div class="file-upload__images">
+            <div class="file-upload__preview" v-for="image in gallery" v-bind:key="image.id">
+              <a href="#" class="file-upload__preview__close" @click.prevent="resetImage(image.imageId)">×</a>
+              <img v-bind:src="imagePreviewUrl(image.imageId)" @error="imageLoadError">
+            </div>
           </div>
+
+
         </div>
         <div class="fameorshame">
           <h3><span class="num">2</span>{{ $t('addform.fameorshame') }}</h3>
@@ -93,14 +101,14 @@ export default {
 
       showMapModal: false,
       addressPending: false,
-
+      entryAddressDetails: null,
       entryAddress: '',
       entryCoords: null,
       entryTitle: '',
       entryText: '',
       entryFamed: null,
-      imageId: null,
-      imageChosen: false
+      gallery: [],
+      uploading: false
     }
   },
 
@@ -109,17 +117,14 @@ export default {
       return this.$store.getters.userCoords;
     },
     formReady() {
-      return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.imageId != null && this.entryFamed != null);
-    },
-    imagePreviewUrl() {
-        return process.env.BACKEND_URL + '/api/v1/photos/' + this.imageId + '?size=small';
+      return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.gallery.length > 0 && this.entryFamed != null);
     }
   },
 
   watch: {
     'currentEntry': function() {
       this.fillForm();
-    },  
+    },
   },
 
   mounted() {
@@ -131,6 +136,9 @@ export default {
   },
 
   methods: {
+    imagePreviewUrl(imageId) {
+        return process.env.BACKEND_URL + '/api/v1/photos/' + imageId + '?size=small';
+    },
     loadEntry() {
       this.entryId = this.$route.params.id;
       this.$store.commit('LOAD_START');
@@ -138,7 +146,6 @@ export default {
       spots.getSpotById(this.entryId)
         .then((data) => {
           this.currentEntry = data;
-          this.imageId = data.photo._id;
           this.loadingData = false;
           this.$store.commit('LOAD_FINISH');
           this.$emit('updateHead');
@@ -158,8 +165,8 @@ export default {
       this.entryTitle = this.currentEntry.title,
       this.entryText = this.currentEntry.text,
       this.entryFamed = this.currentEntry.famed ? "famed" : "shamed",
-      this.imageChosen = true
-
+      this.gallery = this.currentEntry.gallery;
+      this.uploading = false
     },
 
     imageLoadError() {
@@ -290,9 +297,10 @@ export default {
       .then(response => {
 
         if(response.data.results[0]) {
-          var addressDetails = this.geocodeResultToAdress(response);
+          this.entryAddressDetails = this.geocodeResultToAdress(response);
           this.entryAddress = response.data.results[0].formatted_address;
           this.entryCoords = response.data.results[0].geometry.location;
+          this.entryAddressDetails
         } else {
           this.clearAddress();
         }
@@ -308,7 +316,7 @@ export default {
       this.addressPending = false;
     },
     uploadImage(e) {
-      this.imageChosen = true;
+      this.uploading = true;
 
       let imageFile = e.currentTarget;
       let file = imageFile.files[0];
@@ -319,15 +327,28 @@ export default {
           data: reader.result
         })
         .then((data) => {
-            this.imageId = data.imageId;
+            this.uploading = false;
+            this.addImageToGallery(data.imageId);
           }, (data) => {
             this.$store.dispatch('handleError', 'Error');
+            this.uploading = false;
           });
       };
     },
-    resetImage() {
-      this.imageChosen = false;
-      this.imageId = null;
+    addImageToGallery(imageId) {
+
+      let userId = localStorage.getItem('userId');
+
+      this.gallery.push({ "imageId": imageId,
+          "createdAt": new Date(),
+          "showsFix": false,
+          "userId": userId });
+    },
+    resetImage(imageId) {
+
+      this.gallery = this.gallery.filter(image => {
+        return image.imageId != imageId
+      });
     },
     postEntry(e) {
       if(!this.formReady) return;
@@ -337,24 +358,24 @@ export default {
         this.$store.dispatch('editSpot', {data: {
             title: this.entryTitle,
             text: this.entryText,
-            imageId: this.imageId,
+            gallery: this.gallery,
             address: this.entryAddress,
+            addressDetails: this.entryAddressDetails,
             coords: this.entryCoords,
             famed: this.entryFamed == "famed"
           }, spotId: this.entryId})
         .then((data) => {
             this.$router.push('/entries/' + data._id);
           });
-        
+
       } else {
 
         this.$store.dispatch('addSpot', {
             title: this.entryTitle,
             text: this.entryText,
-            imageId: this.imageId,
+            gallery: this.gallery,
             address: this.entryAddress,
             addressDetails: this.entryAddressDetails,
-
             coords: this.entryCoords,
             famed: this.entryFamed == "famed"
           })
@@ -446,8 +467,8 @@ export default {
     label {
       display: block;
       color: $c-black;
-      border: 2px solid rgba($c-black, .5);
-      border-radius: 2px;
+      border: 2px solid $c-black;
+      border-radius: 0;
       width: 14rem;
       text-align: center;
       font-weight: 500;
@@ -475,34 +496,50 @@ export default {
 
   &__pending {
     display: block;
-    color: #aaa;
-    width: 14rem;
-    text-align: center;
-    line-height: 3rem;
-    height: 3rem;
-    margin-top: 1rem;
-    background-color: #fafafa;
-    // border-radius: 4px;
+    margin: 1rem 0;
+  }
+
+  &__images {
+    display: flex;
+    flex-wrap: wrap;
+
+    @include tablet {
+      flex-wrap: none;
+    }
   }
 
   &__preview {
-    width: 15rem;
-    height: 10rem;
-    background-color: #fafafa;
+    width: 13rem;
+    height: 8rem;
+    background-color: $c-blue;
     padding: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    margin-right: 5px;
+    margin-bottom: 5px;
 
     &__close {
-      color: #333;
+      font-family: Arial, 'sans-serif';
+      color: $c-black;
       text-decoration: none;
       position: absolute;
-      top: 0;
-      right: -1.5rem;
+      top: 50%;
+      right: 50%;
+      width: 50px;
+      height: 50px;
+      margin-right: -25px;
+      margin-top: -25px;
+      border-radius: 99%;
+      background-color: rgba(#fff, .4);
+      text-align: center;
       font-size: 2rem;
-      color: #aaa;
+      line-height: 50px;
+
+      &:hover {
+        background-color: rgba(#fff, .6);
+      }
     }
     img {
       max-width: 100%;

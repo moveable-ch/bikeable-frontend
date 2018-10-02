@@ -103,8 +103,6 @@ export default {
       return [
         { property: 'og:title', content: this.currentEntry.title + ' – Bikeable', id: 'og-title' },
         { property: 'og:image', content: photo.medium.url, id: 'og-image' },
-        { property: 'og:image:width', content: photo.medium.width, id: 'og-image-width' },
-        { property: 'og:image:height', content: photo.medium.height, id: 'og-image-height' },
         { property: 'og:url', content: this.entryUrl, id: 'og-url' },
         { property: 'og:desc', content: this.currentEntry.text, id: 'og-desc' }
       ]

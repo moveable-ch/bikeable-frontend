@@ -41,7 +41,10 @@
       "send": "Senden",
       "markasfixed": "Als behoben markieren",
       "editspot": "Spot bearbeiten",
-      "uploadphoto": "Foto hochladen"
+      "uploadphoto": "Foto hochladen",
+      "addphototitle": "Foto hochladen",
+      "addphotodesc": "Hast du ein zusätzliches Foto zu diesem Spot? Lade es hier hoch!",
+      "addphotofix": "Mein Foto bestätigt dass dieser Spot verbessert wurde"
     },
     "comment": {
       "send": "Senden",
@@ -138,7 +141,10 @@
       "send": "Send",
       "markasfixed": "Mark as Fixed",
       "editspot": "Edit Spot",
-      "uploadphoto": "Upload Photo"
+      "uploadphoto": "Upload Photo",
+      "addphototitle": "Upload Photo",
+      "addphotodesc": "Do you have an additional image of this spot? Upload it here!",
+      "addphotofix": "My photo confirms that this spot has been fixed"
     },
     "comment": {
       "send": "Send",
@@ -235,7 +241,10 @@
       "send": "Envoyer",
       "markasfixed": "Marquer comme fixé",
       "editspot": "Modifier le spot",
-      "uploadphoto": "Télécharger une photo"
+      "uploadphoto": "Télécharger une photo",
+      "addphototitle": "Télécharger une photo",
+      "addphotodesc": "Avez-vous une photo supplémentaire?",
+      "addphotofix": "Ma photo confirme que cet spot a été corrigé"
     },
     "comment": {
       "send": "Envoyer",

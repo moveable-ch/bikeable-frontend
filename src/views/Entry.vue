@@ -3,7 +3,7 @@
 <template>
   <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed, 'is-fixed': currentEntry.gotFixed, 'pending': loadingData }">
     <map-modal v-if="showMapModal" @close="showMapModal = false" :coords="currentEntry.coords"></map-modal>
-    <add-photo-modal v-if="showPhotoModal" @close="showPhotoModal = false" :entryId="entryId"></add-photo-modal>
+    <add-photo-modal v-if="showPhotoModal" @close="showPhotoModal = false" @success="loadEntry" :entryId="entryId"></add-photo-modal>
     <div class="entry__header">
       <h1>{{ currentEntry.title }}</h1>
       <div class="entry__votes" v-bind:class="{ 'is-active': hasVoted, disabled: !isLoggedIn, 'famed': currentEntry.famed }">
@@ -51,7 +51,7 @@
         <div class="entry__meta__tools">
           <a v-if="isLoggedIn && entryIsFromUser" :href="'/edit/' + currentEntry._id" class="entry__meta__tools__button"><span class="material-icons">edit</span>{{ $t('entry.editspot') }}</a>
           <a v-if="isLoggedIn && !entryIsFromUser && !currentEntry.gotFixed && !currentEntry.famed" @click.prevent="proposeFixedSpot" href="#" class="entry__meta__tools__button" v-bind:class="{ 'has-proposed': alreadyProposedSpotAsFixed }"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
-          <!--<a @click.prevent="showPhotoModal = true" href="#" class="entry__meta__tools__button"><span class="material-icons">add_a_photo</span>{{ $t('entry.uploadphoto') }}</a>-->
+          <a @click.prevent="showPhotoModal = true" href="#" class="entry__meta__tools__button"><span class="material-icons">add_a_photo</span>{{ $t('entry.uploadphoto') }}</a>
         </div>
       </div>
       <div class="entry__social">
@@ -137,7 +137,7 @@ export default {
       comments: {},
       commentText: '',
       showMapModal: false,
-      showPhotoModal: false
+      showPhotoModal: true
     }
   },
 
@@ -339,9 +339,6 @@ export default {
         });
     },
 
-    showMap() {
-      console.log('hey');
-    }
   }
 }
 </script>

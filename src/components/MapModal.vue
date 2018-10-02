@@ -148,14 +148,14 @@ export default {
   transition: .4s opacity;
 
   .map-modal__inner {
-    transition: .4s transform $easeOutQuint;
+    transition: .4s transform ease-out;
   }
 }
 .modal-enter, .modal-leave-to {
   opacity: 0;
 
   .map-modal__inner {
-    transform: scale(.8);
+    transform: translateY(40px);
   }
 }
 

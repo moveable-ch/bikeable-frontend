@@ -1,11 +1,11 @@
 <template>
   <transition name="modal">
-    <div class="add-photo-modal">
-      <div class="add-photo-modal__inner">
+    <div class="add-photo-modal" @click="$emit('close')">
+      <div class="add-photo-modal__inner" @click.stop>
 
         <form @submit.prevent="postImage">
-          <h3><span class="num">1</span>{{ $t('addform.photo') }}</h3>
-          <span class="label">{{ $t('addform.uploadimage') }}</span>
+          <h3>{{ $t('entry.addphototitle') }}</h3>
+          <span class="label">{{ $t('entry.addphotodesc') }}</span>
 
 
         <div class="file-upload">
@@ -14,7 +14,7 @@
             <label for="add-file">{{ $t('addform.chooseimage')}}</label>
             <input id="add-file" @change.prevent="uploadImage" type="file">
           </div>
-         
+
           <span class="file-upload__pending" v-if="uploading">{{ $t('addform.loading') }}</span>
 
           <div class="file-upload__preview" v-if="imageId">
@@ -22,7 +22,11 @@
             <img v-bind:src="imagePreviewUrl(imageId)">
           </div>
 
-          <button type="submit" class="btn comments__form__button" v-bind:class="{ 'disabled': !imageId }">{{ $t('entry.send') }}</button>
+          <div class="file-upload__checkbox">
+            <label><input type="checkbox" v-model="showsFix"> {{ $t('entry.addphotofix')}}</label>
+          </div>
+
+          <button type="submit" class="btn" v-bind:class="{ 'disabled': !imageId }">{{ $t('entry.send') }}</button>
 
         </div>
 
@@ -41,7 +45,8 @@ export default {
   data () {
     return {
       uploading: false,
-      imageId: null
+      imageId: null,
+      showsFix: false
     }
   },
   computed: {
@@ -87,11 +92,11 @@ export default {
 
         this.$store.dispatch('addPhoto',
           {data: {imageId: this.imageId,
-           showsFix: true
+           showsFix: this.showsFix
          }, spotId: this.entryId} )
         .then((data) => {
             this.$emit('close');
-            // TODO: Reload spot-Gallery!
+            this.$emit('success');
           });
 
       }
@@ -116,6 +121,77 @@ export default {
   justify-content: center;
   z-index: 4;
 
+  .file-upload__pending {
+    display: block;
+    margin: 1rem 0;
+    background: $c-blue;
+    padding: .5rem;
+    text-align: center;
+    border-radius: 4px;
+  }
+  .file-upload__preview {
+    width: 13rem;
+    height: 8rem;
+    background-color: $c-blue;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 1rem 0;
+
+    &__close {
+      font-family: Arial, 'sans-serif';
+      color: $c-black;
+      text-decoration: none;
+      position: absolute;
+      top: 50%;
+      right: 50%;
+      width: 50px;
+      height: 50px;
+      margin-right: -25px;
+      margin-top: -25px;
+      border-radius: 99%;
+      background-color: rgba(#fff, .4);
+      text-align: center;
+      font-size: 2rem;
+      line-height: 50px;
+
+      &:hover {
+        background-color: rgba(#fff, .6);
+      }
+    }
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      height: auto;
+      width: auto;
+    }
+  }
+  .file-upload__form {
+    label {
+      border: 2px dashed $c-black;
+      border-radius: 4px;
+      padding: .5rem;
+      margin-top: 1rem;
+      background-color: $c-blue;
+      text-align: center;
+    }
+    input {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+  }
+
+  .file-upload__checkbox {
+    font-size: .9rem;
+    margin-top: 1.5rem;
+  }
+
   &__content {
     overflow: hidden;
     width: calc(100% - 5rem);
@@ -135,12 +211,13 @@ export default {
     margin: 0 1rem;
     width: 90%;
     height: 90%;
-    max-width: 50rem;
-    max-height: 40rem;
+    max-width: 30rem;
+    max-height: 20rem;
     position: relative;
-    border-radius: 6px;
+    border-radius: 4px;
     box-shadow: 0 6px 6px -4px rgba(#000, .3);
     border: 1px solid $c-grey;
+    padding: 2rem;
 
     .btn-close {
       font-size: 1.5rem;
@@ -151,7 +228,8 @@ export default {
       position: absolute;
       top: 1rem;
       right: 1rem;
-      background-color: #fff;
+      background-color: $c-black;
+      color: #fff;
       width: 3rem;
       height: 3rem;
       line-height: 3rem;
@@ -176,14 +254,14 @@ export default {
   transition: .4s opacity;
 
   .add-photo-modal__inner {
-    transition: .4s transform $easeOutQuint;
+    transition: .4s transform ease-out;
   }
 }
 .modal-enter, .modal-leave-to {
   opacity: 0;
 
   .add-photo-modal__inner {
-    transform: scale(.8);
+    transform: translateY(40px);
   }
 }
 

@@ -29,8 +29,7 @@
       "entercurrentposition": "Aktuellen Standort einfügen",
       "chooselocation": "Standort auf Karte wählen",
       "description": "Beschreibung",
-      "send": "Senden",
-      "emergency": "Leider haben wir gerade technische Probleme, das Erstellen neuer Spots ist vorübergehend deaktiviert."
+      "send": "Senden"
     },
     "editform": {
       "editspot": "Spot bearbeiten"
@@ -130,8 +129,7 @@
       "entercurrentposition": "Insert current location",
       "chooselocation": "Choose location on map",
       "description": "Description",
-      "send": "Send",
-      "emergency": "Technical difficulties: adding new spots is temporarily unavailable."
+      "send": "Send"
     },
     "editform": {
       "editspot": "Edit spot"
@@ -231,8 +229,7 @@
       "entercurrentposition": "Utiliser ma position actuelle",
       "chooselocation": "Localisation du spot sur la carte",
       "description": "Description",
-      "send": "Envoyer",
-      "emergency": "Difficultés techniques"
+      "send": "Envoyer"
     },
     "editform": {
       "editspot": "Modifier le spot"

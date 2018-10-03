@@ -268,7 +268,6 @@ export default {
 
         let imgurl = 'static/img/marker-bad.png';
 
-        console.log(entry);
         if(entry.famed) imgurl = 'static/img/marker-good.png';
         if(entry.gotFixed) imgurl = 'static/img/marker-fixed.png';
 

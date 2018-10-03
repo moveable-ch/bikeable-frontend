@@ -10,8 +10,13 @@
     </map-modal-view>
     <div class="container">
       <h1 v-if="!this.entryId">{{ $t('addform.addspot') }}</h1>
-      <h1 v-if="this.entryId">{{ $t('editform.editspot') }} </h1>
+      <h1 v-if="this.entryId">{{ $t('editform.editspot') }}</h1>
 
+      <!-- EMERGENCY MESSAGE -->
+      <p class="emergency">{{ $t('addform.emergency') }}</p>
+      <!-- END EMERGENCY MESSAGE -->
+
+      <!--
       <form @submit.prevent="postEntry">
         <h3><span class="num">1</span>{{ $t('addform.photo') }}</h3>
         <span class="label">{{ $t('addform.uploadimage') }}</span>
@@ -66,7 +71,7 @@
           <textarea v-model="entryText" rows="5"></textarea>
         </label>
         <button type="submit" class="add__btn btn" v-bind:class="{ disabled: !formReady }" :disabled="!formReady">{{ $t('addform.send') }}</button>
-      </form>
+      </form>-->
     </div>
   </div>
 </template>
@@ -417,6 +422,16 @@ export default {
   &::after {
     z-index: -2;
     background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
+  }
+
+  .emergency {
+    text-align: center;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 5px 20px -5px rgba(#000, .1);
+    margin: 4rem auto 15rem auto;
+    border-radius: 4px;
+    border: 2px solid $c-highlight;
   }
 
   h3 {

@@ -5,7 +5,7 @@
         <div class="entry-modal__inner" v-if="currentEntry" @click.stop>
           <div
             class="entry-modal__image"
-            v-bind:style="'background-image:url(' + currentEntry.photo.small.url + ')'">
+            v-bind:style="'background-image:url(' + entryImage + ')'">
           </div>
           <div class="entry-modal__content">
             <h3>{{ currentEntry.title }}</h3>
@@ -43,6 +43,10 @@ export default {
     },
     isEmbed() {
       return this.$route.query.embed;
+    },
+    entryImage() {
+      if(this.currentEntry.photo) return this.currentEntry.photo.small.url;
+      return '#';
     }
   },
   watch: {

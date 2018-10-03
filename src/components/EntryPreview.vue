@@ -78,8 +78,6 @@ export default {
     opacity: 1;
     transition: 1s opacity;
 
-    &:hover {
-    }
     &.loading {
       opacity: 0;
     }

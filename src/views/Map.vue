@@ -203,7 +203,7 @@ export default {
 
       this.sponsors.forEach((entry, index) => {
 
-        if(!entry.isSponsor) continue;
+        if(!entry.isSponsor) return;
 
         let imgurl = 'static/img/star-lame.png';
         if(entry.isSponsor) imgurl = 'static/img/star.png';

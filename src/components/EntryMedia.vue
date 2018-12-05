@@ -4,7 +4,7 @@
       <div class="carousel-cell" v-for="image in entry.gallery" v-bind:key="image.imageId">
         <img v-bind:src="image.photo.large">
       </div>
-      <div class="carousel-cell" v-if="entry.photo && entry.gallery.length == 0">
+      <div class="carousel-cell" v-if="entry.gallery.length == 0">
         <img :src="entry.photo.large.url">
       </div>
     </div>

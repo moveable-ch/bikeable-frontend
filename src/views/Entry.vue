@@ -97,12 +97,20 @@ export default {
       }
     },
     meta: function () {
-
-      var photo = this.currentEntry.photo ? this.currentEntry.photo : this.currentEntry.gallery[0].photo;
+      if(!this.currentEntry) return;
+      var photo = '#';
+      if(this.currentEntry.photo) {
+        if(this.currentEntry.photo.medium != '') {
+          photo = this.currentEntry.photo.medium.url;
+        }
+      }
+      if(this.currentEntry.gallery[0]) {
+        photo = this.currentEntry.gallery[0].photo.medium;
+      }
 
       return [
         { property: 'og:title', content: this.currentEntry.title + ' – Bikeable', id: 'og-title' },
-        { property: 'og:image', content: photo.medium.url, id: 'og-image' },
+        { property: 'og:image', content: photo, id: 'og-image' },
         { property: 'og:url', content: this.entryUrl, id: 'og-url' },
         { property: 'og:desc', content: this.currentEntry.text, id: 'og-desc' }
       ]
@@ -127,7 +135,9 @@ export default {
         },
         photo: {
           large: '',
-          medium: ''
+          medium: {
+            url: ''
+          }
         },
         famed: false,
         gallery: []
@@ -190,6 +200,7 @@ export default {
   mounted() {
     this.comments = null;
     this.fetchData();
+
   },
 
   methods: {

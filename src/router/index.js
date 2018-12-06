@@ -111,10 +111,14 @@ export default new Router({
   mode: 'history',
   saveScrollPosition: true,
   scrollBehavior(to, from, savedPosition) {
+    let newPos = { x: 0, y: 0 }
     if (savedPosition) {
-      return savedPosition
-    } else {
-      return { x: 0, y: 0 }
+      newPos = savedPosition
     }
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(newPos)
+      }, 300)
+    })
   }
 })

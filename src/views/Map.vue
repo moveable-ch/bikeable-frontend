@@ -6,8 +6,10 @@
     <c-sponsor-modal v-if="showSponsorModal" @close="showSponsorModal = false" :sponsoredEntry="activeSponsor"></c-sponsor-modal>
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
     <div class="spot-nav clearfix" v-if="!isEmbed || showEmbedControls">
-      <router-link v-if="isLoggedIn" to="/add" class="spot-nav__link spot-nav__link--add"></router-link>
-      <router-link v-if="!isLoggedIn" to="/login" class="spot-nav__link spot-nav__link--add"></router-link>
+      <router-link v-if="isLoggedIn && !isEmbed" to="/add" class="spot-nav__link spot-nav__link--add"></router-link>
+      <router-link v-if="!isLoggedIn && !isEmbed" to="/login" class="spot-nav__link spot-nav__link--add"></router-link>
+      <a v-if="isEmbed && isLoggedIn" href="/add" target="_blank" class="spot-nav__link spot-nav__link--add"></a>
+      <a v-if="isEmbed && !isLoggedIn" href="/login" target="_blank" class="spot-nav__link spot-nav__link--add"></a>
       <a href="#" @click.prevent="showUserLocation" class="spot-nav__link spot-nav__link--location" v-bind:class="{ disabled: !userCoords }"></a>
     </div>
   </div>

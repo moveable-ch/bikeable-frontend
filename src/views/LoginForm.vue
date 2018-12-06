@@ -39,7 +39,8 @@ export default {
       fbEmail: '',
       fbUserId: '',
       fbAccessToken: '',
-      FB: undefined
+      FB: undefined,
+      fromPath: '/'
     }
   },
 
@@ -52,9 +53,13 @@ export default {
   },
 
   mounted() {
-    var self = this;
-
     // this.initFbLogin();
+  },
+
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.fromPath = from.path;
+    });
   },
 
   methods: {
@@ -64,7 +69,7 @@ export default {
           password: this.formPassword
         })
       .then((data) => {
-          this.$router.push('/');
+          this.$router.push(this.fromPath);
         }, (data) => {
         });
     },
@@ -97,7 +102,7 @@ export default {
             // the user isn't logged in to Facebook.
           }
 
-          console.log(response);
+          // console.log(response);
       });
 
     };

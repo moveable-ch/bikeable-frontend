@@ -6,7 +6,7 @@
     <add-photo-modal v-if="showPhotoModal" @close="showPhotoModal = false" @success="loadEntry" :entryId="entryId"></add-photo-modal>
     <div class="entry__header">
       <h1>{{ currentEntry.title }}</h1>
-      <div class="entry__votes" v-bind:class="{ 'is-active': hasVoted, disabled: !isLoggedIn, 'famed': currentEntry.famed }">
+      <div class="entry__votes" v-bind:class="{ 'is-active': hasVoted, disabled: !isLoggedIn, 'famed': currentEntry.famed, 'visible': !voteCheckPending }">
         <a @click.prevent="upvoteEntry" class="entry__votes__button" href="#" title="Upvote">
           <svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -97,12 +97,20 @@ export default {
       }
     },
     meta: function () {
-
-      var photo = this.currentEntry.photo ? this.currentEntry.photo : this.currentEntry.gallery[0].photo;
+      if(!this.currentEntry) return;
+      var photo = '#';
+      if(this.currentEntry.photo) {
+        if(this.currentEntry.photo.medium != '') {
+          photo = this.currentEntry.photo.medium.url;
+        }
+      }
+      if(this.currentEntry.gallery[0]) {
+        photo = this.currentEntry.gallery[0].photo.medium;
+      }
 
       return [
         { property: 'og:title', content: this.currentEntry.title + ' – Bikeable', id: 'og-title' },
-        { property: 'og:image', content: photo.medium.url, id: 'og-image' },
+        { property: 'og:image', content: photo, id: 'og-image' },
         { property: 'og:url', content: this.entryUrl, id: 'og-url' },
         { property: 'og:desc', content: this.currentEntry.text, id: 'og-desc' }
       ]
@@ -127,7 +135,9 @@ export default {
         },
         photo: {
           large: '',
-          medium: ''
+          medium: {
+            url: ''
+          }
         },
         famed: false,
         gallery: []
@@ -135,7 +145,8 @@ export default {
       comments: {},
       commentText: '',
       showMapModal: false,
-      showPhotoModal: false
+      showPhotoModal: false,
+      voteCheckPending: true
     }
   },
 
@@ -190,6 +201,7 @@ export default {
   mounted() {
     this.comments = null;
     this.fetchData();
+
   },
 
   methods: {
@@ -197,7 +209,10 @@ export default {
       this.loadEntry();
       this.loadComments();
 
-      if(!this.isLoggedIn) return;
+      if(!this.isLoggedIn) {
+        this.voteCheckPending = false;
+        return;
+      }
       this.checkUpvote();
     },
 
@@ -271,17 +286,22 @@ export default {
         }
       ).then(
         () => {
-          this.hasVoted = true
+          this.hasVoted = true;
+          this.voteCheckPending = false;
         },
         () => {
-          this.hasVoted = false
+          this.hasVoted = false;
+          this.voteCheckPending = false;
         }
       );
 
     },
 
     upvoteEntry() {
-      if(!this.isLoggedIn) return;
+      if(!this.isLoggedIn) {
+        this.$router.push('/login');
+        return;
+      }
       if(this.hasVoted == true) return;
 
       let userId = localStorage.getItem('userId');
@@ -630,6 +650,8 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
+      opacity: .2;
+      pointer-events: none;
 
       &__button {
         display: inline-block;
@@ -682,10 +704,6 @@ export default {
         }
       }
 
-      &.disabled {
-        pointer-events: none;
-        opacity: .5;
-      }
       &.is-active {
 
         .entry__votes__button {
@@ -705,6 +723,10 @@ export default {
             }
           }
         }
+      }
+      &.visible {
+        pointer-events: auto;
+        opacity: 1;
       }
       &.famed {
         .entry__votes__button {

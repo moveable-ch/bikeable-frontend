@@ -59,8 +59,14 @@ export default {
     isEmbed() {
       return this.$route.query.embed;
     },
+    showEmbedControls() {
+      return this.$route.query.controls;
+    },
     currentLang() {
       return this.$store.getters.lang;
+    },
+    isWebApp() {
+      return window.navigator.standalone;
     }
   },
   components: {
@@ -73,6 +79,9 @@ export default {
 
     if(this.isEmbed) {
       document.body.classList.add('embed');
+    }
+    if(this.isWebApp) {
+      document.body.classList.add('webapp');
     }
 
     this.$store.dispatch('getUserCoords');

@@ -64,6 +64,9 @@ export default {
     },
     currentLang() {
       return this.$store.getters.lang;
+    },
+    isWebApp() {
+      return window.navigator.standalone;
     }
   },
   components: {
@@ -77,8 +80,8 @@ export default {
     if(this.isEmbed) {
       document.body.classList.add('embed');
     }
-    if(this.isEmbed) {
-      document.body.classList.add('embed-controls');
+    if(this.isWebApp) {
+      document.body.classList.add('webapp');
     }
 
     this.$store.dispatch('getUserCoords');

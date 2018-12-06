@@ -1,6 +1,7 @@
 <template>
   <header class="header" v-bind:class="{ 'is-scrolled': isScrolled, 'is-logged-in': isLoggedIn }">
     <router-link to="/" class="header__logo"><span>bikeable</span></router-link>
+    <a v-if="true" href="#" class="header__back" @click.prevent="historyBack"></a>
     <button class="burger" v-on:click="navVisible = true"></button>
     <router-link v-if="isLoggedIn" to="/profile" class="header__avatar" :style="{ backgroundImage: 'url(' + userAvatar + ')' }"><span>Profile</span></router-link>
     <nav class="header__mainnav">
@@ -80,6 +81,11 @@ export default {
       }else{
         this.isScrolled = false;
       }
+    },
+    historyBack() {
+      window.history.length > 1
+        ? this.$router.go(-1)
+        : this.$router.push('/');
     }
   },
 
@@ -112,7 +118,7 @@ export default {
         return this.imagePreviewUrl;
       }
       return this.userData.profile.avatar.small;
-    },
+    }
   },
 
   watch: {
@@ -176,6 +182,13 @@ export default {
       transform: translateY(-50%) scale(.8);
       top: 50%;
     }
+    .webapp & {
+      left: 4rem;
+
+      @include tablet {
+        left: 5rem;
+      }
+    }
 
     @include tablet() {
       width: 74px;
@@ -188,6 +201,24 @@ export default {
         transform: scale(.4) translateY(-50%);
         top: 50%;
       }
+    }
+  }
+  &__back {
+    display: none;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    left: .5rem;
+    background-image: url('../assets/icon-back.png');
+    background-size: 100%;
+
+    @include tablet {
+      left: 1rem;
+      top: 1.5rem;
+    }
+    .webapp & {
+      display: block;
     }
   }
 

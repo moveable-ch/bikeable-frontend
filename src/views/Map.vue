@@ -5,7 +5,7 @@
     <c-entry-modal v-if="showModal" @close="showModal = false" :entryId="activeEntryId" :markerOffset="markerOffset"></c-entry-modal>
     <c-sponsor-modal v-if="showSponsorModal" @close="showSponsorModal = false" :sponsoredEntry="activeSponsor"></c-sponsor-modal>
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
-    <div class="spot-nav clearfix" v-if="!isEmbed">
+    <div class="spot-nav clearfix" v-if="!isEmbed || showEmbedControls">
       <router-link v-if="isLoggedIn" to="/add" class="spot-nav__link spot-nav__link--add"></router-link>
       <router-link v-if="!isLoggedIn" to="/login" class="spot-nav__link spot-nav__link--add"></router-link>
       <a href="#" @click.prevent="showUserLocation" class="spot-nav__link spot-nav__link--location" v-bind:class="{ disabled: !userCoords }"></a>
@@ -49,6 +49,9 @@ export default {
     },
     isEmbed() {
       return this.$route.query.embed;
+    },
+    showEmbedControls() {
+      return this.$route.query.controls;
     },
     queryLocation() {
       if(!this.$route.query.center) return false;
@@ -114,6 +117,7 @@ export default {
 
       GoogleMapsLoader.KEY = 'AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI';
       GoogleMapsLoader.LANGUAGE = 'de';
+      GoogleMapsLoader.VERSION = '3.36';
 
       GoogleMapsLoader.load((google) => {
         this.google = google;
@@ -145,6 +149,7 @@ export default {
           styles: mapstyle,
           fullscreenControl: false,
           streetViewControl: false,
+          mapTypeControl: false,
           zoomControlOptions: {
             position: google.maps.ControlPosition.RIGHT_TOP
           }
@@ -338,10 +343,6 @@ export default {
   height: 100vh;
   background-color: #fff;
 
-  .embed & {
-    height: 100vh;
-    top: 0;
-  }
   &::before, &::after {
     content: "";
     display: block;
@@ -354,6 +355,14 @@ export default {
     background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
   }
 
+  .embed & {
+    height: 100vh;
+    top: 0;
+
+    &::before, &::after {
+      display: none;
+    }
+  }
   @include tablet {
     height: 100vh;
 
@@ -369,6 +378,9 @@ export default {
   width: 100%;
   height: calc(100% - 5rem);
 
+  .embed & {
+    height: 100%;
+  }
   @include tablet {
     height: calc(100% - 7rem);
   }

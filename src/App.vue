@@ -59,6 +59,9 @@ export default {
     isEmbed() {
       return this.$route.query.embed;
     },
+    showEmbedControls() {
+      return this.$route.query.controls;
+    },
     currentLang() {
       return this.$store.getters.lang;
     }
@@ -73,6 +76,9 @@ export default {
 
     if(this.isEmbed) {
       document.body.classList.add('embed');
+    }
+    if(this.isEmbed) {
+      document.body.classList.add('embed-controls');
     }
 
     this.$store.dispatch('getUserCoords');

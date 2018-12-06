@@ -57,8 +57,6 @@ export default {
   },
 
   beforeRouteEnter(to, from, next) {
-    console.log(this);
-    // this.fromPath = from.path;
     next(vm => {
       vm.fromPath = from.path;
     });
@@ -104,7 +102,7 @@ export default {
             // the user isn't logged in to Facebook.
           }
 
-          console.log(response);
+          // console.log(response);
       });
 
     };

@@ -2,6 +2,7 @@
 
 <template>
   <div class="entry" v-bind:class="{ 'is-famed': currentEntry.famed, 'is-fixed': currentEntry.gotFixed, 'pending': loadingData }">
+    <delete-modal v-if="isLoggedIn && entryIsFromUser && showDeleteModal" :entryId="this.entryId" @close="showDeleteModal = false"></delete-modal>
     <map-modal v-if="showMapModal" @close="showMapModal = false" :coords="currentEntry.coords"></map-modal>
     <add-photo-modal v-if="showPhotoModal" @close="showPhotoModal = false" @success="loadEntry" :entryId="entryId"></add-photo-modal>
     <div class="entry__header">
@@ -50,6 +51,9 @@
         </div>
         <div class="entry__meta__tools">
           <a v-if="isLoggedIn && entryIsFromUser" :href="'/edit/' + currentEntry._id" class="entry__meta__tools__button"><span class="material-icons">edit</span>{{ $t('entry.editspot') }}</a>
+
+          <a @click.prevent="showDeleteModal = true" v-if="isLoggedIn && entryIsFromUser" class="entry__meta__tools__button" href="#"><span class="material-icons">delete</span>{{ $t('entry.deletespot') }}</a>
+
           <a v-if="isLoggedIn && !entryIsFromUser && !currentEntry.gotFixed && !currentEntry.famed" @click.prevent="proposeFixedSpot" href="#" class="entry__meta__tools__button" v-bind:class="{ 'has-proposed': alreadyProposedSpotAsFixed }"><span class="material-icons">thumb_up</span>{{ $t('entry.markasfixed') }}</a>
           <a @click.prevent="showPhotoModal = true" v-if="isLoggedIn" href="#" class="entry__meta__tools__button"><span class="material-icons">add_a_photo</span>{{ $t('entry.uploadphoto') }}</a>
         </div>
@@ -84,6 +88,7 @@ import Comment from '@/components/Comment'
 import EntryMedia from '@/components/EntryMedia'
 import MapModal from '@/components/MapModal'
 import AddPhotoModal from '@/components/AddPhotoModal'
+import DeleteModal from '@/components/DeleteModal'
 
 import spots from '../api/spots'
 import comments from '../api/comments'
@@ -121,7 +126,8 @@ export default {
     'comment-view': Comment,
     'entry-media-view': EntryMedia,
     'map-modal': MapModal,
-    'add-photo-modal': AddPhotoModal
+    'add-photo-modal': AddPhotoModal,
+    'delete-modal': DeleteModal
   },
   data () {
     return {
@@ -146,7 +152,8 @@ export default {
       commentText: '',
       showMapModal: false,
       showPhotoModal: false,
-      voteCheckPending: true
+      voteCheckPending: true,
+      showDeleteModal: false
     }
   },
 
@@ -355,7 +362,7 @@ export default {
           this.$store.commit('SET_MESSAGE', error);
           this.$store.commit('LOAD_FINISH');
         });
-    },
+    }
 
   }
 }

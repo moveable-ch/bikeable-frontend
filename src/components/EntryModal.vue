@@ -46,6 +46,8 @@ export default {
     },
     entryImage() {
       if(this.currentEntry.photo) return this.currentEntry.photo.small.url;
+      // The following line is for when the backend ist updated, so we can delete the line before
+      if(this.currentEntry.photoPreviewUrl) return this.currentEntry.photoPreviewUrl;
       return '#';
     }
   },

@@ -192,6 +192,8 @@ export default {
 
     let url = process.env.BACKEND_URL + '/api/v1/entries'
 
+    console.log(userId + "      " + authToken);
+
     return new Promise((resolve, reject) => {
       axios.post(url, data,
         {
@@ -203,6 +205,34 @@ export default {
         .then(
           (response) => {
             resolve(response.data.data);
+          }
+        )
+        .catch(
+          (error) => {
+            if(!error.request.response) reject('');
+            let msg = JSON.parse(error.request.response);
+            reject(msg.message);
+          }
+        );
+    });
+
+  },
+
+  deleteSpot({ data, userId, authToken}) {
+
+    let url = process.env.BACKEND_URL + '/api/v1/entries/'+data.id;
+
+    return new Promise((resolve, reject) => {
+      axios.delete(url,
+        {
+          headers: {
+            'X-User-Id': userId,
+            'X-Auth-Token': authToken
+          }
+        })
+        .then(
+          (response) => {
+            resolve();
           }
         )
         .catch(

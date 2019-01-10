@@ -19,6 +19,7 @@
 import EntryModal from '@/components/EntryModal';
 import SponsorModal from '@/components/SponsorModal';
 import mapstyle from '@/assets/gmaps.json';
+import spots from '../api/spots'
 
 import GoogleMapsLoader from 'google-maps';
 
@@ -55,6 +56,9 @@ export default {
     showEmbedControls() {
       return this.$route.query.controls;
     },
+    filterByUserId() {
+      return this.$route.query.user;
+    },
     queryLocation() {
       if(!this.$route.query.center) return false;
 
@@ -83,7 +87,8 @@ export default {
       showModal: false,
       showSponsorModal: false,
       markerOffset: {x:0,y:0},
-      markers: []
+      markers: [],
+      filteredEntries: null
     }
   },
 
@@ -103,7 +108,7 @@ export default {
 
   watch: {
     'entries': function() {
-      this.renderMarkers();
+      this.displaySpots();
     },
     'sponsors': function() {
       this.renderSponsors();
@@ -169,7 +174,7 @@ export default {
           this.setMarkerIcons();
         });
 
-        this.renderMarkers();
+        this.displaySpots();
         this.renderSponsors();
         this.setMarkerIcons();
         this.locateUser();
@@ -269,11 +274,22 @@ export default {
 
     },
 
-    renderMarkers() {
-
+    displaySpots() {
       if(!this.entries || !this.google) return;
 
-      this.entries.forEach((entry, index) => {
+      if(this.filterByUserId) {
+        this.loadUserEntries()
+          .then(() => {
+            this.renderMarkers(this.filteredEntries);
+          })
+      }else{
+        this.renderMarkers(this.entries);
+      }
+      
+    },
+
+    renderMarkers(spots) {
+      spots.forEach((entry, index) => {
 
         let imgurl = 'static/img/marker-bad.png';
 
@@ -306,6 +322,28 @@ export default {
           // this.$router.push({ name: 'entry', params: { id: entry._id }});
         }.bind(this));
 
+      });
+
+    },
+
+    loadUserEntries() {
+      let userId = this.filterByUserId;
+
+      this.$store.commit('LOAD_START');
+
+      return new Promise((resolve, reject) => {
+        spots.getSpotsByUserId(userId)
+          .then((data) => {
+            this.filteredEntries = data;
+            this.$store.commit('LOAD_FINISH');
+            this.$emit('updateHead');
+            resolve();
+          },
+          (error) => {
+            this.$store.commit('LOAD_FINISH');
+            this.$router.push('/');
+            this.$store.dispatch('handleError', 'User nicht gefunden');
+          });
       });
 
     },

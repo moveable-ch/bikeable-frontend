@@ -20,7 +20,7 @@
         <region-switch></region-switch>
         <div class="home__spots__container">
           <div class="home__spots__item" v-for="spot in cat.spots" :key="spot._id">
-            <c-entry-preview :entry="spot"></c-entry-preview>
+            <c-entry-preview v-if="spot.photo" :entry="spot"></c-entry-preview>
           </div>
         </div>
         <router-link to="/entries" class="btn btn--centered">{{ $t('home.showall') }}</router-link>

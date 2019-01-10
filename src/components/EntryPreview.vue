@@ -1,7 +1,7 @@
 <template>
-  <div v-if="entry.photo" class="entry-preview" v-bind:class="{ famed: entry.famed }">
-    <router-link v-bind:class="{ loading: imageLoading }" :to="'/entries/' + entry._id" class="entry-preview__image" :style="{ backgroundImage: 'url(' + entry.photo.medium.url + ')' }">
-      <img :src="entry.photo.medium.url" @load="imageLoaded">
+  <div v-if="entry" class="entry-preview" v-bind:class="{ famed: entry.famed }">
+    <router-link v-bind:class="{ loading: imageLoading }" :to="'/entries/' + entry._id" class="entry-preview__image" :style="{ backgroundImage: 'url(' + entryPhoto + ')' }">
+      <img :src="entryPhoto" @load="imageLoaded">
       <span class="entry-preview__thumb">
         <svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -13,7 +13,7 @@
       </span>
     </router-link>
     <div class="entry-preview__content">
-      <span class="entry-preview__user">{{ formatDate(entry.createdAt) }} / {{ entry.user.name }}</span>
+      <span class="entry-preview__user">{{ formatDate(entry.createdAt) }} / {{ entryUserName }}</span>
       <h3 class="entry-preview__headline"><router-link :to="'/entries/' + entry._id">{{ entry.title }}</router-link></h3>
       <span class="entry-preview__location">{{ entry.address }}</span>
       <span v-if="entry.humanizedDistance" class="entry-preview__distance">{{ entry.humanizedDistance }} {{ $t('entry.awayfrom') }}</span>
@@ -30,14 +30,25 @@ export default {
   props: ['entry'],
   data () {
     return {
+      isMounted: false,
       imageLoading: true
     }
   },
   computed: {
-  },
-  watch: {
+    entryPhoto() {
+      if(this.entry.photo) return this.entry.photo.medium.url;
+      if(this.entry.gallery.length > 0) {
+        return this.entry.gallery[0].photo.medium;
+      }
+      return '#';
+    },
+    entryUserName() {
+      if(!this.entry.user) return '';
+      return this.entry.user.username;
+    }
   },
   mounted() {
+    this.isMounted = true;
   },
   methods: {
     formatDate(date) {

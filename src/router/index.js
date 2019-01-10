@@ -17,108 +17,114 @@ import NotFound from '@/views/NotFound'
 import NewsArticle from '@/views/NewsArticle'
 import News from '@/views/News'
 import UserProfile from '@/views/UserProfile'
+import UserProfilePublic from '@/views/UserProfilePublic'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'home',
+      path: "/",
+      name: "home",
       component: Home
     },
     {
-      path: '/entries',
-      name: 'list',
+      path: "/entries",
+      name: "list",
       component: List
     },
     {
-      path: '/map',
-      name: 'map',
+      path: "/map",
+      name: "map",
       component: Map
     },
     {
-      path: '/about',
-      name: 'about',
+      path: "/about",
+      name: "about",
       component: About
     },
     {
-      path: '/faq',
-      name: 'faq',
+      path: "/faq",
+      name: "faq",
       component: FAQ
     },
     {
-      path: '/partner',
-      name: 'partner',
+      path: "/partner",
+      name: "partner",
       component: Partner
     },
     {
-      path: '/entries/:id',
-      name: 'entry',
+      path: "/entries/:id",
+      name: "entry",
       component: Entry
     },
     {
-      path: '/myentries',
-      name: 'mylist',
+      path: "/myentries",
+      name: "mylist",
       component: MyList
     },
     {
-      path: '/add',
-      name: 'add',
-      component: AddForm
+      path: "/users/:id",
+      name: "user",
+      component: UserProfilePublic
     },
-        {
-      path: '/edit/:id',
-      name: 'edit',
+    {
+      path: "/add",
+      name: "add",
       component: AddForm
     },
     {
-      path: '/register',
-      name: 'register',
+      path: "/edit/:id",
+      name: "edit",
+      component: AddForm
+    },
+    {
+      path: "/register",
+      name: "register",
       component: RegisterForm
     },
     {
-      path: '/login',
-      name: 'login',
+      path: "/login",
+      name: "login",
       component: LoginForm
     },
     {
-      path: '/forgottenpw',
-      name: 'forgottenpw',
+      path: "/forgottenpw",
+      name: "forgottenpw",
       component: PasswordRetrieval
     },
     {
-      path: '/profile',
-      name: 'userprofile',
+      path: "/profile",
+      name: "userprofile",
       component: UserProfile
     },
     {
-      path: '/news',
-      name: 'news',
+      path: "/news",
+      name: "news",
       component: News
     },
     {
-      path: '/news/:id',
-      name: 'newsarticle',
+      path: "/news/:id",
+      name: "newsarticle",
       component: NewsArticle
     },
     {
-      path: '*',
-      name: 'not-found',
+      path: "*",
+      name: "not-found",
       component: NotFound
     }
   ],
-  mode: 'history',
+  mode: "history",
   saveScrollPosition: true,
   scrollBehavior(to, from, savedPosition) {
-    let newPos = { x: 0, y: 0 }
+    let newPos = { x: 0, y: 0 };
     if (savedPosition) {
-      newPos = savedPosition
+      newPos = savedPosition;
     }
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(newPos)
-      }, 300)
-    })
+        resolve(newPos);
+      }, 300);
+    });
   }
-})
+});

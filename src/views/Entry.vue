@@ -37,7 +37,7 @@
         <div class="entry__meta__user">
           <div v-if="currentEntry.user.avatar" class="entry__meta__user__image" :style="'background-image:url(' + currentEntry.user.avatar.small + ')'"></div>
           <div class="entry__meta__user__text">
-            <span class="name">{{ currentEntry.user.name }}</span>
+            <span class="name"><router-link :to="'/users/' + currentEntry.user._id">{{ currentEntry.user.name }}</router-link></span>
             <span class="date">{{ entryDate }}</span>
           </div>
         </div>
@@ -472,6 +472,13 @@ export default {
           }
           .name {
             font-weight: bold;
+            a {
+              color: $c-black;
+
+              &:hover {
+                color: $c-main;
+              }
+            }
           }
           .date {
             color: #888;

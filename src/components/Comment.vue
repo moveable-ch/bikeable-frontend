@@ -108,6 +108,7 @@ export default {
           this.replyText = '';
           this.showForm = false;
           this.fetchData();
+          this.$store.commit('LOAD_FINISH');
         });
     },
     upvoteComment() {

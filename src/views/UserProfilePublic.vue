@@ -7,6 +7,7 @@
         <img :src="userProfileAvatar">
       </div>
       <h1>{{ userProfileData.username }}</h1>
+      <p class="v-user__bio" v-if="userProfileData.profile.bio">{{ userProfileData.profile.bio }}</p>
     </div>
     <div class="container">
       <!-- <span class="entrycount">{{ userEntryCount }} Spots</span> -->
@@ -75,6 +76,7 @@ export default {
 
       users.getUserProfile(this.userId)
         .then((data) => {
+          console.log(data);
           this.userProfileData = data;
           this.$store.commit('LOAD_FINISH');
           this.$emit('updateHead');
@@ -141,6 +143,12 @@ export default {
       width: 10rem;
       height: 10rem;
     }
+  }
+
+  &__bio {
+    max-width: 30rem;
+    margin: -2rem auto 2rem auto;
+    text-align: center;
   }
 
   &__spots {

@@ -10,6 +10,10 @@
           <input type="text" v-model="formUsername">
         </label>
         <label>
+          <span>{{ $t('profile.bio') }}</span>
+          <textarea v-model="formBio"></textarea>
+        </label>
+        <label>
           <span>{{ $t('profile.email') }}</span>
           <input type="text" v-model="formEmail" disabled>
         </label>
@@ -38,6 +42,7 @@ export default {
     return {
       formEmail: '',
       formUsername: '',
+      formBio: '',
       imageId: null,
       imageChosen: false,
       message: ''
@@ -76,13 +81,15 @@ export default {
       if(!this.userData || !this.userData.email) return;
       this.formEmail = this.userData.email.address;
       this.formUsername = this.userData.username;
+      this.formBio = this.userData.profile.bio;
     },
     submitForm() {
       this.$store.dispatch('updateUser', {
           email: null,
           // email: this.formEmail,
           username: this.formUsername,
-          avatar: this.imageId
+          avatar: this.imageId,
+          bio: this.formBio
         })
       .then((data) => {
         this.$store.dispatch('getUserData');

@@ -3,7 +3,7 @@
     <div class="comment__avatar" v-if="comment.user.avatar" :style="'background-image:url(' + comment.user.avatar.small + ')'"></div>
     <div class="comment__body">
       <div class="comment__meta">
-        <span class="username">{{ comment.user.name }}</span><span class="date">{{ dateCreated }}</span>
+        <router-link :to="'/users/' + comment.user._id" class="username">{{ comment.user.name }}</router-link><span class="date">{{ dateCreated }}</span>
       </div>
       <p v-html="linkifiedComment"></p>
     </div>
@@ -309,6 +309,7 @@ export default {
 
       .username {
         font-weight: 600;
+        text-decoration: none;
       }
       .date {
         position: absolute;

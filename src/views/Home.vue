@@ -15,7 +15,7 @@
     </div>
 
     <div class="home__spots" v-for="cat in spotCategories" v-bind:key="cat.id">
-      <div class="container">
+      <div class="container" v-if="cat.loaded">
         <h2>{{ cat.title}}</h2>
         <region-switch></region-switch>
         <div class="home__spots__container">
@@ -127,6 +127,7 @@ export default {
           title: 'New Spots',
           spots: [{},{},{},{}],
           sort: 'date',
+          loaded: false,
           meta(spot) {
             if(!spot.createdAt) return '';
             let d = new Date(spot.createdAt);
@@ -138,6 +139,7 @@ export default {
           title: 'Top Spots',
           spots: [{},{},{},{}],
           sort: 'votes',
+          loaded: false,
           meta(spot) {
             return spot.votes + ' Votes';
           }
@@ -176,6 +178,7 @@ export default {
           .then((entries) => {
             this.$store.commit('LOAD_FINISH');
             cat.spots = entries;
+            cat.loaded = true;
           },
           (error) => {
             this.$store.commit('LOAD_FINISH');

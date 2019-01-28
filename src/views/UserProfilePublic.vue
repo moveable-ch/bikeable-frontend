@@ -76,7 +76,6 @@ export default {
 
       users.getUserProfile(this.userId)
         .then((data) => {
-          console.log(data);
           this.userProfileData = data;
           this.$store.commit('LOAD_FINISH');
           this.$emit('updateHead');

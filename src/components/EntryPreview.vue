@@ -13,7 +13,7 @@
       </span>
     </router-link>
     <div class="entry-preview__content">
-      <span class="entry-preview__user">{{ formatDate(entry.createdAt) }} / {{ entryUserName }}</span>
+      <span class="entry-preview__user">{{ formatDate(entry.createdAt) }} / {{ entry.user.name }}</span>
       <h3 class="entry-preview__headline"><router-link :to="'/entries/' + entry._id">{{ entry.title }}</router-link></h3>
       <span class="entry-preview__location">{{ entry.address }}</span>
       <span v-if="entry.humanizedDistance" class="entry-preview__distance">{{ entry.humanizedDistance }} {{ $t('entry.awayfrom') }}</span>
@@ -44,7 +44,7 @@ export default {
     },
     entryUserName() {
       if(!this.entry.user) return '';
-      return this.entry.user.username;
+      return this.entry.user.name;
     }
   },
   mounted() {

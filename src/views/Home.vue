@@ -49,7 +49,7 @@
         <p>{{ $t('home.newsletter') }}<br>{{ $t('home.nospam') }}</p>
         <!-- Begin MailChimp Signup Form -->
         <div id="mc_embed_signup" class="home__newsletter__form">
-          <form action="https://bikeable.us15.list-manage.com/subscribe/post?u=5a9614abf208b7faae96233ff&amp;id=1df02df80c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+          <form :action="mailchimpUrl" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
             <div id="mc_embed_signup_scroll">
               <div class="mc-field-group">
                 <label>
@@ -116,6 +116,16 @@ export default {
     },
     prismicLang() {
       return this.$store.getters.prismicLang;
+    },
+    currentLang() {
+      return this.$store.getters.lang;
+    },
+    mailchimpUrl() {
+      if(this.currentLang == 'fr') {
+        return 'https://bikeable.us15.list-manage.com/subscribe/post?u=5a9614abf208b7faae96233ff&amp;id=386b5b5367';
+      }else{
+        return 'https://bikeable.us15.list-manage.com/subscribe/post?u=5a9614abf208b7faae96233ff&amp;id=1df02df80c';
+      }
     }
   },
   data() {

@@ -3,6 +3,7 @@
     <router-link v-bind:class="{ loading: imageLoading }" :to="'/entries/' + entry._id" class="entry-preview__image" :style="{ backgroundImage: 'url(' + entryPhoto + ')' }">
       <img :src="entryPhoto" @load="imageLoaded">
       <span class="entry-preview__thumb">
+        <span class="entry-preview__fixed" v-if="entry.gotFixed">fixed</span>
         <svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="Artboard-Copy-4" transform="translate(-55.000000, -184.000000)" fill="#FE0094" fill-rule="nonzero">
@@ -14,7 +15,7 @@
     </router-link>
     <div class="entry-preview__content">
       <span class="entry-preview__user">{{ formatDate(entry.createdAt) }} / {{ entry.user.name }}</span>
-      <h3 class="entry-preview__headline"><router-link :to="'/entries/' + entry._id">{{ entry.title }}</router-link></h3>
+      <h3 class="entry-preview__headline"><router-link :to="'/entries/' + entry._id">{{entry.gotFixed}} {{ entry.title }}</router-link></h3>
       <span class="entry-preview__location">{{ entry.address }}</span>
       <span v-if="entry.humanizedDistance" class="entry-preview__distance">{{ entry.humanizedDistance }} {{ $t('entry.awayfrom') }}</span>
       <span class="entry-preview__meta entry-preview__meta--votes">{{ entry.votes }}</span>
@@ -28,7 +29,7 @@
 export default {
   name: 'c-entry-preview',
   props: ['entry'],
-  data () {
+  data() {
     return {
       isMounted: false,
       imageLoading: true
@@ -97,6 +98,17 @@ export default {
       height: 0;
       visibility: hidden;
     }
+  }
+  &__fixed {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-5deg);
+    background-color: $c-main;
+    color: #fff;
+    padding: .25rem 1rem;
+    font-size: .8rem;
+    font-weight: bold;
   }
   &__thumb {
     position: absolute;

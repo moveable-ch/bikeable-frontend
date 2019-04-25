@@ -26,7 +26,7 @@ import GoogleMapsLoader from 'google-maps';
 export default {
   name: 'v-map',
   metaInfo: {
-    title: 'Map — Bikeable'
+    title: 'Map — Bikeable'
   },
   props: [],
   components: {
@@ -70,7 +70,7 @@ export default {
         lng: parseFloat(locArray[1])
       }
 
-      if(isNaN(parseFloat(locArray[0])) || isNaN(parseFloat(locArray[0]))) return false;
+      if(isNaN(parseFloat(locArray[0])) || isNaN(parseFloat(locArray[0]))) return false;
 
       return parsedLoc;
     },
@@ -186,7 +186,7 @@ export default {
 
     locateUser() {
 
-      if(!this.userCoords || !this.google) return;
+      if(!this.userCoords || !this.google) return;
 
       let icon = {
         url: 'static/img/userloc.png',
@@ -211,9 +211,9 @@ export default {
 
     renderSponsors() {
 
-      if(!this.sponsors || !this.google) return;
+      if(!this.sponsors || !this.google) return;
 
-      this.sponsors.forEach((entry, index) => {
+      this.sponsors.forEach((entry, index) => {
 
         if(!entry.isSponsor) return;
 
@@ -275,7 +275,7 @@ export default {
     },
 
     displaySpots() {
-      if(!this.entries || !this.google) return;
+      if(!this.entries || !this.google) return;
 
       if(this.filterByUserId) {
         this.loadUserEntries()
@@ -288,8 +288,8 @@ export default {
       
     },
 
-    renderMarkers(spots) {
-      spots.forEach((entry, index) => {
+    renderMarkers(spots) {
+      spots.forEach((entry, index) => {
 
         let imgurl = 'static/img/marker-bad.png';
 

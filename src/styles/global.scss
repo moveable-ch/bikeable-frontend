@@ -11,9 +11,6 @@ html {
   @include tablet {
     font-size: 18px;
   }
-  // @include desktop {
-  //   font-size: 20px;
-  // }
   @media screen and (min-width: 1500px) {
     font-size: 20px;
   }
@@ -268,7 +265,7 @@ textarea {
   min-height: calc(100vh - 500px);
 
   @include desktop() {
-    padding: 8rem 0 2rem 0;
+    padding: 12rem 0 2rem 0;
   }
 
   &::before, &::after {

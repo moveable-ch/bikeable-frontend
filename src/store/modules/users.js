@@ -46,7 +46,7 @@ const actions = {
           commit('SET_USER_COORDS', coords);
 
         }.bind(this),
-        function(e) {
+        function(e) {
           console.log('error');
         },
         { enableHighAccuracy: false, timeout: timeoutVal, maximumAge: 0 }

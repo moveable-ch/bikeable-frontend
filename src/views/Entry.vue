@@ -7,8 +7,10 @@
     <add-photo-modal v-if="showPhotoModal" @close="showPhotoModal = false" @success="loadEntry" :entryId="entryId"></add-photo-modal>
     <div class="entry__header">
       <h1>{{ currentEntry.title }}</h1>
-      <div class="entry__votes" v-bind:class="{ 'is-active': hasVoted, disabled: !isLoggedIn, 'famed': currentEntry.famed, 'visible': !voteCheckPending }">
+      <div class="entry__votes" v-bind:class="{ 'is-active': hasVoted, disabled: currentEntry.gotFixed, 'famed': currentEntry.famed, 'visible': !voteCheckPending }">
+
         <a @click.prevent="upvoteEntry" class="entry__votes__button" href="#" title="Upvote">
+          <span class="entry__votes__fixed" v-if="currentEntry.gotFixed">fixed</span>
           <svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
               <g id="Artboard-Copy-4" transform="translate(-55.000000, -184.000000)" fill="#FE0094" fill-rule="nonzero">
@@ -667,6 +669,17 @@ export default {
       opacity: .2;
       pointer-events: none;
 
+      &__fixed {
+        background-color: $c-main;
+        color: #fff;
+        padding: .25rem 1rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+        transform: translate(-50%, -50%) rotate(-5deg);
+        font-weight: bold;
+      }
       &__button {
         display: inline-block;
         position: relative;
@@ -741,6 +754,9 @@ export default {
       &.visible {
         pointer-events: auto;
         opacity: 1;
+      }
+      &.disabled {
+        pointer-events: none;
       }
       &.famed {
         .entry__votes__button {

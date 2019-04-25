@@ -92,8 +92,8 @@ export default {
   .date {
     display: block;
     text-align: left;
-    font-size: 1.25rem;
-    color: #aaa;
+    font-size: 1rem;
+    color: #000;
 
     @include tablet() {
       text-align: center;

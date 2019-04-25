@@ -211,10 +211,10 @@ export default {
         top: 50%;
         transform: translateY(-50%);
         right: 2rem;
-        background-color: transparent;
+        background-color: #fff;
         border-radius: 4px;
         color: $c-main;
-        border: 1px solid $c-main;
+        // border: 1px solid $c-main;
         margin-top: 0;
         height: 1.75rem;
         line-height: 1.75rem;
@@ -222,6 +222,9 @@ export default {
         z-index: 1;
         box-sizing: content-box;
         padding-left: 2.5rem;
+        font-size: .9rem;
+        font-weight: bold;
+        box-shadow: 2px 2px 6px 0 rgba(#000, .05);
 
         .material-icons {
           display: block;
@@ -231,10 +234,15 @@ export default {
           position: absolute;
           top: 0;
           left: 0;
-          border-right: 1px solid $c-main;
           font-size: 1.25rem;
+          border-top-left-radius: 4px;
+          border-bottom-left-radius: 4px;
           background-color: $c-main;
-          color: white;
+          color: #fff;
+        }
+        &:hover {
+          background: #fff;
+          color: #333;
         }
       }
     }

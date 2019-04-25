@@ -92,7 +92,6 @@ export default {
 
 .about {
 
-
   &__paypal {
     text-align: center;
 

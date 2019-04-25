@@ -44,7 +44,7 @@ export default {
     });
   },
   getLightSpots({ limit, filter, sort, order, location }) {
-    let url = process.env.BACKEND_URL + "/api/v2/superduperlightentries";
+    let url = process.env.BACKEND_URL + "/api/v2/cachedlightentries";
 
     return new Promise((resolve, reject) => {
       axios.get(url, {}).then(

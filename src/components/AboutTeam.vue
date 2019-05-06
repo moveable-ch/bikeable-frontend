@@ -117,7 +117,7 @@ export default {
       width: 160px;
       position: absolute;
       top: 75px;
-      left: 15px;
+      left: 266px;
 
       img {
         display: block;
@@ -137,7 +137,7 @@ export default {
       }
 
       &:nth-child(2) {
-        left: 266px;
+        left: 14px;
       }
     }
   }

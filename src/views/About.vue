@@ -7,6 +7,10 @@
       <p class="lead" v-html="doc.lead"></p>
       <div v-html="doc.text"></div>
 
+      <AboutTeam :teamData="doc.team" />
+
+      <div v-html="doc.aboutText"></div>
+
       <div class="about__paypal">
         <h3>{{ $t('about.paypal') }}</h3>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -33,6 +37,7 @@
 <script>
 
 import Prismic from 'prismic.io';
+import AboutTeam from '../components/AboutTeam';
 
 export default {
   name: 'v-about',
@@ -40,6 +45,9 @@ export default {
     return {
       doc: null
     }
+  },
+  components: {
+    AboutTeam
   },
   watch: {
     'prismicLang' (to, from) {
@@ -77,6 +85,8 @@ export default {
         y.title = payload.results[0].getText('about.title');
         y.lead = payload.results[0].getText('about.lead');
         y.text = payload.results[0].getStructuredText('about.text').asHtml();
+        y.aboutText = payload.results[0].getStructuredText('about.about_text').asHtml();
+        y.team = payload.results[0].getGroup('about.team');
         return y;
       }, function(err) {
         console.log("Something went wrong: ", err);

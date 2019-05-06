@@ -38,6 +38,7 @@ export default {
         tempArray.push([this.teamArray[i]]);
       }
     }
+    tempArray.reverse();
     this.teamArray = tempArray;
   },
   methods: {

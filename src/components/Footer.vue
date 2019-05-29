@@ -26,6 +26,7 @@
         <span>{{ $t('footer.supported') }}</span>
         <div class="partner__logos">
           <a target="_blank" href="https://www.veloplus.ch"><img src="/static/img/veloplus-footer.png" alt="veloplus.ch"></a>
+          <a target="_blank" v-if="currentLang == 'fr'" href="https://www.tandem.ch"><img src="/static/img/tandem-footer.png" alt="tandem.ch"></a>
           <a target="_blank" v-if="currentLang != 'fr'" href="https://www.pro-velo.ch"><img src="/static/img/provelo-footer.png" alt="provelo.ch"></a>
           <a target="_blank" v-if="currentLang == 'fr'" href="https://www.pro-velo.ch"><img src="/static/img/provelo-footer-fr.png" alt="provelo.ch"></a>
         </div>
@@ -135,8 +136,11 @@ export default {
     a {
       display: block;
       max-width: 150px;
-      margin: .5rem 1rem;
+      margin: .5rem;
 
+      @include tablet() {
+        margin: .5rem 1rem;
+      }
       img {
         width: 100%;
         height: auto;

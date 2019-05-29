@@ -5,14 +5,19 @@
     <div class="container">
       <h1>{{ $t('partner.partner') }}</h1>
       <div class="partners" v-if="partners">
-        <a target="_blank" v-for="partner in partners" :href="partner.website.url()" class="partner__item">
+        <a target="_blank" v-for="(partner, index) in partners" :key="index" :href="partner.website.url()" class="partner__item">
           <span class="partner__item__logo" :style="'background-image:url(' + partner.logo + ')'"></span>
         </a>
       </div>
 
       <ul class="sponsors" v-if="sponsors">
-        <li v-for="sponsor in sponsors"><a target="_blank" :href="sponsor.website.url()">{{ sponsor.name }}</a></li>
+        <li v-for="(sponsor, index) in sponsors" :key="index"><a target="_blank" :href="sponsor.website.url()">{{ sponsor.name }}</a></li>
       </ul>
+
+      <div class="provelo-map">
+        <h3>{{ $t('partner.proveloregions') }}:</h3>
+        <iframe src="https://static.bikeable.ch/provelo-map.html" frameborder="0"></iframe>
+      </div>
     </div>
   </div>
 </template>
@@ -157,6 +162,22 @@ export default {
       @include tablet() {
         width: 33.3%;
       }
+    }
+  }
+
+  .provelo-map {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    height: 20rem;
+
+    @include tablet() {
+      height: 30rem;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
     }
   }
 }

@@ -73,7 +73,8 @@
       "pagenotfound": "Die Seite wurde nicht gefunden"
     },
     "partner": {
-      "partner": "Partner"
+      "partner": "Partner",
+      "proveloregions": "Pro Velo Regionen"
     },
     "password": {
       "forgot": "Passwort vergessen",
@@ -176,7 +177,8 @@
       "pagenotfound": "This page could not be found"
     },
     "partner": {
-      "partner": "Partners"
+      "partner": "Partners",
+      "proveloregions": "Pro Velo regions"
     },
     "password": {
       "forgot": "Forgot Password",
@@ -279,7 +281,8 @@
       "pagenotfound": "Cette page est introuvable"
     },
     "partner": {
-      "partner": "Partenaires"
+      "partner": "Partenaires",
+      "proveloregions": "Régions Pro Velo"
     },
     "password": {
       "forgot": "Mot de passe oublié",

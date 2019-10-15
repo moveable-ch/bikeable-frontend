@@ -29,7 +29,7 @@ export default {
   },
   data () {
     return {
-      maintenanceMode: true,
+      maintenanceMode: false,
       appReady: false,
       transitionName: 'fade',
       showFooter: true

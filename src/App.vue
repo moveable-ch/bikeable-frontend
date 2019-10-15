@@ -1,5 +1,9 @@
 <template>
-  <div id="app" v-if="appReady">
+  <div v-if="maintenanceMode">
+    <img src="https://media.giphy.com/media/nxuFTiUbYR3SE/giphy.gif" class="maintenance-img">
+    <h1 class="maintenance">We are having some technical problems and will be back soon.</h1>
+  </div>
+  <div id="app" v-else-if="appReady">
     <transition name="fade">
       <div class="loader" v-if="pendingCount > 0" ></div>
     </transition>
@@ -25,6 +29,7 @@ export default {
   },
   data () {
     return {
+      maintenanceMode: true,
       appReady: false,
       transitionName: 'fade',
       showFooter: true
@@ -195,6 +200,18 @@ export default {
   background-image: linear-gradient(to right,  transparent 0%, transparent 50%, $c-main 50%, $c-main 100%);
   background-size: 200% 100%;
   animation: stripe 5s infinite linear;
+}
+
+h1.maintenance {
+  font-size: 2rem;
+  line-height: 1.3;
+  padding: 0 2rem;
+}
+img.maintenance-img {
+  display: block;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 600px;
 }
 
 @keyframes stripe {

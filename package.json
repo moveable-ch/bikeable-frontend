@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@kazupon/vue-i18n-loader": "^0.3.0",
+    "@sentry/browser": "^5.7.1",
+    "@sentry/integrations": "^5.7.1",
     "axios": "^0.18.0",
     "flickity": "^2.1.1",
     "flickity-imagesloaded": "^2.0.0",

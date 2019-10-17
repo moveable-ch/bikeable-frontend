@@ -18,7 +18,7 @@ Vue.use(VueI18n);
 /* sentry setup */
 if(process.env.NODE_ENV === 'production') {
   Sentry.init({
-    dsn: 'https://b28735fbcda64ddf95621fb807322fd7@sentry.io/1781541',
+    dsn: 'https://2e16e9a0244442a38099e186eaa64bfa@sentry.io/1782729',
     integrations: [new Integrations.Vue({Vue, attachProps: true})],
   });
 }

@@ -16,7 +16,7 @@
 
       <div class="provelo-map">
         <h3>{{ $t('partner.proveloregions') }}:</h3>
-        <iframe src="https://static.bikeable.ch/provelo-map.html" frameborder="0"></iframe>
+        <iframe src="https://html.bikeable.ch/provelo-map.html" frameborder="0"></iframe>
       </div>
     </div>
   </div>

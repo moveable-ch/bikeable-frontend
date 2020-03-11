@@ -1,5 +1,5 @@
 <template>
-  <header class="header" v-bind:class="{ 'is-scrolled': isScrolled, 'is-logged-in': isLoggedIn }">
+  <header class="header" v-bind:class="{ 'is-scrolled': isScrolled, 'is-logged-in': isLoggedIn, 'is-slim': isSlim }">
     <router-link to="/" class="header__logo"><span>bikeable</span></router-link>
     <a v-if="true" href="#" class="header__back" @click.prevent="historyBack"></a>
     <button class="burger" v-on:click="navVisible = true"></button>
@@ -118,6 +118,9 @@ export default {
         return this.imagePreviewUrl;
       }
       return this.userData.profile.avatar.small;
+    },
+    isSlim() {
+      return this.$route.path == '/map';
     }
   },
 
@@ -154,7 +157,7 @@ export default {
     height: 5rem;
   }
 
-  &.is-scrolled {
+  &.is-scrolled, &.is-slim {
     top: 0;
     height: 3rem;
     background-color: #fff;
@@ -178,7 +181,7 @@ export default {
       display: none;
     }
 
-    .is-scrolled & {
+    .is-scrolled &, .is-slim & {
       transform: translateY(-50%) scale(.8);
       top: 50%;
     }
@@ -197,7 +200,7 @@ export default {
       left: 2rem;
       transform-origin: 0 0;
 
-      .is-scrolled & {
+      .is-scrolled &, .is-slim & {
         transform: scale(.4) translateY(-50%);
         top: 50%;
       }
@@ -283,7 +286,7 @@ export default {
     &.router-link-active {
       border-color: $c-main;
     }
-    .is-scrolled & {
+    .is-scrolled &, .is-slim & {
       transform: translateY(-50%) scale(.7);
     }
     &:hover {

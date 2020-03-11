@@ -124,6 +124,8 @@ export default {
 
     initMap() {
 
+      console.log('init map');
+
       const loader = new Loader('AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI', {});
 
       loader.load().then((google) => {
@@ -398,17 +400,17 @@ export default {
   height: 100vh;
   background-color: #fff;
 
-  &::before, &::after {
+  /*&::before, &::after {
     content: "";
-    display: block;
+    display: none;
     width: 100%;
-    height: 5rem;
+    height: 3rem;
     position: absolute;
     top: 0;
     left: 0;
     pointer-events: none;
     background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
-  }
+  }*/
 
   .embed & {
     height: 100vh;
@@ -422,7 +424,7 @@ export default {
     height: 100vh;
 
     &::before, &::after {
-      height: 7rem;
+      height: 3rem;
     }
   }
 }
@@ -431,13 +433,13 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: calc(100% - 5rem);
+  height: calc(100% - 3rem);
 
   .embed & {
     height: 100%;
   }
   @include tablet {
-    height: calc(100% - 7rem);
+    height: calc(100% - 3rem);
   }
 }
 

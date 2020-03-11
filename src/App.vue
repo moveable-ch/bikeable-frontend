@@ -12,7 +12,9 @@
     </transition>
     <c-header v-if="!isEmbed"></c-header>
     <transition name="route-fade" mode="out-in">
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </transition>
     <c-footer v-if="showFooter"></c-footer>
   </div>

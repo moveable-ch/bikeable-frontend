@@ -124,8 +124,6 @@ export default {
 
     initMap() {
 
-      console.log('init map');
-
       const loader = new Loader('AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI', {});
 
       loader.load().then((google) => {

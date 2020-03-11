@@ -46,7 +46,7 @@
     "file-loader": "^1.1.11",
     "friendly-errors-webpack-plugin": "^1.1.3",
     "function-bind": "^1.1.1",
-    "google-maps": "^3.3.0",
+    "google-maps": "^4.2.3",
     "html-webpack-plugin": "^3.0.4",
     "http-proxy-middleware": "^0.19.1",
     "node-sass": "^4.11.0",

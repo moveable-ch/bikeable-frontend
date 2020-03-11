@@ -21,7 +21,8 @@ import SponsorModal from '@/components/SponsorModal';
 import mapstyle from '@/assets/gmaps.json';
 import spots from '../api/spots'
 
-import GoogleMapsLoader from 'google-maps';
+// import GoogleMapsLoader from 'google-maps';
+import {Loader, LoaderOptions} from 'google-maps';
 
 export default {
   name: 'v-map',
@@ -123,11 +124,9 @@ export default {
 
     initMap() {
 
-      GoogleMapsLoader.KEY = 'AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI';
-      GoogleMapsLoader.LANGUAGE = 'de';
-      GoogleMapsLoader.VERSION = '3.36';
+      const loader = new Loader('AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI', {});
 
-      GoogleMapsLoader.load((google) => {
+      loader.load().then((google) => {
         this.google = google;
 
         let center = {lat: 47.377235, lng: 8.5314407};

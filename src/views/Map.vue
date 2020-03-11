@@ -88,7 +88,8 @@ export default {
       showSponsorModal: false,
       markerOffset: {x:0,y:0},
       markers: [],
-      filteredEntries: null
+      filteredEntries: null,
+      currentZoom: 0
     }
   },
 
@@ -147,6 +148,8 @@ export default {
           }
         }
 
+        this.currentZoom = zoom;
+
         this.map = new google.maps.Map(this.$refs.gmaps, {
           center: center,
           zoom: zoom,
@@ -170,7 +173,7 @@ export default {
 
         this.map.data.loadGeoJson('/static/json/regions.json');
 
-        google.maps.event.addListener(this.map, 'zoom_changed', () => {
+        google.maps.event.addListener(this.map, 'zoom_changed', (e) => {
           this.setMarkerIcons();
         });
 
@@ -246,30 +249,43 @@ export default {
 
     setMarkerIcons() {
 
+      if((this.currentZoom <= 14 && this.map.zoom <= 14) || (this.currentZoom > 14 && this.map.zoom > 14)) {
+        this.currentZoom = this.map.zoom;
+        return;
+      }else{
+        this.currentZoom = this.map.zoom;
+      }
+
+      let badIcon = {};
+      let famedIcon = {};
+      let fixedIcon = {};
+
+      let s = new google.maps.Size(22,30);
+      if(this.currentZoom > 14) {
+        badIcon.scaledSize = s;
+        badIcon.url = 'static/img/marker-bad.png';
+        famedIcon.scaledSize = s;
+        famedIcon.url = 'static/img/marker-good.png';
+        fixedIcon.scaledSize = s;
+        fixedIcon.url = 'static/img/marker-fixed.png';
+      }else{
+        s = new google.maps.Size(10, 10);
+        badIcon.scaledSize = s;
+        badIcon.url = 'static/img/marker-bad_s.png';
+        famedIcon.scaledSize = s;
+        famedIcon.url = 'static/img/marker-good_s.png';
+        fixedIcon.scaledSize = s;
+        fixedIcon.url = 'static/img/marker-fixed_s.png';
+      }
+
       this.markers.forEach((marker) => {
-        let icon = {};
-        if(this.map.zoom > 14) {
-          let imgurl = 'static/img/marker-bad.png';
-
-          if(marker.famed) imgurl = 'static/img/marker-good.png';
-          if(marker.fixed) imgurl = 'static/img/marker-fixed.png';
-
-          icon = {
-            url: imgurl,
-            scaledSize: new google.maps.Size(22, 30)
-          }
+        if(marker.famed) {
+          marker.instance.setIcon(famedIcon);
+        }else if(marker.fixed) {
+          marker.instance.setIcon(fixedIcon);
         }else{
-          let imgurl = 'static/img/marker-bad_s.png';
-
-          if(marker.famed) imgurl = 'static/img/marker-good_s.png';
-          if(marker.fixed) imgurl = 'static/img/marker-fixed_s.png';
-
-          icon = {
-            url: imgurl,
-            scaledSize: new google.maps.Size(10, 10)
-          }
+          marker.instance.setIcon(badIcon);
         }
-        marker.instance.setIcon(icon);
       });
 
     },

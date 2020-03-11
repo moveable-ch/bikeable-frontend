@@ -7,15 +7,16 @@
         <c-datepicker id="to"
         :date="new Date()">
         </c-datepicker>
-        <label for="type">Typ</label>
-        <select id="type">
-          <option value="all">Alle</option>
+        <label for="type">Type</label>
+        <select id="type" @change="commitFilter" v-model="filter.type">
+          <option value="null">Alle</option>
           <option value="fame">Fame</option>
           <option value="shame">Shame</option>
           <option value="fixed">Fixed</option>
         </select>
         <label for="hashtag">Hashtag</label>
-        <select id="hashtag">
+        <select id="hashtag" @change="commitFilter" v-model="filter.hashtag">
+          <option value="null">Alle</option>
           <option value="Hallo Velo">Hallo Velo</option>
           <option value="Todeszone">Todeszone</option>
           <option value="Scheile Geiss">Scheile Geiss</option>
@@ -23,16 +24,16 @@
         </select>
   </div>
 </template>
-
 <script>
 
 import DatePicker from '@/components/DatePicker'
 
 export default {
   name: 'c-filter-bar',
-  props: ['from', 'to', 'type', 'hashtag'],
+  props: ['filters'],
   data () {
     return {
+      filter: {type:null, hashtag:null}
     }
   },
   components: {
@@ -45,8 +46,8 @@ export default {
 
   },
   methods: {
-  misc() {
-
+    commitFilter() {
+      this.$emit("change", this.filter);
     }
   }
 }
@@ -63,4 +64,5 @@ export default {
   padding: 4px;
   box-shadow: 0 4px 10px 0 rgba(#000, .1);
 }
+
 </style>

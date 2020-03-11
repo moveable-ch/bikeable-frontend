@@ -7,7 +7,7 @@
     <div class="gmaps" id="gmaps" ref="gmaps">
     </div>
     <div class="filter-bar-container">
-      <c-filter-bar></c-filter-bar>
+      <c-filter-bar @change="setFilter"></c-filter-bar>
     </div>
     <div class="spot-nav" v-if="!isEmbed || showEmbedControls">
       <router-link v-if="isLoggedIn && !isEmbed" to="/add" class="spot-nav__link spot-nav__link--add"></router-link>
@@ -95,8 +95,9 @@ export default {
       showSponsorModal: false,
       markerOffset: {x:0,y:0},
       markers: [],
-      filteredEntries: null,
-      currentZoom: 0
+      userEntries: null,
+      currentZoom: 0,
+      filter: {type: null, hashtag: null}
     }
   },
 
@@ -191,7 +192,46 @@ export default {
 
     },
 
+    filteredEntries() {
 
+      let filteredEntries = this.entries;
+
+      if (this.filter.type != 'all') {
+
+        if (this.filter.type == 'fame') {
+          filteredEntries = filteredEntries.filter((entry) => {
+            return entry.famed;
+          });
+        } else if(this.filter.type == 'shame') {
+          filteredEntries = filteredEntries.filter((entry) => {
+            return !entry.famed;
+          });
+        } else if(this.filter.type == 'fixed') {
+          filteredEntries = filteredEntries.filter((entry) => {
+            return !entry.gotFixed;
+          });
+        }
+
+      }
+
+      if (this.filter.hashtag != 'all') {
+
+        // if (filters['type'] == 'fame') {
+        //   filterEntries = filterEntries.filter(function(entry) {
+        //     return entry.fame
+        //   });
+        // } else if(filters['type'] == 'shame') {
+        //   filterEntries = filterEntries.filter(function(entry) {
+        //     return !entry.fame
+        //   });
+        // } else if(filters['type'] == 'fixed') {
+        //     return !entry.gotFixed
+        // }
+
+      }
+
+      return filteredEntries;
+    },
     locateUser() {
 
       if(!this.userCoords || !this.google) return;
@@ -296,15 +336,17 @@ export default {
     },
 
     displaySpots() {
-      if(!this.entries || !this.google) return;
+      let filteredEntries = this.filteredEntries();
+      console.log(filteredEntries);
+      if(!filteredEntries || !this.google) return;
 
       if(this.filterByUserId) {
         this.loadUserEntries()
           .then(() => {
-            this.renderMarkers(this.filteredEntries);
+            this.renderMarkers(this.userEntries);
           })
       }else{
-        this.renderMarkers(this.entries);
+        this.renderMarkers(filteredEntries);
       }
       
     },
@@ -355,7 +397,7 @@ export default {
       return new Promise((resolve, reject) => {
         spots.getSpotsByUserId(userId)
           .then((data) => {
-            this.filteredEntries = data;
+            this.userEntries = data;
             this.$store.commit('LOAD_FINISH');
             this.$emit('updateHead');
             resolve();
@@ -386,8 +428,12 @@ export default {
       let offsetY = Math.round(point.y - centerY);
 
       return { x: offsetX, y: offsetY };
-    }
+    },
 
+    setFilter(data) {
+      this.displaySpots()
+      this.filter = data;
+    }
   }
 }
 </script>
@@ -437,19 +483,19 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: calc(100% - 3rem);
+  height: calc(100% - 6rem);
 
   .embed & {
     height: 100%;
   }
   @include tablet {
-    height: calc(100% - 3rem);
+    height: calc(100% - 6rem);
   }
 }
 
 .filter-bar-container {
   position: absolute;
-  top: 6.5rem;
+  top: 3rem;
   height: 2rem;
   left: 0;
   right:0;

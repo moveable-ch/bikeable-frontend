@@ -4,8 +4,12 @@
   <div class="map">
     <c-entry-modal v-if="showModal" @close="showModal = false" :entryId="activeEntryId" :markerOffset="markerOffset"></c-entry-modal>
     <c-sponsor-modal v-if="showSponsorModal" @close="showSponsorModal = false" :sponsoredEntry="activeSponsor"></c-sponsor-modal>
-    <div class="gmaps" id="gmaps" ref="gmaps"></div>
-    <div class="spot-nav clearfix" v-if="!isEmbed || showEmbedControls">
+    <div class="gmaps" id="gmaps" ref="gmaps">
+    </div>
+    <div class="filter-bar-container">
+      <c-filter-bar></c-filter-bar>
+    </div>
+    <div class="spot-nav" v-if="!isEmbed || showEmbedControls">
       <router-link v-if="isLoggedIn && !isEmbed" to="/add" class="spot-nav__link spot-nav__link--add"></router-link>
       <router-link v-if="!isLoggedIn && !isEmbed" to="/login" class="spot-nav__link spot-nav__link--add"></router-link>
       <a v-if="isEmbed && isLoggedIn" href="/add" target="_blank" class="spot-nav__link spot-nav__link--add"></a>
@@ -20,6 +24,7 @@ import EntryModal from '@/components/EntryModal';
 import SponsorModal from '@/components/SponsorModal';
 import mapstyle from '@/assets/gmaps.json';
 import spots from '../api/spots'
+import FilterBar from '@/components/FilterBar'
 
 // import GoogleMapsLoader from 'google-maps';
 import {Loader, LoaderOptions} from 'google-maps';
@@ -32,7 +37,8 @@ export default {
   props: [],
   components: {
     'c-sponsor-modal': SponsorModal,
-    'c-entry-modal': EntryModal
+    'c-entry-modal': EntryModal,
+    'c-filter-bar': FilterBar
   },
 
   computed: {
@@ -439,6 +445,14 @@ export default {
   @include tablet {
     height: calc(100% - 3rem);
   }
+}
+
+.filter-bar-container {
+  position: absolute;
+  top: 6.5rem;
+  height: 2rem;
+  left: 0;
+  right:0;
 }
 
 .spot-nav {

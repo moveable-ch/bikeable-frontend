@@ -26,9 +26,6 @@ import mapstyle from '@/assets/gmaps.json';
 import spots from '../api/spots'
 import FilterBar from '@/components/FilterBar'
 
-// import GoogleMapsLoader from 'google-maps';
-import {Loader, LoaderOptions} from 'google-maps';
-
 export default {
   name: 'v-map',
   metaInfo: {
@@ -155,14 +152,9 @@ export default {
     'userCoords': function() {
       this.locateUser();
     },
-<<<<<<< Updated upstream
-    'filteredEntries': function() {
-      this.renderMarkers(this.filteredEntries);
-=======
     'google': function() {
       if(this.mapInited) return;
       this.initMap();
->>>>>>> Stashed changes
     }
   },
 

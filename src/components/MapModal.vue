@@ -12,7 +12,6 @@
 <script>
 
 import mapstyle from '@/assets/gmaps.json';
-import {Loader, LoaderOptions} from 'google-maps';
 
 export default {
   name: 'c-map-modal',

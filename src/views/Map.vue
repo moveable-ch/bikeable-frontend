@@ -83,7 +83,33 @@ export default {
     },
     queryZoom() {
       return parseInt(this.$route.query.zoom);
-    }
+    },
+
+    filteredEntries() {
+
+      let filteredEntries = this.entries;
+      let filter = this.filter;
+
+      if (filter.type != null) {
+
+        if (filter.type == 'fame') {
+          filteredEntries = filteredEntries.filter((entry) => {
+            return entry.famed;
+          });
+        } else if(filter.type == 'shame') {
+          filteredEntries = filteredEntries.filter((entry) => {
+            return !entry.famed;
+          });
+        } else if(filter.type == 'fixed') {
+          filteredEntries = filteredEntries.filter((entry) => {
+            return entry.gotFixed;
+          });
+        }
+
+      }
+
+      return filteredEntries;
+    },
   },
 
   data () {
@@ -124,6 +150,9 @@ export default {
     },
     'userCoords': function() {
       this.locateUser();
+    },
+    'filteredEntries': function() {
+      this.renderMarkers(this.filteredEntries);
     }
   },
 
@@ -192,46 +221,6 @@ export default {
 
     },
 
-    filteredEntries() {
-
-      let filteredEntries = this.entries;
-
-      if (this.filter.type != 'all') {
-
-        if (this.filter.type == 'fame') {
-          filteredEntries = filteredEntries.filter((entry) => {
-            return entry.famed;
-          });
-        } else if(this.filter.type == 'shame') {
-          filteredEntries = filteredEntries.filter((entry) => {
-            return !entry.famed;
-          });
-        } else if(this.filter.type == 'fixed') {
-          filteredEntries = filteredEntries.filter((entry) => {
-            return !entry.gotFixed;
-          });
-        }
-
-      }
-
-      if (this.filter.hashtag != 'all') {
-
-        // if (filters['type'] == 'fame') {
-        //   filterEntries = filterEntries.filter(function(entry) {
-        //     return entry.fame
-        //   });
-        // } else if(filters['type'] == 'shame') {
-        //   filterEntries = filterEntries.filter(function(entry) {
-        //     return !entry.fame
-        //   });
-        // } else if(filters['type'] == 'fixed') {
-        //     return !entry.gotFixed
-        // }
-
-      }
-
-      return filteredEntries;
-    },
     locateUser() {
 
       if(!this.userCoords || !this.google) return;
@@ -305,7 +294,7 @@ export default {
       let famedIcon = {};
       let fixedIcon = {};
 
-      let s = new google.maps.Size(22,30);
+      let s = new this.google.maps.Size(22,30);
       if(this.currentZoom > 14) {
         badIcon.scaledSize = s;
         badIcon.url = 'static/img/marker-bad.png';
@@ -314,7 +303,7 @@ export default {
         fixedIcon.scaledSize = s;
         fixedIcon.url = 'static/img/marker-fixed.png';
       }else{
-        s = new google.maps.Size(10, 10);
+        s = new this.google.maps.Size(10, 10);
         badIcon.scaledSize = s;
         badIcon.url = 'static/img/marker-bad_s.png';
         famedIcon.scaledSize = s;
@@ -336,9 +325,7 @@ export default {
     },
 
     displaySpots() {
-      let filteredEntries = this.filteredEntries();
-      console.log(filteredEntries);
-      if(!filteredEntries || !this.google) return;
+      if(!this.filteredEntries || !this.google) return;
 
       if(this.filterByUserId) {
         this.loadUserEntries()
@@ -346,12 +333,21 @@ export default {
             this.renderMarkers(this.userEntries);
           })
       }else{
-        this.renderMarkers(filteredEntries);
+        this.renderMarkers(this.filteredEntries);
       }
       
     },
 
+    clearMarkers() {
+      this.markers.forEach(marker => {
+        marker.instance.setMap(null);
+      }),
+      this.markers = [];
+    },
+
     renderMarkers(spots) {
+      this.clearMarkers();
+      
       spots.forEach((entry, index) => {
 
         let imgurl = 'static/img/marker-bad.png';
@@ -361,7 +357,7 @@ export default {
 
         let icon = {
           url: imgurl,
-          scaledSize: new google.maps.Size(22, 30)
+          scaledSize: new this.google.maps.Size(22, 30)
         }
 
         let marker = new this.google.maps.Marker({
@@ -431,7 +427,6 @@ export default {
     },
 
     setFilter(data) {
-      this.displaySpots()
       this.filter = data;
     }
   }

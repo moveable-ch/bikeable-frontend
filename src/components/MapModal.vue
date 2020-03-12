@@ -12,7 +12,7 @@
 <script>
 
 import mapstyle from '@/assets/gmaps.json';
-import GoogleMapsLoader from 'google-maps';
+import {Loader, LoaderOptions} from 'google-maps';
 
 export default {
   name: 'c-map-modal',
@@ -36,10 +36,9 @@ export default {
   },
   methods: {
     initMap() {
-      GoogleMapsLoader.KEY = 'AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI';
-      GoogleMapsLoader.LANGUAGE = 'de';
+      const loader = new Loader('AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI', {});
 
-      GoogleMapsLoader.load(function(google) {
+      loader.load().then((google) => {
         this.google = google;
 
         this.map = new google.maps.Map(this.$refs.gmaps, {
@@ -58,7 +57,7 @@ export default {
 
         this.addMarker();
 
-      }.bind(this));
+      });
     },
 
     addMarker() {

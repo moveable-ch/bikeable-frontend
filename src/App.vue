@@ -103,6 +103,8 @@ export default {
 
     if(this.$router.currentRoute.name == 'map') this.showFooter = false;
 
+    this.$store.dispatch('initMapsApi');
+
     this.appReady = true;
   },
   methods: {

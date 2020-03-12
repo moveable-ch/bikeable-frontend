@@ -1,13 +1,16 @@
+import {Loader, LoaderOptions} from 'google-maps';
 import map from '../../api/map';
 
 const state = {
   sponsoredEntries: [],
-  mapCenter: null
+  mapCenter: null,
+  google: null
 }
 
 const getters = {
   sponsoredEntries: state => state.sponsoredEntries,
-  mapCenter: state => state.mapCenter
+  mapCenter: state => state.mapCenter,
+  google: state => state.google
 }
 
 const actions = {
@@ -29,6 +32,14 @@ const actions = {
 
   setMapCenter({ commit, dispatch }, center) {
     commit('SET_MAP_CENTER', center);
+  },
+
+  initMapsApi({ commit, dispatch, state }) {
+    const loader = new Loader('AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI', {});
+
+    loader.load().then((google) => {
+      state.google = google;
+    });
   }
 
 }

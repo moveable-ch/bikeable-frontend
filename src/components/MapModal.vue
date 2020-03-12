@@ -19,13 +19,21 @@ export default {
   props: ['coords'],
   data () {
     return {
+      mapInited: false
     }
   },
   computed: {
+    google() {
+      return this.$store.getters.google;
+    }
   },
   watch: {
-    coords() {
+    'coords': function() {
       if(!this.coords) return;
+      this.initMap();
+    },
+    'google': function() {
+      if(this.mapInited) return;
       this.initMap();
     }
   },
@@ -36,29 +44,25 @@ export default {
   },
   methods: {
     initMap() {
-
-      const loader = new Loader('AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI', {});
-
-      loader.load().then((google) => {
-        this.google = google;
-
-        this.map = new google.maps.Map(this.$refs.gmaps, {
-          center: this.coords,
-          zoom: 15,
-          disableDefaultUI: false,
-          clickableIcons: false,
-          gestureHandling: 'greedy',
-          styles: mapstyle,
-          scrollwheel: false,
-          zoomControlOptions: {
-            position: google.maps.ControlPosition.LEFT_TOP,
-          },
-          fullscreenControl: false
-        });
-
-        this.addMarker();
-
+      if(!this.google) return;
+      this.mapInited = true;
+      
+      this.map = new this.google.maps.Map(this.$refs.gmaps, {
+        center: this.coords,
+        zoom: 15,
+        disableDefaultUI: false,
+        clickableIcons: false,
+        gestureHandling: 'greedy',
+        styles: mapstyle,
+        scrollwheel: false,
+        zoomControlOptions: {
+          position: this.google.maps.ControlPosition.LEFT_TOP,
+        },
+        fullscreenControl: false
       });
+
+      this.addMarker();
+
     },
 
     addMarker() {

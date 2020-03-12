@@ -42,6 +42,9 @@ export default {
   },
 
   computed: {
+    google() {
+      return this.$store.getters.google;
+    },
     entries() {
       return this.$store.getters.lightSpots;
     },
@@ -114,6 +117,7 @@ export default {
 
   data () {
     return {
+      mapInited: false,
       activeEntryId: null,
       activeSponsor: null,
       clickedCoords: null,
@@ -151,73 +155,74 @@ export default {
     'userCoords': function() {
       this.locateUser();
     },
+<<<<<<< Updated upstream
     'filteredEntries': function() {
       this.renderMarkers(this.filteredEntries);
+=======
+    'google': function() {
+      if(this.mapInited) return;
+      this.initMap();
+>>>>>>> Stashed changes
     }
   },
 
   methods: {
 
     initMap() {
+      if(!this.google) return;
+      this.mapInited = true;
 
-      const loader = new Loader('AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI', {});
+      let center = {lat: 47.377235, lng: 8.5314407};
+      if(this.userCoords) center = this.userCoords;
 
-      loader.load().then((google) => {
-        this.google = google;
+      if(this.queryLocation) {
+        center = this.queryLocation;
+      }
+      if(this.mapCenter) {
+        center = this.mapCenter;
+      }
 
-        let center = {lat: 47.377235, lng: 8.5314407};
-        if(this.userCoords) center = this.userCoords;
+      let zoom = 15;
 
-        if(this.queryLocation) {
-          center = this.queryLocation;
+      if(this.queryZoom) {
+        if(this.queryZoom > 1 && this.queryZoom < 22) {
+          zoom = this.queryZoom;
         }
-        if(this.mapCenter) {
-          center = this.mapCenter;
+      }
+
+      this.currentZoom = zoom;
+
+      this.map = new this.google.maps.Map(this.$refs.gmaps, {
+        center: center,
+        zoom: zoom,
+        disableDefaultUI: false,
+        clickableIcons: false,
+        gestureHandling: 'greedy',
+        styles: mapstyle,
+        fullscreenControl: false,
+        streetViewControl: false,
+        mapTypeControl: false,
+        zoomControlOptions: {
+          position: this.google.maps.ControlPosition.RIGHT_TOP
         }
-
-        let zoom = 15;
-
-        if(this.queryZoom) {
-          if(this.queryZoom > 1 && this.queryZoom < 22) {
-            zoom = this.queryZoom;
-          }
-        }
-
-        this.currentZoom = zoom;
-
-        this.map = new google.maps.Map(this.$refs.gmaps, {
-          center: center,
-          zoom: zoom,
-          disableDefaultUI: false,
-          clickableIcons: false,
-          gestureHandling: 'greedy',
-          styles: mapstyle,
-          fullscreenControl: false,
-          streetViewControl: false,
-          mapTypeControl: false,
-          zoomControlOptions: {
-            position: google.maps.ControlPosition.RIGHT_TOP
-          }
-        });
-        this.map.data.setStyle({
-          fillColor: 'transparent',
-          strokeWeight: 5,
-          strokeOpacity: 0.3,
-          strokeColor: "#14bdcc"
-        });
-
-        this.map.data.loadGeoJson('/static/json/regions.json');
-
-        google.maps.event.addListener(this.map, 'zoom_changed', (e) => {
-          this.setMarkerIcons();
-        });
-
-        this.displaySpots();
-        this.renderSponsors();
-        this.setMarkerIcons();
-        this.locateUser();
-
       });
+      this.map.data.setStyle({
+        fillColor: 'transparent',
+        strokeWeight: 5,
+        strokeOpacity: 0.3,
+        strokeColor: "#14bdcc"
+      });
+
+      this.map.data.loadGeoJson('/static/json/regions.json');
+
+      this.google.maps.event.addListener(this.map, 'zoom_changed', (e) => {
+        this.setMarkerIcons();
+      });
+
+      this.displaySpots();
+      this.renderSponsors();
+      this.setMarkerIcons();
+      this.locateUser();
 
     },
 

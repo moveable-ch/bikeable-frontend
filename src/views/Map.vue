@@ -488,7 +488,6 @@ export default {
 .filter-bar-container {
   position: absolute;
   top: 3rem;
-  height: 2rem;
   left: 0;
   right:0;
 }

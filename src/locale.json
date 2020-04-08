@@ -247,12 +247,12 @@
       "fixed": "Ce spot a été amélioré entre-temps",
       "register": "Inscris-toi maintenant et prends part à la discussion!",
       "send": "Envoyer",
-      "markasfixed": "Marquer comme fixé",
+      "markasfixed": "Marquer comme amélioré",
       "editspot": "Modifier le spot",
       "uploadphoto": "Télécharger une photo",
       "addphototitle": "Télécharger une photo",
       "addphotodesc": "Avez-vous une photo supplémentaire?",
-      "addphotofix": "Ma photo confirme que cet spot a été corrigé",
+      "addphotofix": "Ma photo confirme que ce spot a été amélioré",
       "deletespot": "Effacer Spot",
       "cancel": "Annuler"
     },
@@ -263,7 +263,7 @@
     },
     "list": {
       "allregions": "Toutes les régions",
-      "nospots": "Aucune spot trouvée",
+      "nospots": "Aucun spot trouvé",
       "sortby": "Trier par",
       "date": "Date",
       "upvotes": "Votes",

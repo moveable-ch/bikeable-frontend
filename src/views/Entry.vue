@@ -54,7 +54,7 @@
         <template v-if="currentEntry.categories">
           <div class="entry__meta__categories" v-if="currentEntry.categories.length > 0">
             <ul>
-              <li v-for="category in currentEntry.categories" v-bind:key="category._id">das ist eine kategorie</li>
+              <li v-for="category in currentEntry.categories" v-bind:key="category._id">{{ category.de }}</li>
             </ul>
           </div>
         </template>

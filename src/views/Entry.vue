@@ -51,6 +51,13 @@
             <li v-for="region in currentEntry.regions" v-bind:key="region._id">{{ region.name }}</li>
           </ul>
         </div>
+        <template v-if="currentEntry.categories">
+          <div class="entry__meta__categories" v-if="currentEntry.categories.length > 0">
+            <ul>
+              <li v-for="category in currentEntry.categories" v-bind:key="category._id">das ist eine kategorie</li>
+            </ul>
+          </div>
+        </template>
         <div class="entry__meta__tools" v-if="isLoggedIn">
           <a v-if="isLoggedIn && entryIsFromUser" :href="'/edit/' + currentEntry._id" class="entry__meta__tools__button"><span class="material-icons">edit</span>{{ $t('entry.editspot') }}</a>
 
@@ -450,11 +457,23 @@ export default {
       border-radius: 4px;
       margin-top: 3rem;
 
+      h3 {
+        display: block;
+        width: 100%;
+        font-size: .6rem;
+        text-transform: uppercase;
+        letter-spacing: .05rem;
+        opacity: .5;
+        margin: 0;
+        margin-bottom: .25rem;
+      }
+
       &__user {
         display: flex;
         align-items: center;
         border-bottom: 1px solid $c-blue;
         padding: .5rem;
+        flex-wrap: wrap;
 
         &__image {
           width: 2.5rem;
@@ -487,7 +506,7 @@ export default {
           }
         }
       }
-      &__regions {
+      &__regions, &__categories {
         padding: 1rem;
         border-bottom: 1px solid $c-blue;
 

@@ -18,7 +18,8 @@
       <label for="hashtag">Hashtag</label>
       <div class="selection-filter">
         <select id="hashtag" @change="commitFilter" v-model="filter.hashtag">
-          <option v-for="option in categories" v-bind:value="option._id"> {{ option.de }}</option>
+          <option value="null">Bitte auswählen!</option>
+          <option v-for="option in categories" :key="option._id" v-bind:value="option._id"> {{ option.de }}</option>
         </select>
       </div>
   </div>
@@ -26,15 +27,13 @@
 <script>
 
 import DateRangePicker from '@/components/DateRangePicker'
-import categories from '../api/categories';
 
 export default {
   name: 'c-filter-bar',
   props: ['filters'],
   data () {
     return {
-      filter: {type:null, hashtag:null},
-      categories: []
+      filter: {type:null, hashtag:null}
     }
   },
   components: {
@@ -43,26 +42,16 @@ export default {
   watch: {
   },
   computed: {
+    categories() {
+      return this.$store.getters.categories;
+    }
   },
   mounted() {
-    this.getCategories();
     console.log(this.categories);
   },
   methods: {
     commitFilter() {
       this.$emit("change", this.filter);
-    },
-    getCategories() {
-      this.$store.commit('LOAD_START');
-      categories.getCategories()
-        .then((result) => {
-          this.$store.commit('LOAD_FINISH');
-          this.categories = result;
-        },
-        (error) => {
-          this.$store.commit('LOAD_FINISH');
-          this.$store.dispatch('handleError', 'Fehler');
-        });
     }
   }
 }

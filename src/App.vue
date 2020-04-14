@@ -90,6 +90,7 @@ export default {
     }
 
     this.$store.dispatch('getUserCoords');
+    this.$store.dispatch('getCategories');
 
     if(this.isLoggedIn) {
       this.$store.dispatch('checkToken')

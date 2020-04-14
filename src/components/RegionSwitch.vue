@@ -36,7 +36,7 @@ export default {
   mounted() {
     this.loadRegions();
 
-    if(this.selectedRegion != '') {
+    if(this.selectedRegion != '') {
       this.currentRegion = this.selectedRegion;
     }
   },

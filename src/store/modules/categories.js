@@ -1,4 +1,4 @@
-import regions from '../../api/categories';
+import categories from '../../api/categories';
 
 const state = {
   categories: [],
@@ -11,12 +11,15 @@ const mutations = {
   },
   LOAD_FINISH(state) {
     state.pending = false;
+  },
+  SET_CATEGORIES(state, cats) {
+    state.categories = cats;
   }
 }
 
 
 const getters = {
-  tags: state => state.tags
+  categories: state => state.categories
 }
 
 const actions = {
@@ -25,9 +28,9 @@ const actions = {
     commit('LOAD_START');
     
     categories.getCategories()
-      .then((tags) => {
+      .then((categories) => {
         commit('LOAD_FINISH');
-        commit('SET_TAGS', tags);
+        commit('SET_CATEGORIES', categories.data);
       },
       (error) => {
         commit('LOAD_FINISH');

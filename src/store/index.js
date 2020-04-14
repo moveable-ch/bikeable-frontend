@@ -7,6 +7,7 @@ import regions from './modules/regions'
 import auth from './modules/auth'
 import users from './modules/users'
 import images from './modules/images'
+import categories from './modules/categories'
 
 Vue.use(Vuex)
 
@@ -43,7 +44,7 @@ const mutations = {
   SET_MESSAGE(state, msg) {
     state.msg = msg;
 
-    setTimeout(function() {
+    setTimeout(function() {
       state.msg = '';
     }.bind(this), 2000);
   },
@@ -120,6 +121,7 @@ export default new Vuex.Store({
     regions,
     map,
     users,
-    images
+    images,
+    categories
   }
 })

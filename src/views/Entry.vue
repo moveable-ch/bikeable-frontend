@@ -51,7 +51,7 @@
             <li v-for="region in currentEntry.regions" v-bind:key="region._id">{{ region.name }}</li>
           </ul>
         </div>
-        <div class="entry__meta__tools">
+        <div class="entry__meta__tools" v-if="isLoggedIn">
           <a v-if="isLoggedIn && entryIsFromUser" :href="'/edit/' + currentEntry._id" class="entry__meta__tools__button"><span class="material-icons">edit</span>{{ $t('entry.editspot') }}</a>
 
           <a @click.prevent="showDeleteModal = true" v-if="isLoggedIn && entryIsFromUser" class="entry__meta__tools__button" href="#"><span class="material-icons">delete</span>{{ $t('entry.deletespot') }}</a>
@@ -214,7 +214,7 @@ export default {
   },
 
   methods: {
-    fetchData() {
+    fetchData() {
       this.loadEntry();
       this.loadComments();
 
@@ -583,6 +583,9 @@ export default {
           }
         }
       }
+    }
+    div:last-child {
+      border-bottom: none;
     }
 
     &__container {

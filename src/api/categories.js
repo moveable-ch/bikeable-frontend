@@ -4,8 +4,8 @@ var config = require('../../config');
 
 
 export default {
-  getTags() {
-    let url =  process.env.BACKEND_URL + '/api/v1/tags';
+  getCategories() {
+    let url =  process.env.BACKEND_URL + '/api/v1/categories';
 
     return new Promise((resolve, reject) => {
       axios.get(url)

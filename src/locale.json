@@ -101,6 +101,9 @@
     },
     "footer": {
       "supported": "Unterstützt von"
+    },
+    "filterbar": {
+      "allcategories": "Alle Kategorien"
     }
   },
   "en": {
@@ -205,6 +208,9 @@
     },
     "footer": {
       "supported": "Supported by"
+    },
+    "filterbar": {
+      "allcategories": "All categories"
     }
   },
   "fr": {
@@ -309,6 +315,9 @@
     },
     "footer": {
       "supported": "Soutenu par"
+    },
+    "filterbar": {
+      "allcategories": "Toutes catégories"
     }
   }
 

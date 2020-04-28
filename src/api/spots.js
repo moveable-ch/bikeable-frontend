@@ -43,11 +43,29 @@ export default {
         );
     });
   },
-  getLightSpots({ limit, filter, sort, order, location }) {
+  getLightSpots(filter) {
     let url = process.env.BACKEND_URL + "/api/v2/cachedlightentries";
+    let filterParam = filter ? filter : null;
+
+    let params = new URLSearchParams();
+
+    if (filterParam) {
+      if(filterParam.categoryId) {
+        params.append("categoryId", filterParam.categoryId);
+      }
+      if (filterParam.type) {
+        if (filterParam.type == "fame") {
+          params.append("famed", true);
+        } else if (filterParam.type == "shame") {
+          params.append("famed", false);
+        }
+      }
+    }
 
     return new Promise((resolve, reject) => {
-      axios.get(url, {}).then(
+      axios.get(url, {
+          params: params
+        }).then(
         (response) => {
           resolve(response.data.data);
         },

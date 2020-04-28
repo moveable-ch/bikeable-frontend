@@ -3,17 +3,24 @@ import map from '../../api/map';
 
 const state = {
   sponsoredEntries: [],
+  mapFilter: null,
   mapCenter: null,
   google: null
 }
 
 const getters = {
   sponsoredEntries: state => state.sponsoredEntries,
+  mapFilter: state => state.mapFilter,
   mapCenter: state => state.mapCenter,
   google: state => state.google
 }
 
 const actions = {
+  setMapFilter(filter) {
+    commit('SET_MAP_FILTER', filter);
+    dispatch('getLightSpots', filter);
+  },
+  
   getSponsoredEntries({ commit, dispatch }) {
 
     commit('LOAD_START');
@@ -45,6 +52,9 @@ const actions = {
 }
 
 const mutations = {
+  SET_MAP_FILTER(state, filter) {
+    state.mapFilter = filter;
+  },
   SET_SPONSOREDENTRIES(state, entries) {
     state.sponsoredEntries = entries;
   },

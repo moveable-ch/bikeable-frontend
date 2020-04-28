@@ -1,7 +1,9 @@
 {
   "name": "bikeable-frontend",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.1.0",
+  "description": "Web frontend for bikeable.ch",
+  "author": "Verein Bikeable",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"

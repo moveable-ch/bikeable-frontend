@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="130px" height="130px" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>smile-good</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="smile-good">
+            <circle id="Oval" fill="#33BDCA" cx="65" cy="65" r="65"></circle>
+            <g id="Group" transform="translate(45.000000, 37.000000)" fill="#FFFFFF">
+                <circle id="Oval-2" cx="4" cy="4" r="4"></circle>
+                <circle id="Oval-2-Copy" cx="37" cy="4" r="4"></circle>
+            </g>
+            <path d="M27.75,70.2592593 C27.75,89.2441419 44.5967389,104.518519 65.25,104.518519 C85.9032611,104.518519 102.75,89.2441419 102.75,70.2592593 C102.75,68.725135 101.506347,67.4814815 99.9722222,67.4814815 C98.4380979,67.4814815 97.1944444,68.725135 97.1944444,70.2592593 C97.1944444,86.0478609 82.9498466,98.962963 65.25,98.962963 C47.5501534,98.962963 33.3055556,86.0478609 33.3055556,70.2592593 C33.3055556,68.725135 32.0619021,67.4814815 30.5277778,67.4814815 C28.9936535,67.4814815 27.75,68.725135 27.75,70.2592593 Z" id="Oval-3" fill="#FFFFFF" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

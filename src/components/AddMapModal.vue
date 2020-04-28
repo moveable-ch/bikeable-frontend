@@ -15,7 +15,7 @@
 
 <script>
 import mapstyle from '@/assets/gmaps.json';
-import GoogleMapsLoader from 'google-maps';
+import {Loader, LoaderOptions} from 'google-maps';
 
 export default {
   name: 'add-map-modal-view',
@@ -66,10 +66,9 @@ export default {
       }
     },
     initMap() {
-      GoogleMapsLoader.KEY = 'AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI';
-      GoogleMapsLoader.LANGUAGE = 'de';
+      const loader = new Loader('AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI', {});
 
-      GoogleMapsLoader.load(function(google) {
+      loader.load().then((google) => {
         this.google = google;
 
         this.map = new google.maps.Map(this.$refs.gmaps, {
@@ -88,7 +87,7 @@ export default {
           this.marker.setPosition(e.latLng);
         });
 
-      }.bind(this));
+      });
     },
     locateUser() {
 

@@ -12,13 +12,13 @@
           <option value="null">Alle</option>
           <option value="fame">Fame</option>
           <option value="shame">Shame</option>
-          <option value="fixed">Fixed</option>
-        </select>
+<!--           <option value="fixed">Fixed</option>
+ -->        </select>
       </div>
       <label for="hashtag">Hashtag</label>
       <div class="selection-filter">
-        <select id="hashtag" @change="commitFilter" v-model="filter.hashtag">
-          <option value="null">Bitte auswählen!</option>
+        <select id="hashtag" @change="commitFilter" v-model="filter.categoryId">
+          <option value="null">{{ $t('filterbar.allcategories') }}</option>
           <option v-for="option in categories" :key="option._id" v-bind:value="option._id"> {{ option.de }}</option>
         </select>
       </div>
@@ -33,7 +33,7 @@ export default {
   props: ['filters'],
   data () {
     return {
-      filter: {type:null, hashtag:null}
+      filter: {type:null, categoryId:null}
     }
   },
   components: {
@@ -47,11 +47,11 @@ export default {
     }
   },
   mounted() {
-    console.log(this.categories);
+
   },
   methods: {
     commitFilter() {
-      this.$emit("change", this.filter);
+      this.$store.dispatch('getLightSpots', this.filter);
     }
   }
 }

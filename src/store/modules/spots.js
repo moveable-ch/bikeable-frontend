@@ -34,11 +34,11 @@ const actions = {
         dispatch('handleError', error);
       });
   },
-  getLightSpots({ commit, dispatch, getters }) {
+  getLightSpots({ commit, dispatch, getters }, filter) {
 
     commit('LOAD_START');
 
-    spots.getLightSpots({})
+    spots.getLightSpots(filter)
       .then((entries) => {
         commit('LOAD_FINISH');
         commit('SET_LIGHT_SPOTS', entries);

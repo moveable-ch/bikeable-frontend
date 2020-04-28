@@ -1,11 +1,8 @@
 import axios from 'axios';
-var config = require('../../config');
-
-
 
 export default {
   getRegions() {
-    let url =  process.env.BACKEND_URL + '/api/v1/regions';
+    let url =  process.env.VUE_APP_BACKEND_URL + '/api/v1/regions';
 
     return new Promise((resolve, reject) => {
       axios.get(url)

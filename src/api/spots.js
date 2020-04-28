@@ -1,10 +1,8 @@
 import axios from 'axios';
-var config = require('../../config');
-
 
 export default {
   getAllSpots({ limit, filter, sort, order, location, region }) {
-    let url = process.env.BACKEND_URL + "/api/v1/entries";
+    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries";
 
     let sortParam = sort ? sort : "votes";
     let orderParam = order ? order : "descending";
@@ -44,7 +42,7 @@ export default {
     });
   },
   getLightSpots({ limit, filter, sort, order, location }) {
-    let url = process.env.BACKEND_URL + "/api/v2/cachedlightentries";
+    let url = process.env.VUE_APP_BACKEND_URL + "/api/v2/cachedlightentries";
 
     return new Promise((resolve, reject) => {
       axios.get(url, {}).then(
@@ -64,7 +62,7 @@ export default {
     let userId = localStorage.getItem("userId");
     let authToken = localStorage.getItem("token");
 
-    let url = process.env.BACKEND_URL + "/api/v1/entries";
+    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries";
 
     let sortParam = sort ? sort : "votes";
     let orderParam = order ? order : "descending";
@@ -93,7 +91,7 @@ export default {
     });
   },
   getSpotById(spotId) {
-    let url = process.env.BACKEND_URL + "/api/v1/entries/" + spotId;
+    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries/" + spotId;
 
     return new Promise((resolve, reject) => {
       axios.get(url).then(
@@ -110,7 +108,7 @@ export default {
   },
 
   checkUpvote({ spotId, userId, authToken }) {
-    let url = process.env.BACKEND_URL + "/api/v1/votes/" + spotId;
+    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/votes/" + spotId;
 
     return new Promise((resolve, reject) => {
       axios
@@ -134,7 +132,7 @@ export default {
   },
 
   upvoteSpot({ spotId, userId, authToken }) {
-    let url = process.env.BACKEND_URL + "/api/v1/votes/" + spotId;
+    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/votes/" + spotId;
 
     return new Promise((resolve, reject) => {
       axios
@@ -161,7 +159,7 @@ export default {
 
   proposeFixedSpot({ spotId, userId, authToken }) {
     let url =
-      process.env.BACKEND_URL + "/api/v1/entries/" + spotId + "/proposefixed";
+      process.env.VUE_APP_BACKEND_URL + "/api/v1/entries/" + spotId + "/proposefixed";
 
     return new Promise((resolve, reject) => {
       axios
@@ -187,7 +185,7 @@ export default {
   },
 
   addSpot({ data, userId, authToken }) {
-    let url = process.env.BACKEND_URL + "/api/v1/entries";
+    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries";
 
     console.log(userId + "      " + authToken);
 
@@ -211,7 +209,7 @@ export default {
   },
 
   deleteSpot({ data, userId, authToken }) {
-    let url = process.env.BACKEND_URL + "/api/v1/entries/" + data.id;
+    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries/" + data.id;
 
     return new Promise((resolve, reject) => {
       axios
@@ -233,7 +231,7 @@ export default {
   },
 
   editSpot({ data, spotId, userId, authToken }) {
-    let url = process.env.BACKEND_URL + "/api/v1/entries/" + spotId;
+    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries/" + spotId;
 
     return new Promise((resolve, reject) => {
       axios
@@ -257,7 +255,7 @@ export default {
 
   addPhoto({ data, spotId, userId, authToken }) {
     let url =
-      process.env.BACKEND_URL + "/api/v1/entries/" + spotId + "/addphoto";
+      process.env.VUE_APP_BACKEND_URL + "/api/v1/entries/" + spotId + "/addphoto";
 
     return new Promise((resolve, reject) => {
       axios
@@ -279,7 +277,7 @@ export default {
   },
 
   getSpotsByUserId(userId) {
-    let url = process.env.BACKEND_URL + "/api/v1/entries?user=" + userId;
+    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries?user=" + userId;
 
     return new Promise((resolve, reject) => {
       axios.get(url).then(

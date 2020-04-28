@@ -59,7 +59,7 @@ const mutations = {
 const actions = {
 
   setEntrySorting(context, sort) {
-    if(sort != 'location' && sort != 'fame' && sort != 'shame') return;
+    if(sort != 'location' && sort != 'fame' && sort != 'shame') return;
 
     if(context.state.sort != sort) {
       context.commit('SET_ENTRY_SORTING', sort);

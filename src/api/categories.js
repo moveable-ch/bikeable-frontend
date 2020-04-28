@@ -1,11 +1,8 @@
 import axios from 'axios';
-var config = require('../../config');
-
-
 
 export default {
   getCategories() {
-    let url =  process.env.BACKEND_URL + '/api/v1/categories';
+    let url =  process.env.VUE_APP_BACKEND_URL + '/api/v1/categories';
 
     return new Promise((resolve, reject) => {
       axios.get(url)

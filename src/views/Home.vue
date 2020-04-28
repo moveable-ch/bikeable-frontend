@@ -3,7 +3,7 @@
     <div class="home__intro">
       <div class="container">
         <div class="home__intro__illu">
-          <img src="/static/img/paul.png" alt="Bikeapaul">
+          <img src="/img/paul.png" alt="Bikeapaul">
         </div>
         <div class="home__intro__content">
           <h1>Let's make our<br>cities <span>bikeable</span>!</h1>
@@ -35,9 +35,9 @@
             <router-link class="home__news__imagewrap" :to="'/news/' + article.id"><img class="home__news__image" :src="article.image"></router-link>
             <div class="home__news__content">
               <span class="home__news__date">{{ article.date }}</span>
-              <h3><router-link :to="'/news/' + article.id">{{ article.title }}</router-link></h3>
+              <h3><router-link :to="'/news/' + article.id">{{ article.title }}</router-link></h3>
               <p>{{ article.abstract }}</p>
-              <router-link class="home__news__more" :to="'/news/' + article.id">{{ $t('home.more') }}</router-link>
+              <router-link class="home__news__more" :to="'/news/' + article.id">{{ $t('home.more') }}</router-link>
             </div>
           </div>
         </div>

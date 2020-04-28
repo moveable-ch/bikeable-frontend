@@ -1,5 +1,3 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import SocialSharing from 'vue-social-sharing'
 import VueI18n from 'vue-i18n'
@@ -10,6 +8,8 @@ import store from '@/store'
 import locale from './locale.json'
 import * as Sentry from '@sentry/browser'
 import * as Integrations from '@sentry/integrations'
+
+Vue.config.productionTip = false
 
 Vue.use(VueHead);
 Vue.use(SocialSharing);
@@ -29,11 +29,10 @@ const i18n = new VueI18n({
   messages: locale
 })
 
+
 new Vue({
-  el: '#app',
-  store,
   router,
+  store,
   i18n,
-  template: '<App/>',
-  components: { App }
-})
+  render: h => h(App)
+}).$mount('#app')

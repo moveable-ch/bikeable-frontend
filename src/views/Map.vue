@@ -205,7 +205,7 @@ export default {
         strokeColor: "#14bdcc"
       });
 
-      this.map.data.loadGeoJson('/static/json/regions.json');
+      this.map.data.loadGeoJson('/json/regions.json');
 
       this.google.maps.event.addListener(this.map, 'zoom_changed', (e) => {
         this.setMarkerIcons();

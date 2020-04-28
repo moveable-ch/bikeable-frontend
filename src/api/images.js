@@ -1,9 +1,8 @@
 import axios from 'axios';
-var config = require('../../config');
 
 export default {
   uploadImage({ userId, authToken, data }) {
-    let url = process.env.BACKEND_URL + '/api/v1/photos';
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/photos';
 
     return new Promise((resolve, reject) => {
       axios.post(url, data, {

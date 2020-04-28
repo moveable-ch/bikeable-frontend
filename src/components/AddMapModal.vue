@@ -22,17 +22,25 @@ export default {
   props: ['propCoords'],
   data () {
     return {
-      currentCoords: null
+      currentCoords: null,
+      mapInited: false
     }
   },
   computed: {
     userCoords() {
       return this.$store.getters.userCoords
+    },
+    google() {
+      return this.$store.getters.google;
     }
   },
   watch: {
     'userCoords': function() {
       this.locateUser();
+    },
+    'google': function() {
+      if(this.mapInited) return;
+      this.initMap();
     }
   },
   mounted() {
@@ -66,28 +74,25 @@ export default {
       }
     },
     initMap() {
-      const loader = new Loader('AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI', {});
-
-      loader.load().then((google) => {
-        this.google = google;
-
-        this.map = new google.maps.Map(this.$refs.gmaps, {
-          center: this.currentCoords,
-          zoom: 15,
-          disableDefaultUI: false,
-          clickableIcons: false,
-          gestureHandling: 'greedy',
-          styles: mapstyle
-        });
-
-        this.addMarker();
-        this.locateUser();
-
-        this.map.addListener('click', (e) => {
-          this.marker.setPosition(e.latLng);
-        });
-
+      if(!this.google) return;
+      this.mapInited = true;
+      
+      this.map = new this.google.maps.Map(this.$refs.gmaps, {
+        center: this.currentCoords,
+        zoom: 15,
+        disableDefaultUI: false,
+        clickableIcons: false,
+        gestureHandling: 'greedy',
+        styles: mapstyle
       });
+
+      this.addMarker();
+      this.locateUser();
+
+      this.map.addListener('click', (e) => {
+        this.marker.setPosition(e.latLng);
+      });
+
     },
     locateUser() {
 

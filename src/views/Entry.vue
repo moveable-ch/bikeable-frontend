@@ -234,6 +234,8 @@ export default {
 
     loadEntry() {
       this.entryId = this.$route.params.id;
+
+      // TODO: Move to Store
       this.$store.commit('LOAD_START');
 
       spots.getSpotById(this.entryId)
@@ -251,6 +253,7 @@ export default {
     },
 
     loadComments() {
+      // TODO: Move to Store
       this.$store.commit('LOAD_START');
 
       comments.getCommentsBySpot(this.entryId)
@@ -323,6 +326,7 @@ export default {
       let userId = localStorage.getItem('userId');
       let token = localStorage.getItem('token');
 
+      // TODO: Move to Store
       this.$store.commit('LOAD_START');
       // this.hasVoted = true;
 
@@ -349,6 +353,8 @@ export default {
     },
 
     proposeFixedSpot() {
+
+      // TODO: Move to Store
       if(!this.isLoggedIn) return;
 
       let userId = localStorage.getItem('userId');

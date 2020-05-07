@@ -385,6 +385,8 @@ export default {
     },
 
     loadUserEntries() {
+
+      // TODO: Move to Store
       let userId = this.filterByUserId;
 
       this.$store.commit('LOAD_START');

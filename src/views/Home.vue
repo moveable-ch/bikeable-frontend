@@ -168,6 +168,8 @@ export default {
   methods: {
 
     loadNews() {
+
+      // TODO: Move to Store
       this.$store.commit('LOAD_START');
 
       this.fetchNews().then(data => {
@@ -177,6 +179,7 @@ export default {
     },
 
     loadSpots() {
+      // TODO: Move to Store
       this.$store.commit('LOAD_START');
 
       this.spotCategories.forEach((cat) => {

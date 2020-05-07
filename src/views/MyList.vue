@@ -82,6 +82,7 @@ export default {
   },
   methods: {
     getSpots() {
+      // TODO: Move to Store
       this.$store.commit('LOAD_START');
 
         spots.getMySpots({

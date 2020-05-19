@@ -7,7 +7,8 @@
     <div class="gmaps" id="gmaps" ref="gmaps">
     </div>
     <div class="filter-bar-container">
-      <c-filter-bar @change="setFilter"></c-filter-bar>
+      <button @click="showMobileFilter = !showMobileFilter" class="btn-showfilter" :class="{ 'active': showMobileFilter }"><span>Filter Entries</span></button>
+      <c-filter-bar :showMobile="showMobileFilter" @change="setFilter"></c-filter-bar>
     </div>
     <div class="spot-nav" v-if="!isEmbed || showEmbedControls">
       <router-link v-if="isLoggedIn && !isEmbed" to="/add" class="spot-nav__link spot-nav__link--add"></router-link>
@@ -124,7 +125,8 @@ export default {
       markers: [],
       userEntries: null,
       currentZoom: 0,
-      filter: {type: null, hashtag: null}
+      filter: {type: null, hashtag: null},
+      showMobileFilter: false
     }
   },
 
@@ -475,13 +477,13 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: calc(100% - 6rem);
+  height: calc(100% - 5rem);
 
   .embed & {
     height: 100%;
   }
   @include tablet {
-    height: calc(100% - 6rem);
+    height: calc(100% - 7rem);
   }
 }
 
@@ -570,6 +572,50 @@ export default {
         }
       }
     }
+  }
+}
+
+.btn-showfilter {
+  display: block;
+  font-size: 1rem;
+  width: 100%;
+  line-height: 2rem;
+  padding: 0;
+  border: none;
+  background: #fafafa;
+  border-bottom: 1px solid #ddd;
+
+  span {
+    display: inline-block;
+    position: relative;
+    padding-right: 1rem;
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 4px;
+      height: 4px;
+      margin-left: .5rem;
+      border: 2px solid #000;
+      border-left-width: 0;
+      border-top-width: 0;
+      transform: translateY(-50%) rotate(45deg);
+    }
+  }
+
+  &.active span::after {
+    transform: translateY(-50%) rotate(-135deg);
+  }
+
+  &:focus, &:active {
+    outline: none;
+  }
+
+  @include tablet() {
+    display: none;
   }
 }
 

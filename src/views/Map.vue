@@ -225,7 +225,7 @@ export default {
       if(!this.userCoords || !this.google) return;
 
       let icon = {
-        url: 'static/img/userloc.png',
+        url: 'img/userloc.png',
         scaledSize: new this.google.maps.Size(17, 17)
       }
 
@@ -253,8 +253,8 @@ export default {
 
         if(!entry.isSponsor) return;
 
-        let imgurl = 'static/img/star-lame.png';
-        if(entry.isSponsor) imgurl = 'static/img/star.png';
+        let imgurl = 'img/star-lame.png';
+        if(entry.isSponsor) imgurl = 'img/star.png';
 
         let size = 12;
         if(entry.isSponsor) size = 16;
@@ -296,19 +296,19 @@ export default {
       let s = new this.google.maps.Size(22,30);
       if(this.currentZoom > 14) {
         badIcon.scaledSize = s;
-        badIcon.url = 'static/img/marker-bad.png';
+        badIcon.url = 'img/marker-bad.png';
         famedIcon.scaledSize = s;
-        famedIcon.url = 'static/img/marker-good.png';
+        famedIcon.url = 'img/marker-good.png';
         fixedIcon.scaledSize = s;
-        fixedIcon.url = 'static/img/marker-fixed.png';
+        fixedIcon.url = 'img/marker-fixed.png';
       }else{
         s = new this.google.maps.Size(10, 10);
         badIcon.scaledSize = s;
-        badIcon.url = 'static/img/marker-bad_s.png';
+        badIcon.url = 'img/marker-bad_s.png';
         famedIcon.scaledSize = s;
-        famedIcon.url = 'static/img/marker-good_s.png';
+        famedIcon.url = 'img/marker-good_s.png';
         fixedIcon.scaledSize = s;
-        fixedIcon.url = 'static/img/marker-fixed_s.png';
+        fixedIcon.url = 'img/marker-fixed_s.png';
       }
 
       this.markers.forEach((marker) => {
@@ -349,10 +349,10 @@ export default {
       
       spots.forEach((entry, index) => {
 
-        let imgurl = 'static/img/marker-bad.png';
+        let imgurl = 'img/marker-bad.png';
 
-        if(entry.famed) imgurl = 'static/img/marker-good.png';
-        if(entry.gotFixed) imgurl = 'static/img/marker-fixed.png';
+        if(entry.famed) imgurl = 'img/marker-good.png';
+        if(entry.gotFixed) imgurl = 'img/marker-fixed.png';
 
         let icon = {
           url: imgurl,

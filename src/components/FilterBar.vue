@@ -11,6 +11,7 @@
           v-model="datePickerData"
           @input="handleDateChange"
         ></c-date-range-picker>
+        <button>reset</button>
       </div>
     </div>
     <div class="filter-bar__item">
@@ -33,7 +34,7 @@
             v-for="option in categories"
             :key="option._id"
             v-bind:value="option._id"
-          >{{ option.de }}</option>
+          >{{ option[$i18n.locale] }}</option>
         </select>
       </div>
     </div>

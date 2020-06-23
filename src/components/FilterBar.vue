@@ -11,8 +11,7 @@
           v-model="datePickerData"
           @input="handleDateChange"
         ></c-date-range-picker>
-        <button>reset</button>
-      </div>
+      </div> 
     </div>
     <div class="filter-bar__item">
       <label for="type">{{ $t('filterbar.type') }}</label>

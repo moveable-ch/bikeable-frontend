@@ -1,6 +1,6 @@
 <template>
   <div class="date-range-picker">
-	 <functional-calendar @input="handleInput" @dayClicked="$emit('change')" :is-modal='true' :is-date-range='true'></functional-calendar>
+	 <functional-calendar @input="handleInput" :is-modal='true' :is-date-range='true'></functional-calendar>
   </div>
 </template>
 <script>

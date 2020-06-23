@@ -9,7 +9,7 @@
           :to="new Date()"
           :locale-data="{ format: 'dd.mm.yyyy' }"
           v-model="datePickerData"
-          @change="handleDateChange"
+          @input="handleDateChange"
         ></c-date-range-picker>
       </div>
     </div>

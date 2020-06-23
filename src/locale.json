@@ -103,7 +103,11 @@
       "supported": "Unterstützt von"
     },
     "filterbar": {
-      "allcategories": "Alle Kategorien"
+      "alltypes": "Alle",
+      "allcategories": "Alle Kategorien",
+      "time": "Zeitraum",
+      "type": "Typ",
+      "category": "Kategorie"
     }
   },
   "en": {
@@ -210,7 +214,11 @@
       "supported": "Supported by"
     },
     "filterbar": {
-      "allcategories": "All categories"
+      "alltypes": "All",
+      "allcategories": "All categories",
+      "time": "Period",
+      "type": "Type",
+      "category": "Category"
     }
   },
   "fr": {
@@ -317,7 +325,11 @@
       "supported": "Soutenu par"
     },
     "filterbar": {
-      "allcategories": "Toutes catégories"
+      "alltypes": "Toutes",
+      "allcategories": "Toutes catégories",
+      "time": "Période",
+      "type": "Type",
+      "category": "Catégorie"
     }
   }
 }

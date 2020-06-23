@@ -54,8 +54,7 @@ export default {
   components: {
     "c-date-range-picker": DateRangePicker
   },
-  watch: {
-  },
+  watch: {},
   computed: {
     categories() {
       return this.$store.getters.categories;
@@ -64,9 +63,12 @@ export default {
   mounted() {},
   methods: {
     handleDateChange() {
-      if(!this.datePickerData.dateRange) return;
-      this.filter.dateRange = [this.datePickerData.dateRange.start.date, this.datePickerData.dateRange.end.date]
-      if(this.filter.dateRange[0] && this.filter.dateRange[1]) {
+      if (!this.datePickerData.dateRange) return;
+      this.filter.dateRange = [
+        Date.parse(this.datePickerData.dateRange.start.date),
+        Date.parse(this.datePickerData.dateRange.end.date)
+      ];
+      if (this.filter.dateRange[0] && this.filter.dateRange[1]) {
         this.commitFilter();
       }
     },

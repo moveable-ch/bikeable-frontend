@@ -48,7 +48,7 @@ export default {
     let params = new URLSearchParams();
 
     if (filterParam) {
-      if(filterParam.categoryId) {
+      if (filterParam.categoryId) {
         params.append("categoryId", filterParam.categoryId);
       }
       if (filterParam.type) {
@@ -58,12 +58,17 @@ export default {
           params.append("famed", false);
         }
       }
+
+      if (filterParam.dateRange) {
+        params.append("begin", filterParam.dateRange[0]);
+        params.append("end", filterParam.dateRange[1]);
+      }
     }
 
     return new Promise((resolve, reject) => {
       axios.get(url, {
-          params: params
-        }).then(
+        params: params
+      }).then(
         (response) => {
           resolve(response.data.data);
         },

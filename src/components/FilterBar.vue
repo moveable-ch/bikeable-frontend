@@ -8,6 +8,7 @@
           :from="new Date()"
           :to="new Date()"
           :locale-data="{ format: 'dd.mm.yyyy' }"
+          v-model="filter.dataRange"
           @change="commitFilter"
         ></c-date-range-picker>
       </div>

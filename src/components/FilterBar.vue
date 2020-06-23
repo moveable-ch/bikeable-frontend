@@ -8,8 +8,8 @@
           :from="new Date()"
           :to="new Date()"
           :locale-data="{ format: 'dd.mm.yyyy' }"
-          v-model="filter.dataRange"
-          @change="commitFilter"
+          v-model="datePickerData"
+          @change="handleDateChange"
         ></c-date-range-picker>
       </div>
     </div>
@@ -47,13 +47,15 @@ export default {
   props: ["filters", "showMobile"],
   data() {
     return {
-      filter: { type: null, categoryId: null, dataRange: null }
+      datePickerData: {},
+      filter: { type: null, categoryId: null, dateRange: null }
     };
   },
   components: {
     "c-date-range-picker": DateRangePicker
   },
-  watch: {},
+  watch: {
+  },
   computed: {
     categories() {
       return this.$store.getters.categories;
@@ -61,6 +63,13 @@ export default {
   },
   mounted() {},
   methods: {
+    handleDateChange() {
+      if(!this.datePickerData.dateRange) return;
+      this.filter.dateRange = [this.datePickerData.dateRange.start.date, this.datePickerData.dateRange.end.date]
+      if(this.filter.dateRange[0] && this.filter.dateRange[1]) {
+        this.commitFilter();
+      }
+    },
     commitFilter() {
       this.$store.dispatch("getLightSpots", this.filter);
     }

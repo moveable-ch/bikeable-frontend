@@ -1,7 +1,7 @@
 <template>
   <div class="filter-bar" :class="{ 'showmobile': showMobile }">
     <div class="filter-bar__item">
-      <label for="range">Zeit</label>
+      <label for="range">{{ $t('filterbar.time') }}</label>
       <div>
         <c-date-range-picker
           id="range"
@@ -14,10 +14,10 @@
       </div>
     </div>
     <div class="filter-bar__item">
-      <label for="type">Type</label>
+      <label for="type">{{ $t('filterbar.type') }}</label>
       <div class="selection-filter">
         <select id="type" @change="commitFilter" v-model="filter.type">
-          <option value="null">Alle</option>
+          <option value="null">{{ $t('filterbar.alltypes') }}</option>
           <option value="fame">Fame</option>
           <option value="shame">Shame</option>
           <!--<option value="fixed">Fixed</option>-->
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="filter-bar__item">
-      <label for="hashtag">Hashtag</label>
+      <label for="hashtag">{{ $t('filterbar.category') }}</label>
       <div class="selection-filter">
         <select id="hashtag" @change="commitFilter" v-model="filter.categoryId">
           <option value="null">{{ $t('filterbar.allcategories') }}</option>

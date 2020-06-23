@@ -47,7 +47,7 @@ export default {
   props: ["filters", "showMobile"],
   data() {
     return {
-      filter: { type: null, categoryId: null }
+      filter: { type: null, categoryId: null, dataRange: null }
     };
   },
   components: {

@@ -2,7 +2,7 @@
   <div class="filter-bar" :class="{ 'showmobile': showMobile }">
     <div class="filter-bar__item">
       <label for="range">{{ $t('filterbar.time') }}</label>
-      <div>
+      <div class="date-range-parent">
         <c-date-range-picker
           id="range"
           :from="new Date()"
@@ -81,6 +81,11 @@ export default {
 
 <style lang="scss">
 @import "../styles/helpers";
+
+.date-range-parent {
+  width: 275px;
+}
+
 
 .filter-bar {
   background-color: #fafafa;

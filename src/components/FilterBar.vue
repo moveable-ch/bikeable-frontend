@@ -7,7 +7,6 @@
           id="range"
           :from="new Date()"
           :to="new Date()"
-          :locale-data="{ format: 'dd.mm.yyyy' }"
           v-model="datePickerData"
           @input="handleDateChange"
         ></c-date-range-picker>
@@ -63,10 +62,14 @@ export default {
   mounted() {},
   methods: {
     handleDateChange() {
-      if (!this.datePickerData.dateRange) return;
+      if (!this.datePickerData.dateRange) {
+        this.filter.dateRange = null;
+        this.commitFilter();
+        return;
+      }
       this.filter.dateRange = [
-        Date.parse(this.datePickerData.dateRange.start.date),
-        Date.parse(this.datePickerData.dateRange.end.date)
+        Date.parse(this.datePickerData.dateRange.start),
+        Date.parse(this.datePickerData.dateRange.end)
       ];
       if (this.filter.dateRange[0] && this.filter.dateRange[1]) {
         this.commitFilter();

@@ -74,8 +74,8 @@ export default {
       }
       let startDate = parse(this.datePickerData.dateRange.start, 'dd.MM.yyyy', new Date());
       let endDate = parse(this.datePickerData.dateRange.end, 'dd.MM.yyyy', new Date());
-      startDate = format(startDate, 't');
-      endDate = format(endDate, 't');
+      startDate = format(startDate, 'T');
+      endDate = format(endDate, 'T');
       this.filter.dateRange = [
         startDate, endDate
       ];

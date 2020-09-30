@@ -27,7 +27,7 @@
       <label for="hashtag">{{ $t('filterbar.category') }}</label>
       <div class="selection-filter">
         <select id="hashtag" @change="commitFilter" v-model="filter.categoryId">
-          <option value="null">{{ $t('filterbar.allcategories') }}</option>
+          <option :value="null">{{ $t('filterbar.allcategories') }}</option>
           <option
             v-for="option in categories"
             :key="option._id"
@@ -84,9 +84,6 @@ export default {
       }
     },
     commitFilter() {
-      if(this.filter.categoryId == 'null') {
-        this.filter.categoryId = null;
-      }
       this.$store.dispatch("getLightSpots", this.filter);
     }
   }

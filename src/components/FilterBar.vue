@@ -84,6 +84,9 @@ export default {
       }
     },
     commitFilter() {
+      if(this.filter.categoryId == 'null') {
+        this.filter.categoryId = null;
+      }
       this.$store.dispatch("getLightSpots", this.filter);
     }
   }

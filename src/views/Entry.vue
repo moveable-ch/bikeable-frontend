@@ -51,7 +51,14 @@
             <li v-for="region in currentEntry.regions" v-bind:key="region._id">{{ region.name }}</li>
           </ul>
         </div>
-        <div class="entry__meta__tools">
+        <template v-if="currentEntry.categories">
+          <div class="entry__meta__categories" v-if="currentEntry.categories.length > 0">
+            <ul>
+              <li v-for="category in currentEntry.categories" v-bind:key="category._id">{{ category.de }}</li>
+            </ul>
+          </div>
+        </template>
+        <div class="entry__meta__tools" v-if="isLoggedIn">
           <a v-if="isLoggedIn && entryIsFromUser" :href="'/edit/' + currentEntry._id" class="entry__meta__tools__button"><span class="material-icons">edit</span>{{ $t('entry.editspot') }}</a>
 
           <a @click.prevent="showDeleteModal = true" v-if="isLoggedIn && entryIsFromUser" class="entry__meta__tools__button" href="#"><span class="material-icons">delete</span>{{ $t('entry.deletespot') }}</a>
@@ -214,7 +221,7 @@ export default {
   },
 
   methods: {
-    fetchData() {
+    fetchData() {
       this.loadEntry();
       this.loadComments();
 
@@ -227,6 +234,8 @@ export default {
 
     loadEntry() {
       this.entryId = this.$route.params.id;
+
+      // TODO: Move to Store
       this.$store.commit('LOAD_START');
 
       spots.getSpotById(this.entryId)
@@ -244,6 +253,7 @@ export default {
     },
 
     loadComments() {
+      // TODO: Move to Store
       this.$store.commit('LOAD_START');
 
       comments.getCommentsBySpot(this.entryId)
@@ -316,6 +326,7 @@ export default {
       let userId = localStorage.getItem('userId');
       let token = localStorage.getItem('token');
 
+      // TODO: Move to Store
       this.$store.commit('LOAD_START');
       // this.hasVoted = true;
 
@@ -342,6 +353,8 @@ export default {
     },
 
     proposeFixedSpot() {
+
+      // TODO: Move to Store
       if(!this.isLoggedIn) return;
 
       let userId = localStorage.getItem('userId');
@@ -450,11 +463,23 @@ export default {
       border-radius: 4px;
       margin-top: 3rem;
 
+      h3 {
+        display: block;
+        width: 100%;
+        font-size: .6rem;
+        text-transform: uppercase;
+        letter-spacing: .05rem;
+        opacity: .5;
+        margin: 0;
+        margin-bottom: .25rem;
+      }
+
       &__user {
         display: flex;
         align-items: center;
         border-bottom: 1px solid $c-blue;
         padding: .5rem;
+        flex-wrap: wrap;
 
         &__image {
           width: 2.5rem;
@@ -487,7 +512,7 @@ export default {
           }
         }
       }
-      &__regions {
+      &__regions, &__categories {
         padding: 1rem;
         border-bottom: 1px solid $c-blue;
 
@@ -583,6 +608,9 @@ export default {
           }
         }
       }
+    }
+    div:last-child {
+      border-bottom: none;
     }
 
     &__container {

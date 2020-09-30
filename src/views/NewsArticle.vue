@@ -24,6 +24,8 @@ export default {
     }
   },
   mounted() {
+
+    // TODO: Move to Store
     this.newsId = this.$route.params.id;
     this.$store.commit('LOAD_START');
 

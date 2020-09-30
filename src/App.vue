@@ -90,6 +90,7 @@ export default {
     }
 
     this.$store.dispatch('getUserCoords');
+    this.$store.dispatch('getCategories');
 
     if(this.isLoggedIn) {
       this.$store.dispatch('checkToken')
@@ -102,6 +103,8 @@ export default {
     }
 
     if(this.$router.currentRoute.name == 'map') this.showFooter = false;
+
+    this.$store.dispatch('initMapsApi');
 
     this.appReady = true;
   },

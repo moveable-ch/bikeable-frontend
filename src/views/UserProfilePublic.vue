@@ -71,6 +71,8 @@ export default {
 
   methods: {
     loadData() {
+
+      // TODO: Move to Store
       this.userId = this.$route.params.id;
       this.$store.commit('LOAD_START');
 

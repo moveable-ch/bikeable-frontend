@@ -10,7 +10,7 @@
           </ul>
         </div>
         <div class="footer__col footer__col--center">
-          <img class="footer__logo" src="/static/img/bikeable-logo-gr.svg" alt="bikeable">
+          <img class="footer__logo" src="/img/bikeable-logo-gr.svg" alt="bikeable">
         </div>
         <div class="footer__col footer__col--right">
           <ul>
@@ -25,10 +25,10 @@
       <div class="container">
         <span>{{ $t('footer.supported') }}</span>
         <div class="partner__logos">
-          <a target="_blank" href="https://www.veloplus.ch"><img src="/static/img/veloplus-footer.png" alt="veloplus.ch"></a>
-          <a target="_blank" v-if="currentLang == 'fr'" href="https://www.tandem.ch"><img src="/static/img/tandem-footer.png" alt="tandem.ch"></a>
-          <a target="_blank" v-if="currentLang != 'fr'" href="https://www.pro-velo.ch"><img src="/static/img/provelo-footer.png" alt="provelo.ch"></a>
-          <a target="_blank" v-if="currentLang == 'fr'" href="https://www.pro-velo.ch"><img src="/static/img/provelo-footer-fr.png" alt="provelo.ch"></a>
+          <a target="_blank" href="https://www.veloplus.ch"><img src="/img/veloplus-footer.png" alt="veloplus.ch"></a>
+          <a target="_blank" v-if="currentLang == 'fr'" href="https://www.tandem.ch"><img src="/img/tandem-footer.png" alt="tandem.ch"></a>
+          <a target="_blank" v-if="currentLang != 'fr'" href="https://www.pro-velo.ch"><img src="/img/provelo-footer.png" alt="provelo.ch"></a>
+          <a target="_blank" v-if="currentLang == 'fr'" href="https://www.pro-velo.ch"><img src="/img/provelo-footer-fr.png" alt="provelo.ch"></a>
         </div>
       </div>
     </div>

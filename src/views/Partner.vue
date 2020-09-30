@@ -35,6 +35,8 @@ export default {
     }
   },
   mounted() {
+
+    // TODO: Move to Store
     this.$store.commit('LOAD_START');
 
     this.getPartners().then(partners => {

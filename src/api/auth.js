@@ -1,10 +1,9 @@
 import axios from 'axios';
-var config = require('../../config');
 
 export default {
 
   fblogin({ accessToken, email, name }) {
-    let url = process.env.BACKEND_URL + '/api/v1/facebooklogin';
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/facebooklogin';
 
     return new Promise((resolve, reject) => {
       axios.post(url, {
@@ -24,7 +23,7 @@ export default {
 
   register({ email, username, password }) {
 
-    let url = process.env.BACKEND_URL + '/api/v1/register';
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/register';
 
     return new Promise((resolve, reject) => {
       axios.post(url, {
@@ -45,7 +44,7 @@ export default {
   },
 
   login({ email, password }) {
-    let url = process.env.BACKEND_URL + '/api/v1/login';
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/login';
 
     return new Promise((resolve, reject) => {
       axios.post(url, {
@@ -63,7 +62,7 @@ export default {
   },
 
   logout({ userId, authToken }) {
-    let url = process.env.BACKEND_URL + '/api/v1/logout';
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/logout';
 
     return new Promise((resolve, reject) => {
       axios.post(url, {}, {
@@ -81,7 +80,7 @@ export default {
   },
 
   forgottenPassword({ email }) {
-    let url = process.env.BACKEND_URL + '/api/v1/forgotpassword/' + email;
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/forgotpassword/' + email;
 
     return new Promise((resolve, reject) => {
       axios.get(url)
@@ -97,7 +96,7 @@ export default {
   },
 
   checkToken({ userId, authToken }) {
-    let url = process.env.BACKEND_URL + '/api/v1/tokenvalid';
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/tokenvalid';
 
     return new Promise((resolve, reject) => {
       axios.get(url, {

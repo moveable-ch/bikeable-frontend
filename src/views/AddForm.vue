@@ -140,6 +140,8 @@ export default {
         return process.env.BACKEND_URL + '/api/v1/photos/' + imageId + '?size=small';
     },
     loadEntry() {
+
+      // TODO: Move to Store
       this.entryId = this.$route.params.id;
       this.$store.commit('LOAD_START');
 

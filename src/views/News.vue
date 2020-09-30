@@ -31,6 +31,7 @@ export default {
     }
   },
   mounted() {
+    // TODO: Move to Store
     this.$store.commit('LOAD_START');
 
     this.getData().then(data => {
@@ -45,6 +46,8 @@ export default {
   },
   watch: {
     'prismicLang' (to, from) {
+
+      // TODO: Move to Store
       this.$store.commit('LOAD_START');
 
       this.getData().then(data => {

@@ -101,6 +101,13 @@
     },
     "footer": {
       "supported": "Unterstützt von"
+    },
+    "filterbar": {
+      "alltypes": "Alle",
+      "allcategories": "Alle Kategorien",
+      "time": "Zeitraum",
+      "type": "Typ",
+      "category": "Kategorie"
     }
   },
   "en": {
@@ -205,6 +212,13 @@
     },
     "footer": {
       "supported": "Supported by"
+    },
+    "filterbar": {
+      "alltypes": "All",
+      "allcategories": "All categories",
+      "time": "Period",
+      "type": "Type",
+      "category": "Category"
     }
   },
   "fr": {
@@ -309,7 +323,13 @@
     },
     "footer": {
       "supported": "Soutenu par"
+    },
+    "filterbar": {
+      "alltypes": "Toutes",
+      "allcategories": "Toutes catégories",
+      "time": "Période",
+      "type": "Type",
+      "category": "Catégorie"
     }
   }
-
 }

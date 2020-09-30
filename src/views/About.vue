@@ -60,6 +60,8 @@ export default {
     }
   },
   mounted() {
+
+    // TODO: Move to Store
     this.$store.commit('LOAD_START');
 
     this.getData().then(data => {
@@ -73,6 +75,7 @@ export default {
     }
   },
   methods: {
+    // TODO: Move to Store
     getData() {
       return Prismic.api("https://bikeable.prismic.io/api").then((api) => {
         return api.query(

@@ -20,7 +20,7 @@ export default {
     return {
       datePickerData: {},
       calendarConfigs: {
-        dateFormat: 'mm-dd-yyyy',
+        dateFormat: 'dd.mm.yyyy',
         isDateRange: true,
         isModal: true
       },

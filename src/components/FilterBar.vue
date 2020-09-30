@@ -40,6 +40,7 @@
 </template>
 <script>
 import DateRangePicker from "@/components/DateRangePicker";
+import { format, parse } from 'date-fns'
 
 export default {
   name: "c-filter-bar",
@@ -59,7 +60,8 @@ export default {
       return this.$store.getters.categories;
     }
   },
-  mounted() {},
+  mounted() {
+  },
   methods: {
     handleDateChange() {
       if (!this.datePickerData.dateRange) {
@@ -67,9 +69,15 @@ export default {
         this.commitFilter();
         return;
       }
+      if(this.datePickerData.dateRange.start == '' || this.datePickerData.dateRange.end == '') {
+        return;
+      }
+      let startDate = parse(this.datePickerData.dateRange.start, 'dd.MM.yyyy', new Date());
+      let endDate = parse(this.datePickerData.dateRange.end, 'dd.MM.yyyy', new Date());
+      startDate = format(startDate, 't');
+      endDate = format(endDate, 't');
       this.filter.dateRange = [
-        Date.parse(this.datePickerData.dateRange.start),
-        Date.parse(this.datePickerData.dateRange.end)
+        startDate, endDate
       ];
       if (this.filter.dateRange[0] && this.filter.dateRange[1]) {
         this.commitFilter();

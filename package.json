@@ -13,6 +13,7 @@
     "@sentry/integrations": "^5.24.2",
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
+    "date-fns": "^2.16.1",
     "flickity": "^2.2.1",
     "flickity-imagesloaded": "^2.0.0",
     "google-maps": "^4.3.3",

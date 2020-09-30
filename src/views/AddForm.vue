@@ -65,6 +65,15 @@
           <span>{{ $t('addform.description') }}</span>
           <textarea v-model="entryText" rows="5"></textarea>
         </label>
+        <h3><span class="num">5</span>Categories</h3>
+        <select class="input-select" v-model="selectedCat">
+          <option :value="null" selected>Kategorie wählen</option>
+          <option :value="cat._id" v-for="cat in availableCats" :key="cat._id">{{ cat.de }}</option>
+        </select>
+        <button @click="addCurrentCat()" class="addcat-btn">+</button>
+        <ul class="selected-cats">
+          <li v-for="cat in selectedCats" :key="cat._id">{{ cat.de }}<button @click="removeCat(cat._id)">✕</button></li>
+        </ul>
         <button type="submit" class="add__btn btn" v-bind:class="{ disabled: !formReady }" :disabled="!formReady">{{ $t('addform.send') }}</button>
       </form>
     </div>
@@ -87,6 +96,7 @@ export default {
 
       entryId: null,
       loadingData: true,
+      selectedCat: null,
       currentEntry: {
         title: ' ',
         user: {
@@ -96,7 +106,8 @@ export default {
           large: '',
           medium: ''
         },
-        famed: false
+        famed: false,
+        categoryIds: []
       },
 
       showMapModal: false,
@@ -106,6 +117,7 @@ export default {
       entryCoords: null,
       entryTitle: '',
       entryText: '',
+      entryCategories: [],
       entryFamed: null,
       gallery: [],
       uploading: false
@@ -116,8 +128,21 @@ export default {
     userCoords() {
       return this.$store.getters.userCoords;
     },
+    categories() {
+      return this.$store.getters.categories;
+    },
     formReady() {
-      return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.gallery.length > 0 && this.entryFamed != null);
+      return (this.entryAddress != '' && this.entryTitle != '' && this.entryText != '' && this.gallery.length > 0 && this.entryFamed != null && this.entryCategories.length > 0);
+    },
+    availableCats() {
+      return this.categories.filter(c => {
+        return !this.entryCategories.includes(c._id);
+      });
+    },
+    selectedCats() {
+      return this.categories.filter(c => {
+        return this.entryCategories.includes(c._id);
+      });
     }
   },
 
@@ -159,6 +184,19 @@ export default {
         });
     },
 
+    addCurrentCat() {
+      if(!this.selectedCat) return;
+      if(this.entryCategories.includes(this.selectedCat)) return;
+      this.entryCategories.push(this.selectedCat);
+      this.selectedCat = null;
+    },
+
+    removeCat(cat) {
+      this.entryCategories = this.entryCategories.filter(c => {
+        return c != cat;
+      });
+    },
+
     fillForm() {
 
       this.entryAddress = this.currentEntry.address,
@@ -168,6 +206,7 @@ export default {
       this.entryText = this.currentEntry.text,
       this.entryFamed = this.currentEntry.famed ? "famed" : "shamed",
       this.gallery = this.currentEntry.gallery;
+      this.entryCategories = this.currentEntry.categoryIds;
       this.uploading = false
     },
 
@@ -364,6 +403,7 @@ export default {
             address: this.entryAddress,
             addressDetails: this.entryAddressDetails,
             coords: this.entryCoords,
+            categoryIds: this.entryCategories,
             famed: this.entryFamed == "famed"
           }, spotId: this.entryId})
         .then((data) => {
@@ -379,6 +419,7 @@ export default {
             address: this.entryAddress,
             addressDetails: this.entryAddressDetails,
             coords: this.entryCoords,
+            categoryIds: this.entryCategories,
             famed: this.entryFamed == "famed"
           })
         .then((data) => {
@@ -457,6 +498,51 @@ export default {
     @include tablet() {
       width: 15rem;
       margin: 3rem 0 4rem 0;
+    }
+  }
+
+  .addcat-btn {
+    --webkit-appearance: none;
+    border: none;
+    line-height: 2.5rem;
+    padding: 0 1rem;
+    font-family: $f-body;
+    font-size: 1rem;
+    margin-left: 1rem;
+    background-color: $c-grey;
+    border-radius: 2px;
+    border: 1px solid $c-grey-dark;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $c-grey-darkest;
+    }
+  }
+  ul.selected-cats {
+    margin-top: 1rem;
+
+    li {
+      display: inline-block;
+      padding: .5rem 1rem;
+      border-radius: 2px;
+      background: $c-blue;
+      margin-right: .5rem;
+
+      button {
+        --webkit-appearance: none;
+        border: none;
+        font-family: $f-body;
+        font-size: .8rem;
+        line-height: 1.5rem;
+        text-align: center;
+        padding: 0;
+        background: #fff;
+        margin-left: .5rem;
+        border-radius: 99%;
+        width: 1.5rem;
+        height: 1.5rem;
+        cursor: pointer;
+      }
     }
   }
 }

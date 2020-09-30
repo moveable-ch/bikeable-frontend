@@ -66,11 +66,10 @@
           <textarea v-model="entryText" rows="5"></textarea>
         </label>
         <h3><span class="num">5</span>Categories</h3>
-        <select class="input-select" v-model="selectedCat">
+        <select class="input-select" @change="addCurrentCat()" v-model="selectedCat">
           <option :value="null" selected>Kategorie wählen</option>
           <option :value="cat._id" v-for="cat in availableCats" :key="cat._id">{{ cat.de }}</option>
         </select>
-        <button @click="addCurrentCat()" class="addcat-btn">+</button>
         <ul class="selected-cats">
           <li v-for="cat in selectedCats" :key="cat._id">{{ cat.de }}<button @click="removeCat(cat._id)">✕</button></li>
         </ul>
@@ -501,7 +500,7 @@ export default {
     }
   }
 
-  .addcat-btn {
+  /*.addcat-btn {
     --webkit-appearance: none;
     border: none;
     line-height: 2.5rem;
@@ -517,7 +516,7 @@ export default {
     &:hover {
       border-color: $c-grey-darkest;
     }
-  }
+  }*/
   ul.selected-cats {
     margin-top: 1rem;
 

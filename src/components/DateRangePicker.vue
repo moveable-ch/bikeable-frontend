@@ -50,6 +50,9 @@ export default {
   input {
     height: 1.5rem;
   }
+  input[type=text] {
+    width: auto !important;
+  }
   .reset {
     position: absolute;
     right: 0;

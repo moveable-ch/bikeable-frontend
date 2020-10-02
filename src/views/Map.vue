@@ -14,7 +14,7 @@
       :sponsoredEntry="activeSponsor"
     ></c-sponsor-modal>
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
-    <div class="filter-bar-container">
+    <div class="filter-bar-container" v-if="!isEmbed">
       <button
         @click="showMobileFilter = !showMobileFilter"
         class="btn-showfilter"

@@ -2,34 +2,45 @@
   <transition name="modal">
     <div class="add-photo-modal" @click="$emit('close')">
       <div class="add-photo-modal__inner" @click.stop>
-
         <form @submit.prevent="postImage">
-          <h3>{{ $t('entry.addphototitle') }}</h3>
-          <span class="label">{{ $t('entry.addphotodesc') }}</span>
+          <h3>{{ $t("entry.addphototitle") }}</h3>
+          <span class="label">{{ $t("entry.addphotodesc") }}</span>
 
+          <div class="file-upload">
+            <div class="file-upload__form" v-if="!uploading && !imageId">
+              <label for="add-file">{{ $t("addform.chooseimage") }}</label>
+              <input id="add-file" @change.prevent="uploadImage" type="file" />
+            </div>
 
-        <div class="file-upload">
+            <span class="file-upload__pending" v-if="uploading">{{
+              $t("addform.loading")
+            }}</span>
 
-          <div class="file-upload__form" v-if="!uploading && !imageId">
-            <label for="add-file">{{ $t('addform.chooseimage')}}</label>
-            <input id="add-file" @change.prevent="uploadImage" type="file">
+            <div class="file-upload__preview" v-if="imageId">
+              <a
+                href="#"
+                class="file-upload__preview__close"
+                @click.prevent="resetImage(imageId)"
+                >×</a
+              >
+              <img v-bind:src="imagePreviewUrl(imageId)" />
+            </div>
+
+            <div class="file-upload__checkbox" v-if="!entry.famed">
+              <label
+                ><input type="checkbox" v-model="showsFix" />
+                {{ $t("entry.addphotofix") }}</label
+              >
+            </div>
+
+            <button
+              type="submit"
+              class="btn"
+              v-bind:class="{ disabled: !imageId }"
+            >
+              {{ $t("entry.send") }}
+            </button>
           </div>
-
-          <span class="file-upload__pending" v-if="uploading">{{ $t('addform.loading') }}</span>
-
-          <div class="file-upload__preview" v-if="imageId">
-            <a href="#" class="file-upload__preview__close" @click.prevent="resetImage(imageId)">×</a>
-            <img v-bind:src="imagePreviewUrl(imageId)">
-          </div>
-
-          <div class="file-upload__checkbox">
-            <label><input type="checkbox" v-model="showsFix"> {{ $t('entry.addphotofix')}}</label>
-          </div>
-
-          <button type="submit" class="btn" v-bind:class="{ 'disabled': !imageId }">{{ $t('entry.send') }}</button>
-
-        </div>
-
         </form>
         <button class="btn-close" @click="$emit('close')">✕</button>
       </div>
@@ -38,29 +49,26 @@
 </template>
 
 <script>
-
 export default {
-  name: 'c-add-photo-modal',
-  props: ['entryId'],
-  data () {
+  name: "c-add-photo-modal",
+  props: ["entryId", "entry"],
+  data() {
     return {
       uploading: false,
       imageId: null,
-      showsFix: false
-    }
+      showsFix: false,
+    };
   },
-  computed: {
-  },
-  watch: {
-
-  },
+  computed: {},
+  watch: {},
   mounted() {
-
   },
 
   methods: {
     imagePreviewUrl(imageId) {
-      return process.env.BACKEND_URL + '/api/v1/photos/' + imageId + '?size=small';
+      return (
+        process.env.VUE_APP_BACKEND_URL + "/api/v1/photos/" + imageId + "?size=small"
+      );
     },
     uploadImage(e) {
       this.uploading = true;
@@ -70,44 +78,46 @@ export default {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (fileLoadEvent) => {
-        this.$store.dispatch('uploadImage', {
-          data: reader.result
-        })
-        .then((data) => {
-            this.uploading = false;
-            this.imageId = data.imageId;
-          }, (data) => {
-            this.$store.dispatch('handleError', 'Error');
-            this.uploading = false;
-          });
+        this.$store
+          .dispatch("uploadImage", {
+            data: reader.result,
+          })
+          .then(
+            (data) => {
+              this.uploading = false;
+              this.imageId = data.imageId;
+            },
+            (data) => {
+              this.$store.dispatch("handleError", "Error");
+              this.uploading = false;
+            }
+          );
       };
     },
     resetImage() {
       this.imageId = null;
     },
     postImage(e) {
-      if(!this.imageId) return;
+      if (!this.imageId) return;
 
-      if(this.entryId) {
-
-        this.$store.dispatch('addPhoto',
-          {data: {imageId: this.imageId,
-           showsFix: this.showsFix
-         }, spotId: this.entryId} )
-        .then((data) => {
-            this.$emit('close');
-            this.$emit('success');
+      if (this.entryId) {
+        this.$store
+          .dispatch("addPhoto", {
+            data: { imageId: this.imageId, showsFix: this.showsFix },
+            spotId: this.entryId,
+          })
+          .then((data) => {
+            this.$emit("close");
+            this.$emit("success");
           });
-
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-
-@import '../styles/helpers';
+@import "../styles/helpers";
 
 .add-photo-modal {
   position: fixed;
@@ -115,7 +125,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(#000, .4);
+  background-color: rgba(#000, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,7 +135,7 @@ export default {
     display: block;
     margin: 1rem 0;
     background: $c-blue;
-    padding: .5rem;
+    padding: 0.5rem;
     text-align: center;
     border-radius: 4px;
   }
@@ -141,7 +151,7 @@ export default {
     margin: 1rem 0;
 
     &__close {
-      font-family: Arial, 'sans-serif';
+      font-family: Arial, "sans-serif";
       color: $c-black;
       text-decoration: none;
       position: absolute;
@@ -152,13 +162,13 @@ export default {
       margin-right: -25px;
       margin-top: -25px;
       border-radius: 99%;
-      background-color: rgba(#fff, .4);
+      background-color: rgba(#fff, 0.4);
       text-align: center;
       font-size: 2rem;
       line-height: 50px;
 
       &:hover {
-        background-color: rgba(#fff, .6);
+        background-color: rgba(#fff, 0.6);
       }
     }
     img {
@@ -172,7 +182,7 @@ export default {
     label {
       border: 2px dashed $c-black;
       border-radius: 4px;
-      padding: .5rem;
+      padding: 0.5rem;
       margin-top: 1rem;
       background-color: $c-blue;
       text-align: center;
@@ -188,14 +198,14 @@ export default {
   }
 
   .file-upload__checkbox {
-    font-size: .9rem;
+    font-size: 0.9rem;
     margin-top: 1.5rem;
   }
 
   &__content {
     overflow: hidden;
     width: calc(100% - 5rem);
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
   }
   &__map {
     position: absolute;
@@ -215,7 +225,7 @@ export default {
     max-height: 20rem;
     position: relative;
     border-radius: 4px;
-    box-shadow: 0 6px 6px -4px rgba(#000, .3);
+    box-shadow: 0 6px 6px -4px rgba(#000, 0.3);
     border: 1px solid $c-grey;
     padding: 2rem;
 
@@ -237,9 +247,10 @@ export default {
       z-index: 0;
       cursor: pointer;
       border-radius: 99%;
-      box-shadow: 0 6px 6px -4px rgba(#000, .3);
+      box-shadow: 0 6px 6px -4px rgba(#000, 0.3);
 
-      &:active, &:focus {
+      &:active,
+      &:focus {
         outline: none;
         color: $c-main;
       }
@@ -250,19 +261,20 @@ export default {
   }
 }
 
-.modal-enter-active, .modal-leave-active {
-  transition: .4s opacity;
+.modal-enter-active,
+.modal-leave-active {
+  transition: 0.4s opacity;
 
   .add-photo-modal__inner {
-    transition: .4s transform ease-out;
+    transition: 0.4s transform ease-out;
   }
 }
-.modal-enter, .modal-leave-to {
+.modal-enter,
+.modal-leave-to {
   opacity: 0;
 
   .add-photo-modal__inner {
     transform: translateY(40px);
   }
 }
-
 </style>

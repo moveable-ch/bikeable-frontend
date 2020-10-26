@@ -90,7 +90,7 @@ export default {
 
       this.$store.commit('LOAD_START');
 
-      axios.post(process.env.BACKEND_URL + '/api/v1/comments',
+      axios.post(process.env.VUE_APP_BACKEND_URL + '/api/v1/comments',
         {
           'entryId': this.entryId,
           'parentId': this.comment._id,

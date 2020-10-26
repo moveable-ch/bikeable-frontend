@@ -54,7 +54,7 @@ export default {
       return this.userProfileData.profile.avatar.small;
     },
     imagePreviewUrl() {
-      return process.env.BACKEND_URL + '/api/v1/photos/' + this.imageId + '?size=small';
+      return process.env.VUE_APP_BACKEND_URL + '/api/v1/photos/' + this.imageId + '?size=small';
     },
     userEntryCount() {
       if(!this.userProfileData.entries) return 0;

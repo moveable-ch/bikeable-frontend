@@ -137,7 +137,7 @@ export default {
 
   methods: {
     imagePreviewUrl(imageId) {
-        return process.env.BACKEND_URL + '/api/v1/photos/' + imageId + '?size=small';
+        return process.env.VUE_APP_BACKEND_URL + '/api/v1/photos/' + imageId + '?size=small';
     },
     loadEntry() {
 

@@ -3,32 +3,36 @@
 <template>
   <div class="v-profile">
     <div class="container container--narrow">
-      <h1>{{ $t('profile.preferences') }}</h1>
+      <h1>{{ $t("profile.preferences") }}</h1>
       <form @submit.prevent="submitForm">
         <label>
-          <span>{{ $t('profile.username') }}</span>
-          <input type="text" v-model="formUsername">
+          <span>{{ $t("profile.username") }}</span>
+          <input type="text" v-model="formUsername" />
         </label>
         <label>
-          <span>{{ $t('profile.bio') }}</span>
+          <span>{{ $t("profile.bio") }}</span>
           <textarea v-model="formBio"></textarea>
         </label>
         <label>
-          <span>{{ $t('profile.email') }}</span>
-          <input type="text" v-model="formEmail" disabled>
+          <span>{{ $t("profile.email") }}</span>
+          <input type="text" v-model="formEmail" disabled />
         </label>
-        <span class="label">{{ $t('profile.avatar') }}</span>
+        <span class="label">{{ $t("profile.avatar") }}</span>
         <div class="v-profile__avatar" v-if="userAvatar">
-          <img :src="userAvatar" @error="imageLoadError">
+          <img :src="userAvatar" @error="imageLoadError" />
         </div>
         <div class="file-upload">
           <div class="file-upload__form">
-            <label for="add-file">{{ $t('profile.avatarupload') }}</label>
-            <input id="add-file" @change.prevent="uploadImage" type="file">
+            <label for="add-file">{{ $t("profile.avatarupload") }}</label>
+            <input id="add-file" @change.prevent="uploadImage" type="file" />
           </div>
-          <span class="file-upload__pending" v-if="!imageId && imageChosen">{{ $t('profile.loading') }}</span>
+          <span class="file-upload__pending" v-if="!imageId && imageChosen">{{
+            $t("profile.loading")
+          }}</span>
         </div>
-        <button class="input-button btn v-profile__submit" type="submit">{{ $t('profile.save') }}</button>
+        <button class="input-button btn v-profile__submit" type="submit">
+          {{ $t("profile.save") }}
+        </button>
         <div class="notice" v-if="message != ''">{{ message }}</div>
       </form>
     </div>
@@ -37,16 +41,16 @@
 
 <script>
 export default {
-  name: 'v-user-profile',
-  data () {
+  name: "v-user-profile",
+  data() {
     return {
-      formEmail: '',
-      formUsername: '',
-      formBio: '',
+      formEmail: "",
+      formUsername: "",
+      formBio: "",
       imageId: null,
       imageChosen: false,
-      message: ''
-    }
+      message: "",
+    };
   },
 
   computed: {
@@ -54,22 +58,27 @@ export default {
       return this.$store.getters.userData;
     },
     userAvatar() {
-      if(!this.userData.profile) return null;
-      if(!this.userData.profile.avatar) return null;
-      if(this.imageId) {
+      if (!this.userData.profile) return null;
+      if (!this.userData.profile.avatar) return null;
+      if (this.imageId) {
         return this.imagePreviewUrl;
       }
       return this.userData.profile.avatar.small;
     },
     imagePreviewUrl() {
-      return process.env.BACKEND_URL + '/api/v1/photos/' + this.imageId + '?size=small';
-    }
+      return (
+        process.env.VUE_APP_BACKEND_URL +
+        "/api/v1/photos/" +
+        this.imageId +
+        "?size=small"
+      );
+    },
   },
 
   watch: {
-    'userData': function() {
+    userData: function () {
       this.fillForm();
-    }
+    },
   },
 
   mounted() {
@@ -78,23 +87,24 @@ export default {
 
   methods: {
     fillForm() {
-      if(!this.userData || !this.userData.email) return;
+      if (!this.userData || !this.userData.email) return;
       this.formEmail = this.userData.email.address;
       this.formUsername = this.userData.username;
       this.formBio = this.userData.profile.bio;
     },
     submitForm() {
-      this.$store.dispatch('updateUser', {
+      this.$store
+        .dispatch("updateUser", {
           email: null,
           // email: this.formEmail,
           username: this.formUsername,
           avatar: this.imageId,
-          bio: this.formBio
+          bio: this.formBio,
         })
-      .then((data) => {
-        this.$store.dispatch('getUserData');
-        this.$store.dispatch('handleError', this.$t('profile.success'));
-      });
+        .then((data) => {
+          this.$store.dispatch("getUserData");
+          this.$store.dispatch("handleError", this.$t("profile.success"));
+        });
     },
     uploadImage(e) {
       this.imageChosen = true;
@@ -104,14 +114,18 @@ export default {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (fileLoadEvent) => {
-        this.$store.dispatch('uploadImage', {
-          data: reader.result
-        })
-        .then((data) => {
-            this.imageId = data.imageId;
-          }, (data) => {
-            this.$store.dispatch('handleError', 'Error');
-          });
+        this.$store
+          .dispatch("uploadImage", {
+            data: reader.result,
+          })
+          .then(
+            (data) => {
+              this.imageId = data.imageId;
+            },
+            (data) => {
+              this.$store.dispatch("handleError", "Error");
+            }
+          );
       };
     },
     resetImage() {
@@ -119,15 +133,14 @@ export default {
       this.imageId = null;
     },
     imageLoadError() {
-      console.log('image load error');
-    }
-  }
-}
+      console.log("image load error");
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-
-@import '../styles/helpers';
+@import "../styles/helpers";
 
 .v-profile {
   padding-top: 5rem;
@@ -137,7 +150,8 @@ export default {
     padding-top: 6rem;
   }
 
-  &::before, &::after {
+  &::before,
+  &::after {
     content: "";
     display: block;
     width: 100%;
@@ -148,19 +162,23 @@ export default {
   }
   &::before {
     z-index: -1;
-    background-image: linear-gradient(0deg, #FFFFFF 2%, rgba(255,255,255,0.00) 74%);
+    background-image: linear-gradient(
+      0deg,
+      #ffffff 2%,
+      rgba(255, 255, 255, 0) 74%
+    );
   }
   &::after {
     z-index: -2;
-    background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
+    background-image: linear-gradient(-137deg, #fcffd6 0%, #e2fdff 100%);
   }
 
   &__submit {
     margin-top: 2rem;
   }
   .verified {
-    margin-left: .5rem;
-    font-size: .7rem;
+    margin-left: 0.5rem;
+    font-size: 0.7rem;
     color: #ccc;
   }
   &__avatar {
@@ -177,7 +195,7 @@ export default {
   }
   .file-upload .file-upload__form {
     label {
-      font-size: .8rem;
+      font-size: 0.8rem;
       height: 2rem;
       line-height: 2rem;
       width: 16rem;
@@ -189,9 +207,7 @@ export default {
 }
 
 .file-upload {
-
   &__form {
-
     label {
       display: block;
       color: #666;
@@ -261,6 +277,4 @@ export default {
     }
   }
 }
-
-
 </style>

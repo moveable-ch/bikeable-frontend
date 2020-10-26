@@ -42,7 +42,7 @@ const actions = {
   },
 
   initMapsApi({ commit, dispatch, state }) {
-    const loader = new Loader('AIzaSyD5iWyE6nsYCAhyRnL58aFFoFhAI9rcwBI', {});
+    const loader = new Loader(process.env.VUE_APP_GOOGLEKEY, {});
 
     loader.load().then((google) => {
       state.google = google;

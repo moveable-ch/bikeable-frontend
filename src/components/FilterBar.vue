@@ -1,7 +1,7 @@
 <template>
-  <div class="filter-bar" :class="{ 'showmobile': showMobile }">
+  <div class="filter-bar" :class="{ showmobile: showMobile }">
     <div class="filter-bar__item">
-      <label for="range">{{ $t('filterbar.time') }}</label>
+      <label for="range">{{ $t("filterbar.time") }}</label>
       <div>
         <c-date-range-picker
           id="range"
@@ -10,13 +10,13 @@
           v-model="datePickerData"
           @input="handleDateChange"
         ></c-date-range-picker>
-      </div> 
+      </div>
     </div>
     <div class="filter-bar__item">
-      <label for="type">{{ $t('filterbar.type') }}</label>
+      <label for="type">{{ $t("filterbar.type") }}</label>
       <div class="selection-filter">
         <select id="type" @change="commitFilter" v-model="filter.type">
-          <option value="null">{{ $t('filterbar.alltypes') }}</option>
+          <option value="null">{{ $t("filterbar.alltypes") }}</option>
           <option value="fame">Fame</option>
           <option value="shame">Shame</option>
           <!--<option value="fixed">Fixed</option>-->
@@ -40,7 +40,7 @@
 </template>
 <script>
 import DateRangePicker from "@/components/DateRangePicker";
-import { format, parse } from 'date-fns'
+import { format, parse } from "date-fns";
 
 export default {
   name: "c-filter-bar",
@@ -48,20 +48,19 @@ export default {
   data() {
     return {
       datePickerData: {},
-      filter: { type: null, categoryId: null, dateRange: null }
+      filter: { type: null, categoryId: null, dateRange: null },
     };
   },
   components: {
-    "c-date-range-picker": DateRangePicker
+    "c-date-range-picker": DateRangePicker,
   },
   watch: {},
   computed: {
     categories() {
       return this.$store.getters.categories;
-    }
+    },
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     handleDateChange() {
       if (!this.datePickerData.dateRange) {
@@ -69,24 +68,33 @@ export default {
         this.commitFilter();
         return;
       }
-      if(this.datePickerData.dateRange.start == '' || this.datePickerData.dateRange.end == '') {
+      if (
+        this.datePickerData.dateRange.start == "" ||
+        this.datePickerData.dateRange.end == ""
+      ) {
         return;
       }
-      let startDate = parse(this.datePickerData.dateRange.start, 'dd.MM.yyyy', new Date());
-      let endDate = parse(this.datePickerData.dateRange.end, 'dd.MM.yyyy', new Date());
-      startDate = format(startDate, 'T');
-      endDate = format(endDate, 'T');
-      this.filter.dateRange = [
-        startDate, endDate
-      ];
+      let startDate = parse(
+        this.datePickerData.dateRange.start,
+        "dd.MM.yyyy",
+        new Date()
+      );
+      let endDate = parse(
+        this.datePickerData.dateRange.end,
+        "dd.MM.yyyy",
+        new Date()
+      );
+      startDate = format(startDate, "T");
+      endDate = format(endDate, "T");
+      this.filter.dateRange = [startDate, endDate];
       if (this.filter.dateRange[0] && this.filter.dateRange[1]) {
         this.commitFilter();
       }
     },
     commitFilter() {
       this.$store.dispatch("getLightSpots", this.filter);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -103,6 +111,7 @@ export default {
   font-size: 0.9rem;
   height: auto;
   padding: 1rem;
+  box-sizing: border-box;
   display: none;
 
   &.showmobile {
@@ -113,14 +122,16 @@ export default {
     display: flex;
     flex-wrap: nowrap;
     height: 4rem;
-    padding: 0 1rem;
+    padding: .25rem 1rem;
   }
 
   &__item {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    height: 100%;
     margin: 0.5rem 0;
+    box-sizing: border-box;
 
     @include tablet() {
       width: auto;
@@ -135,6 +146,10 @@ export default {
     padding-bottom: 4px;
     font-weight: bold;
     margin: 0;
+
+    @include tablet() {
+      padding-bottom: 0;
+    }
   }
 
   input {
@@ -145,12 +160,14 @@ export default {
     overflow: hidden;
     padding-left: 20px;
     position: relative;
-    display: flex;
+    // display: flex;
+    // box-sizing: border-box;
     background-color: #fff;
     border: 1px solid #eee;
     box-shadow: 0 1px 2px 0 rgba(#000, 0.05);
     box-sizing: border-box;
     border-radius: 4px;
+    height: 2rem;
 
     &::before {
       content: "";
@@ -167,9 +184,10 @@ export default {
 
     select {
       font-size: 1rem;
-      line-height: 1.1;
+      line-height: 2rem;
+      height: 2rem;
       color: $c-black;
-      padding: 0.5rem;
+      padding: 0 0.5rem;
       border: none;
       border-radius: 0;
       box-shadow: none;

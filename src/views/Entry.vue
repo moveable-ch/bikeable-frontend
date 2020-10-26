@@ -682,14 +682,17 @@ export default {
     }
     &__regions,
     &__categories {
-      padding: 1rem;
+      padding: 0.75rem;
       border-bottom: 1px solid $c-blue;
 
       li {
         display: inline-block;
         background: $c-blue;
         border-radius: 4px;
-        padding: 0.5rem 1rem;
+        padding: 0.4rem 0.75rem;
+        margin-right: 0.4rem;
+        font-size: 0.8rem;
+        letter-spacing: 0.05rem;
       }
     }
     &__location {
@@ -723,17 +726,20 @@ export default {
       }
     }
     &__tools {
-      padding: 0.5rem;
+      padding: 0.75rem;
+      background-color: $c-blue;
 
       &__button {
         display: block;
-        border: 1px solid $c-blue;
+        border: 1px solid $c-grey-darkest;
+        background-color: #fff;
         color: $c-black;
         border-radius: 4px;
         padding: 0 1rem;
         padding-left: 2.75rem;
         position: relative;
-        margin: 0.5rem;
+        // margin: 0.5rem;
+        margin-right: 0.75rem;
         line-height: 2rem;
         height: 2rem;
         overflow: hidden;

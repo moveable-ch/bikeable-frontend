@@ -1,41 +1,45 @@
 <template>
   <div class="entry-media">
     <div class="entry-media__carousel" ref="carousel">
-      <div class="carousel-cell" v-for="image in entry.gallery" v-bind:key="image.imageId">
-        <img v-bind:src="image.photo.large">
+      <div
+        class="carousel-cell"
+        v-for="image in entry.gallery"
+        v-bind:key="image.imageId"
+      >
+        <span v-if="image.showsFix" class="entry-media__fixed">fixed</span>
+        <span class="entry-media__username">Foto: n/a</span>
+        <img v-bind:src="image.photo.large" />
       </div>
       <div class="carousel-cell" v-if="entry.gallery.length == 0">
-        <img :src="entry.photo.large.url">
+        <img :src="entry.photo.large.url" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
-import Flickity from 'flickity';
-import 'flickity-imagesloaded';
+import axios from "axios";
+import Flickity from "flickity";
+import "flickity-imagesloaded";
 
 export default {
-  name: 'c-entry-media',
-  props: ['entry', 'userData', 'hasVoted', 'isLoggedIn'],
-  components: {
-  },
-  data () {
+  name: "c-entry-media",
+  props: ["entry", "userData", "hasVoted", "isLoggedIn"],
+  components: {},
+  data() {
     return {
       flkty: null
-    }
+    };
   },
 
-  computed: {
-  },
+  computed: {},
 
   watch: {
-    entry: function(e) {
-      if(e.gallery.length > 0) {
+    entry: function (e) {
+      if (e.gallery.length > 0) {
         this.initCarousel();
       }
-    }
+    },
   },
 
   mounted() {
@@ -44,26 +48,25 @@ export default {
 
   methods: {
     initCarousel() {
-      if(this.entry.gallery.length == 0) return;
-      if(this.flkty) this.flkty.destroy();
-      this.$nextTick(function() {
+      if (this.entry.gallery.length == 0) return;
+      if (this.flkty) this.flkty.destroy();
+      this.$nextTick(function () {
         this.flkty = new Flickity(this.$refs.carousel, {
           imagesLoaded: true,
-          prevNextButtons: false
+          prevNextButtons: false,
         });
       });
     }
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">
-
-@import '../styles/helpers';
+@import "../styles/helpers";
 
 .entry-media {
   margin-bottom: 4rem;
-  margin-top: -.5rem;
+  margin-top: -0.5rem;
   position: relative;
   display: block;
   width: 100%;
@@ -79,7 +82,7 @@ export default {
       width: auto;
       height: 13rem;
       margin-right: 10px;
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
 
       img {
         width: auto;
@@ -118,7 +121,7 @@ export default {
     position: relative;
     display: flex;
     align-items: center;
-    background-color: rgba($c-blue, .5);
+    background-color: rgba($c-blue, 0.5);
 
     img {
       display: block;
@@ -129,6 +132,25 @@ export default {
       margin: 0 auto;
     }
   }
+  &__fixed {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1;
+    background-color: $c-main;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.25rem 0.5rem;
+    transform: rotate(-4deg);
+  }
+  &__username {
+    position: absolute;
+    bottom: -1rem;
+    left: 0;
+    font-size: 0.8rem;
+    opacity: 0.5;
+    display: none;
+  }
 
   @include tablet {
     height: 22rem;
@@ -138,5 +160,4 @@ export default {
     height: 28rem;
   }
 }
-
 </style>

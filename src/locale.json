@@ -30,7 +30,8 @@
       "chooselocation": "Standort auf Karte wählen",
       "description": "Beschreibung",
       "send": "Spot hinzufügen",
-      "notready": "Bitte fülle alle benötigten Felder aus."
+      "notready": "Bitte fülle alle benötigten Felder aus.",
+      "choosecat": "Kategorie wählen"
     },
     "editform": {
       "editspot": "Spot bearbeiten"
@@ -142,7 +143,8 @@
       "chooselocation": "Choose location on map",
       "description": "Description",
       "send": "Submit spot",
-      "notready": "Please fill out the form."
+      "notready": "Please fill out the form.",
+      "choosecat": "Choose a category"
     },
     "editform": {
       "editspot": "Edit spot"
@@ -254,7 +256,8 @@
       "chooselocation": "Localisation du spot sur la carte",
       "description": "Description",
       "send": "Envoyer",
-      "notready": "Veuillez remplir le formulaire."
+      "notready": "Veuillez remplir le formulaire.",
+      "choosecat": "Choisissez une catégorie"
     },
     "editform": {
       "editspot": "Modifier le spot"

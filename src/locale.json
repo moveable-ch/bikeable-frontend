@@ -29,7 +29,8 @@
       "entercurrentposition": "Aktuellen Standort einfügen",
       "chooselocation": "Standort auf Karte wählen",
       "description": "Beschreibung",
-      "send": "Senden"
+      "send": "Spot hinzufügen",
+      "notready": "Bitte fülle alle benötigten Felder aus."
     },
     "editform": {
       "editspot": "Spot bearbeiten"
@@ -140,7 +141,8 @@
       "entercurrentposition": "Insert current location",
       "chooselocation": "Choose location on map",
       "description": "Description",
-      "send": "Send"
+      "send": "Submit spot",
+      "notready": "Please fill out the form."
     },
     "editform": {
       "editspot": "Edit spot"
@@ -251,7 +253,8 @@
       "entercurrentposition": "Utiliser ma position actuelle",
       "chooselocation": "Localisation du spot sur la carte",
       "description": "Description",
-      "send": "Envoyer"
+      "send": "Envoyer",
+      "notready": "Veuillez remplir le formulaire."
     },
     "editform": {
       "editspot": "Modifier le spot"

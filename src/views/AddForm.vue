@@ -73,7 +73,10 @@
         <ul class="selected-cats">
           <li v-for="cat in selectedCats" :key="cat._id">{{ cat.de }}<button @click="removeCat(cat._id)">✕</button></li>
         </ul>
-        <button type="submit" class="add__btn btn" v-bind:class="{ disabled: !formReady }" :disabled="!formReady">{{ $t('addform.send') }}</button>
+        <div class="add__submit">
+          <button type="submit" class="add__btn" v-bind:class="{ disabled: !formReady }" :disabled="!formReady">{{ $t('addform.send') }}</button>
+          <span v-if="!formReady">{{ $t('addform.notready') }}</span>
+        </div>
       </form>
     </div>
   </div>
@@ -487,16 +490,46 @@ export default {
       margin-bottom: 2rem;
     }
   }
+  &__submit {
+    margin: 4rem auto 4rem auto;
+
+    span {
+      display: block;
+      text-align: center;
+      font-size: .8rem;
+      width: 100%;
+      margin-top: 1rem;
+      color: #777;
+    }
+    @include tablet() {
+      margin: 6rem auto 4rem auto;
+    }
+  }
   &__btn {
     display: block;
-    height: 3rem;
+    line-height: 3.5rem;
+    color: #fff;
+    font-weight: bold;
     width: 100%;
-    margin: 2rem auto 4rem auto;
+    font-size: 1rem;
+    margin: 0 auto;
+    font-family: inherit;
+    cursor: pointer;
+    background: $c-main;
+    border: 2px solid darken($c-main, 5%);
+    border-radius: 4px;
     box-sizing: border-box;
 
     @include tablet() {
-      width: 15rem;
-      margin: 3rem 0 4rem 0;
+      width: 16rem;
+    }
+    &:hover {
+      border-color: darken($c-main, 20%);
+    }
+    &.disabled {
+      background-color: lighten($c-grey-darkest, 30%);
+      border-color: transparent;
+      pointer-events: none;
     }
   }
 

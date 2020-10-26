@@ -118,7 +118,7 @@ export default {
       let token = localStorage.getItem('token');
 
       this.$store.commit('LOAD_START');
-      axios.post(process.env.BACKEND_URL + '/api/v1/comments/' + this.comment._id + '/vote', {},
+      axios.post(process.env.VUE_APP_BACKEND_URL + '/api/v1/comments/' + this.comment._id + '/vote', {},
         {
           headers: {
             'X-User-Id': userId,

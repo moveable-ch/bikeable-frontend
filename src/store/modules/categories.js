@@ -31,7 +31,6 @@ const actions = {
       .then((categories) => {
         commit('LOAD_FINISH');
         commit('SET_CATEGORIES', categories.data);
-        console.log(categories.data);
       },
       (error) => {
         commit('LOAD_FINISH');

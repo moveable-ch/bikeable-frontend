@@ -7,7 +7,7 @@
         v-bind:key="image.imageId"
       >
         <span v-if="image.showsFix" class="entry-media__fixed">fixed</span>
-        <span class="entry-media__username">Foto: n/a</span>
+        <span class="entry-media__username">Foto: {{ image.username }}</span>
         <img v-bind:src="image.photo.large" />
       </div>
       <div class="carousel-cell" v-if="entry.gallery.length == 0">
@@ -149,7 +149,6 @@ export default {
     left: 0;
     font-size: 0.8rem;
     opacity: 0.5;
-    display: none;
   }
 
   @include tablet {

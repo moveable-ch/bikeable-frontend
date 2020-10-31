@@ -1,12 +1,9 @@
 <template>
-  <div>
-    <label for="type">{{ $t('list.region') }}</label>
-    <div class="regionswitch">
-      <select v-model="currentRegion">
-        <option value="">{{ $t('list.allregions') }}</option>
-        <option v-for="region in regions" v-bind:value="region._id" v-bind:key="region._id">{{ region.name }}</option>
-      </select>
-    </div>
+  <div class="regionswitch">
+    <select v-model="currentRegion">
+      <option value="">{{ $t('list.allregions') }}</option>
+      <option v-for="region in regions" v-bind:value="region._id" v-bind:key="region._id">{{ region.name }}</option>
+    </select>
   </div>
 </template>
 
@@ -80,55 +77,52 @@ export default {
 @import '../styles/helpers';
 
 .regionswitch {
-    max-width: 100%;
-    padding-left: 20px;
-    position: relative;
-    display: flex;
-    background-color: #fff;
-    border: 1px solid #eee;
-    box-shadow: 0 1px 2px 0 rgba(#000, 0.05);
-    box-sizing: border-box;
-    border-radius: 4px;
-    margin: 0 1rem 0 0;
+  max-width: 100%;
+  overflow: hidden;
+  padding-left: 25px;
+  position: relative;
 
   &::before {
     content: "";
     display: block;
     padding: 3px;
     position: absolute;
-    top: 50%;
-    left: 10px;
+    top: 8px;
+    left: 5px;
     border: solid $c-black;
     border-width: 0 2px 2px 0;
-    transform: translateY(-50%) rotate(45deg);
+    transform: rotate(45deg);
     transform-origin: 50% 50%;
   }
 
   select {
-      font-size: 1rem;
-      line-height: 1.1;
-      color: $c-black;
-      padding: 0.5rem;
-      border: none;
-      border-radius: 0;
-      box-shadow: none;
-      background: transparent;
-      background-image: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      cursor: pointer;
+    font-family: $f-body;
+    color: $c-black;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    width: auto;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    line-height: 1.5;
+    cursor: pointer;
 
-      &::-ms-expand {
-        display: none;
-      }
+    &::-ms-expand {
+      display: none;
+    }
 
-      &:focus {
-        outline: none;
-      }
+    &:focus {
+      outline: none;
+    }
 
-      &:hover {
-        text-decoration: underline;
-      }
+    &:hover {
+      text-decoration: underline;
+    }
 
   }
 }

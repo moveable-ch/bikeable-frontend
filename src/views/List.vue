@@ -4,10 +4,16 @@
   <div class="list">
     <div class="list__head">
       <div class="list__regions">
-        <div class="container">
-          <router-link class="list__head__add" to="/add"><span class="material-icons">add</span>{{ $t('home.addspot') }}</router-link>
-          <region-switch></region-switch>
-        </div>
+      <div class="container">
+        <button
+          @click="showMobileFilter = !showMobileFilter"
+          class="btn-showfilter"
+          :class="{ 'active': showMobileFilter }"
+        >
+        <span>Filter Entries</span>
+        </button>
+        <c-list-filter-bar :showMobile="showMobileFilter"></c-list-filter-bar>
+      </div>
       </div>
       <div class="list__controls">
         <div class="container">
@@ -22,13 +28,6 @@
           </div>
         </div>
       </div>
-      <!--<div class="container">
-        <div class="list__tabs">
-          <a href="#" class="list__tabs__item" @click.prevent="entryFilter = null" v-bind:class="{ active: isCurrentFilter(null) }">{{ $t('list.allspots') }}</a>
-          <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--bad" @click.prevent="entryFilter = 'shamed'" v-bind:class="{ active: isCurrentFilter('shamed') }"><span>Shame</span></a>
-          <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--good" @click.prevent="entryFilter = 'famed'" v-bind:class="{ active: isCurrentFilter('famed') }"><span>Fame</span></a>
-        </div>
-      </div>-->
     </div>
     <div class="container list__container">
       <p v-if="listSpots.length < 1">{{ $t('list.nospots') }}</p>
@@ -45,7 +44,7 @@
 <script>
 import spots from '../api/spots';
 import EntryPreview from '@/components/EntryPreview';
-import RegionSwitch from '@/components/RegionSwitch';
+import ListFilterBar from "@/components/ListFilterBar";
 
 export default {
   name: 'v-list',
@@ -55,7 +54,7 @@ export default {
   props: [],
   components: {
     'c-entry-preview': EntryPreview,
-    'region-switch': RegionSwitch
+    'c-list-filter-bar': ListFilterBar
   },
   computed: {
     allSpots() {
@@ -83,12 +82,13 @@ export default {
       entryFilter: null,
       entrySort: 'date',
       entrySortDesc: true,
-      displayEntryCount: 24
+      displayEntryCount: 24,
+      showMobileFilter: false
     }
   },
   watch: {
     'entryFilter': function(to, from) {
-      this.getSpots();
+      this.c();
       this.displayEntryCount = 15;
 
       this.$store.commit('SET_LIST_FILTER', this.entryFilter);
@@ -424,7 +424,6 @@ export default {
     }
   }
 }
-
 
 .list-complete-enter, .list-complete-leave-to
 /* .list-complete-leave-active for <2.1.8 */ {

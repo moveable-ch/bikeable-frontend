@@ -57,6 +57,7 @@
     },
     "list": {
       "allregions": "Alle Regionen",
+      "region": "Region",
       "nospots": "Leider wurden keine Spots gefunden.",
       "sortby": "Sortieren nach",
       "date": "Datum",
@@ -170,6 +171,7 @@
     },
     "list": {
       "allregions": "All Regions",
+      "region": "Region",
       "nospots": "No spots found.",
       "sortby": "Sort by",
       "date": "Date",
@@ -283,6 +285,7 @@
     },
     "list": {
       "allregions": "Toutes les régions",
+      "region": "Région",
       "nospots": "Aucun spot trouvé",
       "sortby": "Trier par",
       "date": "Date",

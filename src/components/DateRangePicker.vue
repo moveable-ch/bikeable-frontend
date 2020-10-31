@@ -53,6 +53,7 @@ export default {
   }
   input[type=text] {
     width: auto !important;
+    max-width: 50%;
   }
   .reset {
     position: absolute;

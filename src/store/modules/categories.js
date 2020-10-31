@@ -14,12 +14,16 @@ const mutations = {
   },
   SET_CATEGORIES(state, cats) {
     state.categories = cats;
+  },
+  SET_SELECTEDCATEGORY(state, selectedCategory){
+    state.selectedCategory = selectedCategory;
   }
+
 }
 
-
 const getters = {
-  categories: state => state.categories
+  categories: state => state.categories,
+  selectedCategory: state => state.selectedCategory
 }
 
 const actions = {
@@ -37,6 +41,10 @@ const actions = {
         dispatch('handleError', error);
       });
   },
+  setSelectedCategory(context, selectedCategory) {
+    localStorage.setItem('selectedCategory', selectedCategory);
+    context.commit('SET_SELECTEDCATEGORY', selectedCategory);
+  }
 }
 
 export default {

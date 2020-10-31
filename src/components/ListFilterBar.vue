@@ -1,25 +1,24 @@
 <template>
-  <div class="list-filter-bar" :class="{ 'showmobile': showMobile }">
-     <router-link class="list__head__add" to="/add"><span class="material-icons">add</span>{{ $t('home.addspot') }}</router-link>
-    <div class="list-filter-bar__item">
-        <region-switch></region-switch>
-    </div>
-    <div class="list-filter-bar__item">
-      <label for="type">{{ $t('filterbar.type') }}</label>
+  <div class="listfilter-bar" :class="{ showmobile: showMobile }">
+    <div class="listfilter-bar__item">
+      <region-switch></region-switch>
+    </div> 
+    <div class="filter-bar__item">
+      <label for="type">{{ $t("filterbar.type") }}</label>
       <div class="selection-filter">
         <select id="type" @change="commitFilter" v-model="filter.type">
-          <option value="null">{{ $t('filterbar.alltypes') }}</option>
+          <option value="null">{{ $t("filterbar.alltypes") }}</option>
           <option value="fame">Fame</option>
           <option value="shame">Shame</option>
           <!--<option value="fixed">Fixed</option>-->
         </select>
       </div>
     </div>
-    <div class="list-filter-bar__item">
+    <div class="filter-bar__item">
       <label for="hashtag">{{ $t('filterbar.category') }}</label>
       <div class="selection-filter">
         <select id="hashtag" @change="commitFilter" v-model="filter.categoryId">
-          <option value="null">{{ $t('filterbar.allcategories') }}</option>
+          <option :value="null">{{ $t('filterbar.allcategories') }}</option>
           <option
             v-for="option in categories"
             :key="option._id"
@@ -49,14 +48,25 @@ export default {
   computed: {
     categories() {
       return this.$store.getters.categories;
-    }
+    },
   },
   mounted() {
+    var currentFilter = this.$store.getters.listFilter;
+    if (currentFilter != null) {
+      this.filter = currentFilter;
+    }
   },
   methods: {
     commitFilter() {
-      this.$store.dispatch("getAllSpots", this.filter);
-    }
+
+      this.$store.dispatch('setListFilter', this.filter)
+      .then((data) => {
+        this.filter
+        }, (data) => {
+          this.$store.dispatch('handleError', 'Error');
+        });
+
+    },
   }
 };
 </script>
@@ -64,11 +74,11 @@ export default {
 <style lang="scss">
 @import "../styles/helpers";
 
-.list-filter-bar {
+.listfilter-bar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   font-size: 0.9rem;
   display: none;
 

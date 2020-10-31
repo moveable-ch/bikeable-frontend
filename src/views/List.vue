@@ -4,14 +4,15 @@
   <div class="list">
     <div class="list__head">
       <div class="list__regions">
+      <router-link class="list__head__add" to="/add"><span class="material-icons">add</span>{{ $t('home.addspot') }}</router-link>
       <div class="container">
-        <button
-          @click="showMobileFilter = !showMobileFilter"
-          class="btn-showfilter"
-          :class="{ 'active': showMobileFilter }"
-        >
+      <button
+        @click="showMobileFilter = !showMobileFilter"
+        class="btn-showfilter"
+        :class="{ 'active': showMobileFilter }"
+      >
         <span>Filter Entries</span>
-        </button>
+      </button>
         <c-list-filter-bar :showMobile="showMobileFilter"></c-list-filter-bar>
       </div>
       </div>
@@ -74,12 +75,14 @@ export default {
     },
     selectedRegion() {
       return this.$store.getters.selectedRegion;
+    },
+    listFilter() {
+      return this.$store.getters.listFilter;
     }
   },
   data() {
     return {
       listSpots: [],
-      entryFilter: null,
       entrySort: 'date',
       entrySortDesc: true,
       displayEntryCount: 24,
@@ -87,12 +90,6 @@ export default {
     }
   },
   watch: {
-    'entryFilter': function(to, from) {
-      this.c();
-      this.displayEntryCount = 15;
-
-      this.$store.commit('SET_LIST_FILTER', this.entryFilter);
-    },
     'userCoords': function(to, from) {
       this.getSpots();
     },
@@ -100,6 +97,10 @@ export default {
       this.getSpots();
     },
     'selectedRegion' : function(to, from) {
+      this.getSpots();
+    },
+    'listFilter' : function(to, from) {
+      this.displayEntryCount = 15;
       this.getSpots();
     }
   },
@@ -434,4 +435,48 @@ export default {
   position: absolute;
 }
 
+.btn-showfilter {
+  display: block;
+  font-size: 1rem;
+  width: 100%;
+  line-height: 2rem;
+  padding: 0;
+  border: none;
+  background: #fafafa;
+  border-bottom: 1px solid #ddd;
+
+  span {
+    display: inline-block;
+    position: relative;
+    padding-right: 1rem;
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 4px;
+      height: 4px;
+      margin-left: 0.5rem;
+      border: 2px solid #000;
+      border-left-width: 0;
+      border-top-width: 0;
+      transform: translateY(-50%) rotate(45deg);
+    }
+  }
+
+  &.active span::after {
+    transform: translateY(-50%) rotate(-135deg);
+  }
+
+  &:focus,
+  &:active {
+    outline: none;
+  }
+
+  @include tablet() {
+    display: none;
+  }
+}
 </style>

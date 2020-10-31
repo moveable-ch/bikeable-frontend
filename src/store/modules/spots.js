@@ -12,7 +12,7 @@ const getters = {
   lightSpots: state => state.lightSpots,
   mySpots: state => state.mySpots,
   listSort: state => state.listSort,
-  listFilter: state => state.listFilter
+  listFilter: state => state.listFilter,
 }
 
 const actions = {
@@ -144,8 +144,11 @@ const actions = {
           reject(error);
         });
     });
+  },
+  setListFilter(context, listFilter) {
+    localStorage.setItem('listFilter', listFilter);
+    context.commit('SET_LIST_FILTER', listFilter);
   }
-
 }
 
 const mutations = {
@@ -167,5 +170,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

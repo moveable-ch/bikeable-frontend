@@ -48,7 +48,8 @@ export default {
   padding-right: 1.75rem;
 
   input {
-    height: 1.5rem;
+    height: 2rem;
+    line-height: 2rem;
   }
   input[type=text] {
     width: auto !important;
@@ -56,7 +57,7 @@ export default {
   .reset {
     position: absolute;
     right: 0;
-    top: 0;
+    top: .25rem;
     padding: 0 .4rem;
     width: 1.5rem;
     height: 1.5rem;

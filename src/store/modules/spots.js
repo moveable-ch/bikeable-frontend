@@ -34,6 +34,30 @@ const actions = {
         dispatch('handleError', error);
       });
   },
+  // getListSpots({ commit, dispatch, getters }, limit, sort) {
+
+  //   commit('LOAD_START');
+
+  //   let coords = getters.userCoords ? getters.userCoords : null;
+  //   let filter = localStorage.getItem('listFilter');
+  //   let region = localStorage.getItem('selectedRegion');
+
+  //   spots.getAllSpots({
+  //       limit: limit,
+  //       filter: filter,
+  //       sort: sort,
+  //       location: coords,  
+  //       region: region
+  //     })
+  //     .then((entries) => {
+  //       commit('LOAD_FINISH');
+  //       commit('SET_SPOTS', entries);
+  //     },
+  //     (error) => {
+  //       commit('LOAD_FINISH');
+  //       dispatch('handleError', error);
+  //     });
+  // },
   getLightSpots({ commit, dispatch, getters }, filter) {
 
     commit('LOAD_START');

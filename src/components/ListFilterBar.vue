@@ -58,14 +58,12 @@ export default {
   },
   methods: {
     commitFilter() {
-
       this.$store.dispatch('setListFilter', this.filter)
       .then((data) => {
         this.filter
         }, (data) => {
           this.$store.dispatch('handleError', 'Error');
         });
-
     },
   }
 };

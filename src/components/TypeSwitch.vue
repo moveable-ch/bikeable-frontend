@@ -1,69 +1,52 @@
 <template>
-  <div class="regionswitch">
-    <select v-model="currentRegion">
-      <option value="">{{ $t('list.allregions') }}</option>
-      <option v-for="region in regions" v-bind:value="region._id" v-bind:key="region._id">{{ region.name }}</option>
-    </select>
+  <div>
+    <label for="type">{{ $t('filterbar.type') }}</label>
+    <div class="typeswitch">
+      <select v-model="currentType">
+        <option value="">{{ $t('filterbar.alltypes') }}</option>
+        <option value="fame">Fame</option>
+        <option value="shame">Shame</option>
+      </select>
+    </div>
   </div>
 </template>
 
 <script>
-import regions from '../api/regions';
 
 export default {
-  name: 'region-switch',
+  name: 'type-switch',
   props: [],
   data () {
     return {
-      currentRegion: '',
-      regions: [],
+      currentType: '',
       switcherVisible: false
     }
   },
   computed: {
-    selectedRegion() {
-      return this.$store.getters.selectedRegion;
+    selectedType() {
+      return this.$store.getters.selectedType;
     }
   },
   watch: {
-    currentRegion(to, from) {
-      this.setRegion(to);
+    currentType(to, from) {
+      this.setType(to);
     },
-    selectedRegion(to, from) {
-      this.currentRegion = this.selectedRegion;
+    selectedType(to, from) {
+      this.currentType = this.selectedType;
     }
   },
   mounted() {
-    this.loadRegions();
-
-    if(this.selectedRegion != '') {
-      this.currentRegion = this.selectedRegion;
+    if(this.selectedType != '') {
+      this.currentType = this.selectedType;
     }
   },
   methods: {
-
-    loadRegions() {
-      this.$store.commit('LOAD_START');
-
-      regions.getRegions()
-        .then((result) => {
-          this.$store.commit('LOAD_FINISH');
-          this.regions = result;
-          if(this.currentRegion == null) {
-            this.currentRegion = regions[0];
-          }
-        },
-        (error) => {
-          this.$store.commit('LOAD_FINISH');
-          this.$store.dispatch('handleError', 'Fehler');
-        });
-    },
-    setRegion(region) {
+    setType(type) {
       this.switcherVisible = false;
 
-      this.$store.dispatch('setSelectedRegion', region)
+      this.$store.dispatch('setSelectedType', type);
       .then((data) => {
-        this.region
+        this.type
         }, (data) => {
           this.$store.dispatch('handleError', 'Error');
         });
@@ -76,53 +59,56 @@ export default {
 
 @import '../styles/helpers';
 
-.regionswitch {
+.typeswitch {
   max-width: 100%;
-  overflow: hidden;
-  padding-left: 25px;
+  padding-left: 20px;
   position: relative;
+  display: flex;
+  background-color: #fff;
+  border: 1px solid #eee;
+  box-shadow: 0 1px 2px 0 rgba(#000, 0.05);
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin: 0 1rem 0 0;
 
   &::before {
     content: "";
     display: block;
     padding: 3px;
     position: absolute;
-    top: 8px;
-    left: 5px;
+    top: 50%;
+    left: 10px;
     border: solid $c-black;
     border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+    transform: translateY(-50%) rotate(45deg);
     transform-origin: 50% 50%;
   }
 
   select {
-    font-family: $f-body;
-    color: $c-black;
-    padding: 0;
-    font-size: 1rem;
-    font-weight: 400;
-    width: auto;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-    background: transparent;
-    background-image: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    line-height: 1.5;
-    cursor: pointer;
+      font-size: 1rem;
+      line-height: 1.1;
+      color: $c-black;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      background: transparent;
+      background-image: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      cursor: pointer;
 
-    &::-ms-expand {
-      display: none;
-    }
+      &::-ms-expand {
+        display: none;
+      }
 
-    &:focus {
-      outline: none;
-    }
+      &:focus {
+        outline: none;
+      }
 
-    &:hover {
-      text-decoration: underline;
-    }
+      &:hover {
+        text-decoration: underline;
+      }
 
   }
 }

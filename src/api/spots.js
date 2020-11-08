@@ -17,8 +17,14 @@ export default {
     }
 
     params.append("sort", sortParam);
+
     if (limit) params.append("limit", limitParam);
-    if (filterParam) params.append("filter", filterParam);
+    if (filterParam) {
+      if (filterParam.categoryId) params.append("categoryId", filterParam.categoryId);
+      if (filterParam.type) {
+        params.append("famed", filterParam.type == "famed");
+      };
+    }
     if (region) params.append("region", regionParam);
 
     // console.log(params.toString());

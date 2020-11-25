@@ -101,6 +101,7 @@ export default {
 <style lang="scss">
 @import "../styles/helpers";
 
+
 .filter-bar {
   background-color: #fafafa;
   display: flex;
@@ -117,6 +118,7 @@ export default {
   &.showmobile {
     display: flex;
   }
+
 
   @include tablet() {
     display: flex;

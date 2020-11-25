@@ -10,6 +10,7 @@
             :locale-data=localedata
             v-model="datePickerData"
             opens="right"
+            ranges=false
             @update="handleInput"
     >
         <template v-slot:input="picker">
@@ -41,16 +42,12 @@ export default {
       isDateRange: true,
       isModal: true,
       localedata: {
-          direction: 'ltr',
           format: 'dd.mm.yyyy',
           separator: ' - ',
           applyLabel: 'Ok',
           cancelLabel: 'Cancel',
-          weekLabel: 'W',
-          // customRangeLabel: 'Custom Range',
           // daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
           // monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-          firstDay: 0
       }
 
     }
@@ -83,13 +80,10 @@ export default {
   position: relative;
   padding-right: 1.75rem;
 
-  input {
-    height: 2rem;
-    line-height: 2rem;
+  .daterangepicker {
+    min-width: 0 !important;
   }
-  input[type=text] {
-    width: auto !important;
-  }
+
   .reset {
     position: absolute;
     right: 0;
@@ -123,6 +117,20 @@ export default {
       height: 100%;
       opacity: .5;
     }
+  }
+
+  .ranges {
+    display:none;
+  }
+
+  .btn {
+      line-height: 1rem;
+      height: 1rem;
+      margin:0;
+    }
+
+  .cancelBtn {
+    color: black;
   }
 }
 

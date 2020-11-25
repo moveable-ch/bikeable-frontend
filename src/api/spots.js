@@ -21,9 +21,13 @@ export default {
     if (limit) params.append("limit", limitParam);
     if (filterParam) {
       if (filterParam.categoryId) params.append("categoryId", filterParam.categoryId);
-      if (filterParam.type) {
-        params.append("famed", filterParam.type == "famed");
-      };
+     if (filterParam.type) {
+        if (filterParam.type == "fame") {
+          params.append("filter", "famed");
+        } else if (filterParam.type == "shame") {
+          params.append("filter", "shamed");
+        }
+      }
     }
     if (region) params.append("region", regionParam);
 

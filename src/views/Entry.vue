@@ -357,15 +357,16 @@ export default {
       if (!this.userData.profile) return "";
       return this.userData.profile.avatar.small;
     },
-    alreadyProposedSpotAsFixed() {
-      for (var i = 0; i < this.currentEntry.fixProposals; i++) {
-        if (this.currentEntry.fixProposals[i].userId === this.userData._id) {
-          return true;
+      alreadyProposedSpotAsFixed() {
+        if(this.currentEntry.fixProposals) {
+          for (var i = 0; i < this.currentEntry.fixProposals.length; i++) {
+            if (this.currentEntry.fixProposals[i].userId === this.userData._id) {
+              return true;
+            }
+          }
         }
-      }
-
-      return false;
-    },
+        return false;
+      },
   },
 
   watch: {

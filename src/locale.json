@@ -47,6 +47,7 @@
       "addphototitle": "Foto hochladen",
       "addphotodesc": "Hast du ein zusätzliches Foto zu diesem Spot? Lade es hier hoch!",
       "addphotofix": "Mein Foto bestätigt dass dieser Spot verbessert wurde",
+      "addcat": "Kategorie hinzufügen",
       "deletespot": "Spot löschen",
       "cancel": "Abbrechen"
     },
@@ -161,6 +162,7 @@
       "addphototitle": "Upload Photo",
       "addphotodesc": "Do you have an additional image of this spot? Upload it here!",
       "addphotofix": "My photo confirms that this spot has been fixed",
+      "addcat": "Add Category",
       "deletespot": "Delete Spot",
       "cancel": "Cancel"
     },
@@ -275,6 +277,7 @@
       "addphototitle": "Télécharger une photo",
       "addphotodesc": "Avez-vous une photo supplémentaire?",
       "addphotofix": "Ma photo confirme que ce spot a été amélioré",
+      "addcat": "Ajouter catégorie",
       "deletespot": "Effacer Spot",
       "cancel": "Annuler"
     },

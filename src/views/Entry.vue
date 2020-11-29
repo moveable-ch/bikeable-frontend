@@ -26,6 +26,13 @@
       :entryId="entryId"
       :entry="currentEntry"
     ></add-photo-modal>
+    <add-category-modal
+      v-if="showCategoryModal"
+      @close="showCategoryModal = false"
+      @success="loadEntry"
+      :entryId="entryId"
+      :entry="currentEntry"
+    ></add-category-modal>
     <div class="entry__header">
       <h1>{{ currentEntry.title }}</h1>
       <div
@@ -186,6 +193,14 @@
             ><span class="material-icons">add_a_photo</span
             >{{ $t("entry.uploadphoto") }}</a
           >
+          <a
+            @click.prevent="showCategoryModal = true"
+            v-if="isLoggedIn"
+            href="#"
+            class="entry__meta__tools__button"
+            ><span class="material-icons">add_circle_outline</span
+            >{{ $t("entry.addcat") }}</a
+          >
         </div>
       </div>
       <div class="entry__social">
@@ -254,6 +269,7 @@ import Comment from "@/components/Comment";
 import EntryMedia from "@/components/EntryMedia";
 import MapModal from "@/components/MapModal";
 import AddPhotoModal from "@/components/AddPhotoModal";
+import AddCategoryModal from "@/components/AddCategoryModal";
 import DeleteModal from "@/components/DeleteModal";
 
 import spots from "../api/spots";
@@ -297,6 +313,7 @@ export default {
     "entry-media-view": EntryMedia,
     "map-modal": MapModal,
     "add-photo-modal": AddPhotoModal,
+    "add-category-modal": AddCategoryModal,
     "delete-modal": DeleteModal,
   },
   data() {
@@ -322,6 +339,7 @@ export default {
       commentText: "",
       showMapModal: false,
       showPhotoModal: false,
+      showCategoryModal: false,
       voteCheckPending: true,
       showDeleteModal: false,
     };
@@ -692,6 +710,7 @@ export default {
         border-radius: 4px;
         padding: 0.4rem 0.75rem;
         margin-right: 0.4rem;
+        margin-bottom:0.4rem;
         font-size: 0.8rem;
         letter-spacing: 0.05rem;
       }

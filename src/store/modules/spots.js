@@ -169,6 +169,30 @@ const actions = {
         });
     });
   },
+  addCategory({ commit, dispatch }, data) {
+    commit('LOAD_START');
+
+    let userId = localStorage.getItem('userId');
+    let token = localStorage.getItem('token');
+
+    return new Promise((resolve, reject) => {
+      spots.addCategory({
+          spotId: data.spotId,
+          categoryId: data.categoryId,
+          userId: userId,
+          authToken: token
+        })
+        .then((data) => {
+          commit('LOAD_FINISH');
+          resolve(data);
+        },
+        (error) => {
+          commit('LOAD_FINISH');
+          dispatch('handleError', error);
+          reject(error);
+        });
+    });
+  },
   setListFilter(context, listFilter) {
     localStorage.setItem('listFilter', listFilter);
     context.commit('SET_LIST_FILTER', listFilter);

@@ -69,23 +69,13 @@ export default {
         return;
       }
       if (
-        this.datePickerData.dateRange.start == "" ||
-        this.datePickerData.dateRange.end == ""
+        this.datePickerData.dateRange.start == null ||
+        this.datePickerData.dateRange.end == null
       ) {
         return;
       }
-      let startDate = parse(
-        this.datePickerData.dateRange.start,
-        "dd.MM.yyyy",
-        new Date()
-      );
-      let endDate = parse(
-        this.datePickerData.dateRange.end,
-        "dd.MM.yyyy",
-        new Date()
-      );
-      startDate = format(startDate, "T");
-      endDate = format(endDate, "T");
+      var startDate = format(this.datePickerData.dateRange.start, "T");
+      var endDate = format(this.datePickerData.dateRange.end, "T");
       this.filter.dateRange = [startDate, endDate];
       if (this.filter.dateRange[0] && this.filter.dateRange[1]) {
         this.commitFilter();

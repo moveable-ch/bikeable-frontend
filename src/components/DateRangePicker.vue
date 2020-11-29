@@ -71,7 +71,7 @@ export default {
       return d.toLocaleDateString('de-DE', {year: '2-digit', month: '2-digit', day: '2-digit'});
     },
     handleInput(data) {
-      this.$emit('input', { dateRange: { start: this.formatDate(data.startDate), end: this.formatDate(data.endDate) }});
+      this.$emit('input', { dateRange: { start: data.startDate, end: data.endDate }});
     },
     reset() {
       this.datePickerData = {

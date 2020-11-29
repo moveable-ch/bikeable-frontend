@@ -103,7 +103,7 @@ export default {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-185deg);
+    transform: translate(-50%, -50%) rotate(-5deg);
     background-color: $c-main;
     color: #fff;
     padding: .25rem 1rem;

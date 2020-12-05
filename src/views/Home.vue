@@ -3,27 +3,40 @@
     <div class="home__intro">
       <div class="container">
         <div class="home__intro__illu">
-          <img src="/img/paul.png" alt="Bikeapaul">
+          <img src="/img/paul.png" alt="Bikeapaul" />
         </div>
         <div class="home__intro__content">
-          <h1>Let's make our<br>cities <span>bikeable</span>!</h1>
-          <p>{{ $t('home.lead') }}</p>
-          <router-link v-if="!isLoggedIn" to="/register" class="home__intro__cta">{{ $t('home.registernow') }}</router-link>
-          <router-link v-if="isLoggedIn" to="/add" class="home__intro__cta">{{ $t('home.addspot') }}</router-link>
+          <h1>Let's make our<br />cities <span>bikeable</span>!</h1>
+          <p>{{ $t("home.lead") }}</p>
+          <router-link
+            v-if="!isLoggedIn"
+            to="/register"
+            class="home__intro__cta"
+            >{{ $t("home.registernow") }}</router-link
+          >
+          <router-link v-if="isLoggedIn" to="/add" class="home__intro__cta">{{
+            $t("home.addspot")
+          }}</router-link>
         </div>
       </div>
     </div>
 
     <div class="home__spots" v-for="cat in spotCategories" v-bind:key="cat.id">
       <div class="container" v-if="cat.loaded">
-        <h2>{{ cat.title}}</h2>
+        <h2>{{ cat.title }}</h2>
         <region-switch></region-switch>
         <div class="home__spots__container">
-          <div class="home__spots__item" v-for="spot in cat.spots" :key="spot._id">
+          <div
+            class="home__spots__item"
+            v-for="spot in cat.spots"
+            :key="spot._id"
+          >
             <c-entry-preview v-if="spot.photo" :entry="spot"></c-entry-preview>
           </div>
         </div>
-        <router-link to="/entries" class="btn btn--centered">{{ $t('home.showall') }}</router-link>
+        <router-link to="/entries" class="btn btn--centered">{{
+          $t("home.showall")
+        }}</router-link>
       </div>
     </div>
 
@@ -31,13 +44,29 @@
       <div class="container">
         <h2>Bikeable News</h2>
         <div class="home__news__container">
-          <div class="home__news__item" v-for="article in news" v-bind:key="article.id">
-            <router-link class="home__news__imagewrap" :to="'/news/' + article.id"><img class="home__news__image" :src="article.image"></router-link>
+          <div
+            class="home__news__item"
+            v-for="article in news"
+            v-bind:key="article.id"
+          >
+            <router-link
+              class="home__news__imagewrap"
+              :to="'/news/' + article.id"
+              ><img class="home__news__image" :src="article.image"
+            /></router-link>
             <div class="home__news__content">
               <span class="home__news__date">{{ article.date }}</span>
-              <h3><router-link :to="'/news/' + article.id">{{ article.title }}</router-link></h3>
+              <h3>
+                <router-link :to="'/news/' + article.id">{{
+                  article.title
+                }}</router-link>
+              </h3>
               <p>{{ article.abstract }}</p>
-              <router-link class="home__news__more" :to="'/news/' + article.id">{{ $t('home.more') }}</router-link>
+              <router-link
+                class="home__news__more"
+                :to="'/news/' + article.id"
+                >{{ $t("home.more") }}</router-link
+              >
             </div>
           </div>
         </div>
@@ -45,61 +74,110 @@
     </div>
 
     <div class="home__newsletter">
-        <h2>Newsletter</h2>
-        <p>{{ $t('home.newsletter') }}<br>{{ $t('home.nospam') }}</p>
-        <!-- Begin MailChimp Signup Form -->
-        <div id="mc_embed_signup" class="home__newsletter__form">
-          <form :action="mailchimpUrl" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-            <div id="mc_embed_signup_scroll">
-              <div class="mc-field-group">
-                <label>
-                  <span>{{ $t('home.emailadress') }}</span>
-                  <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
-                </label>
-              </div>
-              <div class="mc-field-group">
-                <label>
-                  <span>{{ $t('home.surname') }}</span>
-                  <input type="text" value="" name="FNAME" class="" id="mce-FNAME">
-                </label>
-              </div>
-              <div class="mc-field-group">
-                <label>
-                  <span>{{ $t('home.familyname') }}</span>
-                  <input type="text" value="" name="LNAME" class="" id="mce-LNAME">
-                </label>
-              </div>
-              <div id="mce-responses" class="clear">
-                <div class="response" id="mce-error-response" style="display:none"></div>
-                <div class="response" id="mce-success-response" style="display:none"></div>
-              </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-              <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_5a9614abf208b7faae96233ff_6d62b30edc" tabindex="-1" value=""></div>
-              <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn"></div>
+      <h2>Newsletter</h2>
+      <p>{{ $t("home.newsletter") }}<br />{{ $t("home.nospam") }}</p>
+      <!-- Begin MailChimp Signup Form -->
+      <div id="mc_embed_signup" class="home__newsletter__form">
+        <form
+          :action="mailchimpUrl"
+          method="post"
+          id="mc-embedded-subscribe-form"
+          name="mc-embedded-subscribe-form"
+          class="validate"
+          target="_blank"
+          novalidate
+        >
+          <div id="mc_embed_signup_scroll">
+            <div class="mc-field-group">
+              <label>
+                <span>{{ $t("home.emailadress") }}</span>
+                <input
+                  type="email"
+                  value=""
+                  name="EMAIL"
+                  class="required email"
+                  id="mce-EMAIL"
+                />
+              </label>
             </div>
-          </form>
-        </div>
-        <!--End mc_embed_signup-->
+            <div class="mc-field-group">
+              <label>
+                <span>{{ $t("home.surname") }}</span>
+                <input
+                  type="text"
+                  value=""
+                  name="FNAME"
+                  class=""
+                  id="mce-FNAME"
+                />
+              </label>
+            </div>
+            <div class="mc-field-group">
+              <label>
+                <span>{{ $t("home.familyname") }}</span>
+                <input
+                  type="text"
+                  value=""
+                  name="LNAME"
+                  class=""
+                  id="mce-LNAME"
+                />
+              </label>
+            </div>
+            <div id="mce-responses" class="clear">
+              <div
+                class="response"
+                id="mce-error-response"
+                style="display: none"
+              ></div>
+              <div
+                class="response"
+                id="mce-success-response"
+                style="display: none"
+              ></div>
+            </div>
+            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+            <div style="position: absolute; left: -5000px" aria-hidden="true">
+              <input
+                type="text"
+                name="b_5a9614abf208b7faae96233ff_6d62b30edc"
+                tabindex="-1"
+                value=""
+              />
+            </div>
+            <div class="clear">
+              <input
+                type="submit"
+                value="Subscribe"
+                name="subscribe"
+                id="mc-embedded-subscribe"
+                class="btn"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+      <!--End mc_embed_signup-->
     </div>
   </div>
 </template>
 
 <script>
+import Prismic from "prismic.io";
+import spots from "../api/spots";
 
-import Prismic from 'prismic.io';
-import spots from '../api/spots';
-
-import EntryPreview from '@/components/EntryPreview';
-import RegionSwitch from '@/components/RegionSwitch';
+import EntryPreview from "@/components/EntryPreview";
+import RegionSwitch from "@/components/RegionSwitch";
 
 export default {
-  name: 'v-home',
+  name: "v-home",
   metaInfo: {
-    title: 'Bikeable'
+    title: "Bikeable",
   },
   props: [],
   components: {
-    'c-entry-preview': EntryPreview,
-    'region-switch': RegionSwitch
+    "c-entry-preview": EntryPreview,
+    "region-switch": RegionSwitch,
   },
   computed: {
     entries() {
@@ -121,12 +199,12 @@ export default {
       return this.$store.getters.lang;
     },
     mailchimpUrl() {
-      if(this.currentLang == 'fr') {
-        return 'https://bikeable.us15.list-manage.com/subscribe/post?u=5a9614abf208b7faae96233ff&amp;id=386b5b5367';
-      }else{
-        return 'https://bikeable.us15.list-manage.com/subscribe/post?u=5a9614abf208b7faae96233ff&amp;id=1df02df80c';
+      if (this.currentLang == "fr") {
+        return "https://bikeable.us15.list-manage.com/subscribe/post?u=5a9614abf208b7faae96233ff&amp;id=386b5b5367";
+      } else {
+        return "https://bikeable.us15.list-manage.com/subscribe/post?u=5a9614abf208b7faae96233ff&amp;id=1df02df80c";
       }
-    }
+    },
   },
   data() {
     return {
@@ -134,119 +212,120 @@ export default {
       spotCategories: [
         {
           id: 0,
-          title: 'New Spots',
-          spots: [{},{},{},{}],
-          sort: 'date',
+          title: "New Spots",
+          spots: [{}, {}, {}, {}],
+          sort: "date",
           loaded: false,
           meta(spot) {
-            if(!spot.createdAt) return '';
+            if (!spot.createdAt) return "";
             let d = new Date(spot.createdAt);
-            return d.toLocaleDateString('de-DE');
-          }
+            return d.toLocaleDateString("de-DE");
+          },
         },
         {
           id: 1,
-          title: 'Top Spots',
-          spots: [{},{},{},{}],
-          sort: 'votes',
+          title: "Top Spots",
+          spots: [{}, {}, {}, {}],
+          sort: "votes",
           loaded: false,
           meta(spot) {
-            return spot.votes + ' Votes';
-          }
-        }
-      ]
-    }
+            return spot.votes + " Votes";
+          },
+        },
+      ],
+    };
   },
   watch: {
-    'selectedRegion' : function(to, from) {
+    selectedRegion: function (to, from) {
       this.loadSpots();
     },
-    'prismicLang' (to, from) {
+    prismicLang(to, from) {
       this.loadNews();
-    }
+    },
   },
   methods: {
-
     loadNews() {
-
       // TODO: Move to Store
-      this.$store.commit('LOAD_START');
+      this.$store.commit("LOAD_START");
 
-      this.fetchNews().then(data => {
+      this.fetchNews().then((data) => {
         this.news = data;
-        this.$store.commit('LOAD_FINISH');
+        this.$store.commit("LOAD_FINISH");
       });
     },
 
     loadSpots() {
       // TODO: Move to Store
-      this.$store.commit('LOAD_START');
+      this.$store.commit("LOAD_START");
 
       this.spotCategories.forEach((cat) => {
-        spots.getAllSpots({
+        spots
+          .getAllSpots({
             limit: 4,
             sort: cat.sort,
-            region: this.selectedRegion
+            region: this.selectedRegion,
           })
-          .then((entries) => {
-            this.$store.commit('LOAD_FINISH');
-            cat.spots = entries;
-            cat.loaded = true;
-          },
-          (error) => {
-            this.$store.commit('LOAD_FINISH');
-            this.$store.dispatch('handleError', 'Fehler');
-          });
+          .then(
+            (entries) => {
+              this.$store.commit("LOAD_FINISH");
+              cat.spots = entries;
+              cat.loaded = true;
+            },
+            (error) => {
+              this.$store.commit("LOAD_FINISH");
+              this.$store.dispatch("handleError", "Fehler");
+            }
+          );
       });
     },
 
     fetchNews() {
-      return Prismic.api("https://bikeable.prismic.io/api").then((api) => {
-        return api.query(
-          Prismic.Predicates.at('document.type', 'news'),
-          {
+      return Prismic.api("https://bikeable.prismic.io/api")
+        .then((api) => {
+          return api.query(Prismic.Predicates.at("document.type", "news"), {
             lang: this.prismicLang,
-            orderings: '[document.first_publication_date desc]'
+            orderings: "[document.first_publication_date desc]",
+          });
+        })
+        .then(
+          (payload) => {
+            const y = [];
+            y.questions = payload.results.slice(0, 3).map((x) => {
+              const z = {};
+              z.id = x.id;
+              let date = new Date(x.firstPublicationDate);
+              z.date = date.toLocaleDateString("de-DE");
+              z.title = x.getText("news.news_title");
+              z.abstract = x.getText("news.news_abstract");
+              z.image = x.getImage("news.news_image").views.preview.url;
+              y.push(z);
+            });
+            return y;
+          },
+          function (err) {
+            console.log("Something went wrong: ", err);
           }
         );
-      }).then((payload) => {
-        const y = [];
-        y.questions = payload.results.slice(0,3).map((x) => {
-          const z = {};
-          z.id = x.id;
-          let date = new Date(x.firstPublicationDate);
-          z.date = date.toLocaleDateString('de-DE');
-          z.title = x.getText('news.news_title');
-          z.abstract = x.getText('news.news_abstract');
-          z.image = x.getImage('news.news_image').views.preview.url;
-          y.push(z);
-        });
-        return y;
-      }, function(err) {
-        console.log("Something went wrong: ", err);
-      });
     },
 
     formatDate(date) {
-      if(!date) return '';
+      if (!date) return "";
       let d = new Date(date);
-      return d.toLocaleDateString('de-DE');
-    }
+      return d.toLocaleDateString("de-DE");
+    },
   },
   mounted() {
     // this.$store.dispatch('getAllSpots');
     this.loadNews();
     this.loadSpots();
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">
-
-@import '../styles/helpers';
+@import "../styles/helpers";
 
 .home {
-
   &__newsletter {
     max-width: 600px;
     margin: 2rem auto;
@@ -290,7 +369,7 @@ export default {
 
     &__imagewrap {
       display: none;
-      box-shadow: 0 5px 15px -5px rgba($c-black, .2);
+      box-shadow: 0 5px 15px -5px rgba($c-black, 0.2);
       border-radius: 4px;
       overflow: hidden;
       width: 250px;
@@ -309,12 +388,12 @@ export default {
 
     &__more {
       display: inline-block;
-      font-size: .9rem;
+      font-size: 0.9rem;
       margin-top: 1rem;
     }
 
     &__date {
-      font-size: .8rem;
+      font-size: 0.8rem;
       color: $c-grey-darkest;
     }
 
@@ -324,9 +403,9 @@ export default {
       h3 {
         line-height: 1;
         font-size: 1.5rem;
-        margin-bottom: .75rem;
+        margin-bottom: 0.75rem;
         font-family: $f-head;
-        margin-top: .4rem;
+        margin-top: 0.4rem;
 
         a {
           color: $c-main;
@@ -357,8 +436,16 @@ export default {
       margin: 4rem 0 5rem 0;
     }
 
+    .regionswitch {
+      max-width: 25rem;
+
+      label {
+        display: none;
+      }
+    }
+
     h2 {
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
     }
 
     &__container {
@@ -387,7 +474,7 @@ export default {
   &__add {
     max-width: 1200px;
     margin: 0 auto;
-    background-image: linear-gradient(-220deg, #FCFFD6 0%, #E2FDFF 100%);
+    background-image: linear-gradient(-220deg, #fcffd6 0%, #e2fdff 100%);
 
     @include tablet {
       margin: 1rem auto;
@@ -411,7 +498,7 @@ export default {
   }
 
   &__intro {
-    background-image: linear-gradient(45deg, #F4FDB5 0%, #CAFBFF 100%);
+    background-image: linear-gradient(45deg, #f4fdb5 0%, #cafbff 100%);
     height: 400px;
     margin: 0 auto;
     color: #444;
@@ -495,15 +582,15 @@ export default {
       margin-top: 2rem;
       color: $c-black;
       border: 2px solid #fff;
-      box-shadow: 0 10px 25px -5px rgba($c-black, .2);
+      box-shadow: 0 10px 25px -5px rgba($c-black, 0.2);
       opacity: 0;
       line-height: 2.5rem;
       border-radius: 4px;
-      transition: .3s border-color;
-      animation: headline 1s $easeOutQuint .9s 1 normal forwards;
+      transition: 0.3s border-color;
+      animation: headline 1s $easeOutQuint 0.9s 1 normal forwards;
 
       &:hover {
-        border-color: rgba($c-main, .5);
+        border-color: rgba($c-main, 0.5);
       }
     }
     h1 {
@@ -517,7 +604,7 @@ export default {
       text-align: left;
       text-decoration: none;
       opacity: 0;
-      animation: headline 1s $easeOutQuint .3s 1 normal forwards;
+      animation: headline 1s $easeOutQuint 0.3s 1 normal forwards;
 
       a {
         color: $c-main;
@@ -553,13 +640,13 @@ export default {
       }
     }
     p {
-      font-size: .8rem;
+      font-size: 0.8rem;
       line-height: 1.6;
       color: $c-black;
       padding-right: 5rem;
       width: 14rem;
       opacity: 0;
-      animation: headline 1s $easeOutQuint .6s 1 normal forwards;
+      animation: headline 1s $easeOutQuint 0.6s 1 normal forwards;
 
       a {
         color: #444;
@@ -579,16 +666,16 @@ export default {
 
 @keyframes paul {
   0% {
-    transform: rotate(0) translateY(0) ;
+    transform: rotate(0) translateY(0);
   }
   25% {
-    transform: rotate(.4deg) translateY(3px);
+    transform: rotate(0.4deg) translateY(3px);
   }
   75% {
-    transform: rotate(-.4deg) translateY(-3px);
+    transform: rotate(-0.4deg) translateY(-3px);
   }
   100% {
-    transform: rotate(0) translateY(0) ;
+    transform: rotate(0) translateY(0);
   }
 }
 
@@ -602,5 +689,4 @@ export default {
     opacity: 1;
   }
 }
-
 </style>

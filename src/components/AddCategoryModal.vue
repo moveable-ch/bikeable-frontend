@@ -5,23 +5,26 @@
         <form @submit.prevent="postCategory">
           <h3>{{ $t("entry.addcat") }}</h3>
           <div>
-          <select
-            class="input-select cat-input"
-            v-model="selectedCatId"
-          >
-            <option :value="null" selected>{{ $t("addform.choosecat") }}</option>
-            <option :value="cat._id" v-for="cat in availableCats" :key="cat._id">
-              {{ cat[locale] }}
-            </option>
+            <select class="input-select cat-input" v-model="selectedCatId">
+              <option :value="null" selected>
+                {{ $t("addform.choosecat") }}
+              </option>
+              <option
+                :value="cat._id"
+                v-for="cat in availableCats"
+                :key="cat._id"
+              >
+                {{ cat[locale] }}
+              </option>
             </select>
           </div>
-            <button
-              type="submit"
-              class="btn"
-              v-bind:class="{ disabled: selectedCatId == null }"
-            >
-              {{ $t("entry.addcat") }}
-            </button>
+          <button
+            type="submit"
+            class="btn"
+            v-bind:class="{ disabled: selectedCatId == null }"
+          >
+            {{ $t("entry.addcat") }}
+          </button>
         </form>
         <button class="btn-close" @click="$emit('close')">✕</button>
       </div>
@@ -35,7 +38,7 @@ export default {
   props: ["entryId", "entry"],
   data() {
     return {
-      selectedCatId: null
+      selectedCatId: null,
     };
   },
   computed: {
@@ -43,11 +46,11 @@ export default {
       return this.$store.getters.categories;
     },
     availableCats() {
-      if(this.entry.categories) {
+      if (this.entry.categories) {
         var filteredCategories = this.categories;
-        for(var i=0; i < this.entry.categories.length; i++) {
+        for (var i = 0; i < this.entry.categories.length; i++) {
           filteredCategories = filteredCategories.filter((c) => {
-            return c._id != this.entry.categories[i]["_id"]
+            return c._id != this.entry.categories[i]["_id"];
           });
         }
 
@@ -61,9 +64,7 @@ export default {
     },
   },
   watch: {},
-  mounted() {
-
-  },
+  mounted() {},
 
   methods: {
     postCategory(e) {
@@ -72,14 +73,13 @@ export default {
       this.$store
         .dispatch("addCategory", {
           spotId: this.entryId,
-          categoryId: this.selectedCatId
+          categoryId: this.selectedCatId,
         })
         .then((data) => {
           this.$emit("close");
           this.$emit("success");
         });
     },
-
   },
 };
 </script>
@@ -99,10 +99,13 @@ export default {
   justify-content: center;
   z-index: 4;
 
-.cat-input {
+  h3 {
+    margin-bottom: 2rem;
+  }
+
+  .cat-input {
     border-color: $c-grey-darkest;
     cursor: pointer;
-
   }
 
   ul.selected-cats {
@@ -110,7 +113,7 @@ export default {
 
     li {
       display: inline-block;
-      padding: 0.5rem .5rem .5rem 1rem;
+      padding: 0.5rem 0.5rem 0.5rem 1rem;
       border-radius: 4px;
       background: $c-blue;
       margin-right: 0.5rem;
@@ -151,14 +154,18 @@ export default {
     text-overflow: ellipsis;
     margin: 0 1rem;
     width: 90%;
-    height: 90%;
-    max-width: 30rem;
-    max-height: 20rem;
+    height: auto;
+    max-width: 20rem;
+    // max-height: 15rem;
     position: relative;
     border-radius: 4px;
     box-shadow: 0 6px 6px -4px rgba(#000, 0.3);
     border: 1px solid $c-grey;
     padding: 2rem;
+    /*display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;*/
 
     .btn-close {
       font-size: 1.5rem;

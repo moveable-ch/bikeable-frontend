@@ -69,25 +69,6 @@ export default {
         return;
       }
       if (
-<<<<<<< HEAD
-        this.datePickerData.dateRange.start == "" ||
-        this.datePickerData.dateRange.end == ""
-      ) {
-        return;
-      }
-      let startDate = parse(
-        this.datePickerData.dateRange.start,
-        "dd.MM.yyyy",
-        new Date()
-      );
-      let endDate = parse(
-        this.datePickerData.dateRange.end,
-        "dd.MM.yyyy",
-        new Date()
-      );
-      startDate = format(startDate, "T");
-      endDate = format(endDate, "T");
-=======
         this.datePickerData.dateRange.start == null ||
         this.datePickerData.dateRange.end == null
       ) {
@@ -95,7 +76,6 @@ export default {
       }
       var startDate = format(this.datePickerData.dateRange.start, "T");
       var endDate = format(this.datePickerData.dateRange.end, "T");
->>>>>>> develop
       this.filter.dateRange = [startDate, endDate];
       if (this.filter.dateRange[0] && this.filter.dateRange[1]) {
         this.commitFilter();

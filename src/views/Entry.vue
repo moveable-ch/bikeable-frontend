@@ -148,7 +148,7 @@
                 v-for="category in currentEntry.categories"
                 v-bind:key="category._id"
               >
-                {{ category.de }}
+                {{ category[$i18n.locale] }}
               </li>
             </ul>
           </div>

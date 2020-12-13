@@ -4,58 +4,73 @@
   <div class="list">
     <div class="list__head">
       <div class="list__regions">
+        <router-link class="list__head__add" to="/add"
+          ><span class="material-icons">add</span
+          >{{ $t("home.addspot") }}</router-link
+        >
         <div class="container">
-          <router-link class="list__head__add" to="/add"><span class="material-icons">add</span>{{ $t('home.addspot') }}</router-link>
-          <region-switch></region-switch>
+          <button
+            @click="showMobileFilter = !showMobileFilter"
+            class="btn-showfilter"
+            :class="{ active: showMobileFilter }"
+          >
+            <span>Filter Entries</span>
+          </button>
+          <c-list-filter-bar :showMobile="showMobileFilter"></c-list-filter-bar>
         </div>
       </div>
       <div class="list__controls">
         <div class="container">
           <div class="list__sort">
-            <span>{{ $t('list.sortby') }}:</span>
+            <span>{{ $t("list.sortby") }}:</span>
             <select v-model="entrySort" @change="setSort">
-              <option value="date">{{ $t('list.date') }}</option>
-              <option value="votes">{{ $t('list.upvotes') }}</option>
-              <option v-if="userCoords" value="distance">{{ $t('list.distance') }}</option>
-              <option value="comments">{{ $t('list.comments') }}</option>
+              <option value="date">{{ $t("list.date") }}</option>
+              <option value="votes">{{ $t("list.upvotes") }}</option>
+              <option v-if="userCoords" value="distance">
+                {{ $t("list.distance") }}
+              </option>
+              <option value="comments">{{ $t("list.comments") }}</option>
             </select>
           </div>
         </div>
       </div>
-      <!--<div class="container">
-        <div class="list__tabs">
-          <a href="#" class="list__tabs__item" @click.prevent="entryFilter = null" v-bind:class="{ active: isCurrentFilter(null) }">{{ $t('list.allspots') }}</a>
-          <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--bad" @click.prevent="entryFilter = 'shamed'" v-bind:class="{ active: isCurrentFilter('shamed') }"><span>Shame</span></a>
-          <a href="#" class="list__tabs__item list__tabs__item--icon list__tabs__item--good" @click.prevent="entryFilter = 'famed'" v-bind:class="{ active: isCurrentFilter('famed') }"><span>Fame</span></a>
-        </div>
-      </div>-->
     </div>
     <div class="container list__container">
-      <p v-if="listSpots.length < 1">{{ $t('list.nospots') }}</p>
+      <p v-if="listSpots.length < 1">{{ $t("list.nospots") }}</p>
       <div class="list__entries">
-        <div class="list__entries__item" v-for="entry in listSpots" :key="entry._id">
+        <div
+          class="list__entries__item"
+          v-for="entry in listSpots"
+          :key="entry._id"
+        >
           <c-entry-preview :entry="entry"></c-entry-preview>
         </div>
       </div>
-      <a class="btn btn--centered" href="#" v-if="entryDisplayCapped && listSpots" @click.prevent="displayEntryCount += 12">{{ $t('list.morespots') }}</a>
+      <a
+        class="btn btn--centered"
+        href="#"
+        v-if="entryDisplayCapped && listSpots"
+        @click.prevent="displayEntryCount += 12"
+        >{{ $t("list.morespots") }}</a
+      >
     </div>
   </div>
 </template>
 
 <script>
-import spots from '../api/spots';
-import EntryPreview from '@/components/EntryPreview';
-import RegionSwitch from '@/components/RegionSwitch';
+import spots from "../api/spots";
+import EntryPreview from "@/components/EntryPreview";
+import ListFilterBar from "@/components/ListFilterBar";
 
 export default {
-  name: 'v-list',
+  name: "v-list",
   metaInfo: {
-    title: 'Spots — Bikeable'
+    title: "Spots — Bikeable",
   },
   props: [],
   components: {
-    'c-entry-preview': EntryPreview,
-    'region-switch': RegionSwitch
+    "c-entry-preview": EntryPreview,
+    "c-list-filter-bar": ListFilterBar,
   },
   computed: {
     allSpots() {
@@ -71,68 +86,73 @@ export default {
       return this.$store.getters.listSort;
     },
     entryDisplayCapped() {
-      return (this.displayEntryCount == this.listSpots.length);
+      return this.displayEntryCount == this.listSpots.length;
     },
     selectedRegion() {
       return this.$store.getters.selectedRegion;
-    }
+    },
+    listFilter() {
+      return this.$store.getters.listFilter;
+    },
   },
   data() {
     return {
       listSpots: [],
-      entryFilter: null,
-      entrySort: 'date',
+      entrySort: "date",
       entrySortDesc: true,
-      displayEntryCount: 24
-    }
+      displayEntryCount: 24,
+      showMobileFilter: false,
+    };
   },
   watch: {
-    'entryFilter': function(to, from) {
-      this.getSpots();
-      this.displayEntryCount = 15;
-
-      this.$store.commit('SET_LIST_FILTER', this.entryFilter);
-    },
-    'userCoords': function(to, from) {
+    userCoords: function (to, from) {
       this.getSpots();
     },
-    'displayEntryCount': function(to, from) {
+    displayEntryCount: function (to, from) {
       this.getSpots();
     },
-    'selectedRegion' : function(to, from) {
+    selectedRegion: function (to, from) {
       this.getSpots();
-    }
+    },
+    listFilter: {
+      deep: true,
+      handler() {
+        this.displayEntryCount = 15;
+        this.getSpots();
+      },
+    },
   },
   methods: {
     getSpots() {
-
       // TODO: Move to Store
-      this.$store.commit('LOAD_START');
+      this.$store.commit("LOAD_START");
 
       // let coords = null;
       // if(this.entrySort == 'distance') {
-        let coords = this.userCoords ? this.userCoords : null;
+      let coords = this.userCoords ? this.userCoords : null;
       // }
 
-      spots.getAllSpots({
+      spots
+        .getAllSpots({
           location: coords,
           limit: this.displayEntryCount,
-          filter: this.entryFilter,
+          filter: this.listFilter,
           sort: this.entrySort,
-          region: this.selectedRegion
+          region: this.selectedRegion,
         })
-        .then((entries) => {
-          this.$store.commit('LOAD_FINISH');
-          this.listSpots = entries;
-        },
-        (error) => {
-          this.$store.commit('LOAD_FINISH');
-          this.$store.dispatch('handleError', 'Fehler');
-        });
-
+        .then(
+          (entries) => {
+            this.$store.commit("LOAD_FINISH");
+            this.listSpots = entries;
+          },
+          (error) => {
+            this.$store.commit("LOAD_FINISH");
+            this.$store.dispatch("handleError", "Fehler");
+          }
+        );
     },
     setSort() {
-      this.$store.commit('SET_LIST_SORT', this.entrySort);
+      this.$store.commit("SET_LIST_SORT", this.entrySort);
       this.getSpots();
     },
     isCurrentFilter(filter) {
@@ -140,7 +160,7 @@ export default {
     },
     isCurrentSort(sort) {
       return this.entrySort == sort;
-    }
+    },
   },
   mounted() {
     this.entrySort = this.$store.getters.listSort;
@@ -148,13 +168,12 @@ export default {
 
     this.getSpots();
     // this.$store.dispatch('getAllSpots');
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">
-
-@import '../styles/helpers';
+@import "../styles/helpers";
 
 .list {
   padding: 0 0 4rem 0;
@@ -178,11 +197,11 @@ export default {
 
     &__add {
       display: block;
-      margin-bottom: .5rem;
-      margin-top: -.75rem;
+      margin-bottom: 0.5rem;
+      margin-top: -0.75rem;
       margin-left: -1rem;
       width: calc(100% + 2rem);
-      background-color: rgba($c-main, .6);
+      background-color: rgba($c-main, 0.6);
       color: #fff;
       position: relative;
       height: 2.5rem;
@@ -194,14 +213,14 @@ export default {
 
       &:hover {
         border-color: $c-main;
-        background-color: rgba(#fff, .5);
+        background-color: rgba(#fff, 0.5);
         color: $c-main;
       }
 
       .material-icons {
         line-height: 2.5rem;
         font-size: 1.25rem;
-        margin-right: .25rem;
+        margin-right: 0.25rem;
         display: inline-block;
         vertical-align: middle;
         position: relative;
@@ -224,9 +243,9 @@ export default {
         z-index: 1;
         box-sizing: content-box;
         padding-left: 2.5rem;
-        font-size: .9rem;
+        font-size: 0.9rem;
         font-weight: bold;
-        box-shadow: 2px 2px 6px 0 rgba(#000, .05);
+        box-shadow: 2px 2px 6px 0 rgba(#000, 0.05);
 
         .material-icons {
           display: block;
@@ -250,13 +269,13 @@ export default {
     }
   }
   &__regions {
-    background-color: rgba($c-black, .05);
-    padding: .75rem 0;
+    background-color: rgba($c-black, 0.05);
+    padding: 0.75rem 0;
     position: relative;
   }
   &__controls {
-    background-color: rgba($c-black, .1);
-    padding: .75rem 0;
+    background-color: rgba($c-black, 0.1);
+    padding: 0.75rem 0;
   }
 
   &__container {
@@ -297,12 +316,12 @@ export default {
     &__item {
       display: inline-block;
       text-decoration: none;
-      padding: 0 .5rem;
+      padding: 0 0.5rem;
       width: 32%;
-      font-size: .7rem;
+      font-size: 0.7rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: .02rem;
+      letter-spacing: 0.02rem;
       white-space: nowrap;
       text-align: center;
       height: 2rem;
@@ -318,7 +337,7 @@ export default {
 
       @include tablet() {
         width: 7rem;
-        font-size: .7rem;
+        font-size: 0.7rem;
       }
 
       &:hover::before {
@@ -346,11 +365,11 @@ export default {
           left: 50%;
           margin-left: -10px;
           margin-top: -10px;
-          background-image: url('../assets/tab-shame.png');
-          opacity: .4;
+          background-image: url("../assets/tab-shame.png");
+          opacity: 0.4;
 
           @include retina {
-            background-image: url('../assets/tab-shame@2x.png');
+            background-image: url("../assets/tab-shame@2x.png");
           }
           @include tablet {
             width: 27px;
@@ -361,7 +380,6 @@ export default {
         }
 
         &.active {
-
           &::before {
             opacity: 1;
           }
@@ -369,9 +387,9 @@ export default {
       }
       &--good {
         &::before {
-          background-image: url('../assets/tab-fame.png');
+          background-image: url("../assets/tab-fame.png");
           @include retina {
-            background-image: url('../assets/tab-fame@2x.png');
+            background-image: url("../assets/tab-fame@2x.png");
           }
         }
       }
@@ -382,7 +400,7 @@ export default {
     // position: absolute;
     // top: 2rem;
     // right: 1rem;
-    font-size: .8rem;
+    font-size: 0.8rem;
 
     @include tablet() {
       bottom: 0;
@@ -394,7 +412,7 @@ export default {
       font-family: $f-body;
       color: $c-black;
       padding: 0;
-      font-size: .8rem;
+      font-size: 0.8rem;
       font-weight: 600;
       width: auto;
       border: none;
@@ -406,7 +424,7 @@ export default {
       -webkit-appearance: none;
       -moz-appearance: none;
       line-height: 1;
-      margin-left: .5rem;
+      margin-left: 0.5rem;
 
       &::-ms-expand {
         display: none;
@@ -425,7 +443,6 @@ export default {
   }
 }
 
-
 .list-complete-enter, .list-complete-leave-to
 /* .list-complete-leave-active for <2.1.8 */ {
   opacity: 0;
@@ -435,4 +452,48 @@ export default {
   position: absolute;
 }
 
+.btn-showfilter {
+  display: block;
+  font-size: 1rem;
+  width: 100%;
+  line-height: 2rem;
+  padding: 0;
+  border: none;
+  background: #fafafa;
+  border-bottom: 1px solid #ddd;
+
+  span {
+    display: inline-block;
+    position: relative;
+    padding-right: 1rem;
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 4px;
+      height: 4px;
+      margin-left: 0.5rem;
+      border: 2px solid #000;
+      border-left-width: 0;
+      border-top-width: 0;
+      transform: translateY(-50%) rotate(45deg);
+    }
+  }
+
+  &.active span::after {
+    transform: translateY(-50%) rotate(-135deg);
+  }
+
+  &:focus,
+  &:active {
+    outline: none;
+  }
+
+  @include tablet() {
+    display: none;
+  }
+}
 </style>

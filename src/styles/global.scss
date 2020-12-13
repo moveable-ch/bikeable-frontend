@@ -202,7 +202,7 @@ span.label {
   color: #888;
 }
 
-input[type=text], input[type=password], input[type=email], textarea {
+input[type=text], input[type=password], input[type=email], textarea, select {
   width: 100%;
   max-width: 700px;
   font-family: $f-body;
@@ -244,6 +244,10 @@ textarea {
   height: auto;
   line-height: 1.4;
   padding: 1rem;
+}
+
+select {
+  width: auto;
 }
 
 .notice {

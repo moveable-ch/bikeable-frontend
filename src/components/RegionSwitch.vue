@@ -1,29 +1,38 @@
 <template>
   <div class="regionswitch">
-    <select v-model="currentRegion">
-      <option value="">{{ $t('list.allregions') }}</option>
-      <option v-for="region in regions" v-bind:value="region._id" v-bind:key="region._id">{{ region.name }}</option>
-    </select>
+    <label for="type">{{ $t("list.region") }}</label>
+    <div class="regionswitch__select">
+      <select v-model="currentRegion">
+        <option value="">{{ $t("list.allregions") }}</option>
+        <option
+          v-for="region in regions"
+          v-bind:value="region._id"
+          v-bind:key="region._id"
+        >
+          {{ region.name }}
+        </option>
+      </select>
+    </div>
   </div>
 </template>
 
 <script>
-import regions from '../api/regions';
+import regions from "../api/regions";
 
 export default {
-  name: 'region-switch',
+  name: "region-switch",
   props: [],
-  data () {
+  data() {
     return {
-      currentRegion: '',
+      currentRegion: "",
       regions: [],
-      switcherVisible: false
-    }
+      switcherVisible: false,
+    };
   },
   computed: {
     selectedRegion() {
       return this.$store.getters.selectedRegion;
-    }
+    },
   },
   watch: {
     currentRegion(to, from) {
@@ -31,77 +40,83 @@ export default {
     },
     selectedRegion(to, from) {
       this.currentRegion = this.selectedRegion;
-    }
+    },
   },
   mounted() {
     this.loadRegions();
 
-    if(this.selectedRegion != '') {
+    if (this.selectedRegion != "") {
       this.currentRegion = this.selectedRegion;
     }
   },
   methods: {
-
     loadRegions() {
-      this.$store.commit('LOAD_START');
+      this.$store.commit("LOAD_START");
 
-      regions.getRegions()
-        .then((result) => {
-          this.$store.commit('LOAD_FINISH');
+      regions.getRegions().then(
+        (result) => {
+          this.$store.commit("LOAD_FINISH");
           this.regions = result;
-          if(this.currentRegion == null) {
+          if (this.currentRegion == null) {
             this.currentRegion = regions[0];
           }
         },
         (error) => {
-          this.$store.commit('LOAD_FINISH');
-          this.$store.dispatch('handleError', 'Fehler');
-        });
+          this.$store.commit("LOAD_FINISH");
+          this.$store.dispatch("handleError", "Fehler");
+        }
+      );
     },
     setRegion(region) {
       this.switcherVisible = false;
 
-      this.$store.dispatch('setSelectedRegion', region)
-      .then((data) => {
-        this.region
-        }, (data) => {
-          this.$store.dispatch('handleError', 'Error');
-        });
-    }
-  }
-}
+      this.$store.dispatch("setSelectedRegion", region).then(
+        (data) => {
+          this.region;
+        },
+        (data) => {
+          this.$store.dispatch("handleError", "Error");
+        }
+      );
+    },
+  },
+};
 </script>
 
 <style lang="scss">
+@import "../styles/helpers";
 
-@import '../styles/helpers';
-
-.regionswitch {
+.regionswitch__select {
   max-width: 100%;
-  overflow: hidden;
-  padding-left: 25px;
+  padding-left: 20px;
   position: relative;
+  display: flex;
+  background-color: #fff;
+  border: 1px solid #eee;
+  box-shadow: 0 1px 2px 0 rgba(#000, 0.05);
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin: 0 1rem 0 0;
 
   &::before {
     content: "";
     display: block;
     padding: 3px;
     position: absolute;
-    top: 8px;
-    left: 5px;
+    top: 50%;
+    left: 10px;
     border: solid $c-black;
     border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+    transform: translateY(-50%) rotate(45deg);
     transform-origin: 50% 50%;
   }
 
   select {
-    font-family: $f-body;
-    color: $c-black;
-    padding: 0;
+    width: 100%;
     font-size: 1rem;
-    font-weight: 400;
-    width: auto;
+    line-height: 1.1;
+    color: $c-black;
+    padding: 0.5rem;
     border: none;
     border-radius: 0;
     box-shadow: none;
@@ -109,7 +124,6 @@ export default {
     background-image: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    line-height: 1.5;
     cursor: pointer;
 
     &::-ms-expand {
@@ -123,8 +137,6 @@ export default {
     &:hover {
       text-decoration: underline;
     }
-
   }
 }
-
 </style>

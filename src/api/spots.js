@@ -17,8 +17,18 @@ export default {
     }
 
     params.append("sort", sortParam);
+
     if (limit) params.append("limit", limitParam);
-    if (filterParam) params.append("filter", filterParam);
+    if (filterParam) {
+      if (filterParam.categoryId) params.append("categoryId", filterParam.categoryId);
+     if (filterParam.type) {
+        if (filterParam.type == "fame") {
+          params.append("filter", "famed");
+        } else if (filterParam.type == "shame") {
+          params.append("filter", "shamed");
+        }
+      }
+    }
     if (region) params.append("region", regionParam);
 
     // console.log(params.toString());
@@ -283,6 +293,29 @@ export default {
     return new Promise((resolve, reject) => {
       axios
         .post(url, data, {
+          headers: {
+            "X-User-Id": userId,
+            "X-Auth-Token": authToken
+          }
+        })
+        .then((response) => {
+          resolve(response.data.data);
+        })
+        .catch((error) => {
+          if (!error.request.response) reject("");
+          let msg = JSON.parse(error.request.response);
+          reject(msg.message);
+        });
+    });
+  },
+
+  addCategory({spotId, categoryId, userId , authToken }) {
+    let url =
+      process.env.VUE_APP_BACKEND_URL + "/api/v1/entries/" + spotId + "/addCategory?categoryId="+categoryId;
+
+    return new Promise((resolve, reject) => {
+      axios
+        .post(url, null, {
           headers: {
             "X-User-Id": userId,
             "X-Auth-Token": authToken

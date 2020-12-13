@@ -12,7 +12,7 @@ const getters = {
   lightSpots: state => state.lightSpots,
   mySpots: state => state.mySpots,
   listSort: state => state.listSort,
-  listFilter: state => state.listFilter
+  listFilter: state => state.listFilter,
 }
 
 const actions = {
@@ -34,6 +34,30 @@ const actions = {
         dispatch('handleError', error);
       });
   },
+  // getListSpots({ commit, dispatch, getters }, limit, sort) {
+
+  //   commit('LOAD_START');
+
+  //   let coords = getters.userCoords ? getters.userCoords : null;
+  //   let filter = localStorage.getItem('listFilter');
+  //   let region = localStorage.getItem('selectedRegion');
+
+  //   spots.getAllSpots({
+  //       limit: limit,
+  //       filter: filter,
+  //       sort: sort,
+  //       location: coords,  
+  //       region: region
+  //     })
+  //     .then((entries) => {
+  //       commit('LOAD_FINISH');
+  //       commit('SET_SPOTS', entries);
+  //     },
+  //     (error) => {
+  //       commit('LOAD_FINISH');
+  //       dispatch('handleError', error);
+  //     });
+  // },
   getLightSpots({ commit, dispatch, getters }, filter) {
 
     commit('LOAD_START');
@@ -144,8 +168,35 @@ const actions = {
           reject(error);
         });
     });
-  }
+  },
+  addCategory({ commit, dispatch }, data) {
+    commit('LOAD_START');
 
+    let userId = localStorage.getItem('userId');
+    let token = localStorage.getItem('token');
+
+    return new Promise((resolve, reject) => {
+      spots.addCategory({
+          spotId: data.spotId,
+          categoryId: data.categoryId,
+          userId: userId,
+          authToken: token
+        })
+        .then((data) => {
+          commit('LOAD_FINISH');
+          resolve(data);
+        },
+        (error) => {
+          commit('LOAD_FINISH');
+          dispatch('handleError', error);
+          reject(error);
+        });
+    });
+  },
+  setListFilter(context, listFilter) {
+    localStorage.setItem('listFilter', listFilter);
+    context.commit('SET_LIST_FILTER', listFilter);
+  }
 }
 
 const mutations = {
@@ -167,5 +218,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

@@ -29,7 +29,9 @@
       "entercurrentposition": "Aktuellen Standort einfügen",
       "chooselocation": "Standort auf Karte wählen",
       "description": "Beschreibung",
-      "send": "Senden"
+      "send": "Spot hinzufügen",
+      "notready": "Bitte fülle alle benötigten Felder aus.",
+      "choosecat": "Kategorie wählen"
     },
     "editform": {
       "editspot": "Spot bearbeiten"
@@ -45,6 +47,7 @@
       "addphototitle": "Foto hochladen",
       "addphotodesc": "Hast du ein zusätzliches Foto zu diesem Spot? Lade es hier hoch!",
       "addphotofix": "Mein Foto bestätigt dass dieser Spot verbessert wurde",
+      "addcat": "Kategorie hinzufügen",
       "deletespot": "Spot löschen",
       "cancel": "Abbrechen"
     },
@@ -55,6 +58,7 @@
     },
     "list": {
       "allregions": "Alle Regionen",
+      "region": "Region",
       "nospots": "Leider wurden keine Spots gefunden.",
       "sortby": "Sortieren nach",
       "date": "Datum",
@@ -140,7 +144,9 @@
       "entercurrentposition": "Insert current location",
       "chooselocation": "Choose location on map",
       "description": "Description",
-      "send": "Send"
+      "send": "Submit spot",
+      "notready": "Please fill out the form.",
+      "choosecat": "Choose a category"
     },
     "editform": {
       "editspot": "Edit spot"
@@ -156,6 +162,7 @@
       "addphototitle": "Upload Photo",
       "addphotodesc": "Do you have an additional image of this spot? Upload it here!",
       "addphotofix": "My photo confirms that this spot has been fixed",
+      "addcat": "Add Category",
       "deletespot": "Delete Spot",
       "cancel": "Cancel"
     },
@@ -166,6 +173,7 @@
     },
     "list": {
       "allregions": "All Regions",
+      "region": "Region",
       "nospots": "No spots found.",
       "sortby": "Sort by",
       "date": "Date",
@@ -251,7 +259,9 @@
       "entercurrentposition": "Utiliser ma position actuelle",
       "chooselocation": "Localisation du spot sur la carte",
       "description": "Description",
-      "send": "Envoyer"
+      "send": "Envoyer",
+      "notready": "Veuillez remplir le formulaire.",
+      "choosecat": "Choisissez une catégorie"
     },
     "editform": {
       "editspot": "Modifier le spot"
@@ -267,6 +277,7 @@
       "addphototitle": "Télécharger une photo",
       "addphotodesc": "Avez-vous une photo supplémentaire?",
       "addphotofix": "Ma photo confirme que ce spot a été amélioré",
+      "addcat": "Ajouter catégorie",
       "deletespot": "Effacer Spot",
       "cancel": "Annuler"
     },
@@ -277,6 +288,7 @@
     },
     "list": {
       "allregions": "Toutes les régions",
+      "region": "Région",
       "nospots": "Aucun spot trouvé",
       "sortby": "Trier par",
       "date": "Date",

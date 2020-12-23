@@ -1,14 +1,21 @@
 <template>
   <div v-if="maintenanceMode">
-    <img src="https://media.giphy.com/media/nxuFTiUbYR3SE/giphy.gif" class="maintenance-img">
-    <h1 class="maintenance">We are having some technical problems and will be back soon.</h1>
+    <img
+      src="https://media.giphy.com/media/nxuFTiUbYR3SE/giphy.gif"
+      class="maintenance-img"
+    />
+    <h1 class="maintenance">
+      We are having some technical problems and will be back soon.
+    </h1>
   </div>
   <div id="app" v-else-if="appReady">
     <transition name="fade">
-      <div class="loader" v-if="pendingCount > 0" ></div>
+      <div class="loader" v-if="pendingCount > 0"></div>
     </transition>
     <transition name="slide-down">
-      <div class="msg" v-if="msg"><span>{{ msg }}</span></div>
+      <div class="msg" v-if="msg">
+        <span>{{ msg }}</span>
+      </div>
     </transition>
     <c-header v-if="!isEmbed"></c-header>
     <transition name="route-fade" mode="out-in">
@@ -19,37 +26,37 @@
 </template>
 
 <script>
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default {
-  name: 'app',
+  name: "app",
   metaInfo: {
-    title: 'Bikeable'
+    title: "Bikeable",
   },
-  data () {
+  data() {
     return {
       maintenanceMode: false,
       appReady: false,
-      transitionName: 'fade',
-      showFooter: true
-    }
+      transitionName: "fade",
+      showFooter: true,
+    };
   },
   watch: {
-    '$route' (to, from) {
-      if(to.name == 'map') {
+    $route(to, from) {
+      if (to.name == "map") {
         this.showFooter = false;
-      }else{
+      } else {
         this.showFooter = true;
       }
 
-      if(this.isEmbed) {
-        document.body.classList.add('embed');
+      if (this.isEmbed) {
+        document.body.classList.add("embed");
       }
     },
-    currentLang (to, from) {
+    currentLang(to, from) {
       this.$i18n.locale = to;
-    }
+    },
   },
   computed: {
     isLoggedIn() {
@@ -72,101 +79,113 @@ export default {
     },
     isWebApp() {
       return window.navigator.standalone;
-    }
+    },
   },
   components: {
-    'c-header': Header,
-    'c-footer': Footer
+    "c-header": Header,
+    "c-footer": Footer,
   },
   mounted() {
     this.checkLocalLang();
     this.checkLocalRegion();
 
-    if(this.isEmbed) {
-      document.body.classList.add('embed');
+    if (this.isEmbed) {
+      document.body.classList.add("embed");
     }
-    if(this.isWebApp) {
-      document.body.classList.add('webapp');
-    }
-
-    this.$store.dispatch('getUserCoords');
-    this.$store.dispatch('getCategories');
-
-    if(this.isLoggedIn) {
-      this.$store.dispatch('checkToken')
-        .then((data) => {
-            // console.log(data);
-          }, (data) => {
-            this.$router.push('/');
-            // console.log('error', data);
-          });
+    if (this.isWebApp) {
+      document.body.classList.add("webapp");
     }
 
-    if(this.$router.currentRoute.name == 'map') this.showFooter = false;
+    this.$store.dispatch("getUserCoords");
+    this.$store.dispatch("getCategories");
 
-    this.$store.dispatch('initMapsApi');
+    if (this.isLoggedIn) {
+      this.$store.dispatch("checkToken").then(
+        (data) => {
+          // console.log(data);
+        },
+        (data) => {
+          this.$router.push("/");
+          // console.log('error', data);
+        }
+      );
+    }
+
+    if (this.$router.currentRoute.name == "map") this.showFooter = false;
+
+    this.$store.dispatch("initMapsApi");
 
     this.appReady = true;
   },
   methods: {
     checkLocalLang() {
-      let l = localStorage.getItem('lang');
+      let l = localStorage.getItem("lang");
 
-      if(!l) {
-        const userLang = navigator.language.substr(0,2);
-        if(["de", "en", "fr"].indexOf(l) >= -1) l = userLang;
+      if(this.$route.query.lang) {
+        l = this.$route.query.lang;
+      }
+      if (!l) {
+        const userLang = navigator.language.substr(0, 2);
+        if (["de", "en", "fr"].indexOf(l) >= -1) l = userLang;
       }
 
-      if(l) {
-        this.$store.dispatch('setLang', l)
-        .then((data) => {
-          }, (data) => {
-            this.$store.dispatch('handleError', 'Error');
-          });
+      if (l) {
+        this.$store.dispatch("setLang", l).then(
+          (data) => {},
+          (data) => {
+            this.$store.dispatch("handleError", "Error");
+          }
+        );
       }
     },
     checkLocalRegion() {
-      let r = localStorage.getItem('selectedRegion');
-      if(r) {
-        this.$store.dispatch('setSelectedRegion', r)
-        .then((data) => {
-          }, (data) => {
-            this.$store.dispatch('handleError', 'Error');
-          });
+      let r = localStorage.getItem("selectedRegion");
+      if (r) {
+        this.$store.dispatch("setSelectedRegion", r).then(
+          (data) => {},
+          (data) => {
+            this.$store.dispatch("handleError", "Error");
+          }
+        );
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style src="./styles/global.scss" lang="scss"></style>
 
 <style lang="scss">
-
-@import './styles/helpers';
+@import "./styles/helpers";
 
 #app {
   position: relative;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .2s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 
-.route-fade-enter-active, .route-fade-leave-active {
-  transition: opacity .3s;
+.route-fade-enter-active,
+.route-fade-leave-active {
+  transition: opacity 0.3s;
 }
-.route-fade-enter, .route-fade-leave-to {
+.route-fade-enter,
+.route-fade-leave-to {
   opacity: 0;
 }
 
-.slide-down-enter-active, .slide-down-leave-active {
-  transition: .6s transform $easeOutQuint;
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: 0.6s transform $easeOutQuint;
 }
-.slide-down-enter, .slide-down-leave-to {
+.slide-down-enter,
+.slide-down-leave-to {
   transform: translateY(-100%);
 }
 
@@ -177,11 +196,11 @@ export default {
   width: 100%;
   height: auto;
   z-index: 4;
-  background-color: rgba($c-grey, .9);
+  background-color: rgba($c-grey, 0.9);
   color: $c-black;
   height: 3rem;
   text-align: center;
-  font-size: .9rem;
+  font-size: 0.9rem;
   display: flex;
   align-items: center;
 
@@ -200,7 +219,13 @@ export default {
   left: 0;
   width: 100%;
   height: 2px;
-  background-image: linear-gradient(to right,  transparent 0%, transparent 50%, $c-main 50%, $c-main 100%);
+  background-image: linear-gradient(
+    to right,
+    transparent 0%,
+    transparent 50%,
+    $c-main 50%,
+    $c-main 100%
+  );
   background-size: 200% 100%;
   animation: stripe 5s infinite linear;
 }
@@ -233,5 +258,4 @@ img.maintenance-img {
     animation: stripe 6s infinite linear;
   }
 }
-
 </style>

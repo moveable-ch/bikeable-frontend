@@ -1,17 +1,12 @@
 {
-  "applinks": {
-      "details": [
-           {
-             "appIDs": [ "1456257658.com.css.bikeable" ],
-             "components": [
-               {
-                  "/": "/entries/*",
-                  "comment": "Matches any URL whose path starts with /entries/"
-               },
-             ]
-           }
-       ]
-   },
+    "applinks": {
+        "apps": [],
+        "details": [{
+            "appID": "1456257658.com.css.bikeable",
+            "paths": ["entries/*]
+            }
+        ]
+    }
    "webcredentials": {
       "apps": [ "1456257658.com.css.bikeable" ]
    }

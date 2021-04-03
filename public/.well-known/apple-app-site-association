@@ -2,12 +2,12 @@
     "applinks": {
         "apps": [],
         "details": [{
-            "appID": "1456257658.com.css.bikeable",
-            "paths": ["entries/*]
+            "appID": "ZHG59QMA4R.com.css.bikeable",
+            "paths": ["/entries/*]
             }
         ]
     }
    "webcredentials": {
-      "apps": [ "1456257658.com.css.bikeable" ]
+      "apps": [ "ZHG59QMA4R.com.css.bikeable" ]
    }
 }

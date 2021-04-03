@@ -1,13 +1,12 @@
 {
-    "applinks": {
-        "apps": [],
-        "details": [{
-            "appID": "ZHG59QMA4R.com.css.bikeable",
-            "paths": ["/entries/*]
-            }
-        ]
-    }
-   "webcredentials": {
-      "apps": [ "ZHG59QMA4R.com.css.bikeable" ]
-   }
+	"applinks": {
+		"apps": [],
+		"details": [{
+			"appID": "ZHG59QMA4R.com.css.bikeable",
+			"paths": ["/entries/*"]
+		}]
+	},
+	"webcredentials": {
+		"apps": ["ZHG59QMA4R.com.css.bikeable"]
+	}
 }

@@ -18,7 +18,7 @@
       <button
         @click="showMobileFilter = !showMobileFilter"
         class="btn-showfilter"
-        :class="{ 'active': showMobileFilter }"
+        :class="{ active: showMobileFilter }"
       >
         <span>Filter Entries</span>
       </button>
@@ -67,13 +67,13 @@ import FilterBar from "@/components/FilterBar";
 export default {
   name: "v-map",
   metaInfo: {
-    title: "Map — Bikeable"
+    title: "Map — Bikeable",
   },
   props: [],
   components: {
     "c-sponsor-modal": SponsorModal,
     "c-entry-modal": EntryModal,
-    "c-filter-bar": FilterBar
+    "c-filter-bar": FilterBar,
   },
 
   computed: {
@@ -98,11 +98,17 @@ export default {
     isEmbed() {
       return this.$route.query.embed;
     },
+    showSponsors() {
+      return this.$route.query.sponsors != 'false';
+    },
     showEmbedControls() {
       return this.$route.query.controls;
     },
     filterByUserId() {
       return this.$route.query.user;
+    },
+    filterByUserIdCommented() {
+      return this.$route.query.commentedby;
     },
     queryLocation() {
       if (!this.$route.query.center) return false;
@@ -112,7 +118,7 @@ export default {
 
       let parsedLoc = {
         lat: parseFloat(locArray[0]),
-        lng: parseFloat(locArray[1])
+        lng: parseFloat(locArray[1]),
       };
 
       if (isNaN(parseFloat(locArray[0])) || isNaN(parseFloat(locArray[0])))
@@ -122,7 +128,7 @@ export default {
     },
     queryZoom() {
       return parseInt(this.$route.query.zoom);
-    }
+    },
   },
 
   data() {
@@ -136,8 +142,9 @@ export default {
       markerOffset: { x: 0, y: 0 },
       markers: [],
       userEntries: null,
+      userCommentedEntries: null,
       currentZoom: 0,
-      showMobileFilter: false
+      showMobileFilter: false,
     };
   },
 
@@ -150,25 +157,27 @@ export default {
   beforeDestroy() {
     let center = {
       lat: this.map.getCenter().lat(),
-      lng: this.map.getCenter().lng()
+      lng: this.map.getCenter().lng(),
     };
     this.$store.dispatch("setMapCenter", center);
   },
 
   watch: {
-    entries: function() {
+    entries: function () {
       this.displaySpots();
     },
-    sponsors: function() {
-      this.renderSponsors();
+    sponsors: function () {
+      if(this.showSponsors) {
+        this.renderSponsors();
+      }
     },
-    userCoords: function() {
+    userCoords: function () {
       this.locateUser();
     },
-    google: function() {
+    google: function () {
       if (this.mapInited) return;
       this.initMap();
-    }
+    },
   },
 
   methods: {
@@ -207,19 +216,19 @@ export default {
         streetViewControl: false,
         mapTypeControl: false,
         zoomControlOptions: {
-          position: this.google.maps.ControlPosition.RIGHT_TOP
-        }
+          position: this.google.maps.ControlPosition.RIGHT_TOP,
+        },
       });
       this.map.data.setStyle({
         fillColor: "transparent",
         strokeWeight: 5,
         strokeOpacity: 0.3,
-        strokeColor: "#14bdcc"
+        strokeColor: "#14bdcc",
       });
 
       this.map.data.loadGeoJson("/json/regions.json");
 
-      this.google.maps.event.addListener(this.map, "zoom_changed", e => {
+      this.google.maps.event.addListener(this.map, "zoom_changed", (e) => {
         this.setMarkerIcons();
       });
 
@@ -234,13 +243,13 @@ export default {
 
       let icon = {
         url: "img/userloc.png",
-        scaledSize: new this.google.maps.Size(17, 17)
+        scaledSize: new this.google.maps.Size(17, 17),
       };
 
       var marker = new this.google.maps.Marker({
         position: this.userCoords,
         map: this.map,
-        icon: icon
+        icon: icon,
       });
     },
 
@@ -264,18 +273,18 @@ export default {
 
         let icon = {
           url: imgurl,
-          scaledSize: new google.maps.Size(size, size)
+          scaledSize: new google.maps.Size(size, size),
         };
 
         let marker = new this.google.maps.Marker({
           position: entry.location,
           map: this.map,
-          icon: icon
+          icon: icon,
         });
 
         marker.addListener(
           "click",
-          function(m) {
+          function (m) {
             this.activeSponsor = entry;
             this.showSponsorModal = true;
             // this.$router.push({ name: 'entry', params: { id: entry._id }});
@@ -317,7 +326,7 @@ export default {
         fixedIcon.url = "img/marker-fixed_s.png";
       }
 
-      this.markers.forEach(marker => {
+      this.markers.forEach((marker) => {
         if (marker.famed) {
           marker.instance.setIcon(famedIcon);
         } else if (marker.fixed) {
@@ -331,9 +340,18 @@ export default {
     displaySpots() {
       if (!this.entries || !this.google) return;
 
+      this.clearMarkers();
+
       if (this.filterByUserId) {
         this.loadUserEntries().then(() => {
           this.renderMarkers(this.userEntries);
+        });
+      } else if (this.filterByUserIdCommented) {
+        this.loadUserEntries().then(() => {
+          this.renderMarkers(this.userEntries);
+        });
+        this.loadUserCommentedEntries().then(() => {
+          this.renderMarkers(this.userCommentedEntries);
         });
       } else {
         this.renderMarkers(this.entries);
@@ -341,15 +359,13 @@ export default {
     },
 
     clearMarkers() {
-      this.markers.forEach(marker => {
+      this.markers.forEach((marker) => {
         marker.instance.setMap(null);
       }),
         (this.markers = []);
     },
 
     renderMarkers(spots) {
-      this.clearMarkers();
-
       spots.forEach((entry, index) => {
         let imgurl = "img/marker-bad.png";
 
@@ -358,24 +374,24 @@ export default {
 
         let icon = {
           url: imgurl,
-          scaledSize: new this.google.maps.Size(22, 30)
+          scaledSize: new this.google.maps.Size(22, 30),
         };
 
         let marker = new this.google.maps.Marker({
           position: entry.coords,
           map: this.map,
-          icon: icon
+          icon: icon,
         });
 
         this.markers.push({
           instance: marker,
           famed: entry.famed,
-          fixed: entry.gotFixed
+          fixed: entry.gotFixed,
         });
 
         marker.addListener(
           "click",
-          function(e) {
+          function (e) {
             this.activeEntryId = entry._id;
             this.showModal = true;
 
@@ -395,13 +411,39 @@ export default {
 
       return new Promise((resolve, reject) => {
         spots.getSpotsByUserId(userId).then(
-          data => {
+          (data) => {
             this.userEntries = data;
             this.$store.commit("LOAD_FINISH");
             this.$emit("updateHead");
             resolve();
           },
-          error => {
+          (error) => {
+            this.$store.commit("LOAD_FINISH");
+            this.$router.push("/");
+            this.$store.dispatch("handleError", "User nicht gefunden");
+          }
+        );
+      });
+    },
+
+    loadUserCommentedEntries() {
+      // TODO: Move to Store
+      let userId = this.filterByUserIdCommented;
+
+      this.$store.commit("LOAD_START");
+
+      return new Promise((resolve, reject) => {
+        spots.getSpotsCommentedByUserId(userId).then(
+          (data) => {
+            this.userCommentedEntries = data.filter((e) => {
+              return e.userId != userId;
+            });
+
+            this.$store.commit("LOAD_FINISH");
+            this.$emit("updateHead");
+            resolve();
+          },
+          (error) => {
             this.$store.commit("LOAD_FINISH");
             this.$router.push("/");
             this.$store.dispatch("handleError", "User nicht gefunden");
@@ -434,8 +476,8 @@ export default {
       let offsetY = Math.round(point.y - centerY);
 
       return { x: offsetX, y: offsetY };
-    }
-  }
+    },
+  },
 };
 </script>
 

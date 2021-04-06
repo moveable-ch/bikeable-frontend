@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   getAllSpots({ limit, filter, sort, order, location, region }) {
@@ -20,8 +20,9 @@ export default {
 
     if (limit) params.append("limit", limitParam);
     if (filterParam) {
-      if (filterParam.categoryId) params.append("categoryId", filterParam.categoryId);
-     if (filterParam.type) {
+      if (filterParam.categoryId)
+        params.append("categoryId", filterParam.categoryId);
+      if (filterParam.type) {
         if (filterParam.type == "fame") {
           params.append("filter", "famed");
         } else if (filterParam.type == "shame") {
@@ -39,10 +40,10 @@ export default {
           params: params
         })
         .then(
-          (response) => {
+          response => {
             resolve(response.data.data);
           },
-          (error) => {
+          error => {
             console.log(error.request);
             if (!error.request.response) reject("");
             let msg = JSON.parse(error.request.response);
@@ -76,19 +77,21 @@ export default {
     }
 
     return new Promise((resolve, reject) => {
-      axios.get(url, {
-        params: params
-      }).then(
-        (response) => {
-          resolve(response.data.data);
-        },
-        (error) => {
-          console.log(error.request);
-          if (!error.request.response) reject("");
-          let msg = JSON.parse(error.request.response);
-          reject(msg.message);
-        }
-      );
+      axios
+        .get(url, {
+          params: params
+        })
+        .then(
+          response => {
+            resolve(response.data.data);
+          },
+          error => {
+            console.log(error.request);
+            if (!error.request.response) reject("");
+            let msg = JSON.parse(error.request.response);
+            reject(msg.message);
+          }
+        );
     });
   },
   getMySpots({ limit, filter, sort, order, location }) {
@@ -111,10 +114,10 @@ export default {
 
     return new Promise((resolve, reject) => {
       axios.get(url, { params: params }).then(
-        (response) => {
+        response => {
           resolve(response.data.data);
         },
-        (error) => {
+        error => {
           console.log(error.request);
           if (!error.request.response) reject("");
           let msg = JSON.parse(error.request.response);
@@ -128,10 +131,10 @@ export default {
 
     return new Promise((resolve, reject) => {
       axios.get(url).then(
-        (response) => {
+        response => {
           resolve(response.data.data);
         },
-        (error) => {
+        error => {
           if (!error.request.response) reject("");
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
@@ -154,7 +157,7 @@ export default {
         .then(() => {
           reject();
         })
-        .catch((error) => {
+        .catch(error => {
           if (error.response.status == 401 || error.response.status == 400) {
             resolve();
           } else {
@@ -179,10 +182,10 @@ export default {
             }
           }
         )
-        .then((response) => {
+        .then(response => {
           resolve(response.data);
         })
-        .catch((error) => {
+        .catch(error => {
           if (!error.request.response) reject("");
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
@@ -192,7 +195,10 @@ export default {
 
   proposeFixedSpot({ spotId, userId, authToken }) {
     let url =
-      process.env.VUE_APP_BACKEND_URL + "/api/v1/entries/" + spotId + "/proposefixed";
+      process.env.VUE_APP_BACKEND_URL +
+      "/api/v1/entries/" +
+      spotId +
+      "/proposefixed";
 
     return new Promise((resolve, reject) => {
       axios
@@ -206,10 +212,10 @@ export default {
             }
           }
         )
-        .then((response) => {
+        .then(response => {
           resolve(response.data);
         })
-        .catch((error) => {
+        .catch(error => {
           if (!error.request.response) reject("");
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
@@ -230,10 +236,10 @@ export default {
             "X-Auth-Token": authToken
           }
         })
-        .then((response) => {
+        .then(response => {
           resolve(response.data.data);
         })
-        .catch((error) => {
+        .catch(error => {
           if (!error.request.response) reject("");
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
@@ -252,10 +258,10 @@ export default {
             "X-Auth-Token": authToken
           }
         })
-        .then((response) => {
+        .then(response => {
           resolve();
         })
-        .catch((error) => {
+        .catch(error => {
           if (!error.request.response) reject("");
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
@@ -274,10 +280,10 @@ export default {
             "X-Auth-Token": authToken
           }
         })
-        .then((response) => {
+        .then(response => {
           resolve(response.data.data);
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
           if (!error.request.response) reject("");
           let msg = JSON.parse(error.request.response);
@@ -288,7 +294,10 @@ export default {
 
   addPhoto({ data, spotId, userId, authToken }) {
     let url =
-      process.env.VUE_APP_BACKEND_URL + "/api/v1/entries/" + spotId + "/addphoto";
+      process.env.VUE_APP_BACKEND_URL +
+      "/api/v1/entries/" +
+      spotId +
+      "/addphoto";
 
     return new Promise((resolve, reject) => {
       axios
@@ -298,10 +307,10 @@ export default {
             "X-Auth-Token": authToken
           }
         })
-        .then((response) => {
+        .then(response => {
           resolve(response.data.data);
         })
-        .catch((error) => {
+        .catch(error => {
           if (!error.request.response) reject("");
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
@@ -309,9 +318,13 @@ export default {
     });
   },
 
-  addCategory({spotId, categoryId, userId , authToken }) {
+  addCategory({ spotId, categoryId, userId, authToken }) {
     let url =
-      process.env.VUE_APP_BACKEND_URL + "/api/v1/entries/" + spotId + "/addCategory?categoryId="+categoryId;
+      process.env.VUE_APP_BACKEND_URL +
+      "/api/v1/entries/" +
+      spotId +
+      "/addCategory?categoryId=" +
+      categoryId;
 
     return new Promise((resolve, reject) => {
       axios
@@ -321,10 +334,10 @@ export default {
             "X-Auth-Token": authToken
           }
         })
-        .then((response) => {
+        .then(response => {
           resolve(response.data.data);
         })
-        .catch((error) => {
+        .catch(error => {
           if (!error.request.response) reject("");
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
@@ -333,14 +346,33 @@ export default {
   },
 
   getSpotsByUserId(userId) {
-    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries?user=" + userId;
+    let url =
+      process.env.VUE_APP_BACKEND_URL + "/api/v1/entries?user=" + userId;
 
     return new Promise((resolve, reject) => {
       axios.get(url).then(
-        (response) => {
+        response => {
           resolve(response.data.data);
         },
-        (error) => {
+        error => {
+          if (!error.request.response) reject("");
+          let msg = JSON.parse(error.request.response);
+          reject(msg.message);
+        }
+      );
+    });
+  },
+
+  getSpotsCommentedByUserId(userId) {
+    let url =
+      process.env.VUE_APP_BACKEND_URL + "/api/v2/lightentriescommentedby/" + userId;
+
+    return new Promise((resolve, reject) => {
+      axios.get(url).then(
+        response => {
+          resolve(response.data.data);
+        },
+        error => {
           if (!error.request.response) reject("");
           let msg = JSON.parse(error.request.response);
           reject(msg.message);

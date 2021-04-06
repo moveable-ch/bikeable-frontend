@@ -99,7 +99,7 @@ export default {
       return this.$route.query.embed;
     },
     showSponsors() {
-      return this.$route.query.sponsors != 'false';
+      return this.$route.query.sponsors != "false";
     },
     showEmbedControls() {
       return this.$route.query.controls;
@@ -167,9 +167,7 @@ export default {
       this.displaySpots();
     },
     sponsors: function () {
-      if(this.showSponsors) {
-        this.renderSponsors();
-      }
+      this.renderSponsors();
     },
     userCoords: function () {
       this.locateUser();
@@ -233,6 +231,7 @@ export default {
       });
 
       this.displaySpots();
+
       this.renderSponsors();
       this.setMarkerIcons();
       this.locateUser();
@@ -260,6 +259,7 @@ export default {
     },
 
     renderSponsors() {
+      if (!this.showSponsors) return;
       if (!this.sponsors || !this.google) return;
 
       this.sponsors.forEach((entry, index) => {

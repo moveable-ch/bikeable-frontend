@@ -218,7 +218,7 @@ export default {
   z-index: 4;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 6px;
   background-image: linear-gradient(
     to right,
     transparent 0%,

@@ -52,9 +52,11 @@ export default {
       if (this.flkty) this.flkty.destroy();
       this.$nextTick(function () {
         this.flkty = new Flickity(this.$refs.carousel, {
-          imagesLoaded: true,
           prevNextButtons: false,
         });
+        setTimeout(() => {
+          this.flkty.resize();
+        }, 300);
       });
     }
   },

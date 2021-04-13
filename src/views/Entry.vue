@@ -779,7 +779,7 @@ export default {
       }
     }
     &__tools {
-      padding: 0.75rem;
+      padding: 0.5rem;
       background-color: $c-blue;
 
       &__button {
@@ -793,7 +793,7 @@ export default {
         margin-bottom: 0.5rem;
         position: relative;
         // margin: 0.5rem;
-        margin-right: 0.75rem;
+        // margin-right: 0.75rem;
         line-height: 2rem;
         height: 2rem;
         overflow: hidden;
@@ -825,9 +825,11 @@ export default {
           width: auto;
           display: inline-block;
           margin-bottom: -4px;
+          margin: .25rem;
+          margin-bottom: calc(.25rem - 4px);
 
           &:last-child {
-            margin-bottom: -4px;
+            margin-bottom: calc(.25rem - 4px);
           }
         }
         .material-icons {

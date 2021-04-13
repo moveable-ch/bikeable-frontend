@@ -61,11 +61,7 @@ export default {
         el.addEventListener("load", () => {
           imagesLoaded++;
           if (imagesLoaded >= imgCount) {
-            if (!this.flkty) {
-              this.initCarousel();
-            }else{
-              this.flkty.resize();
-            }
+            this.initCarousel();
           }
         });
       });

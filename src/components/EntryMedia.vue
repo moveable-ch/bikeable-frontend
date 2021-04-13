@@ -20,7 +20,7 @@
 <script>
 import axios from "axios";
 import Flickity from "flickity";
-import "flickity-imagesloaded";
+// import "flickity-imagesloaded";
 
 export default {
   name: "c-entry-media",
@@ -28,7 +28,7 @@ export default {
   components: {},
   data() {
     return {
-      flkty: null
+      flkty: null,
     };
   },
 
@@ -37,7 +37,9 @@ export default {
   watch: {
     entry: function (e) {
       if (e.gallery.length > 0) {
-        this.initCarousel();
+        this.preloadImages();
+        // this.initCarousel();
+        // this.flkty.resize();
       }
     },
   },
@@ -47,6 +49,27 @@ export default {
   },
 
   methods: {
+    preloadImages() {
+      if (this.entry.gallery.length == 0) return;
+
+      const imgCount = this.entry.gallery.length;
+      let imagesLoaded = 0;
+
+      this.entry.gallery.forEach((img) => {
+        let el = new Image();
+        el.src = img.photo.large;
+        el.addEventListener("load", () => {
+          imagesLoaded++;
+          if (imagesLoaded >= imgCount) {
+            if (!this.flkty) {
+              this.initCarousel();
+            }else{
+              this.flkty.resize();
+            }
+          }
+        });
+      });
+    },
     initCarousel() {
       if (this.entry.gallery.length == 0) return;
       if (this.flkty) this.flkty.destroy();
@@ -54,11 +77,8 @@ export default {
         this.flkty = new Flickity(this.$refs.carousel, {
           prevNextButtons: false,
         });
-        setTimeout(() => {
-          this.flkty.resize();
-        }, 300);
       });
-    }
+    },
   },
 };
 </script>

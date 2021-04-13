@@ -196,8 +196,8 @@ export default {
   width: 100%;
   height: auto;
   z-index: 4;
-  background-color: rgba($c-grey, 0.9);
-  color: $c-black;
+  background-color: rgba($c-black, 0.9);
+  color: $c-white;
   height: 3rem;
   text-align: center;
   font-size: 0.9rem;

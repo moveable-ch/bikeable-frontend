@@ -30,6 +30,14 @@
             $t("profile.loading")
           }}</span>
         </div>
+        <div class="form-checkbox">
+          <input
+            v-model="formNotifications"
+            type="checkbox"
+            id="notifications"
+          />
+          <label for="notifications">E-Mail-Benachrichtungen erhalten</label>
+        </div>
         <button class="input-button btn v-profile__submit" type="submit">
           {{ $t("profile.save") }}
         </button>
@@ -47,6 +55,7 @@ export default {
       formEmail: "",
       formUsername: "",
       formBio: "",
+      formNotifications: true,
       imageId: null,
       imageChosen: false,
       message: "",
@@ -91,6 +100,7 @@ export default {
       this.formEmail = this.userData.email.address;
       this.formUsername = this.userData.username;
       this.formBio = this.userData.profile.bio;
+      this.formNotifications = !this.userData.profile.muteNotifications;
     },
     submitForm() {
       this.$store
@@ -100,6 +110,7 @@ export default {
           username: this.formUsername,
           avatar: this.imageId,
           bio: this.formBio,
+          muteNotifications: !this.formNotifications
         })
         .then((data) => {
           this.$store.dispatch("getUserData");
@@ -207,6 +218,7 @@ export default {
 }
 
 .file-upload {
+
   &__form {
     label {
       display: block;

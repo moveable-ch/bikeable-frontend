@@ -258,6 +258,16 @@ select {
   width: auto;
 }
 
+.form-checkbox {
+  display: flex;
+  margin: 1.5rem 0;
+  line-height: 1;
+
+  label {
+    margin-left: .5rem;
+  }
+}
+
 .notice {
   background-color: #fff;
   border: 1px solid $c-grey-dark;

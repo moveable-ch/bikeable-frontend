@@ -90,13 +90,13 @@ export default {
   max-width: 100%;
   padding-left: 20px;
   position: relative;
-  display: flex;
+  // display: flex;
   background-color: #fff;
   border: 1px solid #eee;
   box-shadow: 0 1px 2px 0 rgba(#000, 0.05);
   box-sizing: border-box;
   border-radius: 4px;
-  margin: 0 1rem 0 0;
+  // margin: 0 1rem 0 0;
 
   &::before {
     content: "";
@@ -114,9 +114,10 @@ export default {
   select {
     width: 100%;
     font-size: 1rem;
-    line-height: 1.1;
+    line-height: 1.2;
     color: $c-black;
     padding: 0.5rem;
+    height: auto;
     border: none;
     border-radius: 0;
     box-shadow: none;

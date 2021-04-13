@@ -2,7 +2,7 @@
   <div class="listfilter-bar" :class="{ showmobile: showMobile }">
     <div class="listfilter-bar__item">
       <region-switch></region-switch>
-    </div> 
+    </div>
     <div class="filter-bar__item">
       <label for="type">{{ $t("filterbar.type") }}</label>
       <div class="selection-filter">
@@ -15,34 +15,35 @@
       </div>
     </div>
     <div class="filter-bar__item">
-      <label for="hashtag">{{ $t('filterbar.category') }}</label>
+      <label for="hashtag">{{ $t("filterbar.category") }}</label>
       <div class="selection-filter">
         <select id="hashtag" @change="commitFilter" v-model="filter.categoryId">
-          <option :value="null">{{ $t('filterbar.allcategories') }}</option>
+          <option :value="null">{{ $t("filterbar.allcategories") }}</option>
           <option
             v-for="option in categories"
             :key="option._id"
             v-bind:value="option._id"
-          >{{ option[$i18n.locale] }}</option>
+          >
+            {{ option[$i18n.locale] }}
+          </option>
         </select>
       </div>
     </div>
   </div>
 </template>
 <script>
-
-import RegionSwitch from '@/components/RegionSwitch';
+import RegionSwitch from "@/components/RegionSwitch";
 
 export default {
   name: "c-list-filter-bar",
   props: ["filters", "showMobile"],
   data() {
     return {
-      filter: { type: null, categoryId: null}
+      filter: { type: null, categoryId: null },
     };
   },
   components: {
-      'region-switch': RegionSwitch
+    "region-switch": RegionSwitch,
   },
   watch: {},
   computed: {
@@ -58,14 +59,16 @@ export default {
   },
   methods: {
     commitFilter() {
-      this.$store.dispatch('setListFilter', this.filter)
-      .then((data) => {
-        //this.filter
-        }, (data) => {
-          this.$store.dispatch('handleError', 'Error');
-        });
+      this.$store.dispatch("setListFilter", this.filter).then(
+        (data) => {
+          //this.filter
+        },
+        (data) => {
+          this.$store.dispatch("handleError", "Error");
+        }
+      );
     },
-  }
+  },
 };
 </script>
 
@@ -88,7 +91,7 @@ export default {
     display: flex;
     flex-wrap: nowrap;
     height: 4rem;
-    padding: 0 1rem;
+    // padding: 0 1rem;
   }
 
   &__item {
@@ -99,7 +102,7 @@ export default {
 
     @include tablet() {
       width: auto;
-      margin: 0;
+      margin: 0 0.5rem;
     }
   }
 
@@ -118,9 +121,9 @@ export default {
 
   .selection-filter {
     overflow: hidden;
-    padding-left: 20px;
+    padding-left: 25px;
     position: relative;
-    display: flex;
+    // display: flex;
     background-color: #fff;
     border: 1px solid #eee;
     box-shadow: 0 1px 2px 0 rgba(#000, 0.05);
@@ -141,8 +144,9 @@ export default {
     }
 
     select {
+      // display: block;
       font-size: 1rem;
-      line-height: 1.1;
+      line-height: 1.2;
       color: $c-black;
       padding: 0.5rem;
       border: none;
@@ -153,6 +157,7 @@ export default {
       -webkit-appearance: none;
       -moz-appearance: none;
       cursor: pointer;
+      height: auto;
 
       &::-ms-expand {
         display: none;

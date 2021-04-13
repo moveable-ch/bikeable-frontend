@@ -24,15 +24,17 @@
       </div>
     </div>
     <div class="filter-bar__item">
-      <label for="hashtag">{{ $t('filterbar.category') }}</label>
+      <label for="hashtag">{{ $t("filterbar.category") }}</label>
       <div class="selection-filter">
         <select id="hashtag" @change="commitFilter" v-model="filter.categoryId">
-          <option :value="null">{{ $t('filterbar.allcategories') }}</option>
+          <option :value="null">{{ $t("filterbar.allcategories") }}</option>
           <option
             v-for="option in categories"
             :key="option._id"
             v-bind:value="option._id"
-          >{{ option[$i18n.locale] }}</option>
+          >
+            {{ option[$i18n.locale] }}
+          </option>
         </select>
       </div>
     </div>
@@ -91,7 +93,6 @@ export default {
 <style lang="scss">
 @import "../styles/helpers";
 
-
 .filter-bar {
   background-color: #fafafa;
   display: flex;
@@ -109,25 +110,24 @@ export default {
     display: flex;
   }
 
-
   @include tablet() {
     display: flex;
     flex-wrap: nowrap;
     height: 4rem;
-    padding: .25rem 1rem;
+    padding: 0.25rem 1rem;
   }
 
   &__item {
-    display: flex;
-    flex-wrap: wrap;
+    // display: flex;
+    // flex-wrap: wrap;
     width: 100%;
-    height: 100%;
+    // height: 100%;
     margin: 0.5rem 0;
     box-sizing: border-box;
 
     @include tablet() {
       width: auto;
-      margin: 0;
+      margin: 0 0.5rem;
     }
   }
 

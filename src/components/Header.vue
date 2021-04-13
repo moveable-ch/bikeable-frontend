@@ -273,7 +273,7 @@ export default {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 100%;
-    border: 2px solid $c-black;
+    box-shadow: 0 0 0 1px #fff, 0 0 0 2px $c-black;
     transform: translateY(-50%);
     background-color: #fff;
     background-size: cover;
@@ -318,17 +318,17 @@ export default {
         font-size: .9rem;
 
         a {
-          color: #869098;
+          color: $c-black;
           text-decoration: none;
           font-size: 1rem;
           line-height: 1.75;
           font-weight: 400;
 
-          &.router-link-active {
-            color: $c-black;
-          }
-          &:hover {
-            color: $c-black;
+          &.router-link-active, &:hover {
+            text-decoration: underline;
+            // text-decoration-color: $c-main;
+            text-underline-offset: 2px;
+            text-decoration-thickness: 1px;
           }
         }
       }

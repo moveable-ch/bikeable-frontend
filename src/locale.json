@@ -43,13 +43,16 @@
       "send": "Senden",
       "markasfixed": "Als behoben markieren",
       "editspot": "Spot bearbeiten",
-      "uploadphoto": "Foto hochladen",
+      "uploadphoto": "Foto hinzufügen",
+      "uploadphotofix": "Foto mit Fix hochladen",
       "addphototitle": "Foto hochladen",
       "addphotodesc": "Hast du ein zusätzliches Foto zu diesem Spot? Lade es hier hoch!",
       "addphotofix": "Mein Foto bestätigt dass dieser Spot verbessert wurde",
       "addcat": "Kategorie hinzufügen",
       "deletespot": "Spot löschen",
-      "cancel": "Abbrechen"
+      "cancel": "Abbrechen",
+      "proposetext": "Dieser Spot ist fixed, wenn <strong>{0}</strong> weitere User ihn als behoben markieren. Alternativ kannst du ein Beweisfoto hochladen.",
+      "proposetitle": "Wurde dieser Spot gefixt?"
     },
     "comment": {
       "send": "Senden",
@@ -159,12 +162,15 @@
       "markasfixed": "Mark as Fixed",
       "editspot": "Edit Spot",
       "uploadphoto": "Upload Photo",
+      "uploadphotofix": "Upload Photo with Fix",
       "addphototitle": "Upload Photo",
       "addphotodesc": "Do you have an additional image of this spot? Upload it here!",
       "addphotofix": "My photo confirms that this spot has been fixed",
       "addcat": "Add Category",
       "deletespot": "Delete Spot",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "proposetext": "This spot is fixed if <strong>{0}</strong> more users mark it as fixed. You can also upload an image as proof.",
+      "proposetitle": "Has this spot been fixed?"
     },
     "comment": {
       "send": "Send",
@@ -279,7 +285,9 @@
       "addphotofix": "Ma photo confirme que ce spot a été amélioré",
       "addcat": "Ajouter catégorie",
       "deletespot": "Effacer Spot",
-      "cancel": "Annuler"
+      "cancel": "Annuler",
+      "proposetext": "Ce spot est amélioré si <strong>{0}</strong> autres utilisateurs le marquent comme amélioré. Tu peux aussi télécharger une image comme preuve.",
+      "proposetitle": "Ce spot a-t-il été amélioré ?"
     },
     "comment": {
       "send": "Envoyer",

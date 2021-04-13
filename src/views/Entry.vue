@@ -153,6 +153,34 @@
             </ul>
           </div>
         </template>
+        <template v-if="!currentEntry.famed">
+          <div class="entry__meta__propose">
+            <h2>{{ $t("entry.proposetitle") }}</h2>
+            <p v-html="$t('entry.proposetext', [fixProposalsNeeded])"></p>
+            <a
+              v-if="
+                isLoggedIn &&
+                !entryIsFromUser &&
+                !currentEntry.gotFixed &&
+                !currentEntry.famed
+              "
+              @click.prevent="proposeFixedSpot"
+              href="#"
+              class="entry__meta__tools__button"
+              v-bind:class="{ 'has-proposed': alreadyProposedSpotAsFixed }"
+              ><span class="material-icons">thumb_up</span
+              >{{ $t("entry.markasfixed") }}</a
+            >
+            <a
+              @click.prevent="showPhotoModal = true"
+              v-if="isLoggedIn"
+              href="#"
+              class="entry__meta__tools__button"
+              ><span class="material-icons">add_a_photo</span
+              >{{ $t("entry.uploadphotofix") }}</a
+            >
+          </div>
+        </template>
         <div class="entry__meta__tools" v-if="isLoggedIn">
           <a
             v-if="isLoggedIn && entryIsFromUser"
@@ -169,21 +197,6 @@
             href="#"
             ><span class="material-icons">delete</span
             >{{ $t("entry.deletespot") }}</a
-          >
-
-          <a
-            v-if="
-              isLoggedIn &&
-              !entryIsFromUser &&
-              !currentEntry.gotFixed &&
-              !currentEntry.famed
-            "
-            @click.prevent="proposeFixedSpot"
-            href="#"
-            class="entry__meta__tools__button"
-            v-bind:class="{ 'has-proposed': alreadyProposedSpotAsFixed }"
-            ><span class="material-icons">thumb_up</span
-            >{{ $t("entry.markasfixed") }}</a
           >
           <a
             @click.prevent="showPhotoModal = true"
@@ -375,16 +388,21 @@ export default {
       if (!this.userData.profile) return "";
       return this.userData.profile.avatar.small;
     },
-      alreadyProposedSpotAsFixed() {
-        if(this.currentEntry.fixProposals) {
-          for (var i = 0; i < this.currentEntry.fixProposals.length; i++) {
-            if (this.currentEntry.fixProposals[i].userId === this.userData._id) {
-              return true;
-            }
+    alreadyProposedSpotAsFixed() {
+      if (this.currentEntry.fixProposals) {
+        for (var i = 0; i < this.currentEntry.fixProposals.length; i++) {
+          if (this.currentEntry.fixProposals[i].userId === this.userData._id) {
+            return true;
           }
         }
-        return false;
-      },
+      }
+      return false;
+    },
+    fixProposalsNeeded() {
+      if (!this.currentEntry) return 3;
+      if (!this.currentEntry.fixProposals) return 3;
+      return 3 - this.currentEntry.fixProposals.length;
+    },
   },
 
   watch: {
@@ -422,6 +440,7 @@ export default {
           this.loadingData = false;
           this.$store.commit("LOAD_FINISH");
           this.$emit("updateHead");
+          console.log(data);
         },
         (error) => {
           this.$store.commit("LOAD_FINISH");
@@ -701,7 +720,7 @@ export default {
     }
     &__regions,
     &__categories {
-      padding: 0.75rem;
+      padding: 0.35rem;
       border-bottom: 1px solid $c-blue;
 
       li {
@@ -709,8 +728,7 @@ export default {
         background: $c-blue;
         border-radius: 4px;
         padding: 0.4rem 0.75rem;
-        margin-right: 0.4rem;
-        margin-bottom:0.4rem;
+        margin: 0.4rem;
         font-size: 0.8rem;
         letter-spacing: 0.05rem;
       }
@@ -745,6 +763,22 @@ export default {
         }
       }
     }
+    &__propose {
+      padding: 0.75rem;
+
+      h2 {
+        font-size: 0.8rem;
+        margin: 0;
+        margin-bottom: 0.25rem;
+        font-family: $f-body;
+      }
+      p {
+        font-size: 0.8rem;
+        margin-bottom: 0.75rem;
+        max-width: 450px;
+        opacity: 0.7;
+      }
+    }
     &__tools {
       padding: 0.75rem;
       background-color: $c-blue;
@@ -757,6 +791,7 @@ export default {
         border-radius: 4px;
         padding: 0 1rem;
         padding-left: 2.75rem;
+        margin-bottom: 0.5rem;
         position: relative;
         // margin: 0.5rem;
         margin-right: 0.75rem;
@@ -775,6 +810,10 @@ export default {
           }
         }
 
+        &:last-child {
+          margin-bottom: 0;
+        }
+
         &:hover {
           // background-color: $c-blue;
           border-color: $c-grey-darkest;
@@ -786,6 +825,11 @@ export default {
         @include tablet {
           width: auto;
           display: inline-block;
+          margin-bottom: -4px;
+
+          &:last-child {
+            margin-bottom: -4px;
+          }
         }
         .material-icons {
           color: $c-black;

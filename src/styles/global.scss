@@ -1,9 +1,9 @@
-@import 'reset';
-@import 'helpers';
-@import 'flickity';
-$material-icons-font-path: '../../node_modules/material-icons/iconfont/';
+@import "reset";
+@import "helpers";
+@import "flickity";
+$material-icons-font-path: "../../node_modules/material-icons/iconfont/";
 $material-icons-font-size: 20px !default;
-@import 'node_modules/material-icons/iconfont/material-icons.scss';
+@import "node_modules/material-icons/iconfont/material-icons.scss";
 
 html {
   font-size: 16px;
@@ -22,6 +22,8 @@ body {
   font-family: $f-body;
   background-color: $c-white;
   color: $c-black;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 
   @include desktop() {
     // padding-top: 4rem;
@@ -45,7 +47,9 @@ strong {
   font-weight: 600;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: $f-head;
   font-weight: 700;
   color: $c-black;
@@ -66,7 +70,7 @@ p + h1 {
 }
 h2 {
   font-size: 1.75rem;
-  line-height: .9;
+  line-height: 0.9;
   margin-bottom: 2rem;
 
   @include desktop() {
@@ -120,7 +124,7 @@ p {
 }
 
 small {
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
 .btn {
@@ -130,7 +134,7 @@ small {
   color: $c-main;
   border-radius: 4px;
   font-family: $f-body;
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 600;
   padding: 0 2rem;
   height: 2.5rem;
@@ -141,7 +145,7 @@ small {
   box-sizing: content-box;
   margin-top: 1.5rem;
   -webkit-appearance: none;
-  transition: .1s border-color, .1s color;
+  transition: 0.1s border-color, 0.1s color;
 
   &:hover {
     border-color: $c-main;
@@ -169,14 +173,14 @@ small {
   width: 14rem;
   margin: 1rem auto;
   text-transform: uppercase;
-  font-size: .75rem;
+  font-size: 0.75rem;
   color: #333;
   text-align: center;
   background-color: #fafafa;
   border: 2px solid #eee;
   padding: 1rem 0;
 
-  letter-spacing: .03rem;
+  letter-spacing: 0.03rem;
   text-decoration: none;
 
   &:hover {
@@ -190,24 +194,28 @@ label {
 
   span {
     display: block;
-    font-size: .8rem;
-    margin-bottom: .3rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
     color: #888;
   }
 }
 span.label {
-  font-size: .8rem;
+  font-size: 0.8rem;
   display: block;
-  margin-bottom: .3rem;
+  margin-bottom: 0.3rem;
   color: #888;
 }
 
-input[type=text], input[type=password], input[type=email], textarea, select {
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
   width: 100%;
   max-width: 700px;
   font-family: $f-body;
   font-size: 1rem;
-  padding: 0 .75rem;
+  padding: 0 0.75rem;
   height: 2.5rem;
   line-height: 2.5rem;
   margin: 0;
@@ -236,7 +244,7 @@ input[type=text], input[type=password], input[type=email], textarea, select {
   }
 }
 
-input[type=file] {
+input[type="file"] {
   margin: 1rem 0;
 }
 
@@ -258,10 +266,9 @@ select {
   text-align: center;
   margin: 2rem 0;
   border-radius: 4px;
-  box-shadow: 0 2px 0 0 rgba($c-grey, .5);
+  box-shadow: 0 2px 0 0 rgba($c-grey, 0.5);
   line-height: 1.2;
 }
-
 
 .contentpage {
   margin: 0;
@@ -272,7 +279,8 @@ select {
     padding: 12rem 0 2rem 0;
   }
 
-  &::before, &::after {
+  &::before,
+  &::after {
     content: "";
     display: block;
     width: 100%;
@@ -283,11 +291,15 @@ select {
   }
   &::before {
     z-index: -1;
-    background-image: linear-gradient(0deg, #FFFFFF 2%, rgba(255,255,255,0.00) 74%);
+    background-image: linear-gradient(
+      0deg,
+      #ffffff 2%,
+      rgba(255, 255, 255, 0) 74%
+    );
   }
   &::after {
     z-index: -2;
-    background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
+    background-image: linear-gradient(-137deg, #fcffd6 0%, #e2fdff 100%);
   }
 
   h1 {
@@ -320,7 +332,7 @@ select {
     font-family: $f-body;
 
     li {
-      margin: .5rem 0;
+      margin: 0.5rem 0;
       position: relative;
       padding-left: 2rem;
       line-height: 1.3;
@@ -363,6 +375,6 @@ select {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   border: 0;
 }

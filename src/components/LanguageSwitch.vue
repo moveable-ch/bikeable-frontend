@@ -67,7 +67,7 @@ export default {
       height: 0;
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
-      border-top: 5px solid #869098;
+      border-top: 5px solid $c-black;
       position: absolute;
       right: 0;
       top: 50%;
@@ -85,7 +85,7 @@ export default {
     background-color: #fff;
     width: 100px;
     padding: 1rem 1.5rem;
-    border-radius: 4px;
+    border-radius: 8px;
     box-shadow: 0 4px 30px -5px rgba(#000, .1);
     transform: translateX(-50%);
 

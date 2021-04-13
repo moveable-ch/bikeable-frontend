@@ -156,7 +156,7 @@
         <template v-if="!currentEntry.famed">
           <div class="entry__meta__propose">
             <h2>{{ $t("entry.proposetitle") }}</h2>
-            <p v-html="$t('entry.proposetext', [fixProposalsNeeded])"></p>
+            <p v-html="$tc('entry.proposetext', [fixProposalsNeeded])"></p>
             <a
               v-if="
                 isLoggedIn &&

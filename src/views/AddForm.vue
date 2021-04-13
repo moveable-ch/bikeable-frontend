@@ -129,7 +129,7 @@
             v-bind:class="{ disabled: !formReady }"
             :disabled="!formReady"
           >
-            {{ $t("addform.send") }}
+            {{ sendButtonText }}
           </button>
           <span v-if="!formReady">{{ $t("addform.notready") }}</span>
         </div>
@@ -210,6 +210,13 @@ export default {
     },
     locale() {
       return this.$i18n.locale;
+    },
+    sendButtonText() {
+     if(this.entryId) {
+       return this.$t("addform.sendedit");
+     }else{
+       return this.$t("addform.send");
+     }
     },
   },
 
@@ -780,7 +787,7 @@ export default {
     transform: scale(0.9);
 
     &::before {
-      opacity: .2;
+      opacity: 0.2;
     }
   }
 

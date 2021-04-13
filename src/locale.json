@@ -30,6 +30,7 @@
       "chooselocation": "Standort auf Karte wählen",
       "description": "Beschreibung",
       "send": "Spot hinzufügen",
+      "sendedit": "Spot speichern",
       "notready": "Bitte fülle alle benötigten Felder aus.",
       "choosecat": "Kategorie wählen"
     },
@@ -148,6 +149,7 @@
       "chooselocation": "Choose location on map",
       "description": "Description",
       "send": "Submit spot",
+      "sendedit": "Save spot",
       "notready": "Please fill out the form.",
       "choosecat": "Choose a category"
     },
@@ -266,6 +268,7 @@
       "chooselocation": "Localisation du spot sur la carte",
       "description": "Description",
       "send": "Envoyer",
+      "sendedit": "Envoyer",
       "notready": "Veuillez remplir le formulaire.",
       "choosecat": "Choisissez une catégorie"
     },

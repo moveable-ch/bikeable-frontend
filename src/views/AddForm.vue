@@ -126,7 +126,7 @@
           <button
             type="submit"
             class="add__btn"
-            v-bind:class="{ disabled: !formReady }"
+            v-bind:class="{ disabled: (!formReady || entryPosted) }"
             :disabled="!formReady"
           >
             {{ sendButtonText }}
@@ -178,6 +178,7 @@ export default {
       entryFamed: null,
       gallery: [],
       uploading: false,
+      entryPosted: false
     };
   },
 
@@ -486,6 +487,8 @@ export default {
     },
     postEntry(e) {
       if (!this.formReady) return;
+
+      this.entryPosted = true;
 
       if (this.entryId) {
         this.$store

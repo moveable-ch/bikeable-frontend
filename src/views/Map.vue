@@ -265,11 +265,9 @@ export default {
       this.sponsors.forEach((entry, index) => {
         if (!entry.isSponsor) return;
 
-        let imgurl = "img/star-lame.png";
-        if (entry.isSponsor) imgurl = "img/star.png";
+        let imgurl = "img/star.png";
 
-        let size = 12;
-        if (entry.isSponsor) size = 16;
+        let size = 16;
 
         let icon = {
           url: imgurl,

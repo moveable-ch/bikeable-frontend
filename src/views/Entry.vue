@@ -160,7 +160,6 @@
             <a
               v-if="
                 isLoggedIn &&
-                !entryIsFromUser &&
                 !currentEntry.gotFixed &&
                 !currentEntry.famed
               "

@@ -719,7 +719,7 @@ export default {
     }
     &__regions,
     &__categories {
-      padding: 0.35rem;
+      padding: 0.55rem;
       border-bottom: 1px solid $c-blue;
 
       li {
@@ -727,7 +727,7 @@ export default {
         background: $c-blue;
         border-radius: 4px;
         padding: 0.4rem 0.75rem;
-        margin: 0.4rem;
+        margin: 0.2rem;
         font-size: 0.8rem;
         letter-spacing: 0.03rem;
       }

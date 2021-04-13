@@ -210,7 +210,7 @@ export default {
     },
     locale() {
       return this.$i18n.locale;
-    }
+    },
   },
 
   watch: {
@@ -643,17 +643,17 @@ export default {
   .cat-input {
     border-color: $c-grey-darkest;
     cursor: pointer;
-
   }
   ul.selected-cats {
     margin-top: 1rem;
 
     li {
       display: inline-block;
-      padding: 0.5rem .5rem .5rem 1rem;
+      padding: 0.5rem 0.5rem 0.5rem 1rem;
       border-radius: 4px;
       background: $c-blue;
       margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
 
       button {
         --webkit-appearance: none;
@@ -776,8 +776,12 @@ export default {
   }
 
   input + label {
-    opacity: 0.6;
+    opacity: 0.8;
     transform: scale(0.9);
+
+    &::before {
+      opacity: .2;
+    }
   }
 
   input:checked + label {
@@ -790,6 +794,7 @@ export default {
 
     &::before {
       transform: rotate(-10deg);
+      opacity: 1;
     }
 
     &.shameradio-label {

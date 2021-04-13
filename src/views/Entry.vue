@@ -153,7 +153,7 @@
             </ul>
           </div>
         </template>
-        <template v-if="!currentEntry.famed">
+        <template v-if="!currentEntry.famed && !currentEntry.gotFixed">
           <div class="entry__meta__propose">
             <h2>{{ $t("entry.proposetitle") }}</h2>
             <p v-html="$tc('entry.proposetext', [fixProposalsNeeded])"></p>
@@ -440,7 +440,6 @@ export default {
           this.loadingData = false;
           this.$store.commit("LOAD_FINISH");
           this.$emit("updateHead");
-          console.log(data);
         },
         (error) => {
           this.$store.commit("LOAD_FINISH");
@@ -730,7 +729,7 @@ export default {
         padding: 0.4rem 0.75rem;
         margin: 0.4rem;
         font-size: 0.8rem;
-        letter-spacing: 0.05rem;
+        letter-spacing: 0.03rem;
       }
     }
     &__location {
@@ -816,10 +815,10 @@ export default {
 
         &:hover {
           // background-color: $c-blue;
-          border-color: $c-grey-darkest;
+          border-color: $c-main;
 
           .material-icons {
-            color: $c-black;
+            color: $c-main;
           }
         }
         @include tablet {
@@ -832,7 +831,7 @@ export default {
           }
         }
         .material-icons {
-          color: $c-black;
+          color: $c-grey-darkest;
           display: block;
           font-size: 1rem;
           background-color: $c-blue;

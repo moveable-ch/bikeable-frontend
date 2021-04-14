@@ -92,8 +92,8 @@ export default {
   position: relative;
   // display: flex;
   background-color: #fff;
-  border: 1px solid #eee;
-  box-shadow: 0 1px 2px 0 rgba(#000, 0.05);
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 3px 0 rgba(#000, 0.1);
   box-sizing: border-box;
   border-radius: 4px;
   // margin: 0 1rem 0 0;
@@ -105,6 +105,7 @@ export default {
     position: absolute;
     top: 50%;
     left: 10px;
+    margin-top: -2px;
     border: solid $c-black;
     border-width: 0 2px 2px 0;
     transform: translateY(-50%) rotate(45deg);

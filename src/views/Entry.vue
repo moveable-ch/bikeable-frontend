@@ -153,7 +153,7 @@
             </ul>
           </div>
         </template>
-        <template v-if="!currentEntry.famed && !currentEntry.gotFixed">
+        <template v-if="!currentEntry.famed && !currentEntry.gotFixed && isLoggedIn">
           <div class="entry__meta__propose">
             <h2>{{ $t("entry.proposetitle") }}</h2>
             <p v-html="$tc('entry.proposetext', [fixProposalsNeeded])"></p>

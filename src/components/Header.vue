@@ -249,7 +249,7 @@ export default {
       left: 0;
       width: 100%;
       height: 4px;
-      border-radius: 2px;
+      // border-radius: 2px;
       background-color: $c-black;
       box-shadow: 0 9px 0 0 $c-black, 0 18px 0 0 $c-black;
       transition: .5s background-color, .5s box-shadow;
@@ -355,8 +355,10 @@ export default {
       position: absolute;
       top: 0;
       left: 0;
-      opacity: .8;
-      background: rgba($c-black, 1);
+      // opacity: .8;
+      opacity: 1;
+      background-color: rgba($c-black, .8);
+      backdrop-filter: blur(3px);
     }
 
     &__inner {
@@ -430,7 +432,7 @@ export default {
         left: 0;
         width: 100%;
         height: 4px;
-        border-radius: 2px;
+        // border-radius: 2px;
         background-color: $c-black;
         transition: .5s background-color;
       }
@@ -458,7 +460,7 @@ export default {
   transition: opacity .8s;
 
   &::before {
-    transition: opacity .8s $easeOutQuint;
+    transition: opacity .8s $easeOutQuint, .8s background-color;
   }
   .header__menu__inner {
     transition: transform .8s $easeOutQuint;
@@ -474,7 +476,7 @@ export default {
 }
 .nav-fade-enter-to {
   &::before {
-    opacity: .8;
+    opacity: 1;
   }
   .header__menu__inner {
     transform: translateX(0);

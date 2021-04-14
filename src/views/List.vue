@@ -4,7 +4,7 @@
   <div class="list">
     <div class="list__head">
       <div class="list__regions">
-        <router-link class="list__head__add" to="/add"
+        <router-link class="list__head__add" to="/add" v-if="isLoggedIn"
           ><span class="material-icons">add</span
           >{{ $t("home.addspot") }}</router-link
         >
@@ -186,7 +186,7 @@ export default {
   }
 
   &__head {
-    background-image: linear-gradient(-127deg, #FCFFD6 0%, #E2FDFF 100%);
+    background-image: linear-gradient(-127deg, #fcffd6 0%, #e2fdff 100%);
     padding-top: 5rem;
     position: relative;
     margin-bottom: 2rem;

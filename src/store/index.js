@@ -1,35 +1,37 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-import map from './modules/map'
-import spots from './modules/spots'
-import regions from './modules/regions'
-import auth from './modules/auth'
-import users from './modules/users'
-import images from './modules/images'
-import categories from './modules/categories'
+import map from "./modules/map";
+import spots from "./modules/spots";
+import regions from "./modules/regions";
+import auth from "./modules/auth";
+import users from "./modules/users";
+import images from "./modules/images";
+import categories from "./modules/categories";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const state = {
-  lang: 'de',
+  lang: "de",
   languages: [
     {
-      code: 'de',
-      name: 'Deutsch'
-    }, {
-      code: 'fr',
-      name: 'Français'
-    }, {
-      code: 'en',
-      name: 'English'
+      code: "de",
+      name: "Deutsch"
+    },
+    {
+      code: "fr",
+      name: "Français"
+    },
+    {
+      code: "en",
+      name: "English"
     }
   ],
-  prismicLang: 'de-ch',
+  prismicLang: "de-ch",
   pendingCount: 0,
-  msg: '',
-  sort: 'shame'
-}
+  msg: "",
+  sort: "shame"
+};
 
 const mutations = {
   SET_LANG(state, lang) {
@@ -44,9 +46,12 @@ const mutations = {
   SET_MESSAGE(state, msg) {
     state.msg = msg;
 
-    setTimeout(function() {
-      state.msg = '';
-    }.bind(this), 2000);
+    setTimeout(
+      function() {
+        state.msg = "";
+      }.bind(this),
+      2000
+    );
   },
   LOAD_START(state) {
     state.pendingCount += 1;
@@ -54,43 +59,41 @@ const mutations = {
   LOAD_FINISH(state) {
     state.pendingCount -= 1;
   }
-}
+};
 
 const actions = {
-
   setEntrySorting(context, sort) {
-    if(sort != 'location' && sort != 'fame' && sort != 'shame') return;
+    if (sort != "location" && sort != "fame" && sort != "shame") return;
 
-    if(context.state.sort != sort) {
-      context.commit('SET_ENTRY_SORTING', sort);
-      context.dispatch('loadEntries');
+    if (context.state.sort != sort) {
+      context.commit("SET_ENTRY_SORTING", sort);
+      context.dispatch("loadEntries");
     }
   },
 
   handleError(context, msg) {
-    context.commit('SET_MESSAGE', msg);
+    context.commit("SET_MESSAGE", msg);
   },
 
   setLang(context, lang) {
-    localStorage.setItem('lang', lang);
-    context.commit('SET_LANG', lang);
+    localStorage.setItem("lang", lang);
+    context.commit("SET_LANG", lang);
 
-    switch(lang) {
-      case 'de':
-        context.commit('SET_PRISMIC_LANG', 'de-ch');
+    switch (lang) {
+      case "de":
+        context.commit("SET_PRISMIC_LANG", "de-ch");
         break;
-      case 'en':
-        context.commit('SET_PRISMIC_LANG', 'en-gb');
+      case "en":
+        context.commit("SET_PRISMIC_LANG", "en-gb");
         break;
-      case 'fr':
-        context.commit('SET_PRISMIC_LANG', 'fr-ch');
+      case "fr":
+        context.commit("SET_PRISMIC_LANG", "fr-ch");
         break;
       default:
-        context.commit('SET_PRISMIC_LANG', 'de-ch');
+        context.commit("SET_PRISMIC_LANG", "de-ch");
     }
   }
-
-}
+};
 
 const getters = {
   pendingCount: state => {
@@ -108,7 +111,7 @@ const getters = {
   languages: state => {
     return state.languages;
   }
-}
+};
 
 export default new Vuex.Store({
   state,
@@ -124,4 +127,4 @@ export default new Vuex.Store({
     images,
     categories
   }
-})
+});

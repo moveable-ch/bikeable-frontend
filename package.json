@@ -23,6 +23,7 @@
     "velocity-animate": "^1.5.2",
     "vue": "^2.6.12",
     "vue-functional-calendar": "^2.9.4",
+    "vue-gtag": "^1.14.0",
     "vue-head": "^2.2.0",
     "vue-i18n": "^8.24.2",
     "vue-router": "^3.5.1",

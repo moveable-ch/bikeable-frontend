@@ -7850,6 +7850,11 @@ vue-functional-calendar@^2.9.4:
     core-js "^2.6.5"
     vue "^2.5.21"
 
+vue-gtag@^1.14.0:
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/vue-gtag/-/vue-gtag-1.14.0.tgz#da835752fa26b459ef076db757a78b4e94a69976"
+  integrity sha512-jutSxDedzckzPxOV1dOfV3rWqlfw5uzXOGGxDiOiq5o1UiGerpCOP4uWlO7CfwmujJotMaxgo0xR/TXsc2TLqA==
+
 vue-head@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/vue-head/-/vue-head-2.2.0.tgz#9e3a141d5a011599a3f6d7adb42a65c428cf73e1"

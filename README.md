@@ -1,5 +1,5 @@
 # Bikeable.ch
-<img align="right" height="200" width="200" src="https://bikeable.ch/static/img/bikeable-logo-gr.svg">
+<img align="right" height="200" width="200" src="https://bikeable.ch/img/bikeable-logo-gr.svg">
 
 > Web Frontend for Bikeable.ch
 

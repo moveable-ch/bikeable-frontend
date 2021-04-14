@@ -203,12 +203,14 @@ export default {
 
       this.currentZoom = zoom;
 
+      const _gestureHandling = this.isEmbed ? "auto" : "greedy";
+
       this.map = new this.google.maps.Map(this.$refs.gmaps, {
         center: center,
         zoom: zoom,
         disableDefaultUI: false,
         clickableIcons: false,
-        gestureHandling: "greedy",
+        gestureHandling: _gestureHandling,
         styles: mapstyle,
         fullscreenControl: false,
         streetViewControl: false,

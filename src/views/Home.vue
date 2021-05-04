@@ -215,6 +215,7 @@ export default {
           title: "New Spots",
           spots: [{}, {}, {}, {}],
           sort: "date",
+          limit: 8,
           loaded: false,
           meta(spot) {
             if (!spot.createdAt) return "";
@@ -227,6 +228,7 @@ export default {
           title: "Top Spots",
           spots: [{}, {}, {}, {}],
           sort: "votes",
+          limit: 4,
           loaded: false,
           meta(spot) {
             return spot.votes + " Votes";
@@ -261,7 +263,7 @@ export default {
       this.spotCategories.forEach((cat) => {
         spots
           .getAllSpots({
-            limit: 4,
+            limit: cat.limit,
             sort: cat.sort,
             region: this.selectedRegion,
           })

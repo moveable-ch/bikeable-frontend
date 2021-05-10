@@ -226,7 +226,7 @@ export default {
   addSpot({ data, userId, authToken }) {
     let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries";
 
-    console.log(userId + "      " + authToken);
+    // console.log(userId + "      " + authToken);
 
     return new Promise((resolve, reject) => {
       axios

@@ -19,25 +19,25 @@
         to="/add"
         class="map__controls__item"
         v-if="isLoggedIn && !isEmbed"
-        ><span class="material-icons">add</span>Add Entry</router-link
+        ><span class="material-icons">add</span>{{ $t('home.addspot') }}</router-link
       >
       <a href="/add" class="map__controls__item" v-if="isLoggedIn && isEmbed"
-        ><span class="material-icons">add</span>Add Entry</a
+        ><span class="material-icons">add</span>{{ $t('home.addspot') }}</a
       >
       <a href="/login" class="map__controls__item" v-if="!isLoggedIn"
         ><span class="material-icons">login</span>Login</a
       >
       <a href="/register" class="map__controls__item" v-if="!isLoggedIn"
-        ><span class="material-icons">person_add</span>Register</a
+        ><span class="material-icons">person_add</span>{{ $t('register.register') }}</a
       >
       <a href="#" class="map__controls__item" @click.prevent="showUserLocation"
-        ><span class="material-icons">my_location</span>My Location</a
+        ><span class="material-icons">my_location</span>{{ $t('map.mylocation') }}</a
       >
       <a
         href="#"
         class="map__controls__item"
         @click.prevent="showFilter = !showFilter"
-        ><span class="material-icons">filter_list</span>Filter Entries</a
+        ><span class="material-icons">filter_list</span>{{ $t('map.filterentries') }}</a
       >
       <div class="map__controls__sub" v-if="showFilter">
         <c-filter-bar></c-filter-bar>

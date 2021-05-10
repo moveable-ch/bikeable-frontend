@@ -77,6 +77,10 @@
       "forgotpassword": "Passwort vergessen?",
       "newaccount": "Neuen Account erstellen"
     },
+    "map": {
+      "mylocation": "Mein Standort",
+      "filterentries": "Spots filtern"
+    },
     "notfound": {
       "pagenotfound": "Die Seite wurde nicht gefunden"
     },
@@ -196,6 +200,10 @@
       "forgotpassword": "Forgot your password?",
       "newaccount": "Create new account"
     },
+    "map": {
+      "mylocation": "My Location",
+      "filterentries": "Filter Entries"
+    },
     "notfound": {
       "pagenotfound": "This page could not be found"
     },
@@ -314,6 +322,10 @@
     "login": {
       "forgotpassword": "Mot de passe oublié",
       "newaccount": "Créer un nouveau compte"
+    },
+    "map": {
+      "mylocation": "Ma position",
+      "filterentries": "Filtrer les entrées"
     },
     "notfound": {
       "pagenotfound": "Cette page est introuvable"

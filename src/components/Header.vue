@@ -313,7 +313,7 @@ export default {
 
       li {
         display: inline;
-        margin-right: .8rem;
+        margin-right: 1rem;
         line-height: 1.75;
         font-size: .9rem;
 

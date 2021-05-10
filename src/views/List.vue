@@ -4,10 +4,6 @@
   <div class="list">
     <div class="list__head">
       <div class="list__regions">
-        <router-link class="list__head__add" to="/add" v-if="isLoggedIn"
-          ><span class="material-icons">add</span
-          >{{ $t("home.addspot") }}</router-link
-        >
         <div class="container">
           <button
             @click="showMobileFilter = !showMobileFilter"
@@ -32,6 +28,10 @@
               <option value="comments">{{ $t("list.comments") }}</option>
             </select>
           </div>
+                  <router-link class="list__head__add" to="/add" v-if="isLoggedIn"
+          ><span class="material-icons">add</span
+          >{{ $t("home.addspot") }}</router-link
+        >
         </div>
       </div>
     </div>
@@ -197,8 +197,8 @@ export default {
 
     &__add {
       display: block;
-      margin-bottom: 0.5rem;
-      margin-top: -0.75rem;
+      margin-bottom: -0.75rem;
+      margin-top: .5rem;
       margin-left: -1rem;
       width: calc(100% + 2rem);
       background-color: rgba($c-main, 0.6);

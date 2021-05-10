@@ -192,11 +192,15 @@ export default {
 .msg {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: 1rem;
+  width: calc(100% - 2rem);
   height: auto;
   z-index: 4;
-  background-color: rgba($c-black, 0.9);
+  border-radius: .75rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-color: rgba($c-black, 0.7);
+  backdrop-filter: blur(5px);
   color: $c-white;
   height: 3rem;
   text-align: center;
@@ -218,7 +222,7 @@ export default {
   z-index: 4;
   left: 0;
   width: 100%;
-  height: 6px;
+  height: 4px;
   background-image: linear-gradient(
     to right,
     transparent 0%,
@@ -228,6 +232,10 @@ export default {
   );
   background-size: 200% 100%;
   animation: stripe 5s infinite linear;
+
+  @include desktop {
+    height: 6px;
+  }
 }
 
 h1.maintenance {

@@ -3,10 +3,7 @@
     <div class="entry-modal" v-bind:class="{ 'is-famed': getFamed }" @click="$emit('close')">
       <transition v-bind:css="false" v-on:enter="enterInner">
         <div class="entry-modal__inner" v-if="currentEntry" @click.stop>
-          <div
-            class="entry-modal__image"
-            v-bind:style="'background-image:url(' + entryImage + ')'">
-          </div>
+          <img :src="entryImage" alt="" class="entry-modal__image">
           <div class="entry-modal__content">
             <h3>{{ currentEntry.title }}</h3>
             <span class="address">{{ currentEntry.address }}</span>
@@ -114,7 +111,7 @@ export default {
           opacity: [1, 0]
         },
         {
-          duration: 400,
+          duration: 800,
           complete: function () {
             done();
           },
@@ -175,10 +172,9 @@ export default {
   }
   &__image {
     width: 5rem;
-    height: 6rem;
-    background-color: #f0f0f0;
-    background-size: cover;
-    background-position: center;
+    height: 5rem;
+    border-radius: .25rem;
+    object-fit: cover;
     flex-shrink: 0;
 
     @include tablet() {
@@ -227,7 +223,7 @@ export default {
   }
 
   &__inner {
-    padding: 4px;
+    padding: 1rem;
     background-color: #fff;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -235,11 +231,11 @@ export default {
     width: 90%;
     max-width: 30rem;
     position: relative;
-    padding-bottom: 3.5rem;
+    padding-bottom: 5rem;
     display: flex;
     align-items: center;
-    border-radius: 6px;
-    box-shadow: 0 6px 6px -4px rgba(#000, .3);
+    border-radius: .5rem;
+    box-shadow: 0 .5rem 1.5rem -.25rem rgba(#000, .5);
     border: 1px solid $c-grey;
 
     .upvotes {
@@ -312,10 +308,10 @@ export default {
       border: none;
       padding: 0;
       position: absolute;
-      bottom: 4px;
-      left: 4px;
+      bottom: 1rem;
+      left: 1rem;
       border-radius: 4px;
-      width: calc(100% - 8px);
+      width: calc(100% - 2rem);
       height: 3rem;
       line-height: 3rem;
       background-color: $c-highlight;

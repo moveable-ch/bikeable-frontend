@@ -72,7 +72,12 @@ const actions = {
   },
 
   handleError(context, msg) {
-    context.commit("SET_MESSAGE", msg);
+    let _msg = msg;
+    if (msg.de) {
+      _msg = msg[context.state.lang];
+    }
+    
+    context.commit("SET_MESSAGE", _msg);
   },
 
   setLang(context, lang) {

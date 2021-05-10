@@ -97,7 +97,9 @@
     <div class="entry__container" v-if="!loadingData">
       <div class="lead">
         <span v-if="currentEntry.gotFixed" class="lead__fixed">Fixed!</span>
-        <p class="lead__desc">{{ currentEntry.text }}</p>
+        <p class="lead__desc" v-html="entryDescription">
+          {{ currentEntry.text }}
+        </p>
         <p v-if="currentEntry.gotFixed" class="lead__notice lead__notice--good">
           {{ $t("entry.fixed") }}
         </p>
@@ -153,16 +155,14 @@
             </ul>
           </div>
         </template>
-        <template v-if="!currentEntry.famed && !currentEntry.gotFixed && isLoggedIn">
+        <template
+          v-if="!currentEntry.famed && !currentEntry.gotFixed && isLoggedIn"
+        >
           <div class="entry__meta__propose">
             <h2>{{ $t("entry.proposetitle") }}</h2>
             <p v-html="$tc('entry.proposetext', [fixProposalsNeeded])"></p>
             <a
-              v-if="
-                isLoggedIn &&
-                !currentEntry.gotFixed &&
-                !currentEntry.famed
-              "
+              v-if="isLoggedIn && !currentEntry.gotFixed && !currentEntry.famed"
               @click.prevent="proposeFixedSpot"
               href="#"
               class="entry__meta__tools__button"
@@ -277,6 +277,9 @@
 </template>
 
 <script>
+import anchorme from "anchorme";
+import DOMPurify from "dompurify";
+
 import Comment from "@/components/Comment";
 import EntryMedia from "@/components/EntryMedia";
 import MapModal from "@/components/MapModal";
@@ -375,6 +378,17 @@ export default {
     entryTitle() {
       if (!this.currentEntry.title) return "what";
       return this.currentEntry.title;
+    },
+    entryDescription() {
+      const _text = DOMPurify.sanitize(this.currentEntry.text, {
+        ALLOWED_TAGS: [],
+      });
+      return anchorme({
+        input: _text,
+        options: {
+          attributes: { target: "_blank" },
+        },
+      });
     },
     entryIsFromUser() {
       return this.currentEntry.user._id === this.userData._id;
@@ -824,11 +838,11 @@ export default {
           width: auto;
           display: inline-block;
           margin-bottom: -4px;
-          margin: .25rem;
-          margin-bottom: calc(.25rem - 4px);
+          margin: 0.25rem;
+          margin-bottom: calc(0.25rem - 4px);
 
           &:last-child {
-            margin-bottom: calc(.25rem - 4px);
+            margin-bottom: calc(0.25rem - 4px);
           }
         }
         .material-icons {

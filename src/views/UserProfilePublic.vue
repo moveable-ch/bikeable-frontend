@@ -4,15 +4,25 @@
   <div class="v-user" v-if="userProfileData">
     <div class="container">
       <div class="v-user__avatar" v-if="userAvatar">
-        <img :src="userProfileAvatar">
+        <img :src="userProfileAvatar" />
       </div>
       <h1>{{ userProfileData.username }}</h1>
-      <p class="v-user__bio" v-if="userProfileData.profile.bio">{{ userProfileData.profile.bio }}</p>
+      <p
+        class="v-user__bio"
+        v-if="userProfileData.profile.bio"
+        v-html="userBio"
+      >
+        {{ userProfileData.profile.bio }}
+      </p>
     </div>
     <div class="container">
       <!-- <span class="entrycount">{{ userEntryCount }} Spots</span> -->
       <div class="v-user__spots" v-if="userProfileData">
-        <div class="v-user__spots__item" v-for="entry in userProfileData.entries" :key="entry._id">
+        <div
+          class="v-user__spots__item"
+          v-for="entry in userProfileData.entries"
+          :key="entry._id"
+        >
           <c-entry-preview :entry="entry"></c-entry-preview>
         </div>
       </div>
@@ -21,49 +31,66 @@
 </template>
 
 <script>
-import users from '../api/users'
-import EntryPreview from '@/components/EntryPreview';
+import DOMPurify from "dompurify";
+import anchorme from "anchorme";
+import users from "../api/users";
+import EntryPreview from "@/components/EntryPreview";
 
 export default {
-  name: 'v-user-profile',
-  data () {
+  name: "v-user-profile",
+  data() {
     return {
       userId: null,
       dataLoaded: false,
-      userProfileData: null
-    }
+      userProfileData: null,
+    };
   },
   components: {
-    'c-entry-preview': EntryPreview
+    "c-entry-preview": EntryPreview,
   },
   computed: {
     userData() {
       return this.$store.getters.userData;
     },
     userAvatar() {
-      if(!this.userData.profile) return null;
-      if(!this.userData.profile.avatar) return null;
-      if(this.imageId) {
+      if (!this.userData.profile) return null;
+      if (!this.userData.profile.avatar) return null;
+      if (this.imageId) {
         return this.imagePreviewUrl;
       }
       return this.userData.profile.avatar.small;
     },
     userProfileAvatar() {
-      if(!this.userProfileData.profile) return null;
-      if(!this.userProfileData.profile.avatar) return null;
+      if (!this.userProfileData.profile) return null;
+      if (!this.userProfileData.profile.avatar) return null;
       return this.userProfileData.profile.avatar.small;
     },
     imagePreviewUrl() {
-      return process.env.VUE_APP_BACKEND_URL + '/api/v1/photos/' + this.imageId + '?size=small';
+      return (
+        process.env.VUE_APP_BACKEND_URL +
+        "/api/v1/photos/" +
+        this.imageId +
+        "?size=small"
+      );
     },
     userEntryCount() {
-      if(!this.userProfileData.entries) return 0;
+      if (!this.userProfileData.entries) return 0;
       return this.userProfileData.entries.length;
-    }
+    },
+    userBio() {
+      const _text = DOMPurify.sanitize(this.userProfileData.profile.bio, {
+        ALLOWED_TAGS: [],
+      });
+      return anchorme({
+        input: _text,
+        options: {
+          attributes: { target: "_blank" },
+        },
+      });
+    },
   },
 
-  watch: {
-  },
+  watch: {},
 
   mounted() {
     this.loadData();
@@ -71,31 +98,30 @@ export default {
 
   methods: {
     loadData() {
-
       // TODO: Move to Store
       this.userId = this.$route.params.id;
-      this.$store.commit('LOAD_START');
+      this.$store.commit("LOAD_START");
 
-      users.getUserProfile(this.userId)
-        .then((data) => {
+      users.getUserProfile(this.userId).then(
+        (data) => {
           this.userProfileData = data;
-          this.$store.commit('LOAD_FINISH');
-          this.$emit('updateHead');
+          this.$store.commit("LOAD_FINISH");
+          this.$emit("updateHead");
           this.dataLoaded = true;
         },
         (error) => {
-          this.$store.commit('LOAD_FINISH');
-          this.$router.push('/');
-          this.$store.dispatch('handleError', 'User nicht gefunden');
-        });
+          this.$store.commit("LOAD_FINISH");
+          this.$router.push("/");
+          this.$store.dispatch("handleError", "User nicht gefunden");
+        }
+      );
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">
-
-@import '../styles/helpers';
+@import "../styles/helpers";
 
 .v-user {
   padding-top: 5rem;
@@ -105,7 +131,8 @@ export default {
     padding-top: 8rem;
   }
 
-  &::before, &::after {
+  &::before,
+  &::after {
     content: "";
     display: block;
     width: 100%;
@@ -116,11 +143,15 @@ export default {
   }
   &::before {
     z-index: -1;
-    background-image: linear-gradient(0deg, #FFFFFF 2%, rgba(255,255,255,0.00) 74%);
+    background-image: linear-gradient(
+      0deg,
+      #ffffff 2%,
+      rgba(255, 255, 255, 0) 74%
+    );
   }
   &::after {
     z-index: -2;
-    background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
+    background-image: linear-gradient(-137deg, #fcffd6 0%, #e2fdff 100%);
   }
 
   &__avatar {
@@ -150,6 +181,7 @@ export default {
     max-width: 30rem;
     margin: -2rem auto 2rem auto;
     text-align: center;
+    white-space: pre-line;
   }
 
   &__spots {
@@ -174,7 +206,4 @@ export default {
     }
   }
 }
-
-
-
 </style>

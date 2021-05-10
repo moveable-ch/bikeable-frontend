@@ -1641,6 +1641,11 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
+anchorme@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/anchorme/-/anchorme-2.1.2.tgz#4abc7e128a8a42d0036a61ebb9b18bbc032fa52a"
+  integrity sha512-2iPY3kxDDZvtRzauqKDb4v7a5sTF4GZ+esQTY8nGYvmhAtGTeFPMn4cRnvyWS1qmtPTP0Mv8hyLOp9l3ZzWMKg==
+
 ansi-colors@^3.0.0:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
@@ -3194,6 +3199,11 @@ domhandler@^2.3.0:
   integrity sha512-JiK04h0Ht5u/80fdLMCEmV4zkNh2BcoMFBmZ/91WtYZ8qVXSKjiw7fXMgFPnHcSZgOo3XdinHvmnDUeMf5R4wA==
   dependencies:
     domelementtype "1"
+
+dompurify@^2.2.8:
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.2.8.tgz#ce88e395f6d00b6dc53f80d6b2a6fdf5446873c6"
+  integrity sha512-9H0UL59EkDLgY3dUFjLV6IEUaHm5qp3mxSqWw7Yyx4Zhk2Jn2cmLe+CNPP3xy13zl8Bqg+0NehQzkdMoVhGRww==
 
 domutils@^1.5.1, domutils@^1.7.0:
   version "1.7.0"

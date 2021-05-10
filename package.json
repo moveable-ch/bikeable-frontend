@@ -11,10 +11,12 @@
   "dependencies": {
     "@sentry/browser": "^6.2.5",
     "@sentry/integrations": "^6.2.5",
+    "anchorme": "^2.1.2",
     "axios": "^0.21.1",
     "compressorjs": "^1.0.7",
     "core-js": "^3.10.0",
     "date-fns": "^2.19.0",
+    "dompurify": "^2.2.8",
     "flickity": "^2.2.2",
     "flickity-imagesloaded": "^2.0.0",
     "google-maps": "^4.3.3",

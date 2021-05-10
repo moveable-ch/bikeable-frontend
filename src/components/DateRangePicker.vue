@@ -106,6 +106,8 @@ export default {
 
 .date-range-picker {
   .vue-daterange-picker {
+    min-width: 100% !important;
+    
     .form-control {
       width: auto !important;
       height: 2rem;
@@ -113,7 +115,7 @@ export default {
       overflow: hidden;
       position: relative;
       background-color: #fff;
-      border: 1px solid #eee !important;
+      border: 1px solid #ddd !important;
       box-shadow: 0 1px 2px 0 rgba(#000, 0.05);
       box-sizing: border-box;
       border-radius: 4px;

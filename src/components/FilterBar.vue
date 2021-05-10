@@ -90,44 +90,19 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../styles/helpers";
 
 .filter-bar {
-  background-color: #fafafa;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 10px 0 rgba(#000, 0.1);
-  font-size: 0.9rem;
-  height: auto;
-  padding: 1rem;
   box-sizing: border-box;
-  display: none;
-
-  &.showmobile {
-    display: flex;
-  }
-
-  @include tablet() {
-    display: flex;
-    flex-wrap: nowrap;
-    height: 4rem;
-    padding: 0.25rem 1rem;
-  }
 
   &__item {
-    // display: flex;
-    // flex-wrap: wrap;
     width: 100%;
-    // height: 100%;
-    margin: 0.5rem 0;
     box-sizing: border-box;
+    margin-bottom: 1rem;
 
-    @include tablet() {
-      width: auto;
-      margin: 0 0.5rem;
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 
@@ -135,27 +110,24 @@ export default {
     display: block;
     width: 100%;
     font-size: 0.75rem;
-    padding-bottom: 4px;
+    margin-bottom: 0.25rem;
     font-weight: bold;
-    margin: 0;
-
-    @include tablet() {
-      padding-bottom: 0;
-    }
+    color: #666;
   }
 
   input {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    width: 100%;
   }
 
   .selection-filter {
     overflow: hidden;
-    padding-left: 20px;
+    padding-right: 20px;
     position: relative;
     // display: flex;
     // box-sizing: border-box;
     background-color: #fff;
-    border: 1px solid #eee;
+    border: 1px solid #ddd;
     box-shadow: 0 1px 2px 0 rgba(#000, 0.05);
     box-sizing: border-box;
     border-radius: 4px;
@@ -167,7 +139,7 @@ export default {
       padding: 3px;
       position: absolute;
       top: 50%;
-      left: 10px;
+      right: 10px;
       border: solid $c-black;
       border-width: 0 2px 2px 0;
       transform: translateY(-50%) rotate(45deg);
@@ -188,6 +160,7 @@ export default {
       -webkit-appearance: none;
       -moz-appearance: none;
       cursor: pointer;
+      width: 100%;
 
       &::-ms-expand {
         display: none;

@@ -14,7 +14,7 @@
         </select>
       </div>
     </div>
-    <div class="filter-bar__item">
+    <div class="listfilter-bar__item">
       <label for="hashtag">{{ $t("filterbar.category") }}</label>
       <div class="selection-filter">
         <select id="hashtag" @change="commitFilter" v-model="filter.categoryId">
@@ -121,11 +121,11 @@ export default {
 
   .selection-filter {
     overflow: hidden;
-    padding-left: 25px;
+    padding-right: 25px;
     position: relative;
     // display: flex;
     background-color: #fff;
-    border: 1px solid #eee;
+    border: 1px solid #ddd;
     box-shadow: 0 1px 2px 0 rgba(#000, 0.05);
     box-sizing: border-box;
     border-radius: 4px;
@@ -136,7 +136,7 @@ export default {
       padding: 3px;
       position: absolute;
       top: 50%;
-      left: 10px;
+      right: 10px;
       border: solid $c-black;
       border-width: 0 2px 2px 0;
       transform: translateY(-50%) rotate(45deg);

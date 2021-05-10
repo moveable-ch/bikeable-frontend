@@ -14,45 +14,34 @@
       :sponsoredEntry="activeSponsor"
     ></c-sponsor-modal>
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
-    <div class="filter-bar-container" v-if="!isEmbed">
-      <button
-        @click="showMobileFilter = !showMobileFilter"
-        class="btn-showfilter"
-        :class="{ active: showMobileFilter }"
-      >
-        <span>Filter Entries</span>
-      </button>
-      <c-filter-bar :showMobile="showMobileFilter"></c-filter-bar>
-    </div>
-    <div class="spot-nav" v-if="!isEmbed || showEmbedControls">
+    <div class="map__controls">
       <router-link
-        v-if="isLoggedIn && !isEmbed"
         to="/add"
-        class="spot-nav__link spot-nav__link--add"
-      ></router-link>
-      <router-link
-        v-if="!isLoggedIn && !isEmbed"
-        to="/login"
-        class="spot-nav__link spot-nav__link--add"
-      ></router-link>
-      <a
-        v-if="isEmbed && isLoggedIn"
-        href="/add"
-        target="_blank"
-        class="spot-nav__link spot-nav__link--add"
-      ></a>
-      <a
-        v-if="isEmbed && !isLoggedIn"
-        href="/login"
-        target="_blank"
-        class="spot-nav__link spot-nav__link--add"
-      ></a>
+        class="map__controls__item"
+        v-if="isLoggedIn && !isEmbed"
+        ><span class="material-icons">add</span>Add Entry</router-link
+      >
+      <a href="/add" class="map__controls__item" v-if="isLoggedIn && isEmbed"
+        ><span class="material-icons">add</span>Add Entry</a
+      >
+      <a href="/login" class="map__controls__item" v-if="!isLoggedIn"
+        ><span class="material-icons">login</span>Login</a
+      >
+      <a href="/register" class="map__controls__item" v-if="!isLoggedIn"
+        ><span class="material-icons">person_add</span>Register</a
+      >
+      <a href="#" class="map__controls__item" @click.prevent="showUserLocation"
+        ><span class="material-icons">my_location</span>My Location</a
+      >
       <a
         href="#"
-        @click.prevent="showUserLocation"
-        class="spot-nav__link spot-nav__link--location"
-        v-bind:class="{ disabled: !userCoords }"
-      ></a>
+        class="map__controls__item"
+        @click.prevent="showFilter = !showFilter"
+        ><span class="material-icons">filter_list</span>Filter Entries</a
+      >
+      <div class="map__controls__sub" v-if="showFilter">
+        <c-filter-bar></c-filter-bar>
+      </div>
     </div>
   </div>
 </template>
@@ -144,7 +133,7 @@ export default {
       userEntries: null,
       userCommentedEntries: null,
       currentZoom: 0,
-      showMobileFilter: false,
+      showFilter: false,
     };
   },
 
@@ -216,7 +205,7 @@ export default {
         streetViewControl: false,
         mapTypeControl: false,
         zoomControlOptions: {
-          position: this.google.maps.ControlPosition.RIGHT_TOP,
+          position: this.google.maps.ControlPosition.RIGHT_BOTTOM,
         },
       });
       this.map.data.setStyle({
@@ -492,17 +481,65 @@ export default {
   height: 100vh;
   background-color: #fff;
 
-  /*&::before, &::after {
-    content: "";
-    display: none;
-    width: 100%;
-    height: 3rem;
+  &__controls {
     position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
-  }*/
+    top: 3.5rem;
+    left: 0.5rem;
+    z-index: 2;
+    background-color: rgba($c-blue, 0.85);
+    backdrop-filter: blur(5px);
+    padding: 0.5rem 0.75rem 0.65rem 0.75rem;
+    border-radius: 0.5rem;
+    width: calc(100% - 1rem);
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+
+    &__item {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      border: 1px solid $c-blue;
+      background-color: $c-white;
+      color: rgba($c-black, 0.7);
+      font-size: 0.9rem;
+      width: calc(50% - .15rem);
+      margin-right: .3rem;
+      margin-top:2px;
+      box-sizing: border-box;
+
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+
+      .material-icons {
+        margin-right: 0.5rem;
+      }
+      &:hover {
+        color: $c-black;
+      }
+    }
+    &__sub {
+      background-color: rgba($c-white, 0.7);
+      border-radius: 0.25rem;
+      padding: 1rem;
+      width: 100%;
+      margin-top: .05rem;
+    }
+
+    @include tablet {
+      width: 15rem;
+      top: 4rem;
+      left: 1rem;
+
+      &__item {
+        width: 100%;
+        margin-right: 0;
+      }
+    }
+  }
 
   .embed & {
     height: 100vh;
@@ -527,13 +564,13 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: calc(100% - 5rem);
+  height: calc(100% - 3rem);
 
   .embed & {
     height: 100%;
   }
   @include tablet {
-    height: calc(100% - 7rem);
+    height: calc(100% - 3rem);
   }
 }
 

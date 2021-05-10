@@ -88,11 +88,11 @@ export default {
 
 .regionswitch__select {
   max-width: 100%;
-  padding-left: 20px;
+  padding-right: 20px;
   position: relative;
   // display: flex;
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   box-shadow: 0 1px 3px 0 rgba(#000, 0.1);
   box-sizing: border-box;
   border-radius: 4px;
@@ -104,7 +104,7 @@ export default {
     padding: 3px;
     position: absolute;
     top: 50%;
-    left: 10px;
+    right: 10px;
     margin-top: -2px;
     border: solid $c-black;
     border-width: 0 2px 2px 0;

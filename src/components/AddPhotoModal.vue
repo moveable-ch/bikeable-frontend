@@ -49,6 +49,8 @@
 </template>
 
 <script>
+import Compressor from "compressorjs";
+
 export default {
   name: "c-add-photo-modal",
   props: ["entryId", "entry"],
@@ -61,13 +63,15 @@ export default {
   },
   computed: {},
   watch: {},
-  mounted() {
-  },
+  mounted() {},
 
   methods: {
     imagePreviewUrl(imageId) {
       return (
-        process.env.VUE_APP_BACKEND_URL + "/api/v1/photos/" + imageId + "?size=small"
+        process.env.VUE_APP_BACKEND_URL +
+        "/api/v1/photos/" +
+        imageId +
+        "?size=small"
       );
     },
     uploadImage(e) {
@@ -75,24 +79,35 @@ export default {
 
       let imageFile = e.currentTarget;
       let file = imageFile.files[0];
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (fileLoadEvent) => {
-        this.$store
-          .dispatch("uploadImage", {
-            data: reader.result,
-          })
-          .then(
-            (data) => {
-              this.uploading = false;
-              this.imageId = data.imageId;
-            },
-            (data) => {
-              this.$store.dispatch("handleError", "Error");
-              this.uploading = false;
-            }
-          );
-      };
+
+      new Compressor(file, {
+        quality: 0.6,
+        maxWidth: 900,
+        maxHeight: 900,
+        success: (result) => {
+          let reader = new FileReader();
+          reader.readAsDataURL(result);
+          reader.onload = (fileLoadEvent) => {
+            this.$store
+              .dispatch("uploadImage", {
+                data: reader.result,
+              })
+              .then(
+                (data) => {
+                  this.uploading = false;
+                  this.imageId = data.imageId;
+                },
+                (data) => {
+                  this.$store.dispatch("handleError", "Error");
+                  this.uploading = false;
+                }
+              );
+          };
+        },
+        error(err) {
+          console.log(err.message);
+        },
+      });
     },
     resetImage() {
       this.imageId = null;
@@ -116,7 +131,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../styles/helpers";
 
 .add-photo-modal {

@@ -12,6 +12,7 @@
     "@sentry/browser": "^6.2.5",
     "@sentry/integrations": "^6.2.5",
     "axios": "^0.21.1",
+    "compressorjs": "^1.0.7",
     "core-js": "^3.10.0",
     "date-fns": "^2.19.0",
     "flickity": "^2.2.2",

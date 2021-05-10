@@ -18,16 +18,12 @@
         <span class="label">{{ $t("addform.uploadimage") }}</span>
 
         <div class="file-upload">
-          <div class="file-upload__form" v-if="!uploading">
+          <div class="file-upload__form" :class="{ 'disabled': uploading }">
             <label for="add-file">{{ $t("addform.chooseimage") }}</label>
-            <input id="add-file" @change.prevent="uploadImage" type="file" />
+            <input id="add-file" :disabled="uploading == true" @change.prevent="uploadImage" type="file" />
           </div>
 
-          <span class="file-upload__pending" v-if="uploading">{{
-            $t("addform.loading")
-          }}</span>
-
-          <div class="file-upload__images">
+          <div class="file-uploadbackgr">
             <div
               class="file-upload__preview"
               v-for="image in gallery"
@@ -43,6 +39,9 @@
                 v-bind:src="imagePreviewUrl(image.imageId)"
                 @error="imageLoadError"
               />
+            </div>
+            <div class="file-uploadbackgr__loading" v-if="uploading">
+              <span>{{ $t("addform.loading") }}</span>
             </div>
           </div>
         </div>
@@ -126,7 +125,7 @@
           <button
             type="submit"
             class="add__btn"
-            v-bind:class="{ disabled: (!formReady || entryPosted) }"
+            v-bind:class="{ disabled: !formReady || entryPosted }"
             :disabled="!formReady"
           >
             {{ sendButtonText }}
@@ -140,6 +139,7 @@
 
 <script>
 import axios from "axios";
+import Compressor from "compressorjs";
 import AddMapModal from "@/components/AddMapModal";
 import spots from "../api/spots";
 
@@ -178,7 +178,7 @@ export default {
       entryFamed: null,
       gallery: [],
       uploading: false,
-      entryPosted: false
+      entryPosted: false,
     };
   },
 
@@ -213,11 +213,11 @@ export default {
       return this.$i18n.locale;
     },
     sendButtonText() {
-     if(this.entryId) {
-       return this.$t("addform.sendedit");
-     }else{
-       return this.$t("addform.send");
-     }
+      if (this.entryId) {
+        return this.$t("addform.sendedit");
+      } else {
+        return this.$t("addform.send");
+      }
     },
   },
 
@@ -451,24 +451,35 @@ export default {
 
       let imageFile = e.currentTarget;
       let file = imageFile.files[0];
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (fileLoadEvent) => {
-        this.$store
-          .dispatch("uploadImage", {
-            data: reader.result,
-          })
-          .then(
-            (data) => {
-              this.uploading = false;
-              this.addImageToGallery(data.imageId);
-            },
-            (data) => {
-              this.$store.dispatch("handleError", "Error");
-              this.uploading = false;
-            }
-          );
-      };
+
+      new Compressor(file, {
+        quality: 0.6,
+        maxWidth: 900,
+        maxHeight: 900,
+        success: (result) => {
+          let reader = new FileReader();
+          reader.readAsDataURL(result);
+          reader.onload = (fileLoadEvent) => {
+            this.$store
+              .dispatch("uploadImage", {
+                data: reader.result,
+              })
+              .then(
+                (data) => {
+                  this.uploading = false;
+                  this.addImageToGallery(data.imageId);
+                },
+                (data) => {
+                  this.$store.dispatch("handleError", "Error");
+                  this.uploading = false;
+                }
+              );
+          };
+        },
+        error(err) {
+          console.log(err.message);
+        },
+      });
     },
     addImageToGallery(imageId) {
       let userId = localStorage.getItem("userId");
@@ -714,6 +725,10 @@ export default {
       position: absolute;
       z-index: -1;
     }
+    &.disabled {
+      opacity: .2;
+      pointer-events: none;
+    }
   }
 
   &__pending {
@@ -721,16 +736,34 @@ export default {
     margin: 1rem 0;
   }
 
-  &__images {
+  &backgr {
     display: flex;
     flex-wrap: wrap;
 
+    &__loading {
+      background: linear-gradient(to right, #fff 0%, $c-blue 50%, #fff 100%);
+      background-size: 26rem 8rem;
+      width: 13rem;
+      height: 8rem;
+      animation: 4s shimmer infinite linear;
+      margin-right: 5px;
+      margin-bottom: 5px;
+
+      span {
+        display: block;
+        line-height: 8rem;
+        text-align: center;
+        font-size: 0.8rem;
+        opacity: 0.3;
+      }
+    }
     @include tablet {
       flex-wrap: none;
     }
   }
 
   &__preview {
+    box-sizing: border-box;
     width: 13rem;
     height: 8rem;
     background-color: $c-blue;
@@ -927,6 +960,15 @@ export default {
     &::before {
       background-image: url("../assets/mapbutton@2x.png");
     }
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -26rem 0;
+  }
+  to {
+    background-position: 26rem 0;
   }
 }
 </style>

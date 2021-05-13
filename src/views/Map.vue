@@ -19,25 +19,29 @@
         to="/add"
         class="map__controls__item"
         v-if="isLoggedIn && !isEmbed"
-        ><span class="material-icons">add</span>{{ $t('home.addspot') }}</router-link
+        ><span class="material-icons">add</span
+        >{{ $t("home.addspot") }}</router-link
       >
       <a href="/add" class="map__controls__item" v-if="isLoggedIn && isEmbed"
-        ><span class="material-icons">add</span>{{ $t('home.addspot') }}</a
+        ><span class="material-icons">add</span>{{ $t("home.addspot") }}</a
       >
       <a href="/login" class="map__controls__item" v-if="!isLoggedIn"
         ><span class="material-icons">login</span>Login</a
       >
       <a href="/register" class="map__controls__item" v-if="!isLoggedIn"
-        ><span class="material-icons">person_add</span>{{ $t('register.register') }}</a
+        ><span class="material-icons">person_add</span
+        >{{ $t("register.register") }}</a
       >
       <a href="#" class="map__controls__item" @click.prevent="showUserLocation"
-        ><span class="material-icons">my_location</span>{{ $t('map.mylocation') }}</a
+        ><span class="material-icons">my_location</span
+        >{{ $t("map.mylocation") }}</a
       >
       <a
         href="#"
         class="map__controls__item"
         @click.prevent="showFilter = !showFilter"
-        ><span class="material-icons">filter_list</span>{{ $t('map.filterentries') }}</a
+        ><span class="material-icons">filter_list</span
+        >{{ $t("map.filterentries") }}</a
       >
       <div class="map__controls__sub" v-if="showFilter">
         <c-filter-bar></c-filter-bar>
@@ -499,15 +503,17 @@ export default {
       display: flex;
       align-items: center;
       white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
       padding: 0.5rem;
       border-radius: 0.25rem;
       border: 1px solid $c-blue;
       background-color: $c-white;
       color: rgba($c-black, 0.7);
-      font-size: 0.9rem;
-      width: calc(50% - .15rem);
-      margin-right: .3rem;
-      margin-top:2px;
+      font-size: 0.8rem;
+      width: calc(50% - 0.15rem);
+      margin-right: 0.3rem;
+      margin-top: 2px;
       box-sizing: border-box;
 
       &:nth-child(2n) {
@@ -520,17 +526,20 @@ export default {
       &:hover {
         color: $c-black;
       }
+      @include tablet {
+        font-size: 0.9rem;
+      }
     }
     &__sub {
       background-color: rgba($c-white, 0.7);
       border-radius: 0.25rem;
       padding: 1rem;
       width: 100%;
-      margin-top: .05rem;
+      margin-top: 0.05rem;
     }
 
     @include tablet {
-      width: 15rem;
+      width: 16rem;
       top: 4rem;
       left: 1rem;
 

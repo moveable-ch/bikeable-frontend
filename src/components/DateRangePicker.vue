@@ -105,8 +105,10 @@ export default {
 @import "../styles/helpers";
 
 .date-range-picker {
+  position: relative;
+
   .vue-daterange-picker {
-    min-width: 100% !important;
+    min-width: calc(100% - 2rem) !important;
     
     .form-control {
       width: auto !important;
@@ -131,17 +133,21 @@ export default {
   }
 
   .reset {
-    padding: 0 0.4rem;
-    width: 1.6rem;
-    height: 1.6rem;
+    // padding: 0 0.4rem;
+    width: 2rem;
+    height: 2rem;
     -webkit-appearance: none;
     border: none;
     background: #fff;
-    border: 1px solid #eee;
+    border: 1px solid #ddd;
     border-radius: 99%;
-    font-size: 1.25rem;
-    line-height: 2rem;
     cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:focus,
     &:active {
@@ -157,8 +163,8 @@ export default {
     }
 
     svg {
-      width: 100%;
-      height: 100%;
+      width: 70%;
+      height: 70%;
       opacity: 0.5;
     }
   }

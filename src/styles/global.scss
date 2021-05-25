@@ -130,15 +130,15 @@ small {
 .btn {
   display: inline-block;
   border: 2px solid $c-blue;
-  background-color: #fff;
-  color: $c-main;
+  background-color: $c-blue;
+  color: $c-black;
   border-radius: 4px;
   font-family: $f-body;
   font-size: 0.9rem;
   font-weight: 600;
   padding: 0 2rem;
-  height: 2.5rem;
-  line-height: 2.5rem;
+  height: 2.2rem;
+  line-height: 2.2rem;
   cursor: pointer;
   text-decoration: none;
   text-align: center;
@@ -158,6 +158,7 @@ small {
   &.disabled {
     pointer-events: none;
     color: #aaa;
+    opacity: .8;
   }
   &--centered {
     display: block;

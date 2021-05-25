@@ -12,7 +12,25 @@
         }}</router-link
         ><span class="date">{{ dateCreated }}</span>
       </div>
-      <p v-html="linkifiedComment"></p>
+      <p v-html="linkifiedComment" v-if="!editMode"></p>
+      <textarea
+        name="editText"
+        v-model="editableText"
+        id="editText"
+        cols="30"
+        rows="3"
+        v-if="editMode"
+        class="comment__textarea"
+      ></textarea>
+      <button
+        v-if="editMode"
+        type="submit"
+        class="btn comment__editsend"
+        v-bind:class="{ disabled: !editableText }"
+        @click.prevent="saveEditedComment"
+      >
+        {{ $t("comment.send") }}
+      </button>
     </div>
     <div class="comment__buttons" v-if="!isChild && isLoggedIn">
       <a
@@ -21,13 +39,24 @@
         class="comment__button comment__button--vote"
         v-bind:class="{ disabled: !isLoggedIn }"
       >
-        <span class="count">{{ comment.votesCount }}</span>
+        <span class="material-icons">arrow_upward</span>{{ comment.votesCount }}
       </a>
       <a
         @click.prevent="showForm = !showForm"
         href="#"
         class="comment__button comment__button--reply"
-        >{{ $t("comment.reply") }}</a
+        ><span class="material-icons">reply</span
+        ><span class="comment__button__label">{{
+          $t("comment.reply")
+        }}</span></a
+      >
+      <a
+        href="#"
+        @click.prevent="makeEditable"
+        v-if="comment.user._id == userData._id"
+        class="comment__button comment__button--edit"
+        ><span class="material-icons">edit</span
+        ><span class="comment__button__label">Bearbeiten</span></a
       >
     </div>
 
@@ -85,7 +114,9 @@ export default {
   data() {
     return {
       replyText: "",
+      editableText: "",
       showForm: false,
+      editMode: false,
     };
   },
 
@@ -97,6 +128,9 @@ export default {
     },
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
+    },
+    userData() {
+      return this.$store.getters.userData;
     },
     responses() {
       return this.comment.responses;
@@ -189,6 +223,13 @@ export default {
           }
         );
     },
+    saveEditedComment() {
+      console.log(this.editableText);
+    },
+    makeEditable() {
+      this.editMode = !this.editMode;
+      this.editableText = this.comment.text;
+    },
   },
 };
 </script>
@@ -197,7 +238,7 @@ export default {
 @import "../styles/helpers";
 
 .comment {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   font-size: 0.9rem;
   position: relative;
   padding-left: 2rem;
@@ -209,6 +250,17 @@ export default {
   &.child {
     margin-top: 0.5rem;
     margin-bottom: 1.5rem;
+  }
+
+  &__textarea {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+  &__editsend {
+    margin-top: .5rem;
   }
 
   &__reply {
@@ -302,10 +354,12 @@ export default {
     justify-content: space-between;
   }
   &__button {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
-    height: 2rem;
-    line-height: 2rem;
+    height: 1.6rem;
+    font-size: 0.8rem;
     text-align: center;
     color: #666;
     border: 1px solid $c-blue;
@@ -317,40 +371,14 @@ export default {
       background-color: rgba($c-blue, 0.8);
     }
 
-    &--reply {
-      border-bottom-right-radius: 4px;
+    .material-icons {
+      margin-right: 0.4rem;
     }
-    &--vote {
-      border-bottom-left-radius: 4px;
-      border-right: none;
+    &__label {
+      display: none;
 
-      .count {
-        font-weight: 400;
-        line-height: 1.5rem;
-        position: relative;
-        padding-left: 1.25rem;
-        color: $c-black;
-
-        &::before {
-          content: "";
-          display: block;
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 100%;
-          width: 18px;
-          background: none;
-          border: none;
-          background-image: url("../assets/upvote-small-filled.png");
-          background-size: 100%;
-          background-position: 50% 45%;
-          background-repeat: no-repeat;
-          transition: 0.3s transform $easeOutQuint;
-
-          @include retina {
-            background-image: url("../assets/upvote-small-filled@2x.png");
-          }
-        }
+      @include tablet() {
+        display: inline;
       }
     }
   }

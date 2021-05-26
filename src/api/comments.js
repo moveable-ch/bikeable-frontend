@@ -51,7 +51,6 @@ export default {
   updateComment({ commentId, comment, userId, authToken }) {
     let url = `${process.env.VUE_APP_BACKEND_URL}/api/v1/comments/${commentId}`;
 
-    console.log(url, comment, userId, authToken);
     return new Promise((resolve, reject) => {
       axios
         .put(

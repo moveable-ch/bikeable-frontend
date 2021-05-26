@@ -10,7 +10,7 @@
         <router-link :to="'/users/' + comment.user._id" class="username">{{
           comment.user.name
         }}</router-link
-        ><span class="date">{{ dateCreated }}</span>
+        ><span class="date"><span class="comment__meta__edited" v-if="comment.updatedAt">({{ $t('comment.edited') }})</span>{{ dateCreated }}</span>
       </div>
       <p v-html="linkifiedComment" v-if="!editMode"></p>
       <textarea
@@ -56,7 +56,7 @@
         v-if="comment.user._id == userData._id"
         class="comment__button comment__button--edit"
         ><span class="material-icons">edit</span
-        ><span class="comment__button__label">Bearbeiten</span></a
+        ><span class="comment__button__label">{{ $t('comment.edit') }}</span></a
       >
     </div>
 
@@ -96,10 +96,10 @@
 
 <script>
 import axios from "axios";
-// import linkify from 'linkifyjs';
-// import linkifyHtml from 'linkifyjs/html';
 import DOMPurify from "dompurify";
 import anchorme from "anchorme";
+
+import comments from "../api/comments";
 
 export default {
   name: "c-comment",
@@ -224,7 +224,31 @@ export default {
         );
     },
     saveEditedComment() {
-      console.log(this.editableText);
+      if (this.editableText == "") return;
+      if (!this.isLoggedIn) return;
+
+      let userId = localStorage.getItem("userId");
+      let token = localStorage.getItem("token");
+
+      this.$store.commit("LOAD_START");
+
+      comments
+        .updateComment({
+          comment: this.editableText,
+          commentId: this.comment._id,
+          userId: userId,
+          authToken: token,
+        })
+        .then((data) => {
+          this.editMode = false;
+          this.fetchData();
+          this.$store.commit("LOAD_FINISH");
+        })
+        .catch((e) => {
+          // console.log(e);
+          this.$store.commit("SET_MESSAGE", "Error");
+          this.$store.commit("LOAD_FINISH");
+        });
     },
     makeEditable() {
       this.editMode = !this.editMode;
@@ -260,7 +284,7 @@ export default {
     font-size: 0.9rem;
   }
   &__editsend {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
 
   &__reply {
@@ -390,6 +414,10 @@ export default {
     .username {
       font-weight: 600;
       text-decoration: none;
+    }
+    &__edited {
+      font-size: .6rem;
+      margin-right: .25rem;
     }
     .date {
       position: absolute;

@@ -58,7 +58,9 @@
     "comment": {
       "send": "Senden",
       "reply": "Antworten",
-      "comment": "Kommentar"
+      "comment": "Kommentar",
+      "edit": "Bearbeiten",
+      "edited": "bearbeitet"
     },
     "list": {
       "allregions": "Alle Regionen",
@@ -181,7 +183,9 @@
     "comment": {
       "send": "Send",
       "reply": "Reply",
-      "comment": "Comment"
+      "comment": "Comment",
+      "edit": "Edit",
+      "edited": "edited"
     },
     "list": {
       "allregions": "All Regions",
@@ -304,7 +308,9 @@
     "comment": {
       "send": "Envoyer",
       "reply": "Répondre",
-      "comment": "Commentaire"
+      "comment": "Commentaire",
+      "edit": "Modifier",
+      "edited": "modifié"
     },
     "list": {
       "allregions": "Toutes les régions",

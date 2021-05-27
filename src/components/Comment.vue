@@ -18,7 +18,7 @@
         v-model="editableText"
         id="editText"
         cols="30"
-        rows="3"
+        rows="5"
         v-if="editMode"
         class="comment__textarea"
       ></textarea>
@@ -32,8 +32,9 @@
         {{ $t("comment.send") }}
       </button>
     </div>
-    <div class="comment__buttons" v-if="!isChild && isLoggedIn">
+    <div class="comment__buttons" v-if="isLoggedIn">
       <a
+        v-if="!isChild"
         @click.prevent="upvoteComment"
         href="#"
         class="comment__button comment__button--vote"
@@ -43,6 +44,7 @@
       </a>
       <a
         @click.prevent="showForm = !showForm"
+        v-if="!isChild"
         href="#"
         class="comment__button comment__button--reply"
         ><span class="material-icons">reply</span
@@ -53,7 +55,7 @@
       <a
         href="#"
         @click.prevent="makeEditable"
-        v-if="comment.user._id == userData._id"
+        v-if="comment.user._id == userData._id && !isChild"
         class="comment__button comment__button--edit"
         ><span class="material-icons">edit</span
         ><span class="comment__button__label">{{ $t('comment.edit') }}</span></a
@@ -83,10 +85,10 @@
 
     <div class="comment__children" v-if="responses">
       <c-comment
-        v-for="comment in responses"
+        v-for="child in responses"
         :isChild="true"
-        :key="comment._id"
-        :comment="comment"
+        :key="child._id"
+        :comment="child"
         :loadComments="loadComments"
         :avatar="avatar"
       ></c-comment>

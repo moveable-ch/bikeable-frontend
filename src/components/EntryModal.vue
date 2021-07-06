@@ -3,7 +3,9 @@
     <div class="entry-modal" v-bind:class="{ 'is-famed': getFamed }" @click="$emit('close')">
       <transition v-bind:css="false" v-on:enter="enterInner">
         <div class="entry-modal__inner" v-if="currentEntry" @click.stop>
-          <img :src="entryImage" alt="" class="entry-modal__image">
+          <a :href="entryImageLarge" target="_blank" v-if="entryImageLarge != null">
+            <img :src="entryImage" alt="" class="entry-modal__image">
+          </a>
           <div class="entry-modal__content">
             <h3>{{ currentEntry.title }}</h3>
             <span class="address">{{ currentEntry.address }}</span>
@@ -45,7 +47,14 @@ export default {
       if(this.currentEntry.gallery.length > 0) {
         return this.currentEntry.gallery[0].photo.small;
       }
-      return '#';
+      return null;
+    },
+    entryImageLarge() {
+      if(this.currentEntry.photo) return this.currentEntry.photo.large.url;
+      if(this.currentEntry.gallery.length > 0) {
+        return this.currentEntry.gallery[0].photo.large;
+      }
+      return null;
     },
   },
   watch: {

@@ -293,7 +293,7 @@ export default {
       }
     }
     .btn-show {
-      background: none;
+      text-align: center;
       border: none;
       padding: 0;
       position: absolute;
@@ -303,12 +303,11 @@ export default {
       width: calc(100% - 2rem);
       height: 3rem;
       line-height: 3rem;
-      background-color: $c-highlight;
+      background: $c-highlight none;
       color: #fff;
       font-family: $f-body;
       font-weight: bold;
       font-size: 1rem;
-      cursor: pointer;
 
       &:active, &:focus {
         outline: none;

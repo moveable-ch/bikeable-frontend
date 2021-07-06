@@ -35,31 +35,21 @@ export default {
   computed: {
     getFamed() {
       if(!this.currentEntry) return false;
-      if(!this.currentEntry.famed) return false;
-      return true;
+      return this.currentEntry.famed;
     },
     isEmbed() {
       return this.$route.query.embed;
     },
     entryImage() {
       if(this.currentEntry.photo) return this.currentEntry.photo.small.url;
-      // The following line is for when the backend ist updated, so we can delete the line before
-      if(this.currentEntry.photoPreviewUrl) return this.currentEntry.photoPreviewUrl;
       if(this.currentEntry.gallery.length > 0) {
         return this.currentEntry.gallery[0].photo.small;
       }
       return '#';
     },
-    entryPhoto() {
-      if(this.entry.photo) return this.entry.photo.small.url;
-      if(this.entry.gallery.length > 0) {
-        return this.entry.gallery[0].photo.small;
-      }
-      return '#';
-    },
   },
   watch: {
-    entryId (to, from) {
+    entryId () {
       this.loadEntry();
     }
   },

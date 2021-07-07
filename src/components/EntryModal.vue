@@ -15,7 +15,10 @@
             </div>
           </div>
           <button class="btn-close" @click="$emit('close')">✕</button>
-          <button class="btn-show" @click="showEntry">{{ $t('list.showspot') }}</button>
+          <a v-if="isEmbed" :href="entryUrl" class="btn-show" target="_blank">{{ $t('list.showspot') }}</a>
+          <router-link v-else class="btn-show" :to="entryUrl">
+            {{ $t('list.showspot') }}
+          </router-link>
         </div>
       </transition>
     </div>
@@ -56,6 +59,9 @@ export default {
       }
       return null;
     },
+    entryUrl() {
+      return this.$router.resolve({ name: 'entry', params: { id: this.entryId }}).href
+    },
   },
   watch: {
     entryId () {
@@ -66,16 +72,6 @@ export default {
     this.loadEntry();
   },
   methods: {
-    showEntry() {
-      if(this.isEmbed) {
-        window.open(
-          'https://bikeable.ch/entries/' + this.entryId,
-          '_blank'
-        );
-      } else {
-        this.$router.push({ name: 'entry', params: { id: this.entryId }});
-      }
-    },
     loadEntry() {
       this.$store.commit('LOAD_START');
 

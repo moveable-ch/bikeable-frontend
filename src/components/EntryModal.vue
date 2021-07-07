@@ -15,7 +15,7 @@
             </div>
           </div>
           <button class="btn-close" @click="$emit('close')">✕</button>
-          <a class="btn-show" :href="'https://bikeable.ch/entries/' + entryId">{{ $t('list.showspot') }}</a>
+          <button class="btn-show" @click="showEntry">{{ $t('list.showspot') }}</button>
         </div>
       </transition>
     </div>
@@ -66,6 +66,16 @@ export default {
     this.loadEntry();
   },
   methods: {
+    showEntry() {
+      if(this.isEmbed) {
+        window.open(
+          'https://bikeable.ch/entries/' + this.entryId,
+          '_blank'
+        );
+      } else {
+        this.$router.push({ name: 'entry', params: { id: this.entryId }});
+      }
+    },
     loadEntry() {
       this.$store.commit('LOAD_START');
 

@@ -3,7 +3,9 @@
     <div class="entry-modal" v-bind:class="{ 'is-famed': getFamed }" @click="$emit('close')">
       <transition v-bind:css="false" v-on:enter="enterInner">
         <div class="entry-modal__inner" v-if="currentEntry" @click.stop>
-          <img :src="entryImage" alt="" class="entry-modal__image">
+          <a :href="entryImageLarge" target="_blank" v-if="entryImageLarge != null">
+            <img :src="entryImage" alt="" class="entry-modal__image">
+          </a>
           <div class="entry-modal__content">
             <h3>{{ currentEntry.title }}</h3>
             <span class="address">{{ currentEntry.address }}</span>
@@ -13,7 +15,11 @@
             </div>
           </div>
           <button class="btn-close" @click="$emit('close')">✕</button>
-          <button class="btn-show" @click="showEntry">{{ $t('list.showspot') }}</button>
+          <!-- sample embedded page: https://www.stadt-zuerich.ch/site/velo/de/index/ihre-ideen-fuer-das-velo.html -->
+          <a v-if="isEmbed" :href="entryUrl" class="btn-show" target="_blank">{{ $t('list.showspot') }}</a>
+          <router-link v-else class="btn-show" :to="entryUrl">
+            {{ $t('list.showspot') }}
+          </router-link>
         </div>
       </transition>
     </div>
@@ -35,31 +41,31 @@ export default {
   computed: {
     getFamed() {
       if(!this.currentEntry) return false;
-      if(!this.currentEntry.famed) return false;
-      return true;
+      return this.currentEntry.famed;
     },
     isEmbed() {
       return this.$route.query.embed;
     },
     entryImage() {
       if(this.currentEntry.photo) return this.currentEntry.photo.small.url;
-      // The following line is for when the backend ist updated, so we can delete the line before
-      if(this.currentEntry.photoPreviewUrl) return this.currentEntry.photoPreviewUrl;
       if(this.currentEntry.gallery.length > 0) {
         return this.currentEntry.gallery[0].photo.small;
       }
-      return '#';
+      return null;
     },
-    entryPhoto() {
-      if(this.entry.photo) return this.entry.photo.small.url;
-      if(this.entry.gallery.length > 0) {
-        return this.entry.gallery[0].photo.small;
+    entryImageLarge() {
+      if(this.currentEntry.photo) return this.currentEntry.photo.large.url;
+      if(this.currentEntry.gallery.length > 0) {
+        return this.currentEntry.gallery[0].photo.large;
       }
-      return '#';
+      return null;
+    },
+    entryUrl() {
+      return this.$router.resolve({ name: 'entry', params: { id: this.entryId }}).href
     },
   },
   watch: {
-    entryId (to, from) {
+    entryId () {
       this.loadEntry();
     }
   },
@@ -67,16 +73,6 @@ export default {
     this.loadEntry();
   },
   methods: {
-    showEntry() {
-      if(this.isEmbed) {
-        window.open(
-          'https://bikeable.ch/entries/' + this.entryId,
-          '_blank'
-        );
-      } else {
-        this.$router.push({ name: 'entry', params: { id: this.entryId }});
-      }
-    },
     loadEntry() {
       this.$store.commit('LOAD_START');
 
@@ -304,7 +300,7 @@ export default {
       }
     }
     .btn-show {
-      background: none;
+      text-align: center;
       border: none;
       padding: 0;
       position: absolute;
@@ -314,12 +310,11 @@ export default {
       width: calc(100% - 2rem);
       height: 3rem;
       line-height: 3rem;
-      background-color: $c-highlight;
+      background: $c-highlight none;
       color: #fff;
       font-family: $f-body;
       font-weight: bold;
       font-size: 1rem;
-      cursor: pointer;
 
       &:active, &:focus {
         outline: none;

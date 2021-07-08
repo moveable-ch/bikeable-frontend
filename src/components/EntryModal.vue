@@ -15,6 +15,7 @@
             </div>
           </div>
           <button class="btn-close" @click="$emit('close')">✕</button>
+          <!-- sample embedded page: https://www.stadt-zuerich.ch/site/velo/de/index/ihre-ideen-fuer-das-velo.html -->
           <a v-if="isEmbed" :href="entryUrl" class="btn-show" target="_blank">{{ $t('list.showspot') }}</a>
           <router-link v-else class="btn-show" :to="entryUrl">
             {{ $t('list.showspot') }}

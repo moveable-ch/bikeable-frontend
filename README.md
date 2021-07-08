@@ -16,7 +16,7 @@ Feel free to report issues or contribute and make pull requests.
 ## Backend
 We have not yet made our backend code public. Please contact us if you'd like to get access to the repository and/or the API documentation. We are also open to other uses of our API, let us know what you plan to do with our data.
 
-If you want to work on the frontent without running your own backend, you can add `"proxy": "https://backend.bikeable.ch",` to `package.json` to use the production backend.
+If you want to work on the frontend without running your own backend, you can use the production backend by setting `VUE_APP_BACKEND_URL=https://backend.bikeable.ch` in a `.env` file.
 
 ## Contributors
 - [diluno](//github.com/diluno)

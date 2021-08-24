@@ -14,7 +14,7 @@
       :sponsoredEntry="activeSponsor"
     ></c-sponsor-modal>
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
-    <div class="map__controls">
+    <div class="map__controls" v-if="!isEmbed">
       <router-link
         to="/add"
         class="map__controls__item"

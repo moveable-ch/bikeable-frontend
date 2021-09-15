@@ -14,7 +14,10 @@
       :sponsoredEntry="activeSponsor"
     ></c-sponsor-modal>
     <div class="gmaps" id="gmaps" ref="gmaps"></div>
-    <div class="map__controls" v-if="!isEmbed">
+    <div
+      class="map__controls"
+      v-if="!isEmbed || (isEmbed && showEmbedControls)"
+    >
       <router-link
         to="/add"
         class="map__controls__item"
@@ -546,6 +549,17 @@ export default {
       &__item {
         width: 100%;
         margin-right: 0;
+      }
+    }
+    .embed & {
+      top: .5rem;
+      left: .5rem;
+      padding: .25rem;
+      padding-top: .1rem;
+
+      &__item {
+        padding: .35rem;
+        font-size: .7rem;
       }
     }
   }

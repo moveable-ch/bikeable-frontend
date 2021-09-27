@@ -19,7 +19,7 @@
     </transition>
     <c-header v-if="!isEmbed"></c-header>
     <transition name="route-fade" mode="out-in">
-      <keep-alive include="v-map">
+      <keep-alive include="v-map,v-list">
         <router-view></router-view>
       </keep-alive>
     </transition>

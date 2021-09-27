@@ -28,6 +28,9 @@
       <a href="/add" class="map__controls__item" v-if="isLoggedIn && isEmbed"
         ><span class="material-icons">add</span>{{ $t("home.addspot") }}</a
       >
+      <a href="/login" class="map__controls__item" v-if="!isLoggedIn && isEmbed"
+        ><span class="material-icons">add</span>{{ $t("home.addspot") }}</a
+      >
       <a href="/login" class="map__controls__item" v-if="!isLoggedIn"
         ><span class="material-icons">login</span>Login</a
       >

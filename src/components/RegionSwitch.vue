@@ -5,7 +5,7 @@
       <select v-model="currentRegion">
         <option value="">{{ $t("list.allregions") }}</option>
         <option
-          v-for="region in regions"
+          v-for="region in sortedRegions"
           v-bind:value="region._id"
           v-bind:key="region._id"
         >
@@ -32,6 +32,13 @@ export default {
   computed: {
     selectedRegion() {
       return this.$store.getters.selectedRegion;
+    },
+    sortedRegions() {
+      return this.regions.sort((a, b) => {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      });
     },
   },
   watch: {

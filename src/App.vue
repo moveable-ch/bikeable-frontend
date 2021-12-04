@@ -141,7 +141,7 @@ export default {
       }
     },
     checkLocalRegion() {
-      let r = localStorage.getItem("selectedRegion");
+      let r = localStorage.getItem("selected-region");
       if (r) {
         this.$store.dispatch("setSelectedRegion", r).then(
           (data) => {},

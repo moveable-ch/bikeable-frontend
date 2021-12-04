@@ -44,7 +44,7 @@ const actions = {
   },
 
   setSelectedRegion(context, selectedRegion) {
-    localStorage.setItem('selectedRegion', selectedRegion);
+    localStorage.setItem('selected-region', selectedRegion);
     context.commit('SET_SELECTEDREGION', selectedRegion);
   }
 }

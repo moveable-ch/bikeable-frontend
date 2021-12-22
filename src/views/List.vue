@@ -28,10 +28,10 @@
               <option value="comments">{{ $t("list.comments") }}</option>
             </select>
           </div>
-                  <router-link class="list__head__add" to="/add" v-if="isLoggedIn"
-          ><span class="material-icons">add</span
-          >{{ $t("home.addspot") }}</router-link
-        >
+          <router-link class="list__head__add" to="/add" v-if="isLoggedIn"
+            ><span class="material-icons">add</span
+            >{{ $t("home.addspot") }}</router-link
+          >
         </div>
       </div>
     </div>
@@ -127,10 +127,7 @@ export default {
       // TODO: Move to Store
       this.$store.commit("LOAD_START");
 
-      // let coords = null;
-      // if(this.entrySort == 'distance') {
       let coords = this.userCoords ? this.userCoords : null;
-      // }
 
       spots
         .getAllSpots({
@@ -139,6 +136,7 @@ export default {
           filter: this.listFilter,
           sort: this.entrySort,
           region: this.selectedRegion,
+          user: this.$route.query.user || null,
         })
         .then(
           (entries) => {
@@ -198,7 +196,7 @@ export default {
     &__add {
       display: block;
       margin-bottom: -0.75rem;
-      margin-top: .5rem;
+      margin-top: 0.5rem;
       margin-left: -1rem;
       width: calc(100% + 2rem);
       background-color: rgba($c-main, 0.6);

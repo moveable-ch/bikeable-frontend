@@ -1,8 +1,9 @@
 import axios from "axios";
 
 export default {
-  getAllSpots({ limit, filter, sort, order, location, region }) {
+  getAllSpots({ limit, filter, sort, order, location, region, user }) {
     let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries";
+    if(user) url += "?user=" + user;
 
     let sortParam = sort ? sort : "votes";
     let orderParam = order ? order : "descending";

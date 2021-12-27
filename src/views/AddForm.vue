@@ -195,8 +195,7 @@ export default {
         this.entryTitle != "" &&
         this.entryText != "" &&
         this.gallery.length > 0 &&
-        this.entryFamed != null &&
-        this.entryCategories.length > 0
+        this.entryFamed != null
       );
     },
     availableCats() {

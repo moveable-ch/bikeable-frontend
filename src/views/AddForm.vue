@@ -389,7 +389,7 @@ export default {
           .get(
             "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
               coords +
-              "&key=" + process.env.VUE_APP_GOOGLE_API_KEY2
+              "&key=" + process.env.VUE_APP_GOOGLEKEY2
           )
           .then(
             (response) => {
@@ -404,7 +404,7 @@ export default {
               }
             },
             (response) => {
-              reject(esponse);
+              reject(response);
             }
           );
       });
@@ -420,7 +420,7 @@ export default {
         .get(
           "https://maps.googleapis.com/maps/api/geocode/json?address=" +
             this.entryAddress +
-            "&key=" + process.env.VUE_APP_GOOGLE_API_KEY2
+            "&key=" + process.env.VUE_APP_GOOGLEKEY2
         )
         .then(
           (response) => {

@@ -643,6 +643,10 @@ export default {
     }
   }
 
+  .embed & {
+    padding-top: 2rem;
+  }
+
   &__social {
     margin-top: 1rem;
     display: flex;

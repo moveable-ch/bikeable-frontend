@@ -72,6 +72,10 @@ export default {
   border-bottom: 1px solid $c-grey-dark;
   border-top: 1px solid $c-grey-dark;
 
+  .embed & {
+    display: none;
+  }
+
   strong {
     font-weight: 700;
   }

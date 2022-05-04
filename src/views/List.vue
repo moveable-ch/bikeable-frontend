@@ -94,6 +94,15 @@ export default {
     listFilter() {
       return this.$store.getters.listFilter;
     },
+    isEmbed() {
+      return this.$route.query.embed;
+    },
+    filterByUserId() {
+      return this.$route.query.user;
+    },
+    filterByUserIdCommented() {
+      return this.$route.query.commentedby;
+    },
   },
   data() {
     return {
@@ -124,31 +133,61 @@ export default {
   },
   methods: {
     getSpots() {
-      // TODO: Move to Store
-      this.$store.commit("LOAD_START");
 
-      let coords = this.userCoords ? this.userCoords : null;
+      if (this.filterByUserIdCommented) {
+          // TODO: Move to Store
+          let userId = this.filterByUserIdCommented;
 
-      spots
-        .getAllSpots({
-          location: coords,
-          limit: this.displayEntryCount,
-          filter: this.listFilter,
-          sort: this.entrySort,
-          region: this.selectedRegion,
-          user: this.$route.query.user || null,
-        })
-        .then(
-          (entries) => {
-            this.$store.commit("LOAD_FINISH");
-            this.listSpots = entries;
-          },
-          (error) => {
-            this.$store.commit("LOAD_FINISH");
-            this.$store.dispatch("handleError", "Fehler");
-          }
-        );
-    },
+          this.$store.commit("LOAD_START");
+
+          return new Promise((resolve, reject) => {
+            spots.getSpotsCommentedByUserId(userId).then(
+              (data) => {
+                this.listSpots = data.filter((e) => {
+                  return e.userId != userId;
+                });
+
+                this.$store.commit("LOAD_FINISH");
+                this.$emit("updateHead");
+                resolve();
+              },
+              (error) => {
+                this.$store.commit("LOAD_FINISH");
+                this.$router.push("/");
+                this.$store.dispatch("handleError", "User nicht gefunden");
+              }
+            );
+          });
+
+      } else {
+        // TODO: Move to Store
+        this.$store.commit("LOAD_START");
+
+        let coords = this.userCoords ? this.userCoords : null;
+
+        return new Promise((resolve, reject) => {
+          spots
+            .getAllSpots({
+              location: coords,
+              limit: this.displayEntryCount,
+              filter: this.listFilter,
+              sort: this.entrySort,
+              region: this.selectedRegion,
+              user: this.$route.query.user || null,
+            })
+            .then(
+              (entries) => {
+                this.$store.commit("LOAD_FINISH");
+                this.listSpots = entries;
+              },
+              (error) => {
+                this.$store.commit("LOAD_FINISH");
+                this.$store.dispatch("handleError", "Fehler");
+              }
+            );
+          });
+        }
+    },    
     setSort() {
       this.$store.commit("SET_LIST_SORT", this.entrySort);
       this.getSpots();

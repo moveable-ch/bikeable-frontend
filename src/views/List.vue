@@ -232,6 +232,10 @@ export default {
       padding-top: 8rem;
     }
 
+    .embed & {
+      padding-top: 0;
+    }
+
     &__add {
       display: block;
       margin-bottom: -0.75rem;

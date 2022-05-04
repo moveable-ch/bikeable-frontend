@@ -26,7 +26,6 @@
         <span>{{ $t('footer.supported') }}</span>
         <div class="partner__logos">
           <a target="_blank" href="https://www.veloplus.ch"><img src="/img/veloplus-footer.png" alt="veloplus.ch"></a>
-          <a target="_blank" v-if="currentLang == 'fr'" href="https://www.tandem.ch"><img src="/img/tandem-footer.png" alt="tandem.ch"></a>
           <a target="_blank" v-if="currentLang != 'fr'" href="https://www.pro-velo.ch"><img src="/img/provelo-footer.png" alt="provelo.ch"></a>
           <a target="_blank" v-if="currentLang == 'fr'" href="https://www.pro-velo.ch"><img src="/img/provelo-footer-fr.png" alt="provelo.ch"></a>
         </div>
@@ -71,6 +70,10 @@ export default {
   text-align: center;
   border-bottom: 1px solid $c-grey-dark;
   border-top: 1px solid $c-grey-dark;
+
+  .embed & {
+    display: none;
+  }
 
   strong {
     font-weight: 700;

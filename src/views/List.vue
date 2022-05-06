@@ -2,7 +2,7 @@
 
 <template>
   <div class="list">
-    <div class="list__head">
+    <div v-if="!filterByUserIdCommented" class="list__head">
       <div class="list__regions">
         <div class="container">
           <button

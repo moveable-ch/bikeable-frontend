@@ -2,8 +2,8 @@
 
 <template>
   <div class="list">
-    <div v-if="!filterByUserIdCommented" class="list__head">
-      <div class="list__regions">
+    <div class="list__head">
+      <div class="list__regions" v-if="!filterByUserIdCommented">
         <div class="container">
           <button
             @click="showMobileFilter = !showMobileFilter"
@@ -15,7 +15,7 @@
           <c-list-filter-bar :showMobile="showMobileFilter"></c-list-filter-bar>
         </div>
       </div>
-      <div class="list__controls">
+      <div class="list__controls" v-if="!filterByUserIdCommented">
         <div class="container">
           <div class="list__sort">
             <span>{{ $t("list.sortby") }}:</span>

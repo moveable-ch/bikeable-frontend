@@ -180,6 +180,22 @@
             >
           </div>
         </template>
+        <template v-if="showArchival">
+          <div class="entry__meta__archive">
+            <p>
+              {{ $t("entry.archivedon") }}
+              <br /><strong>{{ archiveDate }}</strong>
+            </p>
+            <a
+              href="#"
+              class="entry__meta__tools__button"
+              @click.prevent="delayArchiving"
+            >
+              <span class="material-icons">access_time</span>
+              {{ $t("entry.delayarchival") }}</a
+            >
+          </div>
+        </template>
         <div class="entry__meta__tools" v-if="isLoggedIn">
           <a
             v-if="isLoggedIn && entryIsFromUser"
@@ -279,6 +295,8 @@
 <script>
 import anchorme from "anchorme";
 import DOMPurify from "dompurify";
+import { format, parseISO } from "date-fns";
+import { enGB, de, fr } from 'date-fns/locale'
 
 import Comment from "@/components/Comment";
 import EntryMedia from "@/components/EntryMedia";
@@ -416,6 +434,23 @@ export default {
       if (!this.currentEntry.fixProposals) return 3;
       return 3 - this.currentEntry.fixProposals.length;
     },
+    archiveDate() {
+      if (!this.currentEntry.archivedOn) return null;
+      if(this.$i18n.locale == 'de') {
+        return format(new Date(this.currentEntry.archivedOn), 'PPP', { locale: de })
+      } else if(this.$i18n.locale == 'fr') {
+        return format(new Date(this.currentEntry.archivedOn), 'PPP', { locale: fr })
+      } else {
+        return format(new Date(this.currentEntry.archivedOn), 'PPP', { locale: enGB })
+      }
+    },
+    showArchival() {
+      let show = true;
+      if(!this.isLoggedIn) show = false;
+      if(!this.entryIsFromUser) show = false;
+      if(!this.currentEntry.archivedOn) show = false;
+      return show;
+    }
   },
 
   watch: {
@@ -579,6 +614,33 @@ export default {
 
       spots
         .proposeFixedSpot({
+          spotId: this.entryId,
+          userId: userId,
+          authToken: token,
+        })
+        .then(
+          (data) => {
+            this.$store.commit("LOAD_FINISH");
+            this.loadEntry();
+          },
+          (error) => {
+            this.$store.commit("SET_MESSAGE", error);
+            this.$store.commit("LOAD_FINISH");
+          }
+        );
+    },
+
+    delayArchiving() {
+      // TODO: Move to Store
+      if (!this.isLoggedIn) return;
+
+      let userId = localStorage.getItem("userId");
+      let token = localStorage.getItem("token");
+
+      this.$store.commit("LOAD_START");
+
+      spots
+        .delayArchiving({
           spotId: this.entryId,
           userId: userId,
           authToken: token,
@@ -779,8 +841,16 @@ export default {
         }
       }
     }
+    &__archive {
+      padding: 0.75rem;
+      p {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+      }
+    }
     &__propose {
       padding: 0.75rem;
+      border-bottom: 1px solid $c-blue;
 
       h2 {
         font-size: 0.8rem;
@@ -796,7 +866,7 @@ export default {
       }
     }
     &__tools {
-      padding: 0.5rem;
+      padding: 0.75rem;
       background-color: $c-blue;
 
       &__button {

@@ -532,6 +532,9 @@ export default {
           })
           .then((data) => {
             this.$router.push("/entries/" + data._id);
+          })
+          .catch((error) => {
+            this.entryPosted = false;
           });
       }
     },

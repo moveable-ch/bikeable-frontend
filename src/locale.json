@@ -53,7 +53,9 @@
       "deletespot": "Spot löschen",
       "cancel": "Abbrechen",
       "proposetext": "Dieser Spot wurde gefixt. | Dieser Spot ist fixed, wenn <strong>ein</strong> weiterer User ihn als behoben markiert. Alternativ kannst du ein Beweisfoto hochladen. | Dieser Spot ist fixed, wenn <strong>{n}</strong> weitere User ihn als behoben markieren. Alternativ kannst du ein Beweisfoto hochladen.",
-      "proposetitle": "Wurde dieser Spot gefixt?"
+      "proposetitle": "Wurde dieser Spot gefixt?",
+      "delayarchival": "Archivierung verzögern",
+      "archivedon": "Dieser Spot wird am folgenden Datum automatisch archiviert:"
     },
     "comment": {
       "send": "Senden",
@@ -178,7 +180,9 @@
       "deletespot": "Delete Spot",
       "cancel": "Cancel",
       "proposetext": "This spot has been fixed. | This spot is fixed if <strong>one</strong> more user marks it as fixed. You can also upload an image as proof. | This spot is fixed if <strong>{n}</strong> more users mark it as fixed. You can also upload an image as proof.",
-      "proposetitle": "Has this spot been fixed?"
+      "proposetitle": "Has this spot been fixed?",
+      "delayarchival": "Delay Archiving",
+      "archivedon": "This spot will be archived on the following date:"
     },
     "comment": {
       "send": "Send",
@@ -303,7 +307,9 @@
       "deletespot": "Effacer Spot",
       "cancel": "Annuler",
       "proposetext": "Ce spot a été amélioré. | Ce spot est amélioré si <strong>un</strong> autre utilisateur le marque comme amélioré. Tu peux aussi télécharger une image comme preuve. | Ce spot est amélioré si <strong>{n}</strong> autres utilisateurs le marquent comme amélioré. Tu peux aussi télécharger une image comme preuve.",
-      "proposetitle": "Ce spot a-t-il été amélioré ?"
+      "proposetitle": "Ce spot a-t-il été amélioré ?",
+      "delayarchival": "Retarder l'archivage",
+      "archivedon": "Ce spot sera archivé le"
     },
     "comment": {
       "send": "Envoyer",

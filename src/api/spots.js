@@ -1,52 +1,52 @@
-import axios from "axios";
+import axios from 'axios';
 
 export default {
   getAllSpots({ limit, filter, sort, order, location, region, user }) {
-    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries";
-    if(user) url += "?user=" + user;
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/entries';
+    if (user) url += '?user=' + user;
 
-    let sortParam = sort ? sort : "votes";
-    let orderParam = order ? order : "descending";
+    let sortParam = sort ? sort : 'votes';
+    let orderParam = order ? order : 'descending';
     let filterParam = filter ? filter : null;
     let limitParam = limit ? limit : null;
-    let regionParam = region != "" ? region : null;
+    let regionParam = region != '' ? region : null;
 
     let params = new URLSearchParams();
     if (location) {
-      params.append("lat", location.lat);
-      params.append("lng", location.lng);
+      params.append('lat', location.lat);
+      params.append('lng', location.lng);
     }
 
-    params.append("sort", sortParam);
+    params.append('sort', sortParam);
 
-    if (limit) params.append("limit", limitParam);
+    if (limit) params.append('limit', limitParam);
     if (filterParam) {
       if (filterParam.categoryId)
-        params.append("categoryId", filterParam.categoryId);
+        params.append('categoryId', filterParam.categoryId);
       if (filterParam.type) {
-        if (filterParam.type == "fame") {
-          params.append("filter", "famed");
-        } else if (filterParam.type == "shame") {
-          params.append("filter", "shamed");
+        if (filterParam.type == 'fame') {
+          params.append('filter', 'famed');
+        } else if (filterParam.type == 'shame') {
+          params.append('filter', 'shamed');
         }
       }
     }
-    if (region) params.append("region", regionParam);
+    if (region) params.append('region', regionParam);
 
     // console.log(params.toString());
 
     return new Promise((resolve, reject) => {
       axios
         .get(url, {
-          params: params
+          params: params,
         })
         .then(
-          response => {
+          (response) => {
             resolve(response.data.data);
           },
-          error => {
+          (error) => {
             console.log(error.request);
-            if (!error.request.response) reject("");
+            if (!error.request.response) reject('');
             let msg = JSON.parse(error.request.response);
             reject(msg.message);
           }
@@ -54,41 +54,41 @@ export default {
     });
   },
   getLightSpots(filter) {
-    let url = process.env.VUE_APP_BACKEND_URL + "/api/v2/cachedlightentries";
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v2/cachedlightentries';
     let filterParam = filter ? filter : null;
 
     let params = new URLSearchParams();
 
     if (filterParam) {
       if (filterParam.categoryId) {
-        params.append("categoryId", filterParam.categoryId);
+        params.append('categoryId', filterParam.categoryId);
       }
       if (filterParam.type) {
-        if (filterParam.type == "fame") {
-          params.append("famed", true);
-        } else if (filterParam.type == "shame") {
-          params.append("famed", false);
+        if (filterParam.type == 'fame') {
+          params.append('famed', true);
+        } else if (filterParam.type == 'shame') {
+          params.append('famed', false);
         }
       }
 
       if (filterParam.dateRange) {
-        params.append("begin", filterParam.dateRange[0]);
-        params.append("end", filterParam.dateRange[1]);
+        params.append('begin', filterParam.dateRange[0]);
+        params.append('end', filterParam.dateRange[1]);
       }
     }
 
     return new Promise((resolve, reject) => {
       axios
         .get(url, {
-          params: params
+          params: params,
         })
         .then(
-          response => {
+          (response) => {
             resolve(response.data.data);
           },
-          error => {
+          (error) => {
             console.log(error.request);
-            if (!error.request.response) reject("");
+            if (!error.request.response) reject('');
             let msg = JSON.parse(error.request.response);
             reject(msg.message);
           }
@@ -96,31 +96,31 @@ export default {
     });
   },
   getMySpots({ limit, filter, sort, order, location }) {
-    let userId = localStorage.getItem("userId");
-    let authToken = localStorage.getItem("token");
+    let userId = localStorage.getItem('userId');
+    let authToken = localStorage.getItem('token');
 
-    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries";
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/entries';
 
-    let sortParam = sort ? sort : "votes";
-    let orderParam = order ? order : "descending";
+    let sortParam = sort ? sort : 'votes';
+    let orderParam = order ? order : 'descending';
     let filterParam = filter ? filter : null;
     let limitParam = limit ? limit : null;
 
     let params = new URLSearchParams();
 
-    params.append("sort", sortParam);
-    params.append("user", userId);
-    if (limit) params.append("limit", limitParam);
-    if (filterParam) params.append("filter", filterParam);
+    params.append('sort', sortParam);
+    params.append('user', userId);
+    if (limit) params.append('limit', limitParam);
+    if (filterParam) params.append('filter', filterParam);
 
     return new Promise((resolve, reject) => {
       axios.get(url, { params: params }).then(
-        response => {
+        (response) => {
           resolve(response.data.data);
         },
-        error => {
+        (error) => {
           console.log(error.request);
-          if (!error.request.response) reject("");
+          if (!error.request.response) reject('');
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
         }
@@ -128,15 +128,15 @@ export default {
     });
   },
   getSpotById(spotId) {
-    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries/" + spotId;
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/entries/' + spotId;
 
     return new Promise((resolve, reject) => {
       axios.get(url).then(
-        response => {
+        (response) => {
           resolve(response.data.data);
         },
-        error => {
-          if (!error.request.response) reject("");
+        (error) => {
+          if (!error.request.response) reject('');
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
         }
@@ -145,20 +145,20 @@ export default {
   },
 
   checkUpvote({ spotId, userId, authToken }) {
-    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/votes/" + spotId;
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/votes/' + spotId;
 
     return new Promise((resolve, reject) => {
       axios
         .get(url, {
           headers: {
-            "X-User-Id": userId,
-            "X-Auth-Token": authToken
-          }
+            'X-User-Id': userId,
+            'X-Auth-Token': authToken,
+          },
         })
         .then(() => {
           reject();
         })
-        .catch(error => {
+        .catch((error) => {
           if (error.response.status == 401 || error.response.status == 400) {
             resolve();
           } else {
@@ -169,7 +169,7 @@ export default {
   },
 
   upvoteSpot({ spotId, userId, authToken }) {
-    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/votes/" + spotId;
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/votes/' + spotId;
 
     return new Promise((resolve, reject) => {
       axios
@@ -178,16 +178,46 @@ export default {
           {},
           {
             headers: {
-              "X-User-Id": userId,
-              "X-Auth-Token": authToken
-            }
+              'X-User-Id': userId,
+              'X-Auth-Token': authToken,
+            },
           }
         )
-        .then(response => {
+        .then((response) => {
           resolve(response.data);
         })
-        .catch(error => {
-          if (!error.request.response) reject("");
+        .catch((error) => {
+          if (!error.request.response) reject('');
+          let msg = JSON.parse(error.request.response);
+          reject(msg.message);
+        });
+    });
+  },
+
+  delayArchiving({ spotId, userId, authToken }) {
+    let url =
+      process.env.VUE_APP_BACKEND_URL +
+      '/api/v1/entries/' +
+      spotId +
+      '/delayArchiving';
+
+    return new Promise((resolve, reject) => {
+      axios
+        .post(
+          url,
+          {},
+          {
+            headers: {
+              'X-User-Id': userId,
+              'X-Auth-Token': authToken,
+            },
+          }
+        )
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((error) => {
+          if (!error.request.response) reject('');
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
         });
@@ -197,9 +227,9 @@ export default {
   proposeFixedSpot({ spotId, userId, authToken }) {
     let url =
       process.env.VUE_APP_BACKEND_URL +
-      "/api/v1/entries/" +
+      '/api/v1/entries/' +
       spotId +
-      "/proposefixed";
+      '/proposefixed';
 
     return new Promise((resolve, reject) => {
       axios
@@ -208,16 +238,16 @@ export default {
           {},
           {
             headers: {
-              "X-User-Id": userId,
-              "X-Auth-Token": authToken
-            }
+              'X-User-Id': userId,
+              'X-Auth-Token': authToken,
+            },
           }
         )
-        .then(response => {
+        .then((response) => {
           resolve(response.data);
         })
-        .catch(error => {
-          if (!error.request.response) reject("");
+        .catch((error) => {
+          if (!error.request.response) reject('');
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
         });
@@ -225,7 +255,7 @@ export default {
   },
 
   addSpot({ data, userId, authToken }) {
-    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries";
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/entries';
 
     // console.log(userId + "      " + authToken);
 
@@ -233,15 +263,15 @@ export default {
       axios
         .post(url, data, {
           headers: {
-            "X-User-Id": userId,
-            "X-Auth-Token": authToken
-          }
+            'X-User-Id': userId,
+            'X-Auth-Token': authToken,
+          },
         })
-        .then(response => {
+        .then((response) => {
           resolve(response.data.data);
         })
-        .catch(error => {
-          if (!error.request.response) reject("");
+        .catch((error) => {
+          if (!error.request.response) reject('');
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
         });
@@ -249,21 +279,21 @@ export default {
   },
 
   deleteSpot({ data, userId, authToken }) {
-    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries/" + data.id;
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/entries/' + data.id;
 
     return new Promise((resolve, reject) => {
       axios
         .delete(url, {
           headers: {
-            "X-User-Id": userId,
-            "X-Auth-Token": authToken
-          }
+            'X-User-Id': userId,
+            'X-Auth-Token': authToken,
+          },
         })
-        .then(response => {
+        .then((response) => {
           resolve();
         })
-        .catch(error => {
-          if (!error.request.response) reject("");
+        .catch((error) => {
+          if (!error.request.response) reject('');
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
         });
@@ -271,22 +301,22 @@ export default {
   },
 
   editSpot({ data, spotId, userId, authToken }) {
-    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/entries/" + spotId;
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/entries/' + spotId;
 
     return new Promise((resolve, reject) => {
       axios
         .put(url, data, {
           headers: {
-            "X-User-Id": userId,
-            "X-Auth-Token": authToken
-          }
+            'X-User-Id': userId,
+            'X-Auth-Token': authToken,
+          },
         })
-        .then(response => {
+        .then((response) => {
           resolve(response.data.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
-          if (!error.request.response) reject("");
+          if (!error.request.response) reject('');
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
         });
@@ -296,23 +326,23 @@ export default {
   addPhoto({ data, spotId, userId, authToken }) {
     let url =
       process.env.VUE_APP_BACKEND_URL +
-      "/api/v1/entries/" +
+      '/api/v1/entries/' +
       spotId +
-      "/addphoto";
+      '/addphoto';
 
     return new Promise((resolve, reject) => {
       axios
         .post(url, data, {
           headers: {
-            "X-User-Id": userId,
-            "X-Auth-Token": authToken
-          }
+            'X-User-Id': userId,
+            'X-Auth-Token': authToken,
+          },
         })
-        .then(response => {
+        .then((response) => {
           resolve(response.data.data);
         })
-        .catch(error => {
-          if (!error.request.response) reject("");
+        .catch((error) => {
+          if (!error.request.response) reject('');
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
         });
@@ -322,24 +352,24 @@ export default {
   addCategory({ spotId, categoryId, userId, authToken }) {
     let url =
       process.env.VUE_APP_BACKEND_URL +
-      "/api/v1/entries/" +
+      '/api/v1/entries/' +
       spotId +
-      "/addCategory?categoryId=" +
+      '/addCategory?categoryId=' +
       categoryId;
 
     return new Promise((resolve, reject) => {
       axios
         .post(url, null, {
           headers: {
-            "X-User-Id": userId,
-            "X-Auth-Token": authToken
-          }
+            'X-User-Id': userId,
+            'X-Auth-Token': authToken,
+          },
         })
-        .then(response => {
+        .then((response) => {
           resolve(response.data.data);
         })
-        .catch(error => {
-          if (!error.request.response) reject("");
+        .catch((error) => {
+          if (!error.request.response) reject('');
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
         });
@@ -348,15 +378,15 @@ export default {
 
   getSpotsByUserId(userId) {
     let url =
-      process.env.VUE_APP_BACKEND_URL + "/api/v1/entries?user=" + userId;
+      process.env.VUE_APP_BACKEND_URL + '/api/v1/entries?user=' + userId;
 
     return new Promise((resolve, reject) => {
       axios.get(url).then(
-        response => {
+        (response) => {
           resolve(response.data.data);
         },
-        error => {
-          if (!error.request.response) reject("");
+        (error) => {
+          if (!error.request.response) reject('');
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
         }
@@ -366,19 +396,21 @@ export default {
 
   getSpotsCommentedByUserId(userId) {
     let url =
-      process.env.VUE_APP_BACKEND_URL + "/api/v2/lightentriescommentedby/" + userId;
+      process.env.VUE_APP_BACKEND_URL +
+      '/api/v2/lightentriescommentedby/' +
+      userId;
 
     return new Promise((resolve, reject) => {
       axios.get(url).then(
-        response => {
+        (response) => {
           resolve(response.data.data);
         },
-        error => {
-          if (!error.request.response) reject("");
+        (error) => {
+          if (!error.request.response) reject('');
           let msg = JSON.parse(error.request.response);
           reject(msg.message);
         }
       );
     });
-  }
+  },
 };

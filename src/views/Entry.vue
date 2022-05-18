@@ -180,22 +180,20 @@
             >
           </div>
         </template>
-        <template v-if="showArchival">
-          <div class="entry__meta__archive">
-            <p>
-              {{ $t("entry.archivedon") }}
-              <br /><strong>{{ archiveDate }}</strong>
-            </p>
-            <a
-              href="#"
-              class="entry__meta__tools__button"
-              @click.prevent="delayArchiving"
-            >
-              <span class="material-icons">access_time</span>
-              {{ $t("entry.delayarchival") }}</a
-            >
-          </div>
-        </template>
+        <div class="entry__meta__archive" v-if="currentEntry.archivedOn">
+          <p>
+            {{ $t("entry.archivedon") }} <strong>{{ archiveDate }}</strong>
+          </p>
+          <a
+            href="#"
+            class="entry__meta__tools__button"
+            @click.prevent="delayArchiving"
+            v-if="showArchival"
+          >
+            <span class="material-icons">access_time</span>
+            {{ $t("entry.delayarchival") }}</a
+          >
+        </div>
         <div class="entry__meta__tools" v-if="isLoggedIn">
           <a
             v-if="isLoggedIn && entryIsFromUser"
@@ -296,7 +294,7 @@
 import anchorme from "anchorme";
 import DOMPurify from "dompurify";
 import { format, parseISO } from "date-fns";
-import { enGB, de, fr } from 'date-fns/locale'
+import { enGB, de, fr } from "date-fns/locale";
 
 import Comment from "@/components/Comment";
 import EntryMedia from "@/components/EntryMedia";
@@ -436,21 +434,27 @@ export default {
     },
     archiveDate() {
       if (!this.currentEntry.archivedOn) return null;
-      if(this.$i18n.locale == 'de') {
-        return format(new Date(this.currentEntry.archivedOn), 'PPP', { locale: de })
-      } else if(this.$i18n.locale == 'fr') {
-        return format(new Date(this.currentEntry.archivedOn), 'PPP', { locale: fr })
+      if (this.$i18n.locale == "de") {
+        return format(new Date(this.currentEntry.archivedOn), "PPP", {
+          locale: de,
+        });
+      } else if (this.$i18n.locale == "fr") {
+        return format(new Date(this.currentEntry.archivedOn), "PPP", {
+          locale: fr,
+        });
       } else {
-        return format(new Date(this.currentEntry.archivedOn), 'PPP', { locale: enGB })
+        return format(new Date(this.currentEntry.archivedOn), "PPP", {
+          locale: enGB,
+        });
       }
     },
     showArchival() {
       let show = true;
-      if(!this.isLoggedIn) show = false;
-      if(!this.entryIsFromUser) show = false;
-      if(!this.currentEntry.archivedOn) show = false;
+      if (!this.isLoggedIn) show = false;
+      if (!this.entryIsFromUser) show = false;
+      if (!this.currentEntry.archivedOn) show = false;
       return show;
-    }
+    },
   },
 
   watch: {
@@ -843,9 +847,12 @@ export default {
     }
     &__archive {
       padding: 0.75rem;
+
       p {
         font-size: 0.8rem;
-        margin-bottom: 0.5rem;
+      }
+      a {
+        margin-top: .5rem;
       }
     }
     &__propose {

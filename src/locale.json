@@ -55,7 +55,7 @@
       "proposetext": "Dieser Spot wurde gefixt. | Dieser Spot ist fixed, wenn <strong>ein</strong> weiterer User ihn als behoben markiert. Alternativ kannst du ein Beweisfoto hochladen. | Dieser Spot ist fixed, wenn <strong>{n}</strong> weitere User ihn als behoben markieren. Alternativ kannst du ein Beweisfoto hochladen.",
       "proposetitle": "Wurde dieser Spot gefixt?",
       "delayarchival": "Archivierung verzögern",
-      "archivedon": "Dieser Spot wird am folgenden Datum automatisch archiviert:"
+      "archivedon": "Dieser Spot wird archiviert am:"
     },
     "comment": {
       "send": "Senden",

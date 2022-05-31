@@ -32,7 +32,8 @@
       "send": "Spot hinzufügen",
       "sendedit": "Spot speichern",
       "notready": "Bitte fülle alle benötigten Felder aus.",
-      "choosecat": "Kategorie wählen"
+      "choosecat": "Kategorie wählen",
+      "willbearchived": "Aufgrund der gewählten Kategorien wird dieser Spot in einem Monat archiviert."
     },
     "editform": {
       "editspot": "Spot bearbeiten"
@@ -159,7 +160,8 @@
       "send": "Submit spot",
       "sendedit": "Save spot",
       "notready": "Please fill out the form.",
-      "choosecat": "Choose a category"
+      "choosecat": "Choose a category",
+      "willbearchived": "Because of the selected categories, this spot will be archived after one month."
     },
     "editform": {
       "editspot": "Edit spot"
@@ -286,7 +288,8 @@
       "send": "Envoyer",
       "sendedit": "Envoyer",
       "notready": "Veuillez remplir le formulaire.",
-      "choosecat": "Choisissez une catégorie"
+      "choosecat": "Choisissez une catégorie",
+      "willbearchived": "Parce que les catégories sélectionnées, ce spot sera archivé après un mois."
     },
     "editform": {
       "editspot": "Modifier le spot"

@@ -279,6 +279,11 @@ select {
   border-radius: 4px;
   box-shadow: 0 2px 0 0 rgba($c-grey, 0.5);
   line-height: 1.2;
+
+  &--small {
+    font-size: .8rem;
+    padding: .75rem;
+  }
 }
 
 .contentpage {

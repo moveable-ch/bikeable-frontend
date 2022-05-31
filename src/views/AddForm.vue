@@ -18,9 +18,14 @@
         <span class="label">{{ $t("addform.uploadimage") }}</span>
 
         <div class="file-upload">
-          <div class="file-upload__form" :class="{ 'disabled': uploading }">
+          <div class="file-upload__form" :class="{ disabled: uploading }">
             <label for="add-file">{{ $t("addform.chooseimage") }}</label>
-            <input id="add-file" :disabled="uploading == true" @change.prevent="uploadImage" type="file" />
+            <input
+              id="add-file"
+              :disabled="uploading == true"
+              @change.prevent="uploadImage"
+              type="file"
+            />
           </div>
 
           <div class="file-uploadbackgr">
@@ -121,6 +126,9 @@
             {{ cat[locale] }}<button @click="removeCat(cat._id)">✕</button>
           </li>
         </ul>
+        <p v-if="willBeArchived" class="notice notice--small">
+          {{ $t("addform.willbearchived") }}
+        </p>
         <div class="add__submit">
           <button
             type="submit"
@@ -217,6 +225,17 @@ export default {
       } else {
         return this.$t("addform.send");
       }
+    },
+    willBeArchived() {
+      return (
+        this.selectedCats.filter((cat) => {
+          return (
+            cat.slug == "snow" ||
+            cat.slug == "dirty" ||
+            cat.slug == "construction"
+          );
+        }).length > 0
+      );
     },
   },
 
@@ -389,7 +408,8 @@ export default {
           .get(
             "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
               coords +
-              "&key=" + process.env.VUE_APP_GOOGLEKEY2
+              "&key=" +
+              process.env.VUE_APP_GOOGLEKEY2
           )
           .then(
             (response) => {
@@ -420,7 +440,8 @@ export default {
         .get(
           "https://maps.googleapis.com/maps/api/geocode/json?address=" +
             this.entryAddress +
-            "&key=" + process.env.VUE_APP_GOOGLEKEY2
+            "&key=" +
+            process.env.VUE_APP_GOOGLEKEY2
         )
         .then(
           (response) => {
@@ -728,7 +749,7 @@ export default {
       z-index: -1;
     }
     &.disabled {
-      opacity: .2;
+      opacity: 0.2;
       pointer-events: none;
     }
   }

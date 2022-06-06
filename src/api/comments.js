@@ -1,16 +1,16 @@
-import axios from "axios";
+import axios from 'axios';
 
 export default {
   getCommentsBySpot(spotId) {
     let url =
-      process.env.VUE_APP_BACKEND_URL + "/api/v1/comments?entry=" + spotId;
+      process.env.VUE_APP_BACKEND_URL + '/api/v1/comments?entry=' + spotId;
 
     return new Promise((resolve, reject) => {
       axios.get(url).then(
-        response => {
+        (response) => {
           resolve(response.data.data);
         },
-        response => {
+        (response) => {
           reject(response.data.message);
         }
       );
@@ -18,7 +18,7 @@ export default {
   },
 
   postComment({ entryId, comment, userId, authToken }) {
-    let url = process.env.VUE_APP_BACKEND_URL + "/api/v1/comments";
+    let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/comments';
 
     return new Promise((resolve, reject) => {
       axios
@@ -28,27 +28,27 @@ export default {
             entryId: entryId,
             text: comment,
             user: {
-              _id: userId
-            }
+              _id: userId,
+            },
           },
           {
             headers: {
-              "X-User-Id": userId,
-              "X-Auth-Token": authToken
-            }
+              'X-User-Id': userId,
+              'X-Auth-Token': authToken,
+            },
           }
         )
-        .then(response => {
+        .then((response) => {
           resolve(response.data.data);
         })
-        .catch(response => {
+        .catch((response) => {
           if (!response.data) return;
           reject(response.data.message);
         });
     });
   },
 
-  updateComment({ commentId, comment, userId, authToken }) {
+  updateComment({ commentId, comment, userId, authToken, topLevelCommentId }) {
     let url = `${process.env.VUE_APP_BACKEND_URL}/api/v1/comments/${commentId}`;
 
     return new Promise((resolve, reject) => {
@@ -56,21 +56,22 @@ export default {
         .put(
           url,
           {
-            text: comment
+            text: comment,
+            topLevelCommentId: topLevelCommentId,
           },
           {
             headers: {
-              "X-User-Id": userId,
-              "X-Auth-Token": authToken
-            }
+              'X-User-Id': userId,
+              'X-Auth-Token': authToken,
+            },
           }
         )
-        .then(response => {
+        .then((response) => {
           resolve(response.data.data);
         })
-        .catch(e => {
+        .catch((e) => {
           reject(e);
         });
     });
-  }
+  },
 };

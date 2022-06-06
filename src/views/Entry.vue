@@ -182,7 +182,9 @@
         </template>
         <div class="entry__meta__archive" v-if="currentEntry.archivedOn">
           <p>
-            {{ $t("entry.archivedon") }} <strong>{{ archiveDate }}</strong>
+            {{ $t("entry.archivedon") }} <strong>{{ archiveDate }}</strong
+            ><br />
+            {{ $t("entry.archivedonreason") }}<ul><li v-for="cat in selectedArchivalCategories" :key="cat._id">{{ cat[$i18n.locale] }}</li></ul>
           </p>
           <a
             href="#"
@@ -454,6 +456,15 @@ export default {
       if (!this.entryIsFromUser) show = false;
       if (!this.currentEntry.archivedOn) show = false;
       return show;
+    },
+    selectedArchivalCategories() {
+      return this.currentEntry.categories.filter((cat) => {
+        return (
+          cat.slug == "snow" ||
+          cat.slug == "dirty" ||
+          cat.slug == "construction"
+        );
+      });
     },
   },
 
@@ -852,7 +863,18 @@ export default {
         font-size: 0.8rem;
       }
       a {
-        margin-top: .5rem;
+        margin-top: 0.5rem;
+      }
+      ul {
+        display: inline;
+      }
+      li {
+        display: inline;
+        background-color: #fff;
+        padding: 4px;
+        margin: 0 4px;
+        box-shadow: 0 0 0 1px $c-blue;
+        border-radius: 4px;
       }
     }
     &__propose {

@@ -10,7 +10,11 @@
         <router-link :to="'/users/' + comment.user._id" class="username">{{
           comment.user.name
         }}</router-link
-        ><span class="date"><span class="comment__meta__edited" v-if="comment.updatedAt">({{ $t('comment.edited') }})</span>{{ dateCreated }}</span>
+        ><span class="date"
+          ><span class="comment__meta__edited" v-if="comment.updatedAt"
+            >({{ $t("comment.edited") }})</span
+          >{{ dateCreated }}</span
+        >
       </div>
       <p v-html="linkifiedComment" v-if="!editMode"></p>
       <textarea
@@ -55,10 +59,10 @@
       <a
         href="#"
         @click.prevent="makeEditable"
-        v-if="comment.user._id == userData._id && !isChild"
+        v-if="comment.user._id == userData._id"
         class="comment__button comment__button--edit"
         ><span class="material-icons">edit</span
-        ><span class="comment__button__label">{{ $t('comment.edit') }}</span></a
+        ><span class="comment__button__label">{{ $t("comment.edit") }}</span></a
       >
     </div>
 
@@ -89,7 +93,9 @@
         :isChild="true"
         :key="child._id"
         :comment="child"
+        :parentId="comment._id"
         :loadComments="loadComments"
+        :fetchData="fetchData"
         :avatar="avatar"
       ></c-comment>
     </div>
@@ -112,6 +118,7 @@ export default {
     "loadComments",
     "isChild",
     "avatar",
+    "parentId",
   ],
   data() {
     return {
@@ -238,6 +245,7 @@ export default {
         .updateComment({
           comment: this.editableText,
           commentId: this.comment._id,
+          topLevelCommentId: this.parentId,
           userId: userId,
           authToken: token,
         })
@@ -247,7 +255,6 @@ export default {
           this.$store.commit("LOAD_FINISH");
         })
         .catch((e) => {
-          // console.log(e);
           this.$store.commit("SET_MESSAGE", "Error");
           this.$store.commit("LOAD_FINISH");
         });
@@ -418,8 +425,8 @@ export default {
       text-decoration: none;
     }
     &__edited {
-      font-size: .6rem;
-      margin-right: .25rem;
+      font-size: 0.6rem;
+      margin-right: 0.25rem;
     }
     .date {
       position: absolute;

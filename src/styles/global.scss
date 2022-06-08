@@ -115,7 +115,7 @@ p {
   position: relative;
 
   &--narrow {
-    max-width: 33.3rem;
+    max-width: 45rem;
   }
 
   @include tablet {
@@ -288,11 +288,14 @@ select {
 
 .contentpage {
   margin: 0;
-  padding: 5rem 0 2rem 0;
+  padding: 6rem 0 2rem 0;
   min-height: calc(100vh - 500px);
 
+  @include tablet() {
+    padding: 8rem 0 2rem 0;
+  }
   @include desktop() {
-    padding: 12rem 0 2rem 0;
+    padding: 10rem 0 2rem 0;
   }
 
   &::before,
@@ -322,13 +325,13 @@ select {
     font-size: 2rem;
 
     @include desktop {
-      font-size: 3.5rem;
+      font-size: 3rem;
     }
   }
   p {
-    line-height: 1.4;
+    line-height: 1.6;
     margin: 1rem auto;
-    max-width: 650px;
+    max-width: 45rem;
     color: #555;
 
     &.lead {

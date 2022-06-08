@@ -9,7 +9,7 @@
       :propCoords="entryCoords"
     >
     </map-modal-view>
-    <div class="container">
+    <div class="container add__container">
       <h1 v-if="!this.entryId">{{ $t("addform.addspot") }}</h1>
       <h1 v-if="this.entryId">{{ $t("editform.editspot") }}</h1>
 
@@ -110,7 +110,7 @@
           <span>{{ $t("addform.description") }}</span>
           <textarea v-model="entryText" rows="5"></textarea>
         </label>
-        <h3><span class="num">5</span>Categories</h3>
+        <h3><span class="num">5</span>{{ $t("addform.categories") }}</h3>
         <select
           class="input-select cat-input"
           @change="addCurrentCat()"
@@ -598,11 +598,17 @@ export default {
     background-image: linear-gradient(-137deg, #fcffd6 0%, #e2fdff 100%);
   }
 
+  &__container {
+    max-width: 45rem;
+  }
   h3 {
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
     margin-top: 2rem;
+    border-bottom: 2px solid $c-main;
+    padding: 0.5rem 0;
+    max-width: none;
 
     .num {
       font-family: $f-body;
@@ -612,7 +618,7 @@ export default {
       line-height: 2rem;
       font-size: 1rem;
       font-weight: 600;
-      background-color: $c-black;
+      background-color: $c-main;
       color: #fff;
       text-align: center;
       margin-right: 0.75rem;
@@ -724,7 +730,7 @@ export default {
       display: block;
       color: $c-black;
       border: 2px solid $c-black;
-      border-radius: 0;
+      border-radius: .25rem;
       width: 14rem;
       text-align: center;
       font-weight: 500;

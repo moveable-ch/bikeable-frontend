@@ -83,12 +83,14 @@ export default {
 .faq {
   h3 {
     margin: 0 auto;
-    max-width: 650px;
-    margin-bottom: .25rem;
+    // max-width: 650px;
+    margin-bottom: 1rem;
     color: $c-black;
     font-size: 1.25rem;
+    text-decoration: underline;
+    text-decoration-color: $c-main;
+    text-underline-offset: 2px;
     font-family: $f-head;
-    font-weight: 700;
   }
   p {
     margin-top: 0;
@@ -98,7 +100,7 @@ export default {
     margin: 2rem 0;
 
     @include tablet() {
-      margin: 2rem 0;
+      margin: 3rem 0;
     }
   }
 }

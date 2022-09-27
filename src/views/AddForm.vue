@@ -303,7 +303,12 @@ export default {
         (this.entryText = this.currentEntry.text),
         (this.entryFamed = this.currentEntry.famed ? "famed" : "shamed"),
         (this.gallery = this.currentEntry.gallery);
-      this.entryCategories = this.currentEntry.categoryIds;
+        
+      if(this.currentEntry.hasOwnProperty('categoryIds') && this.currentEntry.categoryIds != null) {
+        this.entryCategories = this.currentEntry.categoryIds;
+      } else {
+        this.entryCategories = [];
+      }
       this.uploading = false;
     },
 

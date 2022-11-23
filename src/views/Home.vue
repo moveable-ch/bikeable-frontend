@@ -6,6 +6,12 @@
           <img src="/img/paul.png" alt="Bikeapaul" />
         </div>
         <div class="home__intro__content">
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfd5WUvwU0bQiyu_ykgD4yLNUUdWLkWr8iyQlFTlyMyLfVA1A/viewform"
+            target="_blank"
+            class="home__stickerbtn"
+            >Bikeable Sticker bestellen</a
+          >
           <h1>Let's make our<br />cities <span>bikeable</span>!</h1>
           <p>{{ $t("home.lead") }}</p>
           <router-link
@@ -328,6 +334,43 @@ export default {
 @import "../styles/helpers";
 
 .home {
+  &__stickerbtn {
+    position: absolute;
+    right: 0;
+    bottom: -4rem;
+    width: 7rem;
+    height: 7rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 99%;
+    background-color: $c-main;
+    font-size: 0.9rem;
+    color: #fff;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+    font-weight: 700;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    border: 3px dotted #fff;
+    filter: drop-shadow(0 4px 0.5rem rgba(0, 0, 0, 0.2));
+    transform: rotate(-5deg);
+    transition: 0.3s transform $easeOutBack;
+
+    &:hover {
+      color: #fff;
+      transform: rotate(-9deg) scale(1.1);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    @include tablet {
+      bottom: -4rem;
+      right: 12rem;
+    }
+    @include desktop {
+      bottom: -6rem;
+      right: 17rem;
+    }
+  }
   &__newsletter {
     max-width: 600px;
     margin: 2rem auto;

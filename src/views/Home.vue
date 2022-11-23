@@ -6,11 +6,8 @@
           <img src="/img/paul.png" alt="Bikeapaul" />
         </div>
         <div class="home__intro__content">
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSfd5WUvwU0bQiyu_ykgD4yLNUUdWLkWr8iyQlFTlyMyLfVA1A/viewform"
-            target="_blank"
-            class="home__stickerbtn"
-            >Bikeable Sticker bestellen</a
+          <a :href="$t('home.stickerlink')" target="_blank" class="home__stickerbtn"
+            >{{ $t('home.order_stickers') }}</a
           >
           <h1>Let's make our<br />cities <span>bikeable</span>!</h1>
           <p>{{ $t("home.lead") }}</p>
@@ -338,8 +335,9 @@ export default {
     position: absolute;
     right: 0;
     bottom: -4rem;
-    width: 7rem;
-    height: 7rem;
+    width: 8rem;
+    height: 8rem;
+    line-height: 1.2;
     padding: 1rem;
     box-sizing: border-box;
     border-radius: 99%;

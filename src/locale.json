@@ -10,7 +10,9 @@
       "nospam": "Kein Spam imfall!",
       "emailadress": "Email-Adresse",
       "surname": "Vorname",
-      "familyname": "Nachname"
+      "familyname": "Nachname",
+      "order_stickers": "Bikeable Sticker bestellen",
+      "stickerlink": "https://docs.google.com/forms/d/e/1FAIpQLSfd5WUvwU0bQiyu_ykgD4yLNUUdWLkWr8iyQlFTlyMyLfVA1A/viewform"
     },
     "about": {
       "paypal": "Unterstütze uns via PayPal"
@@ -140,7 +142,9 @@
       "nospam": "No spam, promise!",
       "emailadress": "Email address",
       "surname": "First name",
-      "familyname": "Last name"
+      "familyname": "Last name",
+      "order_stickers": "Order Bikeable Stickers",
+      "stickerlink": "https://docs.google.com/forms/d/e/1FAIpQLSfd5WUvwU0bQiyu_ykgD4yLNUUdWLkWr8iyQlFTlyMyLfVA1A/viewform"
     },
     "about": {
       "paypal": "Support us with PayPal"
@@ -270,7 +274,9 @@
       "nospam": "Pas de spam, promis!",
       "emailadress": "Adresse e-mail",
       "surname": "Prénom",
-      "familyname": "Nom de famille"
+      "familyname": "Nom de famille",
+      "order_stickers": "Commander des autocollants Bikeable",
+      "stickerlink": "https://docs.google.com/forms/d/e/1FAIpQLSfxCDuakb9bOaMHDoVDPWWrn3e9FVBUAJnhrv7OvKAc-GMN8w/viewform"
     },
     "about": {
       "paypal": "Soutiens-nous par PayPal!"

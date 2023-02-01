@@ -1,0 +1,88 @@
+{
+  "home": {
+    "lead": "Bikeable.ch est une plateforme internet qui montre des spots dangereux, ennuyeux mais aussi bien résolus pour les cyclistes.",
+    "registernow": "S'inscrire",
+    "addspot": "Signaler un spot",
+    "showall": "Afficher tous les spots",
+    "more": "Plus",
+    "newsletter": "Inscris-toi à notre newsletter afin de te tenir informé des actualités de bikeable.ch.",
+    "nospam": "Pas de spam, promis!",
+    "emailadress": "Adresse e-mail",
+    "surname": "Prénom",
+    "familyname": "Nom de famille",
+    "order_stickers": "Commander des autocollants Bikeable",
+    "stickerlink": "https://docs.google.com/forms/d/e/1FAIpQLSfxCDuakb9bOaMHDoVDPWWrn3e9FVBUAJnhrv7OvKAc-GMN8w/viewform"
+  },
+  "about": {
+    "paypal": "Support us with PayPal"
+  },
+  "addform": {
+    "enteraddress": "Enter Address",
+    "title": "Title",
+    "fameorshame": "Fame or Shame",
+    "addspot": "Add Spot",
+    "photo": "Picture",
+    "uploadimage": "Upload a picture of your spot",
+    "chooseimage": "Choose Picture",
+    "loading": "Loading",
+    "adress": "Address",
+    "spotwhere": "Where is your spot located?",
+    "entercurrentposition": "Insert current location",
+    "chooselocation": "Choose location on map",
+    "description": "Description",
+    "send": "Submit spot",
+    "sendedit": "Save spot",
+    "notready": "Please fill out the form.",
+    "choosecat": "Choose a category",
+    "willbearchived": "Because of the selected categories, this spot will be archived after one month.",
+    "categories": "Categories"
+  },
+  "editform": {
+    "editspot": "Edit spot"
+  },
+  "entry": {
+    "awayfrom": "away from me",
+    "fixed": "This spot has been improved in the meantime.",
+    "register": "Register now and join the discussion!",
+    "send": "Send",
+    "markasfixed": "Mark as Fixed",
+    "editspot": "Edit Spot",
+    "uploadphoto": "Upload Photo",
+    "uploadphotofix": "Upload Photo with Fix",
+    "addphototitle": "Upload Photo",
+    "addphotodesc": "Do you have an additional image of this spot? Upload it here!",
+    "addphotofix": "My photo confirms that this spot has been fixed",
+    "addcat": "Add Category",
+    "deletespot": "Delete Spot",
+    "cancel": "Cancel",
+    "proposetext": "This spot has been fixed. | This spot is fixed if <strong>one</strong> more user marks it as fixed. You can also upload an image as proof. | This spot is fixed if <strong>{n}</strong> more users mark it as fixed. You can also upload an image as proof.",
+    "proposetitle": "Has this spot been fixed?",
+    "delayarchival": "Delay Archiving",
+    "archivedon": "This spot will be archived on the following date:",
+    "archivedonreason": "Because of the following categories:"
+  },
+  "comment": {
+    "send": "Send",
+    "reply": "Reply",
+    "comment": "Comment",
+    "edit": "Edit",
+    "edited": "edited"
+  },
+  "list": {
+    "allregions": "All Regions",
+    "region": "Region",
+    "nospots": "No spots found.",
+    "sortby": "Sort by",
+    "date": "Date",
+    "upvotes": "Upvotes",
+    "distance": "Distance",
+    "comments": "Comments",
+    "allspots": "All Spots",
+    "morespots": "Show more spots",
+    "showspot": "Show spot"
+  },
+  "login": {
+    "forgotpassword": "Forgot your password?",
+    "newaccount": "Create new account"
+  }
+}

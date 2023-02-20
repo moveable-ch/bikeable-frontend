@@ -42,6 +42,7 @@
             </ul>
             <ul>
               <li><language-switch flipped="true"></language-switch></li>
+              <li><country-switch></country-switch></li>
             </ul>
           </nav>
         </div>
@@ -63,6 +64,7 @@ export default {
   },
   components: {
     'language-switch': LanguageSwitch
+
   },
 
   methods: {

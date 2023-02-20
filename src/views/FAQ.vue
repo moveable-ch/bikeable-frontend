@@ -1,7 +1,8 @@
 <!-- /faq -->
 
 <template>
-  <div class="contentpage faq">
+  <div>
+  <div v-if="currentCountry!='us'" class="contentpage faq">
     <div class="container" v-if="doc">
       <h1>{{ doc.title }}</h1>
       <div class="faq__item" v-for="question in doc.questions" v-bind:key="question.id">
@@ -10,6 +11,9 @@
       </div>
     </div>
   </div>
+  <div v-if="currentCountry=='us'" class="contentpage faq">
+  </div>
+</div>
 </template>
 
 <script>
@@ -34,6 +38,9 @@ export default {
   computed: {
     prismicLang() {
       return this.$store.getters.prismicLang;
+    },
+    currentcountry() {
+      return this.$store.getters.country;
     }
   },
   methods: {

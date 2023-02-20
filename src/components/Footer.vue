@@ -16,12 +16,12 @@
           <ul>
             <li><router-link to="/news">News</router-link></li>
             <li><router-link to="/faq" exact>FAQ</router-link></li>
-            <li><router-link to="/partner" exact>{{ $t('partner.partner') }}</router-link></li>
+            <li v-if="currentCountry!='us'"><router-link to="/partner" exact>{{ $t('partner.partner') }}</router-link></li>
           </ul>
         </div>
       </div>
     </div>
-    <div class="partner">
+    <div v-if="currentCountry!='us'" class="partner">
       <div class="container">
         <span>{{ $t('footer.supported') }}</span>
         <div class="partner__logos">
@@ -33,7 +33,6 @@
     </div>
   </footer>
 </template>
-
 <script>
 export default {
   name: 'c-footer',
@@ -49,6 +48,9 @@ export default {
   computed: {
     currentLang() {
       return this.$store.getters.lang;
+    },
+    currentCountry() {
+      return this.$store.getters.country;
     }
   },
 

@@ -34,7 +34,9 @@ export default {
       return this.$store.getters.selectedRegion;
     },
     sortedRegions() {
-      return this.regions.sort((a, b) => {
+      return this.regions.filter((r) => {
+        return r.countryCode == this.$store.getters.country;
+      }).sort((a, b) => {
         if (a.name < b.name) return -1;
         if (a.name > b.name) return 1;
         return 0;
@@ -47,7 +49,7 @@ export default {
     },
     selectedRegion(to, from) {
       this.currentRegion = this.selectedRegion;
-    },
+    }
   },
   mounted() {
     this.loadRegions();

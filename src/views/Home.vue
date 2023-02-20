@@ -6,7 +6,7 @@
           <img src="/img/paul.png" alt="Bikeapaul" />
         </div>
         <div class="home__intro__content">
-          <a :href="$t('home.stickerlink')" target="_blank" class="home__stickerbtn"
+          <a v-if="currentCountry=='ch'" :href="$t('home.stickerlink')" target="_blank" class="home__stickerbtn"
             >{{ $t('home.order_stickers') }}</a
           >
           <h1>Let's make our<br />cities <span>bikeable</span>!</h1>
@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <div class="home__news">
+    <div v-if="currentcountry!='us'" class="home__news">
       <div class="container">
         <h2>Bikeable News</h2>
         <div class="home__news__container">
@@ -74,6 +74,8 @@
           </div>
         </div>
       </div>
+    </div>
+    <div  v-if="currentcountry=='us'" class="home__news">
     </div>
 
     <div class="home__newsletter">
@@ -208,6 +210,10 @@ export default {
         return "https://bikeable.us15.list-manage.com/subscribe/post?u=5a9614abf208b7faae96233ff&amp;id=1df02df80c";
       }
     },
+    currentCountry() {
+      return this.$store.getters.country;
+    },
+    
   },
   data() {
     return {

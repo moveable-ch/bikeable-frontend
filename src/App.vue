@@ -58,7 +58,7 @@ export default {
     },
     currentLang(to, from) {
       this.$i18n.locale = to;
-    },
+    }
   },
   computed: {
     isLoggedIn() {
@@ -90,7 +90,8 @@ export default {
   mounted() {
     this.checkLocalLang();
     this.checkLocalRegion();
-
+    this.checkLocalCountry();
+    
     if (this.isEmbed) {
       document.body.classList.add("embed");
     }
@@ -116,7 +117,6 @@ export default {
     if (this.$router.currentRoute.name == "map") this.showFooter = false;
 
     this.$store.dispatch("initMapsApi");
-
     this.appReady = true;
   },
   methods: {
@@ -144,6 +144,22 @@ export default {
       let r = localStorage.getItem("selected-region");
       if (r) {
         this.$store.dispatch("setSelectedRegion", r).then(
+          (data) => {},
+          (data) => {
+            this.$store.dispatch("handleError", "Error");
+          }
+        );
+      }
+    },
+    checkLocalCountry() {
+      let c = localStorage.getItem("country");
+
+      if(this.$route.query.country) {
+        c = this.$route.query.country;
+      }
+
+      if (c) {
+        this.$store.dispatch("setCountry", c).then(
           (data) => {},
           (data) => {
             this.$store.dispatch("handleError", "Error");

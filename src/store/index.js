@@ -27,6 +27,17 @@ const state = {
       name: "English"
     }
   ],
+  country: "ch",
+  countries: [
+    {
+      code: "ch",
+      name: "Schweiz"
+    },
+    {
+      code: "us",
+      name: "USA"
+    }
+  ],
   prismicLang: "de-ch",
   pendingCount: 0,
   msg: "",
@@ -36,6 +47,9 @@ const state = {
 const mutations = {
   SET_LANG(state, lang) {
     state.lang = lang;
+  },
+  SET_COUNTRY(state, country) {
+    state.country = country;
   },
   SET_PRISMIC_LANG(state, lang) {
     state.prismicLang = lang;
@@ -97,6 +111,11 @@ const actions = {
       default:
         context.commit("SET_PRISMIC_LANG", "de-ch");
     }
+  },
+  setCountry(context, country) {
+    localStorage.setItem("country", country);
+    context.commit("SET_COUNTRY", country);
+
   }
 };
 
@@ -110,11 +129,17 @@ const getters = {
   lang: state => {
     return state.lang;
   },
+  country: state => {
+    return state.country;
+  },
   prismicLang: state => {
     return state.prismicLang;
   },
   languages: state => {
     return state.languages;
+  },
+  countries: state => {
+    return state.countries;
   }
 };
 

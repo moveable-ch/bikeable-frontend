@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <div v-if="currentcountry!='us'" class="contentpage newsarchive">
+    <div class="contentpage newsarchive">
     <div class="container" v-if="news">
       <h1>News</h1>
       <div class="newsarchive__container">
@@ -32,8 +32,6 @@
       </div>
     </div>
   </div>
-  <div v-if="currentcountry=='us'" class="contentpage newsarchive">
-  </div>
 </div> 
 </template>
 
@@ -60,7 +58,7 @@ export default {
     prismicLang() {
       return this.$store.getters.prismicLang;
     },
-    currentcountry() {
+    currentCountry() {
       return this.$store.getters.country;
     }
   },

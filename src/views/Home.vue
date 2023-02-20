@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <div v-if="currentcountry!='us'" class="home__news">
+    <div class="home__news">
       <div class="container">
         <h2>Bikeable News</h2>
         <div class="home__news__container">
@@ -74,8 +74,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div  v-if="currentcountry=='us'" class="home__news">
     </div>
 
     <div class="home__newsletter">

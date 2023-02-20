@@ -16,7 +16,7 @@
           <ul>
             <li><router-link to="/news">News</router-link></li>
             <li><router-link to="/faq" exact>FAQ</router-link></li>
-            <li v-if="currentCountry!='us'"><router-link to="/partner" exact>{{ $t('partner.partner') }}</router-link></li>
+            <li ><router-link to="/partner" exact>{{ $t('partner.partner') }}</router-link></li>
           </ul>
         </div>
       </div>

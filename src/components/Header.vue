@@ -11,7 +11,7 @@
         <li v-if="isLoggedIn"><router-link to="/myentries" exact>My Spots</router-link></li>
         <li><router-link to="/map" exact>Map</router-link></li>
         <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
-        <li><language-switch></language-switch></li>
+        <li v-if="currentCountry != 'us'"><language-switch></language-switch></li>
       </ul>
     </nav>
     <transition name="nav-fade">
@@ -123,6 +123,9 @@ export default {
     },
     isSlim() {
       return this.$route.path == '/map';
+    },
+    currentCountry() {
+      return this.$store.getters.country;
     }
   },
 

@@ -103,7 +103,7 @@ const actions = {
         context.commit("SET_PRISMIC_LANG", "de-ch");
         break;
       case "en":
-        context.commit("SET_PRISMIC_LANG", "en-gb");
+          context.commit("SET_PRISMIC_LANG", "en-gb");
         break;
       case "fr":
         context.commit("SET_PRISMIC_LANG", "fr-ch");
@@ -115,7 +115,10 @@ const actions = {
   setCountry(context, country) {
     localStorage.setItem("country", country);
     context.commit("SET_COUNTRY", country);
-
+    if(country == 'us') {
+      context.commit("SET_LANG", "en");
+      context.commit("SET_PRISMIC_LANG", "en-us");
+    }
   }
 };
 

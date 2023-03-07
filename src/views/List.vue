@@ -103,6 +103,9 @@ export default {
     filterByUserIdCommented() {
       return this.$route.query.commentedby;
     },
+    currentCountry() {
+      return this.$store.getters.country;
+    }
   },
   data() {
     return {
@@ -173,6 +176,7 @@ export default {
               filter: this.listFilter,
               sort: this.entrySort,
               region: this.selectedRegion,
+              country: this.currentCountry,
               user: this.$route.query.user || null,
             })
             .then(

@@ -201,17 +201,16 @@ export default {
     currentLang() {
       return this.$store.getters.lang;
     },
+    currentCountry() {
+      return this.$store.getters.country;
+    },
     mailchimpUrl() {
       if (this.currentLang == "fr") {
         return "https://bikeable.us15.list-manage.com/subscribe/post?u=5a9614abf208b7faae96233ff&amp;id=386b5b5367";
       } else {
         return "https://bikeable.us15.list-manage.com/subscribe/post?u=5a9614abf208b7faae96233ff&amp;id=1df02df80c";
       }
-    },
-    currentCountry() {
-      return this.$store.getters.country;
-    },
-    
+    }
   },
   data() {
     return {
@@ -273,6 +272,7 @@ export default {
             limit: cat.limit,
             sort: cat.sort,
             region: this.selectedRegion,
+            country: this.currentCountry,
           })
           .then(
             (entries) => {

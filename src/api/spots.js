@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default {
-  getAllSpots({ limit, filter, sort, order, location, region, user }) {
+  getAllSpots({ limit, filter, sort, order, location, region, user, country }) {
     let url = process.env.VUE_APP_BACKEND_URL + '/api/v1/entries';
     if (user) url += '?user=' + user;
 
@@ -10,6 +10,7 @@ export default {
     let filterParam = filter ? filter : null;
     let limitParam = limit ? limit : null;
     let regionParam = region != '' ? region : null;
+    let countryParam = country != '' ? (regionParam ? null : country) : null;
 
     let params = new URLSearchParams();
     if (location) {
@@ -32,6 +33,7 @@ export default {
       }
     }
     if (region) params.append('region', regionParam);
+    if (countryParam) params.append('country', countryParam);
 
     // console.log(params.toString());
 

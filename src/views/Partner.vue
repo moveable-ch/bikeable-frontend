@@ -29,7 +29,7 @@
         </li>
       </ul>
 
-      <div class="provelo-map">
+      <div v-if="currentCountry==='ch'" class="provelo-map">
         <h3>{{ $t("partner.proveloregions") }}:</h3>
         <iframe
           src="https://html.bikeable.ch/provelo-map.html"
@@ -64,12 +64,24 @@ export default {
       this.sponsors = sponsors;
     });
   },
+  computed: {
+    currentCountry() {
+      return this.$store.getters.country;
+    },
+    prismicLang() {
+      return this.$store.getters.prismicLang;
+    },
+  },
   methods: {
     getPartners() {
       return Prismic.api("https://bikeable.prismic.io/api")
         .then(function (api) {
+          var currentLang = this.prismicLang;
+          if(this.currentCountry == 'ch' ) {
+            currentLang = "de-ch";
+          }
           return api.query(Prismic.Predicates.at("document.type", "partner"), {
-            lang: "*",
+            currentLang: lang,
           });
         })
         .then(
@@ -92,8 +104,12 @@ export default {
     getSponsors() {
       return Prismic.api("https://bikeable.prismic.io/api")
         .then(function (api) {
+          var currentLang = this.prismicLang;
+          if(this.currentCountry == 'ch' ) {
+            currentLang = "de-ch";
+          }
           return api.query(Prismic.Predicates.at("document.type", "sponsors"), {
-            lang: "*",
+            currentLang: lang,
           });
         })
         .then(

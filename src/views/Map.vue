@@ -128,6 +128,9 @@ export default {
     queryZoom() {
       return parseInt(this.$route.query.zoom);
     },
+    currentCountry() {
+      return this.$store.getters.country;
+    },
   },
 
   data() {
@@ -182,7 +185,26 @@ export default {
       if (!this.google) return;
       this.mapInited = true;
 
+      let zoom = 15;
+
       let center = { lat: 47.377235, lng: 8.5314407 };
+      if(this.currentCountry === 'ch') {
+        center = { lat: 46.798881, lng: 8.233211 };
+        zoom = 8;
+      } else if(this.currentCountry === 'us') {
+        center = { lat: 38.6715765, lng: -99.4931918 };
+        zoom = 5;
+      } else if(this.currentCountry === 'fr') {
+        center = { lat: 47.189434, lng: 2.277253 };
+        zoom = 6;
+      } else if(this.currentCountry === 'de') {
+        center = { lat: 51.0772034, lng: 10.4255227 };
+        zoom = 7;
+      } else if(this.currentCountry === 'at') {
+        center = { lat: 47.6891913, lng: 13.5578965 };
+        zoom = 8;
+      }
+
       if (this.userCoords) center = this.userCoords;
 
       if (this.queryLocation) {
@@ -191,8 +213,6 @@ export default {
       if (this.mapCenter) {
         center = this.mapCenter;
       }
-
-      let zoom = 15;
 
       if (this.queryZoom) {
         if (this.queryZoom > 1 && this.queryZoom < 22) {

@@ -158,6 +158,20 @@ export default {
         c = this.$route.query.country;
       }
 
+      if(c == null) {
+        let host = window.location.host;
+
+        if(host.includes("bikeable.ch")) {
+          c = "ch"
+        } else if(host.includes("bikeable.at")) {
+          c = "at"
+        } else if(host.includes("bikeable.de")) {
+          c = "de"
+        } else if(host.includes("bikeable.fr")) {
+          c = "fr"
+        }
+      }
+
       if (c) {
         this.$store.dispatch("setCountry", c).then(
           (data) => {},

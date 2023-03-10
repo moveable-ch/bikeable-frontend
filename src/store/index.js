@@ -27,7 +27,7 @@ const state = {
       name: "English"
     }
   ],
-  country: "de",
+  country: "ch",
   countries: [
     {
       code: "ch",

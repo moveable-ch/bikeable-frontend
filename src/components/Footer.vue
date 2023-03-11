@@ -4,8 +4,16 @@
       <div class="footer__inner">
         <div class="footer__col footer__col--left">
           <ul>
-            <li><strong>bikeable.ch</strong></li>
-            <li><a href="mailto:info@bikeable.ch">info@bikeable.ch</a></li>
+            <li v-if="currentCountry=='ch'"><strong>bikeable.ch</strong></li>
+            <li v-if="currentCountry=='ch'"><a href="mailto:info@bikeable.ch">info@bikeable.ch</a></li>
+            <li v-if="currentCountry=='us'"><strong>bikeablecity.org</strong></li>
+            <li v-if="currentCountry=='us'"><a href="mailto:info@bikeablecity.org">info@bikeablecity.org</a></li>
+            <li v-if="currentCountry=='de'"><strong>bikeable.de</strong></li>
+            <li v-if="currentCountry=='de'"><a href="mailto:info@bikeable.ch">info@bikeable.ch</a></li>
+            <li v-if="currentCountry=='fr'"><strong>bikeable.fr</strong></li>
+            <li v-if="currentCountry=='fr'"><a href="mailto:info@bikeable.ch">info@bikeable.ch</a></li>
+            <li v-if="currentCountry=='at'"><strong>bikeable.at</strong></li>
+            <li v-if="currentCountry=='at'"><a href="mailto:info@bikeable.ch">info@bikeable.ch</a></li>
             <li><router-link to="/about" exact>About</router-link></li>
           </ul>
         </div>

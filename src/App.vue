@@ -154,21 +154,21 @@ export default {
     checkLocalCountry() {
       let c = localStorage.getItem("country");
 
-      if(this.$route.query.country) {
-        c = this.$route.query.country;
-      }
-
       if(c == null) {
         let host = window.location.host;
 
         if(host.includes("bikeable.ch")) {
-          c = "ch"
+          c = "ch";
         } else if(host.includes("bikeable.at")) {
-          c = "at"
+          c = "at";
         } else if(host.includes("bikeable.de")) {
-          c = "de"
+          c = "de";
         } else if(host.includes("bikeable.fr")) {
-          c = "fr"
+          c = "fr";
+        } else if(host.includes("bikeablecity.org")) {
+          c = "us";
+        } else if(this.$route.query.country) {
+          c = this.$route.query.country;
         }
       }
 

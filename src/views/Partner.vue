@@ -53,7 +53,7 @@ export default {
   },
   mounted() {
     // TODO: Move to Store
-    this.$store.commit("LOAD_START");
+    this.$store.commit("LOAD_START");   
 
     this.getPartners().then((partners) => {
       this.partners = partners;
@@ -71,17 +71,19 @@ export default {
     prismicLang() {
       return this.$store.getters.prismicLang;
     },
-  },
-  methods: {
+    partnerAndSponsorLang() {
+      if(this.$store.getters.country == "us") {
+        return 'en-us';
+      }
+      return 'de-ch';
+    },
+  },  
+  methods: {    
     getPartners() {
       return Prismic.api("https://bikeable.prismic.io/api")
-        .then(function (api) {
-          var currentLang = this.prismicLang;
-          if(this.currentCountry != 'us' ) {
-            currentLang = "de-ch";
-          }
+        .then((api) => {
           return api.query(Prismic.Predicates.at("document.type", "partner"), {
-            currentLang: currentLang,
+            lang: this.partnerAndSponsorLang,
           });
         })
         .then(
@@ -103,13 +105,9 @@ export default {
     },
     getSponsors() {
       return Prismic.api("https://bikeable.prismic.io/api")
-        .then(function (api) {
-          var currentLang = this.prismicLang;
-          if(this.currentCountry == 'ch' ) {
-            currentLang = "de-ch";
-          }
+        .then((api) => {
           return api.query(Prismic.Predicates.at("document.type", "sponsors"), {
-            currentLang: lang,
+            lang: this.partnerAndSponsorLang,
           });
         })
         .then(

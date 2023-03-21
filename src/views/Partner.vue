@@ -77,11 +77,11 @@ export default {
       return Prismic.api("https://bikeable.prismic.io/api")
         .then(function (api) {
           var currentLang = this.prismicLang;
-          if(this.currentCountry == 'ch' ) {
+          if(this.currentCountry != 'us' ) {
             currentLang = "de-ch";
           }
           return api.query(Prismic.Predicates.at("document.type", "partner"), {
-            currentLang: lang,
+            currentLang: currentLang,
           });
         })
         .then(

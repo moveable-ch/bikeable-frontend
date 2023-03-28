@@ -1,0 +1,88 @@
+{
+  "home": {
+    "lead": null,
+    "registernow": null,
+    "addspot": null,
+    "showall": null,
+    "more": null,
+    "newsletter": null,
+    "nospam": null,
+    "emailadress": null,
+    "surname": null,
+    "familyname": null,
+    "order_stickers": null,
+    "stickerlink": null
+  },
+  "about": {
+    "paypal": null
+  },
+  "addform": {
+    "enteraddress": null,
+    "title": null,
+    "fameorshame": null,
+    "addspot": null,
+    "photo": null,
+    "uploadimage": null,
+    "chooseimage": null,
+    "loading": null,
+    "adress": null,
+    "spotwhere": null,
+    "entercurrentposition": null,
+    "chooselocation": null,
+    "description": null,
+    "send": null,
+    "sendedit": null,
+    "notready": null,
+    "choosecat": null,
+    "willbearchived": null,
+    "categories": null
+  },
+  "editform": {
+    "editspot": "entry"
+  },
+  "entry": {
+    "awayfrom": null,
+    "fixed": null,
+    "register": null,
+    "send": null,
+    "markasfixed": null,
+    "editspot": null,
+    "uploadphoto": null,
+    "uploadphotofix": null,
+    "addphototitle": null,
+    "addphotodesc": null,
+    "addphotofix": null,
+    "addcat": null,
+    "deletespot": null,
+    "cancel": null,
+    "proposetext": null,
+    "proposetitle": null,
+    "delayarchival": null,
+    "archivedon": null,
+    "archivedonreason": null
+  },
+  "comment": {
+    "send": null,
+    "reply": null,
+    "comment": null,
+    "edit": null,
+    "edited": null
+  },
+  "list": {
+    "allregions": null,
+    "region": null,
+    "nospots": null,
+    "sortby": null,
+    "date": null,
+    "upvotes": null,
+    "distance": null,
+    "comments": null,
+    "allspots": null,
+    "morespots": null,
+    "showspot": null
+  },
+  "login": {
+    "forgotpassword": null,
+    "newaccount": null
+  }
+}

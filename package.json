@@ -1,4 +1,5 @@
 {
+  "//": "Translation from google docs:https://docs.google.com/spreadsheets/d/1lY7L0WjARxa_55L5Hju6J6jPzhxDLlZtZjJ9V1Tednw/edit?usp=sharing (https://medium.com/js-dojo/manage-i18n-translations-from-google-sheet-e2ccc340aa3)",
   "name": "bikeable-frontend",
   "version": "1.1.0",
   "description": "Web frontend for bikeable.ch",
@@ -6,7 +7,8 @@
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "i18n:build": "node ./build-lang-files.js && prettier --parser json-stringify --write src/locales/*.json"
   },
   "dependencies": {
     "@sentry/browser": "^6.2.5",

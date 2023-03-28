@@ -7,8 +7,7 @@
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "i18n:build": "node ./build-lang-files.js && prettier --parser json-stringify --write src/locales/*.json"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "@sentry/browser": "^6.2.5",

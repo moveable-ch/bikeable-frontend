@@ -1,88 +1,133 @@
 {
   "home": {
-    "lead": "Bikeable.ch est une plateforme internet qui montre des spots dangereux, ennuyeux mais aussi bien résolus pour les cyclistes.",
-    "registernow": "S'inscrire",
-    "addspot": "Signaler un spot",
-    "showall": "Afficher tous les spots",
-    "more": "Plus",
-    "newsletter": "Inscris-toi à notre newsletter afin de te tenir informé des actualités de bikeable.ch.",
-    "nospam": "Pas de spam, promis!",
-    "emailadress": "Adresse e-mail",
-    "surname": "Prénom",
-    "familyname": "Nom de famille",
-    "order_stickers": "Commander des autocollants Bikeable",
-    "stickerlink": "https://docs.google.com/forms/d/e/1FAIpQLSfxCDuakb9bOaMHDoVDPWWrn3e9FVBUAJnhrv7OvKAc-GMN8w/viewform"
+      "lead": "Bikeable est une plateforme internet qui montre des spots dangereux, ennuyeux mais aussi bien résolus pour les cyclistes.",
+      "registernow": "S'inscrire",
+      "addspot": "Signaler un spot",
+      "showall": "Afficher tous les spots",
+      "more": "Plus",
+      "newsletter": "Inscris-toi à notre newsletter afin de te tenir informé des actualités de bikeable.ch.",
+      "nospam": "Pas de spam, promis!",
+      "emailadress": "Adresse e-mail",
+      "surname": "Prénom",
+      "familyname": "Nom de famille",
+      "order_stickers": "Commander des autocollants Bikeable",
+      "stickerlink": "https://docs.google.com/forms/d/e/1FAIpQLSfxCDuakb9bOaMHDoVDPWWrn3e9FVBUAJnhrv7OvKAc-GMN8w/viewform"
   },
   "about": {
-    "paypal": "Soutiens-nous par PayPal!"
+      "paypal": "Soutiens-nous par PayPal!"
   },
   "addform": {
-    "enteraddress": "Entrez l'adresse",
-    "title": "Titre",
-    "fameorshame": "Fame ou Shame",
-    "addspot": "Signaler un spot",
-    "photo": "Photo",
-    "uploadimage": "Télécharge une photo pour signaler ton spot",
-    "chooseimage": "Sélectionne un photo",
-    "loading": "Téléchargement",
-    "adress": "Adresse",
-    "spotwhere": "Où est-ce que se trouve ton spot?",
-    "entercurrentposition": "Utiliser ma position actuelle",
-    "chooselocation": "Localisation du spot sur la carte",
-    "description": "Description",
-    "send": "Envoyer",
-    "sendedit": "Envoyer",
-    "notready": "Veuillez remplir le formulaire.",
-    "choosecat": "Choisissez une catégorie",
-    "willbearchived": "Parce que les catégories sélectionnées, ce spot sera archivé après un mois.",
-    "categories": "Catégories"
+      "enteraddress": "Entrez l'adresse",
+      "title": "Titre",
+      "fameorshame": "Fame ou Shame",
+      "addspot": "Signaler un spot",
+      "photo": "Photo",
+      "uploadimage": "Télécharge une photo pour signaler ton spot",
+      "chooseimage": "Sélectionne un photo",
+      "loading": "Téléchargement",
+      "adress": "Adresse",
+      "spotwhere": "Où est-ce que se trouve ton spot?",
+      "entercurrentposition": "Utiliser ma position actuelle",
+      "chooselocation": "Localisation du spot sur la carte",
+      "description": "Description",
+      "send": "Envoyer",
+      "sendedit": "Envoyer",
+      "notready": "Veuillez remplir le formulaire.",
+      "choosecat": "Choisissez une catégorie",
+      "willbearchived": "Parce que les catégories sélectionnées, ce spot sera archivé après un mois.",
+      "categories": "Catégories"
   },
   "editform": {
-    "editspot": "Modifier le spot"
+      "editspot": "Modifier le spot"
   },
   "entry": {
-    "awayfrom": "d'ici",
-    "fixed": "Ce spot a été amélioré entre-temps",
-    "register": "Inscris-toi maintenant et prends part à la discussion!",
-    "send": "Envoyer",
-    "markasfixed": "Marquer comme amélioré",
-    "editspot": "Modifier le spot",
-    "uploadphoto": "Télécharger une photo",
-    "uploadphotofix": "Télécharger une photo",
-    "addphototitle": "Télécharger une photo",
-    "addphotodesc": "Avez-vous une photo supplémentaire?",
-    "addphotofix": "Ma photo confirme que ce spot a été amélioré",
-    "addcat": "Ajouter catégorie",
-    "deletespot": "Effacer Spot",
-    "cancel": "Annuler",
-    "proposetext": "Ce spot a été amélioré. | Ce spot est amélioré si <strong>un</strong> autre utilisateur le marque comme amélioré. Tu peux aussi télécharger une image comme preuve. | Ce spot est amélioré si <strong>{n}</strong> autres utilisateurs le marquent comme amélioré. Tu peux aussi télécharger une image comme preuve.",
-    "proposetitle": "Ce spot a-t-il été amélioré ?",
-    "delayarchival": "Retarder l'archivage",
-    "archivedon": "Ce spot sera archivé le",
-    "archivedonreason": "Sur la base des catégories suivantes :"
+      "awayfrom": "d'ici",
+      "fixed": "Ce spot a été amélioré entre-temps",
+      "register": "Inscris-toi maintenant et prends part à la discussion!",
+      "send": "Envoyer",
+      "markasfixed": "Marquer comme amélioré",
+      "editspot": "Modifier le spot",
+      "uploadphoto": "Télécharger une photo",
+      "uploadphotofix": "Télécharger une photo",
+      "addphototitle": "Télécharger une photo",
+      "addphotodesc": "Avez-vous une photo supplémentaire?",
+      "addphotofix": "Ma photo confirme que ce spot a été amélioré",
+      "addcat": "Ajouter catégorie",
+      "deletespot": "Effacer Spot",
+      "cancel": "Annuler",
+      "proposetext": "Ce spot a été amélioré. | Ce spot est amélioré si <strong>un</strong> autre utilisateur le marque comme amélioré. Tu peux aussi télécharger une image comme preuve. | Ce spot est amélioré si <strong>{n}</strong> autres utilisateurs le marquent comme amélioré. Tu peux aussi télécharger une image comme preuve.",
+      "proposetitle": "Ce spot a-t-il été amélioré ?",
+      "delayarchival": "Retarder l'archivage",
+      "archivedon": "Ce spot sera archivé le",
+      "archivedonreason": "Sur la base des catégories suivantes : "
   },
   "comment": {
-    "send": "Envoyer",
-    "reply": "Répondre",
-    "comment": "Commentaire",
-    "edit": "Modifier",
-    "edited": "modifié"
+      "send": "Envoyer",
+      "reply": "Répondre",
+      "comment": "Commentaire",
+      "edit": "Modifier",
+      "edited": "modifié"
   },
   "list": {
-    "allregions": "Toutes les régions",
-    "region": "Région",
-    "nospots": "Aucun spot trouvé",
-    "sortby": "Trier par",
-    "date": "Date",
-    "upvotes": "Votes",
-    "distance": "Distance",
-    "comments": "Commentaires",
-    "allspots": "Tous les spots",
-    "morespots": "Afficher plus de spots",
-    "showspot": "Afficher le spot"
+      "allregions": "Toutes les régions",
+      "region": "Région",
+      "nospots": "Aucun spot trouvé",
+      "sortby": "Trier par",
+      "date": "Date",
+      "upvotes": "Votes",
+      "distance": "Distance",
+      "comments": "Commentaires",
+      "allspots": "Tous les spots",
+      "morespots": "Afficher plus de spots",
+      "showspot": "Afficher le spot"
   },
   "login": {
-    "forgotpassword": "Mot de passe oublié",
-    "newaccount": "Créer un nouveau compte"
+      "forgotpassword": "Mot de passe oublié",
+      "newaccount": "Créer un nouveau compte"
+  },
+  "map": {
+      "mylocation": "Ma position",
+      "filterentries": "Filtrer les entrées"
+  },
+  "notfound": {
+      "pagenotfound": "Cette page est introuvable"
+  },
+  "partner": {
+      "partner": "Partenaires",
+      "proveloregions": "Régions Pro Velo"
+  },
+  "password": {
+      "forgot": "Mot de passe oublié",
+      "send": "Envoyer"
+  },
+  "register": {
+      "register": "S'inscrire",
+      "username": "Nom d'utilisateur",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "send": "Envoyer",
+      "succesfullregistered": "Enregistrement effectué, vérifie ton e-mail."
+  },
+  "profile": {
+      "success": "Succès",
+      "preferences": "Paramètres",
+      "username": "Nom d'utilisateur",
+      "email": "E-mail",
+      "bio": "About Me",
+      "avatar": "Image de profil ",
+      "avatarupload": "Télécharger nouvelle image de profil",
+      "loading": "Télécharger",
+      "save": "Enregistrer",
+      "getemailnotifications": "Recevoir des alertes par e-mail"
+  },
+  "footer": {
+      "supported": "Soutenu par"
+  },
+  "filterbar": {
+      "alltypes": "Tout",
+      "allcategories": "Toutes catégories",
+      "time": "Période",
+      "type": "Type",
+      "category": "Catégorie"
   }
 }

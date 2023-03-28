@@ -41,7 +41,7 @@
               <li><router-link to="/partner" exact>{{ $t('partner.partner') }}</router-link></li>
             </ul>
             <ul>
-              <li><language-switch flipped="true"></language-switch></li>
+              <li v-if="currentCountry != 'us'"><language-switch flipped="true"></language-switch></li>
               <li><country-switch></country-switch></li>
             </ul>
           </nav>

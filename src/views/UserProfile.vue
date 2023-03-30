@@ -36,7 +36,7 @@
             type="checkbox"
             id="notifications"
           />
-          <label for="notifications">E-Mail-Benachrichtungen erhalten</label>
+          <label for="notifications">{{ $t("profile.getemailnotifications")}}</label>
         </div>
         <button class="input-button btn v-profile__submit" type="submit">
           {{ $t("profile.save") }}

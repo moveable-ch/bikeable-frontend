@@ -6,7 +6,9 @@ import App from "./App";
 import router from "./router";
 import VueHead from "vue-head";
 import store from "@/store";
-import locale from "./locale.json";
+import de from "./locales/de.json";
+import en from "./locales/en.json";
+import fr from "./locales/fr.json";
 import * as Sentry from "@sentry/browser";
 import * as Integrations from "@sentry/integrations";
 
@@ -42,7 +44,7 @@ if (process.env.NODE_ENV === "production") {
 
 const i18n = new VueI18n({
   locale: "de",
-  messages: locale
+  messages: {de, en, fr}
 });
 
 new Vue({

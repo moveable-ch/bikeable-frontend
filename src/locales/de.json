@@ -1,0 +1,133 @@
+{
+  "home": {
+      "lead": "Bikeable zeigt die gefährlichsten Spots für Radfahrer auf und hilft bei der Lösungsfindung.",
+      "registernow": "Jetzt registrieren!",
+      "addspot": "Spot hinzufügen",
+      "showall": "Alle Spots anzeigen",
+      "more": "Mehr",
+      "newsletter": "Melde dich hier für unseren Newsletter an und erfahre regelmässig, was bei bikeable läuft.",
+      "nospam": "Kein Spam imfall!",
+      "emailadress": "Email-Adresse",
+      "surname": "Vorname",
+      "familyname": "Nachname",
+      "order_stickers": "Bikeable Sticker bestellen",
+      "stickerlink": "https://docs.google.com/forms/d/e/1FAIpQLSfd5WUvwU0bQiyu_ykgD4yLNUUdWLkWr8iyQlFTlyMyLfVA1A/viewform"
+  },
+  "about": {
+      "paypal": "Unterstütze uns via PayPal"
+  },
+  "addform": {
+      "enteraddress": "Adresse eingeben",
+      "title": "Titel",
+      "fameorshame": "Fame or Shame",
+      "addspot": "Spot erstellen",
+      "photo": "Foto",
+      "uploadimage": "Lade Bilder von deinem Spot hoch",
+      "chooseimage": "Bild wählen",
+      "loading": "Loading",
+      "adress": "Adresse",
+      "spotwhere": "Wo befindet sich dein Spot?",
+      "entercurrentposition": "Aktuellen Standort einfügen",
+      "chooselocation": "Standort auf Karte wählen",
+      "description": "Beschreibung",
+      "send": "Spot hinzufügen",
+      "sendedit": "Spot speichern",
+      "notready": "Bitte fülle alle benötigten Felder aus.",
+      "choosecat": "Kategorie wählen",
+      "willbearchived": "Aufgrund der gewählten Kategorien wird dieser Spot in einem Monat archiviert.",
+      "categories": "Kategorien"
+  },
+  "editform": {
+      "editspot": "Spot bearbeiten"
+  },
+  "entry": {
+      "awayfrom": "entfernt",
+      "fixed": "Dieser Spot wurde in der Zwischenzeit verbessert.",
+      "register": "Jetzt registrieren und mitdiskutieren!",
+      "send": "Senden",
+      "markasfixed": "Als behoben markieren",
+      "editspot": "Spot bearbeiten",
+      "uploadphoto": "Foto hinzufügen",
+      "uploadphotofix": "Foto mit Fix hochladen",
+      "addphototitle": "Foto hochladen",
+      "addphotodesc": "Hast du ein zusätzliches Foto zu diesem Spot? Lade es hier hoch!",
+      "addphotofix": "Mein Foto bestätigt dass dieser Spot verbessert wurde",
+      "addcat": "Kategorie hinzufügen",
+      "deletespot": "Spot löschen",
+      "cancel": "Abbrechen",
+      "proposetext": "Dieser Spot wurde gefixt. | Dieser Spot ist fixed, wenn <strong>ein</strong> weiterer User ihn als behoben markiert. Alternativ kannst du ein Beweisfoto hochladen. | Dieser Spot ist fixed, wenn <strong>{n}</strong> weitere User ihn als behoben markieren. Alternativ kannst du ein Beweisfoto hochladen.",
+      "proposetitle": "Wurde dieser Spot gefixt?",
+      "delayarchival": "Archivierung verzögern",
+      "archivedon": "Dieser Spot wird archiviert am:",
+      "archivedonreason": "Aufgrund folgender Kategorien:"
+  },
+  "comment": {
+      "send": "Senden",
+      "reply": "Antworten",
+      "comment": "Kommentar",
+      "edit": "Bearbeiten",
+      "edited": "bearbeitet"
+  },
+  "list": {
+      "allregions": "Alle Regionen",
+      "region": "Region",
+      "nospots": "Leider wurden keine Spots gefunden.",
+      "sortby": "Sortieren nach",
+      "date": "Datum",
+      "upvotes": "Upvotes",
+      "distance": "Distanz",
+      "comments": "Kommentare",
+      "allspots": "Alle Spots",
+      "morespots": "Mehr Spots anzeigen",
+      "showspot": "Spot anzeigen"
+  },
+  "login": {
+      "forgotpassword": "Passwort vergessen?",
+      "newaccount": "Neuen Account erstellen"
+  },
+  "map": {
+      "mylocation": "Mein Standort",
+      "filterentries": "Spots filtern"
+  },
+  "notfound": {
+      "pagenotfound": "Die Seite wurde nicht gefunden"
+  },
+  "partner": {
+      "partner": "Partner",
+      "proveloregions": "Pro Velo Regionen"
+  },
+  "password": {
+      "forgot": "Passwort vergessen",
+      "send": "Senden"
+  },
+  "register": {
+      "register": "Registrieren",
+      "username": "Username",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "send": "Senden",
+      "succesfullregistered": "Erfolgreich registriert, bitte Account bestätigen."
+  },
+  "profile": {
+      "success": "Einstellungen gespeichert",
+      "preferences": "Einstellungen",
+      "username": "Username",
+      "email": "E-Mail",
+      "bio": "Über mich",
+      "avatar": "Avatar",
+      "avatarupload": "Neuen Avatar hochladen",
+      "loading": "Loading",
+      "save": "Speichern",
+      "getemailnotifications": "E-Mail-Benachrichtungen erhalten"
+  },
+  "footer": {
+      "supported": "Unterstützt von"
+  },
+  "filterbar": {
+      "alltypes": "Alle",
+      "allcategories": "Alle Kategorien",
+      "time": "Zeitraum",
+      "type": "Typ",
+      "category": "Kategorie"
+  }
+}

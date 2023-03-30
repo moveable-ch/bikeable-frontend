@@ -154,6 +154,10 @@ export default {
     checkLocalCountry() {
       let c = localStorage.getItem("country");
 
+      if(this.$route.query.country) {
+        c = this.$route.query.country;
+      }
+
       if(c == null) {
         let host = window.location.host;
 

@@ -118,6 +118,12 @@ const actions = {
     if(country == 'us') {
       context.commit("SET_LANG", "en");
       context.commit("SET_PRISMIC_LANG", "en-us");
+    } else if(country == 'de' || country == 'at') {
+      context.commit("SET_LANG", "de");
+      context.commit("SET_PRISMIC_LANG", "de");
+    } else if(country == 'fr') {
+      context.commit("SET_LANG", "fr");
+      context.commit("SET_PRISMIC_LANG", "fr");
     }
   }
 };

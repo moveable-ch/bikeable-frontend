@@ -11,7 +11,7 @@
         <li v-if="isLoggedIn"><router-link to="/myentries" exact>My Spots</router-link></li>
         <li><router-link to="/map" exact>Map</router-link></li>
         <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
-        <li v-if="currentCountry != 'us'"><language-switch></language-switch></li>
+        <li v-if="currentCountry == 'ch'"><language-switch></language-switch></li>
       </ul>
     </nav>
     <transition name="nav-fade">
@@ -41,7 +41,7 @@
               <li><router-link to="/partner" exact>{{ $t('partner.partner') }}</router-link></li>
             </ul>
             <ul>
-              <li v-if="currentCountry != 'us'"><language-switch flipped="true"></language-switch></li>
+              <li v-if="currentCountry == 'ch'"><language-switch flipped="true"></language-switch></li>
               <li><country-switch></country-switch></li>
             </ul>
           </nav>

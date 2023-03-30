@@ -9,6 +9,7 @@ import store from "@/store";
 import de from "./locales/de.json";
 import en from "./locales/en.json";
 import fr from "./locales/fr.json";
+import it from "./locales/it.json";
 import * as Sentry from "@sentry/browser";
 import * as Integrations from "@sentry/integrations";
 
@@ -44,7 +45,7 @@ if (process.env.NODE_ENV === "production") {
 
 const i18n = new VueI18n({
   locale: "de",
-  messages: {de, en, fr}
+  messages: {de, en, fr, it}
 });
 
 new Vue({

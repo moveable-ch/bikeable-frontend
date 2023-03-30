@@ -23,6 +23,10 @@ const state = {
       name: "Français"
     },
     {
+      code: "it",
+      name: "Italiano"
+    },
+    {
       code: "en",
       name: "English"
     }

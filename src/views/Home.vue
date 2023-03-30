@@ -6,7 +6,7 @@
           <img src="/img/paul.png" alt="Bikeapaul" />
         </div>
         <div class="home__intro__content">
-          <a v-if="currentCountry=='ch'" :href="$t('home.stickerlink')" target="_blank" class="home__stickerbtn"
+          <a v-if="currentCountry=='ch' && currentLang != 'it'" :href="$t('home.stickerlink')" target="_blank" class="home__stickerbtn"
             >{{ $t('home.order_stickers') }}</a
           >
           <h1>Let's make our<br />cities <span>bikeable</span>!</h1>

@@ -372,40 +372,64 @@ export default {
       );
     },
     geocodeResultToAdress(response) {
-      var address = {};
-      var streetnumber = "";
+      var resultAddress = {};
 
-      response.data.results[0].address_components.forEach((result) => {
-        if (result.types.indexOf("countryCode") != -1) {
-          address.countryCode = result.short_name;
-        }
-
-        if (result.types.indexOf("country") != -1) {
-          address.country = result.long_name;
-        }
-
-        if (result.types.indexOf("route") != -1) {
-          address.street = result.short_name;
-        }
-
-        if (result.types.indexOf("street_number") != -1) {
-          streetnumber = result.long_name;
-        }
-
-        if (result.types.indexOf("postal_code") != -1) {
-          address.plz = result.long_name;
-        }
-
-        if (result.types.indexOf("locality") != -1) {
-          address.city = result.long_name;
-        }
-      });
-
-      if (address.street) {
-        address.street = address.street + " " + streetnumber;
+      for(const resultIndex in response.data.results) {
+          var address = this.parseMapsApiResult(response.data.results[resultIndex]);
+          if(address.details.plz) {
+            resultAddress = address;
+            break;
+          }
       }
 
-      return address;
+      if(resultAddress == {}) {
+          resultAddress = this.parseMapsApiResult(response.data.results[0])
+      }
+
+      return resultAddress;
+    },
+    parseMapsApiResult(result){
+      var address = {};
+      address.details = {}
+
+      result.address_components.forEach((component) => {
+
+        var streetnumber = "";
+
+          if (component.types.indexOf("countryCode") != -1) {
+            address.details.countryCode = component.short_name;
+          }
+
+          if (component.types.indexOf("country") != -1) {
+            address.details.country = component.long_name;
+          }
+
+          if (component.types.indexOf("route") != -1) {
+            address.details.street = component.short_name;
+          }
+
+          if (component.types.indexOf("street_number") != -1) {
+            streetnumber = component.long_name;
+          }
+
+          if (component.types.indexOf("postal_code") != -1) {
+            address.details.plz = component.long_name;
+          }
+
+          if (component.types.indexOf("locality") != -1) {
+            address.details.city = component.long_name;
+          }
+
+          if (address.street) {
+            address.details.street = address.street + " " + streetnumber;
+          }
+          
+        });
+
+        address.string = result.formatted_address;
+
+
+        return address;
     },
     getAddressDetails(coords) {
       return new Promise((resolve, reject) => {
@@ -419,10 +443,8 @@ export default {
           .then(
             (response) => {
               if (response.data.results[0]) {
-                var address = {};
-                address.details = this.geocodeResultToAdress(response);
-                address.string = response.data.results[0].formatted_address;
-
+                var address = this.geocodeResultToAdress(response);
+                console.log(address);
                 resolve(address);
               } else {
                 reject(response);

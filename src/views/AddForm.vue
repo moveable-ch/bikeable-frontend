@@ -374,6 +374,8 @@ export default {
     geocodeResultToAdress(response) {
       var resultAddress = {};
 
+      // Iterate through addresses until we find one that has a postcode
+      // Use the one with the post code
       for(const resultIndex in response.data.results) {
           var address = this.parseMapsApiResult(response.data.results[resultIndex]);
           if(address.details.plz) {
@@ -382,8 +384,9 @@ export default {
           }
       }
 
-      if(resultAddress == {}) {
-          resultAddress = this.parseMapsApiResult(response.data.results[0])
+      // If there is no address with postcode, we fall back to the first result
+      if(!resultAddress.details) {
+          resultAddress = this.parseMapsApiResult(response.data.results[0]);
       }
 
       return resultAddress;
@@ -427,7 +430,6 @@ export default {
         });
 
         address.string = result.formatted_address;
-
 
         return address;
     },

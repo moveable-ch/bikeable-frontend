@@ -141,11 +141,12 @@ export default {
   &__location {
     display: block;
     font-size: .7rem;
+    height:1rem;
     color: $c-grey-darkest;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: .25rem;
+    margin-bottom: -.05rem;
   }
   &__user {
     font-size: .7rem;

@@ -29,6 +29,12 @@ export default {
           params.append('filter', 'famed');
         } else if (filterParam.type == 'shame') {
           params.append('filter', 'shamed');
+        } 
+        // else if (filterParam.type == 'archived') {
+        //   params.append('archivedOnly', 'true');
+        // } 
+        else if (filterParam.type == 'fixed') {
+          params.append('filter', 'fixed');
         }
       }
     }

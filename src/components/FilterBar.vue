@@ -19,7 +19,7 @@
           <option value="null">{{ $t("filterbar.alltypes") }}</option>
           <option value="fame">Fame</option>
           <option value="shame">Shame</option>
-          <!--<option value="fixed">Fixed</option>-->
+          <option value="fixed">Fixed</option>
         </select>
       </div>
     </div>

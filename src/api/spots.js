@@ -76,6 +76,8 @@ export default {
           params.append('famed', true);
         } else if (filterParam.type == 'shame') {
           params.append('famed', false);
+        } else if (filterParam.type == 'fixed') {
+          params.append('fixed', true);
         }
       }
 

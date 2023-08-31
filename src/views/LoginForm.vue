@@ -7,18 +7,31 @@
       <form @submit.prevent="login">
         <label>
           <span>E-Mail</span>
-          <input type="email" v-model="formEmail">
+          <input type="email" v-model="formEmail" />
         </label>
         <label>
-          <span>{{ $t('register.password') }}</span>
-          <input type="password" v-model="formPassword">
+          <span>{{ $t("register.password") }}</span>
+          <input type="password" v-model="formPassword" />
         </label>
+
+        <router-link target="_blank" to="/privacypolicy" class="link-more">{{
+          $t("privacypolicy.title")
+        }}</router-link>
+        <router-link target="_blank" to="/termsconditions" class="link-more">{{
+          $t("termsandconditions.title")
+        }}</router-link>
+
         <button type="submit" class="btn">Login</button>
         <div class="notice" v-if="message != ''">{{ message }}</div>
-        <router-link to="/forgottenpw" class="link-more">{{ $t('login.forgotpassword') }}</router-link>
-        <router-link to="/register" class="link-more">{{ $t('login.newaccount') }}</router-link>
+        <router-link to="/forgottenpw" class="link-more">{{
+          $t("login.forgotpassword")
+        }}</router-link>
+        <router-link to="/register" class="link-more">{{
+          $t("login.newaccount")
+        }}</router-link>
+        <br />
       </form>
-<!--       <form @submit.prevent="loginAtFacebook">
+      <!--       <form @submit.prevent="loginAtFacebook">
         <button type="submit" class="btn btn--facebook">{{ $t('login.forgotpassword') }}Login with Facebook</button>
       </form> -->
     </div>
@@ -27,154 +40,159 @@
 
 <script>
 export default {
-  name: 'v-login',
-  data () {
+  name: "v-login",
+  data() {
     return {
-      message: '',
+      message: "",
 
-      formEmail: '',
-      formPassword: '',
+      formEmail: "",
+      formPassword: "",
       fbIsConnected: false,
-      fbName: '',
-      fbEmail: '',
-      fbUserId: '',
-      fbAccessToken: '',
+      fbName: "",
+      fbEmail: "",
+      fbUserId: "",
+      fbAccessToken: "",
       FB: undefined,
-      fromPath: '/'
-    }
+      fromPath: "/",
+    };
   },
 
-  computed: {
+  computed: {},
 
-  },
-
-  watch: {
-
-  },
+  watch: {},
 
   mounted() {
     // this.initFbLogin();
   },
 
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       vm.fromPath = from.path;
     });
   },
 
   methods: {
     login() {
-      this.$store.dispatch('login', {
+      this.$store
+        .dispatch("login", {
           email: this.formEmail,
-          password: this.formPassword
+          password: this.formPassword,
         })
-      .then((data) => {
-          this.$router.push(this.fromPath);
-        }, (data) => {
-        });
+        .then(
+          (data) => {
+            this.$router.push(this.fromPath);
+          },
+          (data) => {}
+        );
     },
     initFbLogin() {
       window.fbAsyncInit = function() {
         FB.init({
-          appId      : '312310255868775',
-          xfbml      : true,
-          version    : 'v2.7'
+          appId: "312310255868775",
+          xfbml: true,
+          version: "v2.7",
         });
 
         self.FB = FB;
 
         //This function should be here, inside window.fbAsyncInit
         FB.getLoginStatus(function(response) {
-
-          if (response.status === 'connected') {
+          if (response.status === "connected") {
             // the user is logged in and has authenticated your
             // app, and response.authResponse supplies
             // the user's ID, a valid access token, a signed
             // request, and the time the access token
             // and signed request each expire
-            self.onFbLogin(response)
-
-          } else if (response.status === 'not_authorized') {
+            self.onFbLogin(response);
+          } else if (response.status === "not_authorized") {
             // the user must go through the login flow
             // to authorize your app or renew authorization
-
           } else {
             // the user isn't logged in to Facebook.
           }
 
           // console.log(response);
-      });
+        });
+      };
 
-    };
-
-      (function(d, s, id){
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
+      (function(d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+          return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      })(document, "script", "facebook-jssdk");
     },
     loginAtFacebook() {
       var loginForm = this;
-      this.FB.login(function(response) {
-        if (response.status === 'connected') {
-          // the user is logged in and has authenticated your
-          // app, and response.authResponse supplies
-          // the user's ID, a valid access token, a signed
-          // request, and the time the access token
-          // and signed request each expire
-          loginForm.onFbLogin(response)
-
-        } else if (response.status === 'not_authorized') {
-          // the user must go through the login flow
-          // to authorize your app or renew authorization
-
-        } else {
-          // the user isn't logged in to Facebook.
-        }
-      }, {scope: 'email'});
-
+      this.FB.login(
+        function(response) {
+          if (response.status === "connected") {
+            // the user is logged in and has authenticated your
+            // app, and response.authResponse supplies
+            // the user's ID, a valid access token, a signed
+            // request, and the time the access token
+            // and signed request each expire
+            loginForm.onFbLogin(response);
+          } else if (response.status === "not_authorized") {
+            // the user must go through the login flow
+            // to authorize your app or renew authorization
+          } else {
+            // the user isn't logged in to Facebook.
+          }
+        },
+        { scope: "email" }
+      );
     },
     fbLogin() {
-      this.$store.dispatch('fblogin', {
+      this.$store
+        .dispatch("fblogin", {
           accessToken: this.fbAccessToken,
           email: this.fbemail,
-          name: this.fbname
+          name: this.fbname,
         })
-      .then((data) => {
-          this.$router.push('/');
-        }, (data) => {
-        });
+        .then(
+          (data) => {
+            this.$router.push("/");
+          },
+          (data) => {}
+        );
     },
     onFbLogin(response) {
       this.fbUserId = response.authResponse.userID;
       this.fbAccessToken = response.authResponse.accessToken;
-      this.fbIsConnected = true
-      this.FB.api('/me', 'GET', { fields: 'name, email' },
-        userInformation => {
+      this.fbIsConnected = true;
+      this.FB.api(
+        "/me",
+        "GET",
+        { fields: "name, email" },
+        (userInformation) => {
           this.fbemail = userInformation.email;
           this.fbname = userInformation.name;
-          this.fbLogin()
+          this.fbLogin();
         }
-      )
+      );
     },
     onFbLogout() {
       this.fbIsConnected = false;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-
-@import '../styles/helpers';
+@import "../styles/helpers";
 
 .login {
   padding: 4rem 0 2rem 0;
   min-height: calc(100vh - 600px);
 
-  &::before, &::after {
+  &::before,
+  &::after {
     content: "";
     display: block;
     width: 100%;
@@ -185,11 +203,15 @@ export default {
   }
   &::before {
     z-index: -1;
-    background-image: linear-gradient(0deg, #FFFFFF 2%, rgba(255,255,255,0.00) 74%);
+    background-image: linear-gradient(
+      0deg,
+      #ffffff 2%,
+      rgba(255, 255, 255, 0) 74%
+    );
   }
   &::after {
     z-index: -2;
-    background-image: linear-gradient(-137deg, #FCFFD6 0%, #E2FDFF 100%);
+    background-image: linear-gradient(-137deg, #fcffd6 0%, #e2fdff 100%);
   }
 
   @include tablet() {
@@ -206,7 +228,8 @@ export default {
 
   .btn--facebook {
     padding-left: 60px;
-    background: $c-black url('../assets/login-fb-logo.png') no-repeat left center;
+    background: $c-black url("../assets/login-fb-logo.png") no-repeat left
+      center;
     background-size: contain;
     color: #fff;
     border: 2px solid $c-black;
@@ -217,17 +240,12 @@ export default {
       background-color: lighten($c-black, 60%);
       border-color: lighten($c-black, 60%);
     }
-
   }
-
 
   .link-more {
-    font-size: .9rem;
+    font-size: 0.9rem;
     display: block;
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
 }
-
-
-
 </style>

@@ -17,6 +17,16 @@
           <span>{{ $t('register.password') }}</span>
           <input type="password" v-model="formPassword">
         </label>
+        <p>
+          <router-link target="_blank" to="/privacypolicy" class="link-more">{{
+          $t("privacypolicy.title")
+        }}</router-link>
+        </p>
+        <p>
+        <router-link target="_blank" to="/termsconditions" class="link-more">{{
+          $t("termsandconditions.title")
+        }}</router-link>
+        </p>
         <button type="submit" class="btn">{{ $t('register.send') }}</button>
         <div class="notice" v-if="message != ''">{{ message }}</div>
       </form>

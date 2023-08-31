@@ -18,7 +18,7 @@ import NewsArticle from '@/views/NewsArticle'
 import News from '@/views/News'
 import UserProfile from '@/views/UserProfile'
 import UserProfilePublic from '@/views/UserProfilePublic'
-import DataProtection from '@/views/DataProtection'
+import PrivacyPolicy from '@/views/PrivacyPolicy'
 import TermsAndConditions from '@/views/TermsAndConditions'
 
 Vue.use(Router)
@@ -111,9 +111,9 @@ export default new Router({
       component: NewsArticle
     },
     {
-      path: "/dataprotection",
-      name: "dataprotection",
-      component: DataProtection
+      path: "/privacypolicy",
+      name: "privacypolicy",
+      component: PrivacyPolicy
     },
     {
       path: "/termsconditions",

@@ -1,0 +1,139 @@
+{
+    "home": {
+        "lead": "Bikeable è una piattaforma che mostra i punti più pericolosi per i ciclisti e aiuta a trovare soluzioni.",
+        "registernow": "Iscriversi",
+        "addspot": "Aggiungi un punto",
+        "showall": "Mostra tutti i punti",
+        "more": "Più",
+        "newsletter": "Abbonati alla nostra newsletter e ricevi tutte le novità di Bikeable.ch",
+        "nospam": "Niente spam, promesso!",
+        "emailadress": "Indirizzo E-mail",
+        "surname": "Nome",
+        "familyname": "Cognome",
+        "order_stickers": "Ordinare gli adesivi Bikeable",
+        "stickerlink": ""
+    },
+    "about": {
+        "paypal": "Sostienici utilizzando PayPal!"
+    },
+    "addform": {
+        "enteraddress": "Inserire l'indirizzo",
+        "title": "Titolo",
+        "fameorshame": "Bene o Male",
+        "addspot": "Segnalare un punto",
+        "photo": "Foto",
+        "uploadimage": "Aggiungere una foto per segnalare un punto",
+        "chooseimage": "Selezionare la foto",
+        "loading": "Caricando...",
+        "adress": "Indirizzo",
+        "spotwhere": "Indica il tuo punto",
+        "entercurrentposition": "Utilizzare la mia posizione attuale",
+        "chooselocation": "Indicare il punto sulla mappa",
+        "description": "Descrizione",
+        "send": "Inviare ",
+        "sendedit": "Salvare punto",
+        "notready": "Compilare il formulario per favore",
+        "choosecat": "Scegliere una categoria",
+        "willbearchived": "In conseguenza della categoria selezionata, questo punto sarà archiviato dopo un mese",
+        "categories": "Categorie"
+    },
+    "editform": {
+        "editspot": "Modificare il punto"
+    },
+    "entry": {
+        "awayfrom": "Da qui dista",
+        "fixed": "Questo punto è stato nel frattempo migliorato",
+        "register": "Iscriversi e partecipare alla discussione",
+        "send": "Inviare",
+        "markasfixed": "Segnare come migliorato",
+        "editspot": "Modificare il punto",
+        "uploadphoto": "Caricare una foto",
+        "uploadphotofix": "Caricare una foto con Fix",
+        "addphototitle": "Caricare una foto",
+        "addphotodesc": "Foto ulteriori? Caricale qui!",
+        "addphotofix": "La mia foto conferma che il punto è stato migliorato",
+        "addcat": "Aggiungere categoria",
+        "deletespot": "Cancellare il punto",
+        "cancel": "Annullare",
+        "proposetext": "Questo punto è stato risolto. | Questo punto è risolto se <strong>ein</strong> più utenti lo contrassegnano come risolto È possibile caricare un'immagine come prova.| Questo punto è risolto se <strong>{n}</strong> più utenti lo contrassegnano come risolto È possibile caricare un'immagine come prova.",
+        "proposetitle": "Questo punto è stato migliorato?",
+        "delayarchival": "Ritardare l'archiviazione",
+        "archivedon": "Questo punto sarà archiviato in data",
+        "archivedonreason": "Sulla base delle seguenti categorie"
+    },
+    "comment": {
+        "send": "Inviare",
+        "reply": "Rispondere",
+        "comment": "Commentare",
+        "edit": "Modificare",
+        "edited": "Modificato"
+    },
+    "list": {
+        "allregions": "Tutte le regioni",
+        "region": "Regione",
+        "nospots": "Nessun punto trovato",
+        "sortby": "Ordinare per",
+        "date": "Data",
+        "upvotes": "Voti",
+        "distance": "Distanza",
+        "comments": "Commenti",
+        "allspots": "Tutti i punti",
+        "morespots": "Mostrare più punti",
+        "showspot": "Mostrare il punto"
+    },
+    "login": {
+        "forgotpassword": "Password dimenticata?",
+        "newaccount": "Creare un nuovo conto"
+    },
+    "map": {
+        "mylocation": "La mia posizione",
+        "filterentries": "Filtrare i punti"
+    },
+    "notfound": {
+        "pagenotfound": "Questa pagina è introvabile"
+    },
+    "partner": {
+        "partner": "Soci",
+        "proveloregions": "Pro Velo regioni"
+    },
+    "password": {
+        "forgot": "Password dimenticata",
+        "send": "Inviare"
+    },
+    "register": {
+        "register": "Iscriversi",
+        "username": "Nome utente",
+        "email": "E-mail",
+        "password": "Password",
+        "send": "Inviare",
+        "succesfullregistered": "La registrazione è avvenuta con successo, per favore confermare l'account"
+    },
+    "profile": {
+        "success": "Impostazioni salvate",
+        "preferences": "Parametri",
+        "username": "Nome utente",
+        "email": "E-mail",
+        "bio": "Chi sono",
+        "avatar": "Immagine di profilo",
+        "avatarupload": "Caricare una nuova immagine di profilo",
+        "loading": "Caricare",
+        "save": "Registrare",
+        "getemailnotifications": "Ricevere notifiche via email"
+    },
+    "footer": {
+        "supported": "Sostenuto da"
+    },
+    "filterbar": {
+        "alltypes": "Tutti",
+        "allcategories": "Tutte le categorie",
+        "time": "Tempo",
+        "type": "Tipo",
+        "category": "Categoria"
+    },
+    "termsandconditions": {
+        "title": "Conditions générales de vente et d'utilisation"
+    },
+    "privacypolicy": {
+        "title": "Informativa sulla privacy"
+    }
+}

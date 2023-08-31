@@ -1,6 +1,8 @@
 <template>
   <div class="contentpage data-protection">
-    <component :is="localizedDataProtection" />
+    <div class="container">
+      <component :is="localizedDataProtection" />
+    </div>
   </div>
 </template>
 
@@ -15,7 +17,7 @@ export default {
     dataProtectionDe,
     dataProtectionEn,
     dataProtectionFr,
-    dataProtectionIt
+    dataProtectionIt,
   },
   computed: {
     localizedDataProtection() {
@@ -40,23 +42,22 @@ export default {
 @import "../styles/helpers";
 
 .data-protection {
+  b {
+    font-weight: bold;
+  }
 
-    b {
-        font-weight: bold;
-    }
+  h2 {
+    margin: 2rem auto;
+    max-width: 45rem;
+  }
 
-    h2 {
-        margin: 2rem auto;
-        max-width: 45rem;
-    }
+  h3 {
+    margin: 2rem auto;
+    max-width: 45rem;
+  }
 
-    h3 {
-        margin: 2rem auto;
-        max-width: 45rem;
-    }
-
-    ul {
-        max-width: 43rem;
-    }
+  ul {
+    max-width: 43rem;
+  }
 }
 </style>

@@ -18,6 +18,7 @@ import NewsArticle from '@/views/NewsArticle'
 import News from '@/views/News'
 import UserProfile from '@/views/UserProfile'
 import UserProfilePublic from '@/views/UserProfilePublic'
+import DataProtection from '@/views/DataProtection'
 
 Vue.use(Router)
 
@@ -107,6 +108,11 @@ export default new Router({
       path: "/news/:id",
       name: "newsarticle",
       component: NewsArticle
+    },
+    {
+      path: "/dataprotection",
+      name: "dataprotection",
+      component: DataProtection
     },
     {
       path: "*",

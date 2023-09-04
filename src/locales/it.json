@@ -106,7 +106,8 @@
         "email": "E-mail",
         "password": "Password",
         "send": "Inviare",
-        "succesfullregistered": "La registrazione è avvenuta con successo, per favore confermare l'account"
+        "succesfullregistered": "La registrazione è avvenuta con successo, per favore confermare l'account",
+        "acceptconditions": "Accetto le Condizioni generali di contratto e di utilizzo e prendo atto dell'Informativa sulla privacy."
     },
     "profile": {
         "success": "Impostazioni salvate",

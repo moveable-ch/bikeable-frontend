@@ -106,7 +106,8 @@
         "email": "E-mail",
         "password": "Mot de passe",
         "send": "Envoyer",
-        "succesfullregistered": "Enregistrement effectué, vérifie ton e-mail."
+        "succesfullregistered": "Enregistrement effectué, vérifie ton e-mail.",
+        "acceptconditions": "J'accepte les conditions générales de vente et d'utilisation et je prends connaissance de la déclaration de confidentialité."
     },
     "profile": {
         "success": "Succès",

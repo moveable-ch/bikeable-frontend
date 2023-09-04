@@ -106,7 +106,8 @@
         "email": "E-Mail",
         "password": "Password",
         "send": "Send",
-        "succesfullregistered": "Registration successful. Please confirm your account."
+        "succesfullregistered": "Registration successful. Please confirm your account.",
+        "acceptconditions": "I accept the General Terms and Conditions of Business and Use and acknowledge the Privacy Policy."
     },
     "profile": {
         "success": "Settings saved",
@@ -130,7 +131,7 @@
         "type": "Type",
         "category": "Category"
     },
-    "termsandconditions": {
+    "termscandconditions": {
         "title": "General Terms and Conditions of Business and Use"
     },
     "privacypolicy": {

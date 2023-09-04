@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 id="top">Déclaration de confidentialité</h1>
-
+    <p>Ce texte a été traduit à la machine</p>
     <p>
       Par la présente <strong>déclaration de protection des données</strong>,
       nous informons sur les données personnelles que nous traitons dans le

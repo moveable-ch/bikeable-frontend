@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 id="top">Informativa sulla privacy</h1>
-
+    <p>Questo testo è stato tradotto automaticamente</p>
     <p>
       Con la presente <strong>dichiarazione sulla protezione dei dati</strong>,
       forniamo informazioni su quali dati personali trattiamo in relazione alle

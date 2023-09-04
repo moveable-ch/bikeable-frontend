@@ -1,7 +1,9 @@
 <template>
   <div>
     <h1 id="top">Privacy policy</h1>
-
+    <p>
+      This text was machine translated
+    </p>
     <p>
       With this <strong>data protection declaration</strong>, we provide
       information on which personal data we process in connection with our

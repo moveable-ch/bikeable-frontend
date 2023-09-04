@@ -5,6 +5,9 @@
       Thank you for using bikeable.ch to help improve the cycling
       infrastructure!
     </p>
+    <p>
+      This text was machine translated
+    </p>
     <h2>Copyright</h2>
     <p>
       Rights to spot data (images, videos and comments) are transferred to

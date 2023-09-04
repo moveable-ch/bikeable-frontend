@@ -5,6 +5,7 @@
       Grazie per aver utilizzato bikeable.ch per contribuire a migliorare
       l'infrastruttura ciclistica!
     </p>
+    <p>Questo testo è stato tradotto automaticamente</p>
     <h2>Copyright</h2>
     <p>
       I diritti sui dati degli spot (immagini, video e commenti) vengono

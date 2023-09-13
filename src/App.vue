@@ -128,7 +128,7 @@ export default {
       }
       if (!l) {
         const userLang = navigator.language.substr(0, 2);
-        if (["de", "en", "fr"].indexOf(l) >= -1) l = userLang;
+        if (["de", "en", "fr", "it"].indexOf(l) >= -1) l = userLang;
       }
 
       if (l) {

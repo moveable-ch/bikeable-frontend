@@ -106,7 +106,8 @@
       "email": "E-Mail",
       "password": "Passwort",
       "send": "Senden",
-      "succesfullregistered": "Erfolgreich registriert, bitte Account bestätigen."
+      "succesfullregistered": "Erfolgreich registriert, bitte Account bestätigen.",
+      "acceptconditions": "Ich akzeptiere die Allgemeine Geschäfts- und Nutzungsbedingungen und nehme die Datenschutzerklärung zur Kenntnis."
   },
   "profile": {
       "success": "Einstellungen gespeichert",
@@ -129,5 +130,11 @@
       "time": "Zeitraum",
       "type": "Typ",
       "category": "Kategorie"
+  },
+  "termsandconditions": {
+      "title": "Allgemeine Geschäfts- und Nutzungsbedingungen"
+  },
+  "privacypolicy": {
+      "title": "Datenschutzerklärung"
   }
 }

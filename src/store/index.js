@@ -23,6 +23,10 @@ const state = {
       name: "Français"
     },
     {
+      code: "it",
+      name: "Italiano"
+    },
+    {
       code: "en",
       name: "English"
     }
@@ -61,7 +65,7 @@ const mutations = {
     state.msg = msg;
 
     setTimeout(
-      function() {
+      function () {
         state.msg = "";
       }.bind(this),
       2000
@@ -90,7 +94,7 @@ const actions = {
     if (msg.de) {
       _msg = msg[context.state.lang];
     }
-    
+
     context.commit("SET_MESSAGE", _msg);
   },
 
@@ -103,10 +107,13 @@ const actions = {
         context.commit("SET_PRISMIC_LANG", "de-ch");
         break;
       case "en":
-          context.commit("SET_PRISMIC_LANG", "en-gb");
+        context.commit("SET_PRISMIC_LANG", "en-gb");
         break;
       case "fr":
         context.commit("SET_PRISMIC_LANG", "fr-ch");
+        break;
+      case "it":
+        context.commit("SET_PRISMIC_LANG", "it-ch");
         break;
       default:
         context.commit("SET_PRISMIC_LANG", "de-ch");
@@ -115,7 +122,7 @@ const actions = {
   setCountry(context, country) {
     localStorage.setItem("country", country);
     context.commit("SET_COUNTRY", country);
-    if(country == 'us') {
+    if (country == 'us') {
       context.commit("SET_LANG", "en");
       context.commit("SET_PRISMIC_LANG", "en-us");
     } else if (country == 'de' ) {

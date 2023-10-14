@@ -34,6 +34,11 @@ yarn install
 yarn run serve
 ```
 
+If you get aan error like this: "digital envelope routines unsupported" use following option:
+```
+export NODE_OPTIONS=--openssl-legacy-provider
+```
+
 ### Compiles and minifies for production
 ```
 yarn run build

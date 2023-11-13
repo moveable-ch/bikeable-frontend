@@ -380,6 +380,11 @@ export default {
           var address = this.parseMapsApiResult(response.data.results[resultIndex]);
           if(address.details.plz) {
             resultAddress = address;
+
+            if((typeof resultAddress.details.plz) === "string") {
+              resultAddress.details.plz = parseInt(resultAddress.details.plz);
+            }
+
             break;
           }
       }
@@ -445,8 +450,7 @@ export default {
           .then(
             (response) => {
               if (response.data.results[0]) {
-                var address = this.geocodeResultToAdress(response);
-                console.log(address);
+                var address = this.geocodeResultToAdress(response); 
                 resolve(address);
               } else {
                 reject(response);
@@ -475,10 +479,10 @@ export default {
         .then(
           (response) => {
             if (response.data.results[0]) {
-              this.entryAddressDetails = this.geocodeResultToAdress(response);
+              this.entryAddressDetails = this.geocodeResultToAdress(response).details;
               this.entryAddress = response.data.results[0].formatted_address;
               this.entryCoords = response.data.results[0].geometry.location;
-              this.entryAddressDetails;
+              this.entryAddressDetails 
             } else {
               this.clearAddress();
             }

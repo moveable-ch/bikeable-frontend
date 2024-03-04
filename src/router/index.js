@@ -20,6 +20,7 @@ import UserProfile from '@/views/UserProfile'
 import UserProfilePublic from '@/views/UserProfilePublic'
 import PrivacyPolicy from '@/views/PrivacyPolicy'
 import TermsAndConditions from '@/views/TermsAndConditions'
+import DeleteAccount from '../views/DeleteAccount.vue'
 
 Vue.use(Router)
 
@@ -119,6 +120,11 @@ export default new Router({
       path: "/termsconditions",
       name: "termsconditions",
       component: TermsAndConditions
+    },
+    {
+      path: "/deleteaccount",
+      name: "deleteaccount",
+      component: DeleteAccount
     },
     {
       path: "*",

@@ -131,10 +131,16 @@
         "type": "Type",
         "category": "Category"
     },
-    "termscandconditions": {
+    "termsandconditions": {
         "title": "General Terms and Conditions of Business and Use"
     },
     "privacypolicy": {
         "title": "Privacy policy"
+    },
+    "deleteaccount": {
+        "title": "Delete account",
+        "explanation": "To delete your account, you can send us an email from your account email with the request to delete the account:",
+        "what_title": "What is deleted?",
+        "what_text": "Only your account with your details (email, username, password, picture) will be deleted, your spots and comments will remain. You can delete your spots and comments yourself beforehand if you wish."
     }
 }

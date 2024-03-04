@@ -136,5 +136,11 @@
     },
     "privacypolicy": {
         "title": "Informativa sulla privacy"
+    },
+    "deleteaccount": {
+        "title": "Eliminare il conto",
+        "explanation": "Per eliminare il vostro account, potete inviarci un'e-mail dal vostro account e-mail con la richiesta di eliminare l'account:",
+        "what_title": "Cosa viene cancellato?",
+        "what_text": "Solo il tuo account con i tuoi dati (e-mail, nome utente, password, immagine) sarà cancellato, mentre i tuoi spot e i tuoi commenti rimarranno. Se lo desideri, puoi cancellare tu stesso i tuoi spot e i tuoi commenti in anticipo."
     }
 }

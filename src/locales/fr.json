@@ -136,5 +136,11 @@
     },
     "privacypolicy": {
         "title": "Déclaration de confidentialité"
+    },
+    "deleteaccount": {
+        "title": "Supprimer le compte",
+        "explanation": "Pour supprimer ton compte, tu peux nous envoyer un e-mail à partir de l'adresse e-mail de ton compte, en nous demandant de supprimer ton compte:",
+        "what_title": "Qu'est-ce qui est supprimé ?",
+        "what_text": "Seul ton compte avec tes données (e-mail, nom d'utilisateur, mot de passe, image) sera supprimé, tes spots et tes commentaires resteront en vigueur. Tu peux supprimer toi-même tes spots et tes commentaires au préalable si tu le souhaites."
     }
 }

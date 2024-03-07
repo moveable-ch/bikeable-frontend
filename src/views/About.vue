@@ -12,12 +12,28 @@
       <div v-html="doc.aboutText"></div>
 
       <div class="about__paypal">
-        <h3>{{ $t('about.paypal') }}</h3>
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-        <input type="hidden" name="cmd" value="_s-xclick">
-        <input type="hidden" name="hosted_button_id" value="QLV8ZWA3FCS3S">
-        <input type="image" src="https://www.paypalobjects.com/de_DE/CH/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal.">
-        <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+        <h3>{{ $t("about.paypal") }}</h3>
+        <form
+          action="https://www.paypal.com/cgi-bin/webscr"
+          method="post"
+          target="_top"
+        >
+          <input type="hidden" name="cmd" value="_s-xclick" />
+          <input type="hidden" name="hosted_button_id" value="QLV8ZWA3FCS3S" />
+          <input
+            type="image"
+            src="https://www.paypalobjects.com/de_DE/CH/i/btn/btn_donateCC_LG.gif"
+            border="0"
+            name="submit"
+            alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal."
+          />
+          <img
+            alt=""
+            border="0"
+            src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif"
+            width="1"
+            height="1"
+          />
         </form>
         <!--<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
         <input type="hidden" name="cmd" value="_s-xclick">
@@ -28,83 +44,96 @@
         <input type="image" src="https://www.paypalobjects.com/de_DE/CH/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal.">
         <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
         </form>-->
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
-import Prismic from 'prismic.io';
-import AboutTeam from '../components/AboutTeam';
+import Prismic from "prismic.io";
+import AboutTeam from "../components/AboutTeam";
 
 export default {
-  name: 'v-about',
-  data () {
+  name: "v-about",
+  data() {
     return {
-      doc: null
-    }
+      doc: null,
+    };
   },
   components: {
-    AboutTeam
+    AboutTeam,
   },
   watch: {
-    'prismicLang' (to, from) {
-      this.$store.commit('LOAD_START');
+    prismicLang(to, from) {
+      this.$store.commit("LOAD_START");
 
-      this.getData().then(data => {
-        this.$store.commit('LOAD_FINISH');
+      this.getData().then((data) => {
+        this.$store.commit("LOAD_FINISH");
         this.doc = data;
       });
-    }
+    },
   },
   mounted() {
-
     // TODO: Move to Store
-    this.$store.commit('LOAD_START');
+    this.$store.commit("LOAD_START");
 
-    this.getData().then(data => {
-      this.$store.commit('LOAD_FINISH');
+    this.getData().then((data) => {
+      this.$store.commit("LOAD_FINISH");
       this.doc = data;
     });
   },
   computed: {
     prismicLang() {
       return this.$store.getters.prismicLang;
-    }
+    },
+    currentCountry() {
+      return this.$store.getters.country;
+    },
   },
   methods: {
     // TODO: Move to Store
     getData() {
-      return Prismic.api("https://bikeable.prismic.io/api").then((api) => {
-        return api.query(
-          Prismic.Predicates.at('document.type', 'about'),
-          { lang: this.prismicLang }
+      var documentType = "about";
+
+      if (this.currentCountry == "us") {
+        documentType = documentType + "_us";
+      }
+
+      return Prismic.api("https://bikeable.prismic.io/api")
+        .then((api) => {
+          return api.query(
+            Prismic.Predicates.at("document.type", documentType),
+            { lang: this.prismicLang }
+          );
+        })
+        .then(
+          (payload) => {
+            if (!payload.results[0]) return {};
+            const y = {};
+            y.title = payload.results[0].getText(documentType + ".title");
+            y.lead = payload.results[0].getText(documentType + ".lead");
+            y.text = payload.results[0]
+              .getStructuredText(documentType + ".text")
+              .asHtml();
+            y.aboutText = payload.results[0]
+              .getStructuredText(documentType + ".about_text")
+              .asHtml();
+            y.team = payload.results[0].getGroup(documentType + ".team");
+            return y;
+          },
+          function(err) {
+            console.log("Something went wrong: ", err);
+          }
         );
-      }).then((payload) => {
-        if(!payload.results[0]) return {};
-        const y = {};
-        y.title = payload.results[0].getText('about.title');
-        y.lead = payload.results[0].getText('about.lead');
-        y.text = payload.results[0].getStructuredText('about.text').asHtml();
-        y.aboutText = payload.results[0].getStructuredText('about.about_text').asHtml();
-        y.team = payload.results[0].getGroup('about.team');
-        return y;
-      }, function(err) {
-        console.log("Something went wrong: ", err);
-      });
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-
-@import '../styles/helpers';
+@import "../styles/helpers";
 
 .about {
-
   &__paypal {
     text-align: center;
 
@@ -113,6 +142,4 @@ export default {
     }
   }
 }
-
-
 </style>

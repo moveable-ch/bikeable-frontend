@@ -29,7 +29,7 @@
         </li>
       </ul>
 
-      <div v-if="currentCountry==='ch'" class="provelo-map">
+      <div v-if="currentCountry === 'ch'" class="provelo-map">
         <h3>{{ $t("partner.proveloregions") }}:</h3>
         <iframe
           src="https://html.bikeable.ch/provelo-map.html"
@@ -53,7 +53,7 @@ export default {
   },
   mounted() {
     // TODO: Move to Store
-    this.$store.commit("LOAD_START");   
+    this.$store.commit("LOAD_START");
 
     this.getPartners().then((partners) => {
       this.partners = partners;
@@ -72,54 +72,70 @@ export default {
       return this.$store.getters.prismicLang;
     },
     partnerAndSponsorLang() {
-      if(this.$store.getters.country == "us") {
-        return 'en-us';
+      if (this.$store.getters.country == "us") {
+        return "en-gb";
       }
-      return 'de-ch';
+      return "de-ch";
     },
-  },  
-  methods: {    
+  },
+  methods: {
     getPartners() {
+      var documentType = "partner";
+
+      if (this.currentCountry == "us") {
+        documentType =  documentType+"_us";
+      }
+
       return Prismic.api("https://bikeable.prismic.io/api")
         .then((api) => {
-          return api.query(Prismic.Predicates.at("document.type", "partner"), {
-            lang: this.partnerAndSponsorLang,
-          });
+          return api.query(
+            Prismic.Predicates.at("document.type", documentType),
+            {
+              lang: this.partnerAndSponsorLang,
+            });
         })
         .then(
           function (payload) {
             return payload.results.map((x) => {
               const y = {};
-              y.name = x.getText("partner.name");
-              y.logo = x.getImage("partner.logo")
-                ? x.getImage("partner.logo").url
+              y.name = x.getText(documentType + ".name");
+              y.logo = x.getImage(documentType + ".logo")
+                ? x.getImage(documentType + ".logo").url
                 : null;
-              y.website = x.getLink("partner.website");
+              y.website = x.getLink(documentType + ".website");
               return y;
             });
           },
-          function (err) {
+          function(err) {
             console.log("Something went wrong: ", err);
           }
         );
     },
     getSponsors() {
+      var documentType = "sponsors";
+
+      if (this.currentCountry == "us") {
+        documentType += "_us";
+      }
       return Prismic.api("https://bikeable.prismic.io/api")
         .then((api) => {
-          return api.query(Prismic.Predicates.at("document.type", "sponsors"), {
-            lang: this.partnerAndSponsorLang,
-          });
+          return api.query(
+            Prismic.Predicates.at("document.type", documentType),
+            {
+              lang: this.partnerAndSponsorLang,
+            }
+          );
         })
         .then(
-          function (payload) {
+          function(payload) {
             return payload.results.map((x) => {
               const y = {};
-              y.name = x.getText("sponsors.name");
-              y.website = x.getLink("sponsors.website");
+              y.name = x.getText(documentType + ".name");
+              y.website = x.getLink(documentType + ".website");
               return y;
             });
           },
-          function (err) {
+          function(err) {
             console.log("Something went wrong: ", err);
           }
         );

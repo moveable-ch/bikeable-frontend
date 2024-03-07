@@ -3,36 +3,38 @@
 <template>
   <div>
     <div class="contentpage newsarchive">
-    <div class="container" v-if="news">
-      <h1>News</h1>
-      <div class="newsarchive__container">
-        <div
-          class="newsarchive__item"
-          v-for="article in news"
-          :key="article.id"
-        >
-          <router-link class="newsarchive__imagebox" :to="'/news/' + article.id"
-            ><img class="newsarchive__image" :src="article.image"
-          /></router-link>
-          <div class="newsarchive__content">
-            <span class="date">{{ article.date }}</span>
-            <h3>
-              <router-link :to="'/news/' + article.id">{{
-                article.title
-              }}</router-link>
-            </h3>
-            <p>{{ article.abstract }}</p>
+      <div class="container" v-if="news">
+        <h1>News</h1>
+        <div class="newsarchive__container">
+          <div
+            class="newsarchive__item"
+            v-for="article in news"
+            :key="article.id"
+          >
             <router-link
-              class="newsarchive__more"
+              class="newsarchive__imagebox"
               :to="'/news/' + article.id"
-              >{{ $t("home.more") }}</router-link
-            >
+              ><img class="newsarchive__image" :src="article.image"
+            /></router-link>
+            <div class="newsarchive__content">
+              <span class="date">{{ article.date }}</span>
+              <h3>
+                <router-link :to="'/news/' + article.id">{{
+                  article.title
+                }}</router-link>
+              </h3>
+              <p>{{ article.abstract }}</p>
+              <router-link
+                class="newsarchive__more"
+                :to="'/news/' + article.id"
+                >{{ $t("home.more") }}</router-link
+              >
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div> 
 </template>
 
 <script>
@@ -60,7 +62,7 @@ export default {
     },
     currentCountry() {
       return this.$store.getters.country;
-    }
+    },
   },
   watch: {
     prismicLang(to, from) {
@@ -75,15 +77,28 @@ export default {
   },
   methods: {
     getData() {
+      var documentType = "news";
+
+      if(this.currentCountry == "de") {
+        documentType += "_de";
+      } else if(this.currentCountry == "at") {
+        documentType += "_at";
+      } else if(this.currentCountry == "us") {
+        documentType += "_us";
+      }
+
       return Prismic.api("https://bikeable.prismic.io/api")
         .then((api) => {
-          return api.query(Prismic.Predicates.at("document.type", "news"), {
-            orderings: "[document.first_publication_date desc]",
-            lang: this.prismicLang,
-          });
+          return api.query(
+            Prismic.Predicates.at("document.type", documentType),
+            {
+              orderings: "[document.first_publication_date desc]",
+              lang: this.prismicLang,
+            }
+          );
         })
         .then(
-          function (payload) {
+          function(payload) {
             const y = [];
             y.questions = payload.results.map((x) => {
               const z = {};
@@ -95,14 +110,20 @@ export default {
                 (date.getMonth() + 1) +
                 "." +
                 date.getFullYear();
-              z.title = x.getText("news.news_title");
-              z.abstract = x.getText("news.news_abstract");
-              z.image = x.getImage("news.news_image").views.preview.url;
+              z.title = x.getText(documentType + ".news_title");
+              z.abstract = x.getText(documentType + ".news_abstract");
+              if(x.getImage(
+                documentType + ".news_image"
+              )) {
+              z.image = x.getImage(
+                documentType + ".news_image"
+              ).views.preview.url;
+              }
               y.push(z);
             });
             return y;
           },
-          function (err) {
+          function(err) {
             console.log("Something went wrong: ", err);
           }
         );
@@ -143,7 +164,7 @@ export default {
       line-height: 1.1;
       font-size: 1.3rem;
       margin-bottom: 0;
-      margin: .5rem 0;
+      margin: 0.5rem 0;
 
       a {
         text-decoration: none;
@@ -158,7 +179,7 @@ export default {
 
     .date {
       font-size: 0.8rem;
-      opacity: .5;
+      opacity: 0.5;
     }
 
     @include tablet() {

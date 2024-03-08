@@ -37,6 +37,9 @@ export default {
     prismicLang() {
       return this.$store.getters.prismicLang;
     },
+    currentCountry() {
+      return this.$store.getters.country;
+    },
   },
   watch: {
     prismicLang(to, from) {
@@ -45,25 +48,42 @@ export default {
   },
   methods: {
     getData() {
+      var documentType = "news";
+      var prismicLang = this.prismicLang;
+
+      if (this.currentCountry == "de") {
+        documentType = "news_de";
+        prismicLang = "de-ch";
+      } else if (this.currentCountry == "at") {
+        documentType = "news_at";
+        prismicLang = "de-ch";
+      } else if (this.currentCountry == "us") {
+        documentType = "news_us";
+        prismicLang = "en-gb";
+      }
       return Prismic.api("https://bikeable.prismic.io/api")
         .then((api) => {
           return api.query(Prismic.Predicates.at("document.id", this.newsId), {
-            lang: this.prismicLang,
+            lang: prismicLang,
           });
         })
         .then(
-          function (payload) {
+          function(payload) {
             const y = {};
             let date = new Date(payload.results[0].firstPublicationDate);
             y.date = date.toLocaleDateString("de-DE");
-            y.title = payload.results[0].getText("news.news_title");
+            y.title = payload.results[0].getText(documentType + ".news_title");
             y.text = payload.results[0]
-              .getStructuredText("news.news_text")
+              .getStructuredText(documentType + ".news_text")
               .asHtml();
-            y.image = payload.results[0].getImage("news.news_image").url;
+            if (payload.results[0].getImage(documentType + ".news_image")) {
+              y.image = payload.results[0].getImage(
+                documentType + ".news_image"
+              ).url;
+            }
             return y;
           },
-          function (err) {
+          function(err) {
             console.log("Something went wrong: ", err);
           }
         );
@@ -114,7 +134,7 @@ export default {
   }
   &__backlink {
     display: block;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
 
     &::before {
       content: "←";

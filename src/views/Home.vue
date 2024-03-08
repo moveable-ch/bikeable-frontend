@@ -6,8 +6,12 @@
           <img src="/img/paul.png" alt="Bikeapaul" />
         </div>
         <div class="home__intro__content">
-          <a v-if="currentCountry=='ch'" :href="$t('home.stickerlink')" target="_blank" class="home__stickerbtn"
-            >{{ $t('home.order_stickers') }}</a
+          <a
+            v-if="currentCountry == 'ch'"
+            :href="$t('home.stickerlink')"
+            target="_blank"
+            class="home__stickerbtn"
+            >{{ $t("home.order_stickers") }}</a
           >
           <h1>Let's make our<br />cities <span>bikeable</span>!</h1>
           <p>{{ $t("home.lead") }}</p>
@@ -210,7 +214,7 @@ export default {
       } else {
         return "https://bikeable.us15.list-manage.com/subscribe/post?u=5a9614abf208b7faae96233ff&amp;id=1df02df80c";
       }
-    }
+    },
   },
   data() {
     return {
@@ -244,7 +248,7 @@ export default {
     };
   },
   watch: {
-    selectedRegion: function (to, from) {
+    selectedRegion: function(to, from) {
       this.loadSpots();
     },
     prismicLang(to, from) {
@@ -289,12 +293,24 @@ export default {
     },
 
     fetchNews() {
+      var documentType = "news";
+
+      if (this.currentCountry == "de") {
+        documentType += "_de";
+      } else if (this.currentCountry == "at") {
+        documentType += "_at";
+      } else if (this.currentCountry == "us") {
+        documentType += "_us";
+      }
       return Prismic.api("https://bikeable.prismic.io/api")
         .then((api) => {
-          return api.query(Prismic.Predicates.at("document.type", "news"), {
-            lang: this.prismicLang,
-            orderings: "[document.first_publication_date desc]",
-          });
+          return api.query(
+            Prismic.Predicates.at("document.type", documentType),
+            {
+              orderings: "[document.first_publication_date desc]",
+              lang: this.prismicLang,
+            }
+          );
         })
         .then(
           (payload) => {
@@ -304,14 +320,18 @@ export default {
               z.id = x.id;
               let date = new Date(x.firstPublicationDate);
               z.date = date.toLocaleDateString("de-DE");
-              z.title = x.getText("news.news_title");
-              z.abstract = x.getText("news.news_abstract");
-              z.image = x.getImage("news.news_image").views.preview.url;
+              z.title = x.getText(documentType + ".news_title");
+              z.abstract = x.getText(documentType + ".news_abstract");
+              if (x.getImage(documentType + ".news_image")) {
+                z.image = x.getImage(
+                  documentType + ".news_image"
+                ).views.preview.url;
+              }
               y.push(z);
             });
             return y;
           },
-          function (err) {
+          function(err) {
             console.log("Something went wrong: ", err);
           }
         );

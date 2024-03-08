@@ -124,16 +124,16 @@ const actions = {
     context.commit("SET_COUNTRY", country);
     if (country == 'us') {
       context.commit("SET_LANG", "en");
-      context.commit("SET_PRISMIC_LANG", "en-us");
+      context.commit("SET_PRISMIC_LANG", "en-gb");
     } else if (country == 'de' ) {
       context.commit("SET_LANG", "de");
-      context.commit("SET_PRISMIC_LANG", "de");
+      context.commit("SET_PRISMIC_LANG", "de-ch");
     } else if (country == 'at') {
       context.commit("SET_LANG", "de");
-      context.commit("SET_PRISMIC_LANG", "de-at");
+      context.commit("SET_PRISMIC_LANG", "de-ch");
     } else if(country == 'fr') {
       context.commit("SET_LANG", "fr");
-      context.commit("SET_PRISMIC_LANG", "fr");
+      context.commit("SET_PRISMIC_LANG", "fr-ch");
     }
   }
 };

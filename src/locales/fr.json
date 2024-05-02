@@ -90,7 +90,8 @@
         "filterentries": "Filtrer les entrées"
     },
     "notfound": {
-        "pagenotfound": "Cette page est introuvable"
+        "pagenotfound": "Cette page est introuvable",
+        "backsoon": "Nous serons bientôt de retour!"
     },
     "partner": {
         "partner": "Partenaires",

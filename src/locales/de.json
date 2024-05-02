@@ -90,7 +90,8 @@
         "filterentries": "Spots filtern"
     },
     "notfound": {
-        "pagenotfound": "Die Seite wurde nicht gefunden"
+        "pagenotfound": "Die Seite wurde nicht gefunden",
+        "backsoon": "Wir sind bald zurück!"
     },
     "partner": {
         "partner": "Partner",

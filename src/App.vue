@@ -1,24 +1,33 @@
 <template>
-  <div v-if="maintenanceMode">
-    <img
-      src="https://media.giphy.com/media/nxuFTiUbYR3SE/giphy.gif"
-      class="maintenance-img"
-    />
+  <div v-if="maintenanceMode" class="contentpage notfound">
+    <div class="container">
+      <img src="https://media.giphy.com/media/StWnlQipuBrz2/giphy.gif">
+      <h1>maintenance</h1>
+      <p>{{ $t('notfound.backsoon') }}</p>
+    </div>
+  </div>
+  <!-- <div v-if="maintenanceMode">
+    <img src="https://media.giphy.com/media/nxuFTiUbYR3SE/giphy.gif"
+         class="maintenance-img" />
     <h1 class="maintenance">
       We are having some technical problems and will be back soon.
     </h1>
-  </div>
-  <div id="app" v-else-if="appReady">
+  </div> -->
+  <div id="app"
+       v-else-if="appReady">
     <transition name="fade">
-      <div class="loader" v-if="pendingCount > 0"></div>
+      <div class="loader"
+           v-if="pendingCount > 0"></div>
     </transition>
     <transition name="slide-down">
-      <div class="msg" v-if="msg">
+      <div class="msg"
+           v-if="msg">
         <span>{{ msg }}</span>
       </div>
     </transition>
     <c-header v-if="!isEmbed"></c-header>
-    <transition name="route-fade" mode="out-in">
+    <transition name="route-fade"
+                mode="out-in">
       <keep-alive include="v-map,v-list">
         <router-view></router-view>
       </keep-alive>
@@ -38,7 +47,6 @@ export default {
   },
   data() {
     return {
-      maintenanceMode: false,
       appReady: false,
       transitionName: "fade",
       showFooter: true,
@@ -82,6 +90,9 @@ export default {
     isWebApp() {
       return window.navigator.standalone;
     },
+    maintenanceMode() {
+      return process.env.VUE_APP_MAINTENANCE_MODE == 1;
+    }
   },
   components: {
     "c-header": Header,

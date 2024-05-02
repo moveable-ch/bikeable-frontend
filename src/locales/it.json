@@ -90,7 +90,8 @@
         "filterentries": "Filtrare i punti"
     },
     "notfound": {
-        "pagenotfound": "Questa pagina è introvabile"
+        "pagenotfound": "Questa pagina è introvabile",
+        "backsoon": "Tornare presto"
     },
     "partner": {
         "partner": "Soci",

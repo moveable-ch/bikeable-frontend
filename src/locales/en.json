@@ -90,7 +90,8 @@
         "filterentries": "Filter Entries"
     },
     "notfound": {
-        "pagenotfound": "This page could not be found"
+        "pagenotfound": "This page could not be found",
+        "backsoon": "We'll be back soon!"
     },
     "partner": {
         "partner": "Partners",
